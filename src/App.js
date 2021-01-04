@@ -207,6 +207,12 @@ export const Uix = ({
     );
   });
 
+  return (
+    <Row size={rowSize} style={{rowStyle}}>
+                            {gridJsx}
+                    </Row>
+  )
+
   return newGrid && newRow ? (
     <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
       <Grid>{gridJsx}</Grid>
