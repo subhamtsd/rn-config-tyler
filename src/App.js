@@ -173,15 +173,7 @@ export const componentsSet = {
 };
 
 // pick from pre-loaded components and render properly
-export const Uix = ({
-  routeId,
-  map,
-  style,
-  colStyle,
-  newGrid = false,
-  newRow = false,
-  rowSize = 1
-}) => {
+export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
   const appState = useSelector((state) => state);
   const dispatch = useDispatch();
   const layoutConfig = routesConfig[routeId];
@@ -208,23 +200,9 @@ export const Uix = ({
   });
 
   return (
-    <Row size={rowSize} style={{rowStyle}}>
-                            {gridJsx}
-                    </Row>
-  )
-
-  return newGrid && newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
-      <Grid>{gridJsx}</Grid>
-    </RenderRow>
-  ) : newGrid ? (
-    <Grid>{gridJsx}</Grid>
-  ) : newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
+    <Row size={rowSize} style={{ rowStyle }}>
       {gridJsx}
-    </RenderRow>
-  ) : (
-    gridJsx
+    </Row>
   );
 };
 
@@ -240,7 +218,6 @@ const GridSection = () => {
     <Grid style={gridStyle}>
       <RenderCol colSize={15} colStyle={colStyle}>
         <Uix
-          newRow={true}
           rowSize={5}
           // style={{ ...rowStyle }}
           map={{
@@ -258,7 +235,6 @@ const GridSection = () => {
           }}
         />
         <Uix
-          newRow={true}
           rowSize={96}
           style={{ ...rowStyle }}
           map={{
@@ -274,7 +250,6 @@ const GridSection = () => {
         <RenderRow rowSize={5}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -287,7 +262,6 @@ const GridSection = () => {
           <Uix
             style={{ ...rowStyle }}
             rowSize={100}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -310,7 +284,6 @@ const GridSection = () => {
         <RenderRow rowSize={40}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
