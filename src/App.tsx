@@ -1,13 +1,14 @@
 import React, { createElement, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import {
   Provider as ReduxProvider,
   useDispatch,
   useSelector
 } from "react-redux";
-import { createStore } from "redux";
-
+import { JsonForm } from "./components/JsonForm";
+import { ActionComp, Comp5 } from "./components/Misc";
+import { action, store } from "./state-mgmt/consolidated";
 /*
 1. Layout from JSON
 2. Routes from JSON
@@ -110,66 +111,30 @@ const RenderRow = (props) => {
   );
 };
 
-// redux action
-function action(idx, payload) {
-  return {
-    type: "ACTION_TRIGGER",
-    ui: payload.ui,
-    idx
-  };
-}
-
-// redux reducer
-function reducer(state = [], action) {
-  switch (action.type) {
-    case "ACTION_TRIGGER":
-      return { ...state, ui: { "5555": action.ui, "99999": action.ui } };
-    default:
-      return state;
-  }
-}
-
-// redux store
-const store = createStore(reducer, {});
-
 // comonents section
-export const Comp5 = ({ label, dispatch, appState }) => (
-  <View>
-    <Text style={{ textAlign: "center" }}>{label}</Text>
-    <Text>
-      {appState && appState.payload && JSON.stringify(appState.payload)}
-    </Text>
-  </View>
-);
-
-export const ActionComp = ({ label, dispatch, appState }) => {
-  console.log(`appState `, appState);
-  return (
-    <View
-      style={
-        {
-          /* borderWidth: 4, height: "20%" */
-        }
+const theme = {
+  input: {
+    focused: {
+      border: {
+        borderColor: "yellow"
       }
-    >
-      <Text style={{ textAlign: "center" }}>{label}</Text>
-      <Button
-        title={"Trigger"}
-        onPress={() => {
-          console.log("sample event triggerred");
-          dispatch(
-            action(label, { sample_key: "sample_val", ui: "ActionComp" })
-          );
-        }}
-      ></Button>
-      <Text>{appState && JSON.stringify(appState)}</Text>
-    </View>
-  );
+    }
+  }
 };
+
+const schema = {
+  type: "object",
+  properties: {
+    username: { type: "string" },
+    password: { type: "string" }
+  }
+};
+
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
-  ActionComp
+  ActionComp,
+  JsonForm
 };
 
 // pick from pre-loaded components and render properly
@@ -198,9 +163,8 @@ export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
       </RenderCol>
     );
   });
-
   return (
-    <Row size={rowSize} style={{ rowStyle }}>
+    <Row size={rowSize} style={rowStyle}>
       {gridJsx}
     </Row>
   );
@@ -210,7 +174,7 @@ const GridSection = () => {
   const appState = useState((state) => state);
   const dispatch = useDispatch();
   console.log("appState : :: : --> ", appState.payload);
-  const passProps = { dispatch, appState };
+  const passProps = { dispatch, appState, action };
   // const layoutConfig = routesConfig[routeId];
   // console.log("Configuration : : : -->>>>>>> ", layoutConfig);
 
@@ -291,9 +255,27 @@ const GridSection = () => {
                 props: { a: "a", b: "b", label: "5555", ...passProps }
               },
               1: {
-                idx: "Comp5",
+                idx: "JsonForm",
                 colSize: 2,
-                props: { a: "a", b: "b", label: "66666", ...passProps }
+                props: {
+                  a: "a",
+                  b: "b",
+                  _onSubmit: (data) => {
+                    console.log("****");
+                    console.log(data);
+                    console.log("sample event triggerred");
+                    dispatch(
+                      action("7777", {
+                        data,
+                        ui: "ActionComp"
+                      })
+                    );
+                  },
+                  label: "66666",
+                  ...passProps,
+                  schema,
+                  style: { minHeight: 20 }
+                }
               },
               2: {
                 idx: "Comp5",
