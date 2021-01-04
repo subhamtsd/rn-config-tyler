@@ -265,7 +265,7 @@ const GridSection = () => {
                     console.log(data);
                     console.log("sample event triggerred");
                     dispatch(
-                      action("7777", {
+                      action("7777", ["7777", "99999"], {
                         data,
                         ui: "ActionComp"
                       })
