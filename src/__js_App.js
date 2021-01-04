@@ -7,6 +7,13 @@ import {
   useSelector
 } from "react-redux";
 import { createStore } from "redux";
+import styled from "styled-components";
+
+const UnicornAfter = styled.View`
+  &:after {
+    content: " 🦄";
+  }
+`;
 
 /*
 1. Layout from JSON
@@ -123,7 +130,7 @@ function action(idx, payload) {
 function reducer(state = [], action) {
   switch (action.type) {
     case "ACTION_TRIGGER":
-      return { ...state, ui: { "5555": action.ui, "99999": action.ui } };
+      return { ...state, ui: { "5555": "Comp5", "99999": action.ui } };
     default:
       return state;
   }
@@ -136,6 +143,7 @@ const store = createStore(reducer, {});
 export const Comp5 = ({ label, dispatch, appState }) => (
   <View>
     <Text style={{ textAlign: "center" }}>{label}</Text>
+    <UnicornAfter>I am a</UnicornAfter>
     <Text>
       {appState && appState.payload && JSON.stringify(appState.payload)}
     </Text>
@@ -173,15 +181,7 @@ export const componentsSet = {
 };
 
 // pick from pre-loaded components and render properly
-export const Uix = ({
-  routeId,
-  map,
-  style,
-  colStyle,
-  newGrid = false,
-  newRow = false,
-  rowSize = 1
-}) => {
+export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
   const appState = useSelector((state) => state);
   const dispatch = useDispatch();
   const layoutConfig = routesConfig[routeId];
@@ -207,18 +207,10 @@ export const Uix = ({
     );
   });
 
-  return newGrid && newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
-      <Grid>{gridJsx}</Grid>
-    </RenderRow>
-  ) : newGrid ? (
-    <Grid>{gridJsx}</Grid>
-  ) : newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
+  return (
+    <Row size={rowSize} style={{ rowStyle }}>
       {gridJsx}
-    </RenderRow>
-  ) : (
-    gridJsx
+    </Row>
   );
 };
 
@@ -234,7 +226,6 @@ const GridSection = () => {
     <Grid style={gridStyle}>
       <RenderCol colSize={15} colStyle={colStyle}>
         <Uix
-          newRow={true}
           rowSize={5}
           // style={{ ...rowStyle }}
           map={{
@@ -252,7 +243,6 @@ const GridSection = () => {
           }}
         />
         <Uix
-          newRow={true}
           rowSize={96}
           style={{ ...rowStyle }}
           map={{
@@ -268,7 +258,6 @@ const GridSection = () => {
         <RenderRow rowSize={5}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -281,7 +270,6 @@ const GridSection = () => {
           <Uix
             style={{ ...rowStyle }}
             rowSize={100}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -304,7 +292,6 @@ const GridSection = () => {
         <RenderRow rowSize={40}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",

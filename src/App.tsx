@@ -1,5 +1,5 @@
 import React, { createElement, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import {
   Provider as ReduxProvider,
@@ -7,7 +7,8 @@ import {
   useSelector
 } from "react-redux";
 import { JsonForm } from "./components/JsonForm";
-import { createStore } from "redux";
+import { ActionComp, Comp5 } from "./components/Misc";
+import { action, store } from "./state-mgmt/consolidated";
 /*
 1. Layout from JSON
 2. Routes from JSON
@@ -110,30 +111,6 @@ const RenderRow = (props) => {
   );
 };
 
-// redux action
-function action(idx, payload) {
-  return {
-    type: "ACTION_TRIGGER",
-    ui: payload.ui,
-    idx,
-    data: payload
-  };
-}
-
-// redux reducer
-function reducer(state = [], action) {
-  switch (action.type) {
-    case "ACTION_TRIGGER":
-      // console.log(action);
-      return { ...state, ui: { [action.idx]: action.ui }, ...action.data };
-    default:
-      return state;
-  }
-}
-
-// redux store
-const store = createStore(reducer, {});
-
 // comonents section
 const theme = {
   input: {
@@ -153,39 +130,6 @@ const schema = {
   }
 };
 
-export const Comp5 = ({ label, dispatch, appState }) => (
-  <View key={label}>
-    <Text style={{ textAlign: "center" }}>{label}</Text>
-    <Text>
-      {appState && appState.payload && JSON.stringify(appState.payload)}
-    </Text>
-  </View>
-);
-
-export const ActionComp = ({ label, dispatch, appState }) => {
-  console.log(`appState `, appState);
-  return (
-    <View
-      style={
-        {
-          /* borderWidth: 4, height: "20%" */
-        }
-      }
-    >
-      <Text style={{ textAlign: "center" }}>{label}</Text>
-      <Button
-        title={"Trigger"}
-        onPress={() => {
-          console.log("sample event triggerred");
-          dispatch(
-            action("1010101", { sample_key: "sample_val", ui: "ActionComp" })
-          );
-        }}
-      ></Button>
-      <Text>{appState && JSON.stringify(appState)}</Text>
-    </View>
-  );
-};
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -194,15 +138,7 @@ export const componentsSet = {
 };
 
 // pick from pre-loaded components and render properly
-export const Uix = ({
-  routeId,
-  map,
-  style,
-  colStyle,
-  newGrid = false,
-  newRow = false,
-  rowSize = 1
-}) => {
+export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
   const appState = useSelector((state) => state);
   const dispatch = useDispatch();
   const layoutConfig = routesConfig[routeId];
@@ -227,19 +163,10 @@ export const Uix = ({
       </RenderCol>
     );
   });
-
-  return newGrid && newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
-      <Grid>{gridJsx}</Grid>
-    </RenderRow>
-  ) : newGrid ? (
-    <Grid>{gridJsx}</Grid>
-  ) : newRow ? (
-    <RenderRow rowSize={rowSize} rowStyle={rowStyle}>
+  return (
+    <Row size={rowSize} style={rowStyle}>
       {gridJsx}
-    </RenderRow>
-  ) : (
-    gridJsx
+    </Row>
   );
 };
 
@@ -247,7 +174,7 @@ const GridSection = () => {
   const appState = useState((state) => state);
   const dispatch = useDispatch();
   console.log("appState : :: : --> ", appState.payload);
-  const passProps = { dispatch, appState };
+  const passProps = { dispatch, appState, action };
   // const layoutConfig = routesConfig[routeId];
   // console.log("Configuration : : : -->>>>>>> ", layoutConfig);
 
@@ -255,7 +182,6 @@ const GridSection = () => {
     <Grid style={gridStyle}>
       <RenderCol colSize={15} colStyle={colStyle}>
         <Uix
-          newRow={true}
           rowSize={5}
           // style={{ ...rowStyle }}
           map={{
@@ -273,7 +199,6 @@ const GridSection = () => {
           }}
         />
         <Uix
-          newRow={true}
           rowSize={96}
           style={{ ...rowStyle }}
           map={{
@@ -289,7 +214,6 @@ const GridSection = () => {
         <RenderRow rowSize={5}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -302,7 +226,6 @@ const GridSection = () => {
           <Uix
             style={{ ...rowStyle }}
             rowSize={100}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
@@ -325,7 +248,6 @@ const GridSection = () => {
         <RenderRow rowSize={40}>
           <Uix
             style={{ ...rowStyle }}
-            newGrid={true}
             map={{
               0: {
                 idx: "Comp5",
