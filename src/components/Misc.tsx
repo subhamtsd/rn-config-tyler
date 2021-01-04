@@ -26,7 +26,10 @@ export const ActionComp = ({ label, dispatch, appState, action }) => {
         onPress={() => {
           console.log("sample event triggerred");
           dispatch(
-            action("1010101", { sample_key: "sample_val", ui: "ActionComp" })
+            action("1010101", ["8888", "5555"], {
+              sample_key: "sample_val",
+              ui: "ActionComp"
+            })
           );
         }}
       ></Button>
