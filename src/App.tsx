@@ -1,20 +1,17 @@
 import React, { createElement, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import {
   Provider as ReduxProvider,
   useDispatch,
   useSelector
 } from "react-redux";
-import history from "history";
-import {
-  Link,
-  NativeRouter as Router,
-  Route,
-  useHistory
-} from "react-router-native";
+import { Link } from "react-router-native";
 // import { JsonForm } from "./components/JsonForm";
 import { ActionComp, Comp5 } from "./components/Misc";
+import { RandomPic } from "./components/RandomPic";
+import { About } from "./components/About";
+import { Home } from "./components/Home";
 import { action, store } from "./state-mgmt/consolidated";
 
 const styles = {
@@ -48,59 +45,6 @@ const styles = {
     textAlign: "center",
     fontSize: 15
   }
-};
-
-const Home = ({ dispatch, action, label }) => (
-  <View>
-    <Text
-      style={styles.header}
-      onPress={() => {
-        dispatch(
-          action(["7777", "5555"], {
-            sample_key: "sample_val",
-            ui: ["About", "Home"],
-            props: [{ label: "7777->1" }, { label: "5555-2" }]
-          })
-        );
-      }}
-    >
-      Home *** {label}
-    </Text>
-    <Button
-      onPress={() => {
-        //
-        dispatch(
-          action(["66666", "8888"], {
-            sample_key: "sample_val",
-            ui: ["ActionComp", "Home"],
-            props: [{ label: "66666->1" }, { label: "8888-2" }]
-          })
-        );
-      }}
-      title="Flash"
-    ></Button>
-  </View>
-);
-
-const About = ({ dispatch, action, label }) => (
-  <Text
-    style={styles.header}
-    onPress={() => {
-      dispatch(
-        action(["7777", "202020"], {
-          sample_key: "sample_val",
-          ui: ["About", "ActionComp"],
-          props: ["7777->1", "202020-2"]
-        })
-      );
-    }}
-  >
-    About *** {label}
-  </Text>
-);
-
-const Topic = ({ match }) => {
-  return <Text style={styles.header}>Topic {match.params.topicId}</Text>;
 };
 
 /*
@@ -206,16 +150,6 @@ const RenderRow = (props) => {
 };
 
 // comonents section
-const theme = {
-  input: {
-    focused: {
-      border: {
-        borderColor: "yellow"
-      }
-    }
-  }
-};
-
 const schema = {
   type: "object",
   properties: {
@@ -229,7 +163,8 @@ export const componentsSet = {
   Comp5,
   ActionComp,
   Home,
-  About
+  About,
+  RandomPic
   // JsonForm
 };
 
@@ -254,7 +189,8 @@ export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
             ? componentsSet[appState.ui[props.label]] //check if there's a specified component for the cell
             : componentsSet[idx], // else render default component
           { ...props, appState, dispatch },
-          children
+          children ||
+            (appState && appState.children && appState.children[props.label])
         )}
       </RenderCol>
     );
@@ -270,7 +206,7 @@ const GridSection = () => {
   const appState = useState((state) => state);
   const dispatch = useDispatch();
   console.log("appState : :: : --> ", appState.payload);
-  const passProps = { dispatch, appState, action };
+  const passProps = { dispatch, appState, action, styles };
   // const layoutConfig = routesConfig[routeId];
   // console.log("Configuration : : : -->>>>>>> ", layoutConfig);
 
@@ -315,7 +251,17 @@ const GridSection = () => {
               0: {
                 idx: "Comp5",
                 colSize: 1,
-                props: { a: "a", b: "b", label: "2222", ...passProps }
+                props: {
+                  a: "a",
+                  b: "b",
+                  label: "2222",
+                  ...passProps
+                },
+                children: (
+                  <Col>
+                    <Text>Text coming from a children part from UIX</Text>
+                  </Col>
+                )
               }
             }}
           />
@@ -340,17 +286,37 @@ const GridSection = () => {
                 0: {
                   idx: "Comp5",
                   colSize: 2,
-                  props: { a: "a", b: "b", label: "1010101", ...passProps }
+                  props: {
+                    a: "a",
+                    b: "b",
+                    label: "1010101",
+                    ...passProps
+                  },
+                  children: (
+                    <Col>
+                      <Text>Text coming from a children part from UIX</Text>
+                    </Col>
+                  )
                 },
                 1: {
-                  idx: "Home",
+                  idx: "RandomPic",
                   colSize: 2,
                   props: { a: "a", b: "b", label: "99999", ...passProps }
                 },
                 2: {
-                  idx: "Comp5",
+                  idx: "About",
                   colSize: 3,
-                  props: { a: "a", b: "b", label: "8888", ...passProps }
+                  props: {
+                    a: "a",
+                    b: "b",
+                    label: "8888",
+                    ...passProps
+                  },
+                  children: (
+                    <View>
+                      <Text> "HHHH" </Text>
+                    </View>
+                  )
                 }
               }}
             />
@@ -379,7 +345,7 @@ const GridSection = () => {
                       dispatch(
                         action(["7777", "99999"], {
                           data,
-                          ui: ["Home", "ActionComp"]
+                          ui: ["RandomPic", "ActionComp"]
                         })
                       );
                     },
