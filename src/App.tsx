@@ -189,8 +189,8 @@ export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
             ? componentsSet[appState.ui[props.label]] //check if there's a specified component for the cell
             : componentsSet[idx], // else render default component
           { ...props, appState, dispatch },
-          children ||
-            (appState && appState.children && appState.children[props.label])
+          (appState && appState.children && appState.children[props.label]) ||
+            children
         )}
       </RenderCol>
     );
@@ -235,8 +235,6 @@ const GridSection = () => {
                 idx: "ActionComp",
                 colSize: 1,
                 props: {
-                  a: "a",
-                  b: "b",
                   label: "111",
                   ...passProps,
                   colStyle: { borderWidth: 4 }
@@ -252,14 +250,14 @@ const GridSection = () => {
                 idx: "Comp5",
                 colSize: 1,
                 props: {
-                  a: "a",
-                  b: "b",
                   label: "2222",
                   ...passProps
                 },
                 children: (
-                  <Col>
-                    <Text>Text coming from a children part from UIX</Text>
+                  <Col style={{ marginTop: 150 }}>
+                    <Text>
+                      "2222 >> Text coming from a children part from UIX"
+                    </Text>
                   </Col>
                 )
               }
@@ -273,7 +271,7 @@ const GridSection = () => {
               map={{
                 0: {
                   idx: "Comp5",
-                  props: { a: "a", b: "b", label: "87878787", ...passProps }
+                  props: { label: "87878787", ...passProps }
                 }
               }}
             />
@@ -287,28 +285,26 @@ const GridSection = () => {
                   idx: "Comp5",
                   colSize: 2,
                   props: {
-                    a: "a",
-                    b: "b",
                     label: "1010101",
                     ...passProps
                   },
                   children: (
                     <Col>
-                      <Text>Text coming from a children part from UIX</Text>
+                      <Text>
+                        1010101 >>> Text coming from a children part from UIX
+                      </Text>
                     </Col>
                   )
                 },
                 1: {
                   idx: "RandomPic",
                   colSize: 2,
-                  props: { a: "a", b: "b", label: "99999", ...passProps }
+                  props: { label: "99999", ...passProps }
                 },
                 2: {
                   idx: "About",
                   colSize: 3,
                   props: {
-                    a: "a",
-                    b: "b",
                     label: "8888",
                     ...passProps
                   },
@@ -330,14 +326,12 @@ const GridSection = () => {
                 0: {
                   idx: "Comp5",
                   colSize: 3,
-                  props: { a: "a", b: "b", label: "5555", ...passProps }
+                  props: { label: "5555", ...passProps }
                 },
                 1: {
                   idx: "Comp5",
                   colSize: 2,
                   props: {
-                    a: "a",
-                    b: "b",
                     _onSubmit: (data) => {
                       console.log("****");
                       console.log(data);
@@ -358,7 +352,7 @@ const GridSection = () => {
                 2: {
                   idx: "Comp5",
                   colSize: 2,
-                  props: { a: "a", b: "b", label: "7777", ...passProps }
+                  props: { label: "7777", ...passProps }
                 }
               }}
             />
@@ -371,7 +365,7 @@ const GridSection = () => {
                 0: {
                   idx: "Comp5",
                   colSize: 1,
-                  props: { a: "a", b: "b", label: "19191919", ...passProps }
+                  props: { label: "19191919", ...passProps }
                 }
               }}
             />
@@ -383,7 +377,7 @@ const GridSection = () => {
                 0: {
                   idx: "Comp5",
                   colSize: 1,
-                  props: { a: "a", b: "b", label: "202020", ...passProps }
+                  props: { label: "202020", ...passProps }
                 }
               }}
             />
