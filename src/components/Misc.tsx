@@ -1,17 +1,27 @@
 import React from "react";
 import { View, Button, Text } from "react-native";
+import { Grid, Col } from "react-native-easy-grid";
 
-export const Comp5 = ({ label, dispatch, appState }) => (
-  <View key={label}>
-    <Text style={{ textAlign: "center" }}>{label}</Text>
-    <Text>
-      {appState && appState.payload && JSON.stringify(appState.payload)}
-    </Text>
-  </View>
-);
+export const Comp5 = ({ label, dispatch, appState, children }) => {
+  console.log(appState);
+  return (
+    <View key={label}>
+      <Text style={{ textAlign: "center" }}>{label}</Text>
+      <Text>
+        {appState && appState.payload && JSON.stringify(appState.payload)}
+      </Text>
+      <Grid>
+        <Col>
+          {children ||
+            (appState && appState.children && appState.children[label])}
+        </Col>
+      </Grid>
+    </View>
+  );
+};
 
-export const ActionComp = ({ label, dispatch, appState, action }) => {
-  console.log(`appState `, appState);
+export const ActionComp = ({ label, dispatch, appState, action, children }) => {
+  // console.log(`appState `, appState);
   return (
     <View
       style={
@@ -26,14 +36,18 @@ export const ActionComp = ({ label, dispatch, appState, action }) => {
         onPress={() => {
           console.log("sample event triggerred");
           dispatch(
-            action("1010101", ["8888", "5555"], {
-              sample_key: "sample_val",
-              ui: "ActionComp"
+            action(["1010101", "5555"], {
+              ui: ["Home", "About"],
+              children: [
+                <Text>I am 1st Child</Text>,
+                <Text>I am 2nd Child</Text>
+              ]
             })
           );
         }}
       ></Button>
-      <Text>{appState && JSON.stringify(appState)}</Text>
+      {children || (appState && appState.children && appState.children[label])}
+      {/* <Text>{appState && JSON.stringify(appState)}</Text> */}
     </View>
   );
 };
