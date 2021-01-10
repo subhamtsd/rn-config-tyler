@@ -27,6 +27,11 @@ export function reducer(state = [], action) {
           ...state.children,
           [action.idxArr[0]]: action.data.children && action.data.children[0],
           [action.idxArr[1]]: action.data.children && action.data.children[1]
+        },
+        props: {
+          ...state.props,
+          [action.idxArr[0]]: action.data.props && action.data.props[0],
+          [action.idxArr[1]]: action.data.props && action.data.props[1]
         }
       };
     default:
