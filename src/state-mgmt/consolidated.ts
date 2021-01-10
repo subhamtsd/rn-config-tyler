@@ -7,7 +7,6 @@ export function action(idxArr, payload) {
     ui: {
       ...payload.ui
     },
-    children: payload.children,
     idxArr,
     data: payload
   };
@@ -26,8 +25,8 @@ export function reducer(state = [], action) {
         },
         children: {
           ...state.children,
-          [action.idxArr[0]]: action.children && action.children[0],
-          [action.idxArr[1]]: action.children && action.children[1]
+          [action.idxArr[0]]: action.data.children && action.data.children[0],
+          [action.idxArr[1]]: action.data.children && action.data.children[1]
         }
       };
     default:

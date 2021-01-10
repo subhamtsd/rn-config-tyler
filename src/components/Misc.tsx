@@ -37,7 +37,7 @@ export const ActionComp = ({ label, dispatch, appState, action, children }) => {
           console.log("sample event triggerred");
           dispatch(
             action(["1010101", "5555"], {
-              ui: ["Home", "About"],
+              ui: ["Comp5", "About"],
               children: [
                 <Text>I am 1st Child</Text>,
                 <Text>I am 2nd Child</Text>
