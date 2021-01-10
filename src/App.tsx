@@ -179,19 +179,20 @@ export const Uix = ({ routeId, map, style, colStyle, rowSize = 1 }) => {
     // console.log("appState : :: : --> ", appState);
     // console.log(` props.label >>> `, props.label);
     // console.log(` componentsSet[idx] >>> `, componentsSet[idx]);
+    const colSection = createElement(
+      props.label &&
+        appState.ui &&
+        appState.ui[props.label] &&
+        componentsSet[appState.ui[props.label]]
+        ? componentsSet[appState.ui[props.label]] //check if there's a specified component for the cell
+        : componentsSet[idx], // else render default component
+      { ...props, appState, dispatch },
+      (appState && appState.children && appState.children[props.label]) ||
+        children
+    );
     return (
       <RenderCol colSize={colSize} colStyle={{ ...style, ...colStyle }}>
-        {createElement(
-          props.label &&
-            appState.ui &&
-            appState.ui[props.label] &&
-            componentsSet[appState.ui[props.label]]
-            ? componentsSet[appState.ui[props.label]] //check if there's a specified component for the cell
-            : componentsSet[idx], // else render default component
-          { ...props, appState, dispatch },
-          (appState && appState.children && appState.children[props.label]) ||
-            children
-        )}
+        {colSection}
       </RenderCol>
     );
   });
@@ -213,8 +214,8 @@ const GridSection = () => {
   // const history = useHistory();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.nav}>
+    <Grid style={styles.container}>
+      <Row style={styles.nav}>
         <Link to="/" underlayColor="#f0f4f7" style={styles.navItem}>
           <Text style={styles.tabName}>Home</Text>
         </Link>
@@ -224,8 +225,8 @@ const GridSection = () => {
         <Link to="/topics" underlayColor="#f0f4f7" style={styles.navItem}>
           <Text style={styles.tabName}>Topics</Text>
         </Link>
-      </View>
-      <Grid style={gridStyle}>
+      </Row>
+      <Row style={gridStyle}>
         <RenderCol colSize={15} colStyle={colStyle}>
           <Uix
             rowSize={5}
@@ -383,8 +384,8 @@ const GridSection = () => {
             />
           </RenderRow>
         </RenderCol>
-      </Grid>
-    </View>
+      </Row>
+    </Grid>
   );
 };
 
@@ -392,9 +393,7 @@ export default class App extends React.Component {
   render() {
     return (
       <ReduxProvider store={store}>
-        <View style={{ flex: 1 }}>
-          <GridSection />
-        </View>
+        <GridSection />
       </ReduxProvider>
     );
   }
