@@ -1,7 +1,7 @@
 import { createBrowserHistory } from "history";
 import React, { useState } from "react";
 import { Platform, StyleSheet } from "react-native";
-// import Form from "react-native-web-jsonschema-form";
+import Form from "react-native-web-jsonschema-form";
 import { MainContainer, UIProvider } from "react-native-web-ui-components";
 import useSafeState from "../utils/useSafeState";
 

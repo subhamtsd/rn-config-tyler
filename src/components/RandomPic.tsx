@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Button, Text } from "react-native";
 
-export const RandomPic = ({ dispatch, action, label }) => {
+export const RandomPic = ({ dispatch, action, label, style }) => {
   const [randomCatImg, setRandomCatImg] = useState(null);
 
   const fetchRandomCat = () => {
@@ -42,7 +42,7 @@ export const RandomPic = ({ dispatch, action, label }) => {
             source={{
               uri: randomCatImg
             }}
-            style={{ width: 170, height: 180 }}
+            style={{ width: 170, height: 180, ...style }}
           />
         </View>
       ) : (
