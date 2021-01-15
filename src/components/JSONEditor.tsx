@@ -1,0 +1,33 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import ace from "brace";
+import "brace/mode/json";
+import "brace/theme/github";
+
+import { JsonEditor as Editor } from "jsoneditor-react";
+import "./JSONEditor.css";
+
+export default class JSONEditor extends Component {
+  render() {
+    const { json, onError, onChangeJSON } = this.props;
+
+    return [
+      <Editor
+        ace={ace}
+        key={1}
+        value={json}
+        mode={"tree"}
+        modes={["text", "code", "tree", "form", "view"]}
+        onChangeJSON={onChangeJSON}
+        onError={onError}
+        theme={"ace/theme/github"}
+      />
+    ];
+  }
+}
+
+JSONEditor.propTypes = {
+  json: PropTypes.object,
+  onError: PropTypes.func,
+  onChangeJSON: PropTypes.func
+};

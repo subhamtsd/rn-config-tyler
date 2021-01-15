@@ -9,13 +9,13 @@ import { ActionComp } from "./components/ActionComp";
 import { Comp5 } from "./components/Comp5";
 // import { JsonForm } from "./components/JsonForm";
 import { Home } from "./components/Home";
-import JSONditor from "./components/JSONditor";
+import JSONEditor from "./components/JSONEditor";
 import { RandomPic } from "./components/RandomPic";
 
 /*
 1. DONE ::: Layout from JSON
 2. Routes from JSON
-3. DONE ::: Shared app State (working in this)
+3. DONE ::: Shared app State (workJSONEditoring in this)
 4. Events management from JSON
 5. Mobile First, Web compatible
 6. DONE ::: JSON Forms
@@ -183,9 +183,9 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <JSONditor
+        <JSONEditor
           json={this.state.config}
-          onChange={(json) => {
+          onChangeJSON={(json) => {
             // TODO: add schema conformation for JSONEditor values of component names
             this.setState({ config: json }, () => {
               console.log(this.state.config);
