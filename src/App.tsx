@@ -4,13 +4,13 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 // import { appConfig } from "../applications/app-one-config";
 import { appConfig } from "../applications/app-two-config";
 import { rowStyle, styles } from "../applications/common";
-// import { JsonForm } from "./components/JsonForm";
-import { Home } from "./components/Home";
-import { RandomPic } from "./components/RandomPic";
 import { About } from "./components/About";
 import { ActionComp } from "./components/ActionComp";
 import { Comp5 } from "./components/Comp5";
+// import { JsonForm } from "./components/JsonForm";
+import { Home } from "./components/Home";
 import JSONditor from "./components/JSONditor";
+import { RandomPic } from "./components/RandomPic";
 
 /*
 1. DONE ::: Layout from JSON
