@@ -63,11 +63,7 @@ export const UXColumn = ({
     { ...passProps, appState, setAppState, ...styles, label },
     (appState?.children && appState?.children[label]) || children
   );
-  return (
-    <Col size={colSize} style={{ ...style, ...colStyle }}>
-      {colSection}
-    </Col>
-  );
+  return colSection;
 };
 
 // render a grid layout as per the configuration
@@ -91,7 +87,6 @@ const GridSection = ({ layoutConfig }) => {
 
   //  overall routing engine
   const UX = (layoutConfig) => {
-    // console.log(appState.ui);
     window.appState = appState;
     window.setAppState = setAppState;
     const gridSection = (rows) => {
@@ -126,7 +121,13 @@ const GridSection = ({ layoutConfig }) => {
             );
           }
           if (cols[cId].layout) {
-            return UX(cols[cId].layout);
+            console.log(cols[cId]?.layout.colConfig?.colSize);
+
+            return (
+              <Col size={cols[cId].layout?.colConfig?.colSize || 1}>
+                <Grid>{UX(cols[cId].layout)}</Grid>
+              </Col>
+            );
           }
         });
         // console.log(`rowSize is ${rowSize}`);
@@ -135,13 +136,15 @@ const GridSection = ({ layoutConfig }) => {
 
       let gridJsx = [];
       gridJsx = Object.keys(rows).map((rId) => {
-        let { style } = rows[rId].rowConfig;
+        let style = rows[rId]?.rowConfig?.style || {};
         // console.log(rows[rId].rowConfig);
-        console.log(`rowSize is ${rows[rId].rowConfig.rowSize}`);
+
+        // FIXME: fix rowSize. is rowConfig used ?
+        // console.log(`rowSize is ${rows[rId]?.rowConfig?.rowSize}`);
 
         return (
           <Row
-            size={rows[rId].rowConfig.rowSize}
+            size={rows[rId]?.rowConfig?.rowSize || 1}
             style={{ rowStyle, ...style }}
             key={rId}
           >
@@ -149,10 +152,15 @@ const GridSection = ({ layoutConfig }) => {
           </Row>
         );
       });
-      return <Grid>{gridJsx}</Grid>; /// return all rows in layout
+      return gridJsx; /// return all rows in layout
     };
 
-    return gridSection(layoutConfig);
+    // console.log(`colSize is ${layoutConfig?.colConfig?.colSize}`);
+    return (
+      <Col size={layoutConfig?.colConfig?.colSize || 1}>
+        {gridSection(layoutConfig)}
+      </Col>
+    );
   };
 
   return (

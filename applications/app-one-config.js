@@ -48,7 +48,7 @@ export const appConfig = {
               colSize: 0.5,
               idx: "Home",
               label: "home",
-              colStyle: { borderWidth: 4, minHeight: 212 }
+              colStyle: { borderWidth: 4 }
             },
             1: {
               // col no
@@ -64,7 +64,7 @@ export const appConfig = {
                     colSize: 8,
                     idx: "Comp5",
                     label: "comp51.2",
-                    colStyle: { borderWidth: 4, minHeight: 212 }
+                    colStyle: { borderWidth: 4 }
                   }
                 },
                 1: {
@@ -78,7 +78,7 @@ export const appConfig = {
                     colSize: 8,
                     idx: "ActionComp",
                     label: "actioncomp",
-                    colStyle: { borderWidth: 4, minHeight: 212 }
+                    colStyle: { borderWidth: 4 }
                   }
                 },
                 2: {
@@ -92,7 +92,7 @@ export const appConfig = {
                     colSize: 8,
                     idx: "ActionComp",
                     label: "actioncomp",
-                    colStyle: { borderWidth: 4, minHeight: 212 }
+                    colStyle: { borderWidth: 4 }
                   }
                 }
               }

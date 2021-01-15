@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { JsonEditor as Editor } from "jsoneditor-react";
-import "jsoneditor-react/es/editor.min.css";
+import "./JSONditor.css";
 
 export default class JSONditor extends Component {
   constructor(props, ctx) {
