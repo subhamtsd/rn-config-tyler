@@ -10,6 +10,8 @@ import "./JSONEditor.css";
 export default class JSONEditor extends Component {
   render() {
     const { json, onError, onChangeJSON } = this.props;
+    // TODO: add toggle between JSON tree and code mode
+    // TODO: add code mode changes getting reflected to actual config
 
     return [
       <Editor
@@ -18,7 +20,7 @@ export default class JSONEditor extends Component {
         value={json}
         mode={"tree"}
         modes={["text", "code", "tree", "form", "view"]}
-        onChangeJSON={onChangeJSON}
+        onChange={onChangeJSON}
         onError={onError}
         theme={"ace/theme/github"}
       />

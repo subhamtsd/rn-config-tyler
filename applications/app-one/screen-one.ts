@@ -10,16 +10,17 @@ const schema = {
 };
 
 export const nextState = {};
-nextState["one"] = {
-  ui: {
-    "body-content": "Comp5",
-    "body-footer": "Comp5"
+nextState.one = {
+  "body-content": {
+    ui: "Comp5",
+    props: { label: "body-content" },
+    children: {}
   },
-  props: {
-    "body-content": { label: "body-content" },
-    "body-footer": { label: "body-footer" }
-  },
-  children: {}
+  "body-footer": {
+    ui: "Comp5",
+    props: { label: "body-footer" },
+    children: {}
+  }
 };
 
 export const screenOne = {
@@ -54,7 +55,7 @@ export const screenOne = {
       0: {
         layout: {
           colConfig: {
-            colSize: 3
+            colSize: 2
           },
           0: {
             // row no
@@ -66,8 +67,43 @@ export const screenOne = {
               // col no
               colSize: 1,
               idx: "Home",
-              label: "left-nav",
-              colStyle: { borderWidth: 1, minHeight: 700 }
+              label: "home",
+              colStyle: { borderWidth: 4 }
+            }
+          },
+          1: {
+            // row no
+            rowConfig: {
+              rowSize: 1,
+              style: rowStyle
+            },
+            0: {
+              // col no
+              colSize: 1,
+              idx: "About",
+              label: "about",
+              colStyle: { borderWidth: 4 }
+            },
+            1: {
+              // col no
+              colSize: 1,
+              idx: "Comp5",
+              label: "comp5",
+              colStyle: { borderWidth: 4 }
+            }
+          },
+          2: {
+            // row no
+            rowConfig: {
+              rowSize: 1,
+              style: rowStyle
+            },
+            0: {
+              // col no
+              colSize: 4,
+              idx: "RandomPic",
+              label: "rpic",
+              colStyle: { borderWidth: 4 }
             }
           }
         }
@@ -75,7 +111,7 @@ export const screenOne = {
       1: {
         layout: {
           colConfig: {
-            colSize: 11
+            colSize: 5
           },
           0: {
             // row no
@@ -85,26 +121,26 @@ export const screenOne = {
             },
             0: {
               // col no
-              colSize: 1,
-              idx: "Home",
-              label: "body-header",
+              colSize: 24,
+              idx: "Comp5",
+              label: "comp5.11",
               schema,
-              colStyle: { borderWidth: 1 }
+              colStyle: { borderWidth: 4 }
             }
           },
           1: {
             // row no
             rowConfig: {
-              rowSize: 7,
+              rowSize: 12,
               style: rowStyle
             },
             0: {
               // col no
               colSize: 1,
-              idx: "Home",
-              label: "body-content",
+              idx: "Comp5",
+              label: "comp5.12",
               schema,
-              colStyle: { borderWidth: 1, flex: 1 }
+              colStyle: { borderWidth: 4 }
             }
           },
           2: {
@@ -116,10 +152,10 @@ export const screenOne = {
             0: {
               // col no
               colSize: 1,
-              idx: "Home",
-              label: "body-footer",
+              idx: "Comp5",
+              label: "comp5.13",
               schema,
-              colStyle: { borderWidth: 1 }
+              colStyle: { borderWidth: 4 }
             }
           }
         }
@@ -134,8 +170,8 @@ export const screenOne = {
       0: {
         // col no
         colSize: 1,
-        idx: "Home",
-        label: "footer",
+        idx: "ActionComp",
+        label: "actioncomp",
         colStyle: { borderWidth: 4 }
       }
     }
