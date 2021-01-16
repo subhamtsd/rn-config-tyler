@@ -61,7 +61,7 @@ export const appConfig = {
                   },
                   1: {
                     // col no
-                    colSize: 8,
+                    colSize: 1,
                     idx: "Comp5",
                     label: "comp51.2",
                     colStyle: { borderWidth: 4 }
@@ -75,7 +75,7 @@ export const appConfig = {
                   },
                   0: {
                     // col no
-                    colSize: 8,
+                    colSize: 1,
                     idx: "ActionComp",
                     label: "actioncomp",
                     colStyle: { borderWidth: 4 }
@@ -89,7 +89,7 @@ export const appConfig = {
                   },
                   0: {
                     // col no
-                    colSize: 8,
+                    colSize: 1,
                     idx: "ActionComp",
                     label: "actioncomp",
                     colStyle: { borderWidth: 4 }

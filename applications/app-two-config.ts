@@ -28,6 +28,9 @@ export const appConfig = {
     }
   },
   layout: {
+    colConfig: {
+      colSize: 1
+    },
     // row no
     0: {
       rowConfig: {
@@ -38,7 +41,7 @@ export const appConfig = {
       0: {
         layout: {
           colConfig: {
-            colSize: 1
+            colSize: 2
           },
           0: {
             // row no
@@ -104,7 +107,7 @@ export const appConfig = {
             },
             0: {
               // col no
-              colSize: 20,
+              colSize: 24,
               idx: "Comp5",
               label: "comp5.11",
               schema,
@@ -114,12 +117,12 @@ export const appConfig = {
           1: {
             // row no
             rowConfig: {
-              rowSize: 11,
+              rowSize: 12,
               style: rowStyle
             },
             0: {
               // col no
-              colSize: 20,
+              colSize: 1,
               idx: "Comp5",
               label: "comp5.12",
               schema,
@@ -129,12 +132,12 @@ export const appConfig = {
           2: {
             // row no
             rowConfig: {
-              rowSize: 2,
+              rowSize: 1,
               style: rowStyle
             },
             0: {
               // col no
-              colSize: 20,
+              colSize: 1,
               idx: "Comp5",
               label: "comp5.13",
               schema,
@@ -155,13 +158,6 @@ export const appConfig = {
         colSize: 1,
         idx: "ActionComp",
         label: "actioncomp",
-        colStyle: { borderWidth: 4 }
-      },
-      1: {
-        // col no
-        colSize: 2,
-        idx: "Comp5",
-        label: "comp51.2",
         colStyle: { borderWidth: 4 }
       }
     }
