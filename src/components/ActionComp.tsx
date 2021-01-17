@@ -1,7 +1,15 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
 
-export const ActionComp = ({ label, appState, children, setAppState }) => {
+export const ActionComp = ({
+  label,
+  appState,
+  children,
+  setAppState,
+  setLayoutConfig,
+  events,
+  getEvents
+}) => {
   return (
     <View
       style={
@@ -10,27 +18,19 @@ export const ActionComp = ({ label, appState, children, setAppState }) => {
         }
       }
     >
-      <Text style={{ textAlign: "center" }}>{label}</Text>
       <Button
-        title={"Trigger"}
-        onPress={() => {
-          setAppState({
-            ...appState,
-            ui: {
-              ...appState.ui,
-              about: "Home",
-              "comp5.1": "RandomPic"
-            },
-            props: appState.props,
-            children: {
-              ...appState.children,
-              about: <Text>I am 2nd Child</Text>,
-              "comp5.1": <Text>I am 1st Child</Text>
-            }
-          });
-        }}
+        title={"Back"}
+        testID={`${label}-btn-two`}
+        {...getEvents(events, `${label}-btn-two`, setLayoutConfig, setAppState)}
       ></Button>
-      {children || (appState && appState.children && appState.children[label])}
+      <Button
+        testID={`${label}-btn-one`}
+        title={"Trigger"}
+        {...getEvents(events, `${label}-btn-one`, setLayoutConfig, setAppState)}
+      ></Button>
+      <Text style={{ textAlign: "center" }}>{label}</Text>
+
+      {children || (appState && appState[label] && appState[label]?.children)}
       {/* <Text>{appState && JSON.stringify(appState)}</Text> */}
     </View>
   );

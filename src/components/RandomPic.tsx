@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { View, Image, Button, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, Image, Text, View } from "react-native";
 
-export const RandomPic = ({ label, style, setAppState, appState }) => {
+export const RandomPic = ({
+  label,
+  style,
+  setAppState,
+  appState,
+  getEvents
+}) => {
   const [randomCatImg, setRandomCatImg] = useState(null);
 
   const fetchRandomCat = () => {
@@ -10,20 +16,6 @@ export const RandomPic = ({ label, style, setAppState, appState }) => {
       .then((res) => res.json())
       .then((catInfo) => {
         setRandomCatImg(catInfo.file);
-        // setAppState({
-        //   ...appState,
-        //   ui: { ...appState.ui, home: "About", actioncomp: "RandomPic" },
-        //   props: {
-        //     ...appState.props,
-        //     home: { label: "home->1" },
-        //     actioncomp: { label: "actioncomp-2" }
-        //   },
-        //   children: {
-        //     ...appState.children,
-        //     home: <Text>Hello About</Text>,
-        //     actioncomp: null
-        //   }
-        // });
       });
   };
 
@@ -37,7 +29,21 @@ export const RandomPic = ({ label, style, setAppState, appState }) => {
     <View>
       <View>
         <Button
-          onPress={() => fetchRandomCat()}
+          onPress={() => {
+            fetchRandomCat();
+            setAppState({
+              home: {
+                ui: "About",
+                props: { label: "home->1" },
+                children: <Text>Hello from RandomPic</Text>
+              },
+              actioncomp: {
+                ui: "Home",
+                props: { label: "actioncomp-2" },
+                children: null
+              }
+            });
+          }}
           title={`New Image ${label}`}
         ></Button>
       </View>
