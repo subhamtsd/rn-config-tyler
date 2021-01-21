@@ -1,8 +1,11 @@
+
+// TODO: See if the below LIB can be removed
 import merge from "deepmerge";
 import React, { createElement, useState } from "react";
 import { Text } from "react-native";
+// TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { colStyle, rowStyle, styles } from "../examples/common";
+import { styles } from "../examples/common";
 
 /*
 1. DONE ::: Layout from JSON
