@@ -13,12 +13,14 @@ export const Home = (props) => {
     layoutConfig,
     setLayoutConfig,
     getEvents,
-    events
+    events,
   } = props;
 
   console.log(`getEvents`);
-  console.log(getEvents(events, `${label}-btn-one`, setLayoutConfig, setAppState));
-  
+  console.log(
+    getEvents(events, `${label}-btn-one`, setLayoutConfig, setAppState)
+  );
+
   return (
     <View>
       <Text style={{}}>Home *** {label}</Text>

@@ -8,7 +8,7 @@ export const ActionComp = ({
   setAppState,
   setLayoutConfig,
   events,
-  getEvents
+  getEvents,
 }) => {
   return (
     <View

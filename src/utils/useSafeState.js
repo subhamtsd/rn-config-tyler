@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
-const useSafeSetState = (initialValue) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const useSafeSetState = () => {
   const queue = useRef([]);
   const mounted = useRef(false);
 

@@ -66,7 +66,7 @@ export const JsonForm = ({
   const onChange = (event) => {
     setFormData({
       ...formData,
-      [event.params.name]: event.params.value
+      [event.params.name]: event.params.value,
     });
   };
 
@@ -74,10 +74,10 @@ export const JsonForm = ({
     input: {
       focused: StyleSheet.create({
         border: {
-          borderColor: "#33bfff"
-        }
-      })
-    }
+          borderColor: "#33bfff",
+        },
+      }),
+    },
   };
 
   const onSubmit = async (event) => {
