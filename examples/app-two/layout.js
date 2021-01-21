@@ -1,4 +1,21 @@
+import { About } from "../../src/components/About";
+import { ActionComp } from "../../src/components/ActionComp";
+import { Comp5 } from "../../src/components/Comp5";
+// import { JsonForm } from "./components/JsonForm";
+import { Home } from "../../src/components/Home";
+import { RandomPic } from "../../src/components/RandomPic";
 import { rowStyle, styles } from "../common";
+
+// All component which will be rendered
+export const componentsSet = {
+  Comp5,
+  ActionComp,
+  Home,
+  About,
+  RandomPic,
+  // JsonForm
+};
+export const routes = {};
 
 // components section
 const schema = {
@@ -8,9 +25,6 @@ const schema = {
     password: { type: "string" },
   },
 };
-
-export const routes = {};
-
 routes.routeOne = {
   0: {
     0: {
@@ -87,90 +101,10 @@ routes.routeTwo = {
 };
 
 // *************************************************
-//  "../applications/app-one/screen-one";
-// *************************************************
-// bind events to
-//  logic that binds
-
-export const events = {
-  /// <label>
-  home: {
-    //<label>-<element-id> : <handler>
-    "home-btn-one": {
-      // <event> :: <handler>
-      onPress: (setLayoutConfig, setAppState) => {
-        setLayoutConfig(routes["routeOne"]);
-      },
-    },
-    //<label>-<element-id>
-    "home-btn-two": {
-      // <event> :: <handler>
-      onPress: (setLayoutConfig, setAppState) => {
-        setLayoutConfig(routes["routeTwo"]);
-      },
-    },
-  },
-
-  /// <label>
-  about: {
-    //<label>-<element-id> : <handler>
-    "about-btn-one": {
-      // <event> :: <handler>
-      onPress: (setLayoutConfig, setAppState) => {
-        setAppState({
-          "comp5.11": {
-            ui: "RandomPic",
-            props: { label: "comp5.11" },
-            children: "<Text>I am 2nd Child</Text>", // FIXME:: from events file, passing in children part which is JSX
-          },
-        });
-      },
-    },
-  },
-
-  actioncomp: {
-    // <label>
-    "actioncomp-btn-two": {
-      // <event> :: <handler>
-      onPress: (setLayoutConfig, setAppState) => {
-        setLayoutConfig(routes["routeTwo"]);
-      },
-    },
-    "actioncomp-btn-one": {
-      onPress: (setLayoutConfig, setAppState) => {
-        setAppState({
-          about: {
-            ui: "About",
-            props: { label: "about" },
-            children: "<Text>I am 2nd Child</Text>", // FIXME:: from events file, passing in children part which is JSX
-          },
-        });
-      },
-    },
-  },
-};
-
-// *************************************************
-//  Helper Util
-// *************************************************
-// bind events based on the layout config
-export const getEvents = (events, elId, setLayoutConfig, setAppState) => {
-  const elEvents = {};
-  events[elId]
-    ? Object.keys(events[elId]).map((eventName) => {
-        // console.log({ [eventName]: events[elId][eventName] });
-        elEvents[eventName] = () =>
-          events[elId][eventName](setLayoutConfig, setAppState);
-      })
-    : null;
-  // console.log(elEvents);
-  return elEvents;
-};
-
-// *************************************************
 //  Layout config
 // *************************************************
-export const screenOne = {
+export const appConfig = {
+  componentsSet,
   links: {
     "/": {
       style: styles.navItem,
@@ -319,126 +253,6 @@ export const screenOne = {
         colSize: 1,
         idx: "ActionComp",
         label: "actioncomp",
-        colStyle: { borderWidth: 4 },
-      },
-    },
-  },
-};
-
-export const screenTwo = {
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-    "/contact": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Messages",
-    },
-  },
-  layout: {
-    colConfig: {
-      colSize: 1,
-    },
-    // row no
-    0: {
-      rowConfig: {
-        rowSize: 1,
-        style: rowStyle,
-      },
-      // col no
-      0: {
-        layout: {
-          colConfig: {
-            colSize: 3,
-          },
-          0: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              style: rowStyle,
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Home",
-              label: "left-nav",
-              colStyle: { borderWidth: 1, minHeight: 700 },
-            },
-          },
-        },
-      },
-      1: {
-        layout: {
-          colConfig: {
-            colSize: 11,
-          },
-          0: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              style: rowStyle,
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Home",
-              label: "body-header",
-              schema,
-              colStyle: { borderWidth: 1 },
-            },
-          },
-          1: {
-            // row no
-            rowConfig: {
-              rowSize: 7,
-              style: rowStyle,
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Home",
-              label: "body-content",
-              schema,
-              colStyle: { borderWidth: 1, flex: 1 },
-            },
-          },
-          2: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              style: rowStyle,
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Home",
-              label: "body-footer",
-              schema,
-              colStyle: { borderWidth: 1 },
-            },
-          },
-        },
-      },
-    },
-    1: {
-      // row no
-      rowConfig: {
-        rowSize: "0.21",
-        style: rowStyle,
-      },
-      0: {
-        // col no
-        colSize: 1,
-        idx: "Home",
-        label: "footer",
         colStyle: { borderWidth: 4 },
       },
     },

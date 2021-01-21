@@ -2,20 +2,7 @@ import merge from "deepmerge";
 import React, { createElement, useState } from "react";
 import { Text } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
-// import { appConfig, events, getEvents } from "../applications/app-two-config";
-import {
-  events,
-  getEvents,
-  screenOne as appConfig,
-} from "../applications/app-one/screen-one";
-import { rowStyle, styles } from "../applications/common";
-import { About } from "./components/About";
-import { ActionComp } from "./components/ActionComp";
-import { Comp5 } from "./components/Comp5";
-// import { JsonForm } from "./components/JsonForm";
-import { Home } from "./components/Home";
-import { RandomPic } from "./components/RandomPic";
-import { JSONEditor } from "./internal/components/JSONEditor";
+import { rowStyle, styles } from "../examples/common";
 
 /*
 1. DONE ::: Layout from JSON
@@ -35,52 +22,43 @@ import { JSONEditor } from "./internal/components/JSONEditor";
 */
 // ******************************************************************** //
 
-// All component which will be rendered
-export const componentsSet = {
-  Comp5,
-  ActionComp,
-  Home,
-  About,
-  RandomPic,
-  // JsonForm
-};
-
-// pick from pre-loaded components and render properly, renders each component at column level
-export const UXColumn = ({
-  label,
-  idx,
-  style,
-  colSize,
-  colStyle,
-  children,
-  passProps,
-  appState,
-  setAppState,
-  setLayoutConfig,
-}) => {
-  console.log(`label is ${label}`);
-  const colSection = createElement(
-    label && appState[label]?.ui && componentsSet[appState[label]?.ui]
-      ? componentsSet[appState[label]?.ui]
-      : componentsSet[idx],
-    {
-      ...passProps,
-      appState,
-      setAppState,
-      ...styles,
-      label,
-      setLayoutConfig,
-      getEvents,
-      events: events && events[label] ? events[label] : {},
-    },
-    appState[label]?.children || children
-  );
-  return colSection;
-};
-
 // render a grid layout as per the configuration
-const GridSection = ({ layoutConfig, setLayoutConfig }) => {
+export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
   // const history = useHistory();
+
+  // pick from pre-loaded components and render properly, renders each component at column level
+  const UXColumn = ({
+    label,
+    idx,
+    style,
+    colSize,
+    colStyle,
+    children,
+    passProps,
+    appState,
+    setAppState,
+    setLayoutConfig,
+  }) => {
+    console.log(`label is ${label}`);
+    const colSection = createElement(
+      label &&
+        appState[label]?.ui &&
+        layoutConfig.componentsSet[appState[label]?.ui]
+        ? layoutConfig.componentsSet[appState[label]?.ui]
+        : layoutConfig.componentsSet[idx],
+      {
+        ...passProps,
+        appState,
+        routes,
+        setAppState,
+        ...styles,
+        label,
+        setLayoutConfig,
+      },
+      appState[label]?.children || children
+    );
+    return colSection;
+  };
   const linksSection = Object.keys(layoutConfig.links).map((path, id) => {
     const { style, linkText, linkStyle } = layoutConfig.links[path];
     return (
@@ -218,49 +196,7 @@ const GridSection = ({ layoutConfig, setLayoutConfig }) => {
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
       <Row size={0.05}>{headerSection}</Row>
-      <Row style={{ flex: 1 }}>
-        {UX(layoutConfig.layout, layoutConfig.layout[0].rowConfig)}
-      </Row>
+      <Row style={{ flex: 1 }}>{UX(layoutConfig?.layout) || {}}</Row> 
     </Grid>
   );
 };
-
-//  overall container app
-export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      config: appConfig,
-    };
-    // console.log(this.state.config);
-  }
-
-  render() {
-    return (
-      <>
-        <JSONEditor
-          json={this.state?.config}
-          onChangeJSON={(json) => {
-            // TODO: add schema conformation for JSONEditor values of component names
-            this.setState({ config: json }, () => {
-              //
-            });
-          }}
-        />
-        <GridSection
-          layoutConfig={this?.state?.config}
-          setLayoutConfig={(config) =>
-            this.setState(
-              {
-                config: merge(this?.state?.config, { layout: config }),
-              },
-              () => {
-                console.log(this?.state?.config);
-              }
-            )
-          }
-        />
-      </>
-    );
-  }
-}
