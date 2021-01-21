@@ -33,7 +33,7 @@ routes.routeOne = {
         colConfig: {
           // colSize: 0, // *** change the colSize
 
-          style: { display: "none" }, // *** hide the 1st column
+          colStyle: { display: "none" }, // *** hide the 1st column
         },
       },
     },
@@ -70,7 +70,7 @@ routes.routeTwo = {
       layout: {
         colConfig: {
           // colSize: 0, // *** change the colSize
-          style: { display: "block" }, // *** hide the 1st column
+          colStyle: { display: "block" }, // *** hide the 1st column
         },
       },
     },

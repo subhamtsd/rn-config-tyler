@@ -82,6 +82,10 @@ export const appConfig = {
         layout: {
           colConfig: {
             colSize: 11,
+            colStyle: {
+              borderWidth: 2,
+              borderColor: "blue",
+            },
           },
           0: {
             // row no
@@ -94,7 +98,7 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "body-header",
-              colStyle: { borderWidth: 1 },
+              colStyle: { borderWidth: 2, borderColor: "yellow" },
             },
           },
           1: {
