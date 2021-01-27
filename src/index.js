@@ -5,7 +5,12 @@ import { registerRootComponent } from "expo";
 import React from "react";
 
 // ****** EXAMPLE CONFIGS START ****************
-// import { appConfig, routes } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
+// import { appConfig, routes } from "../examples/sagar-poc/layout"; /// example with button clicks and routing with dynamic changes to screen
+
+// import {
+//   appConfig,
+//   routes,
+// } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
 import { appConfig, routes } from "../examples/app-one/layout"; /// example with button clicks and routing with dynamic changes to screen
 // import { appConfig, routes } from "../examples/app-two/layout"; /// another example with changes
 // ****** EXAMPLE CONFIGS END ****************
@@ -45,6 +50,7 @@ class App extends React.Component {
           setLayoutConfig={(config) =>
             this.setState(
               {
+                // TODO: fix thois to be possible with only identifier
                 config: merge(this?.state?.config, { layout: config }),
               },
               () => {
