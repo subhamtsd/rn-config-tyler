@@ -123,6 +123,7 @@ export const appConfig = {
     },
   },
   layout: {
+    
     colConfig: {
       colSize: 1,
     },
@@ -130,7 +131,7 @@ export const appConfig = {
     0: {
       rowConfig: {
         rowSize: 1,
-        style: rowStyle,
+        rowStyle: { height: "100vh" },
       },
       // col no
       0: {
@@ -142,7 +143,7 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 1,
-              style: rowStyle,
+              rowStyle: { height: "5vh" },
             },
             0: {
               // col no
@@ -156,7 +157,7 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 1,
-              style: rowStyle,
+              rowStyle: { height: "90vh" },
             },
             0: {
               // col no
@@ -177,7 +178,7 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 1,
-              style: rowStyle,
+              rowStyle: { height: "10vh" },
             },
             0: {
               // col no
@@ -198,7 +199,7 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 1,
-              style: rowStyle,
+              rowStyle: { height: "10vh" },
             },
             0: {
               // col no
@@ -213,7 +214,7 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 12,
-              style: rowStyle,
+              rowStyle: { height: "10vh" },
             },
             0: {
               // col no
@@ -228,8 +229,9 @@ export const appConfig = {
             // row no
             rowConfig: {
               rowSize: 1,
-              style: rowStyle,
+              rowStyle: { height: "10vh" },
             },
+            
             0: {
               // col no
               colSize: 1,
@@ -240,20 +242,6 @@ export const appConfig = {
             },
           },
         },
-      },
-    },
-    1: {
-      // row no
-      rowConfig: {
-        rowSize: "0.21",
-        style: rowStyle,
-      },
-      0: {
-        // col no
-        colSize: 1,
-        idx: "ActionComp",
-        label: "actioncomp",
-        colStyle: { borderWidth: 4 },
       },
     },
   },
