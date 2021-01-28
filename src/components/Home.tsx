@@ -10,7 +10,7 @@ export const Home = (props) => {
         testID={`${label}-btn-one`}
         title="ACT"
         onPress={() => {
-          setLayoutConfig(routes?.routeTwo);
+          setLayoutConfig(routes?.routeTwo, true);
         }}
       ></Button>
       {children || (appState && appState[label] && appState[label]?.children)}

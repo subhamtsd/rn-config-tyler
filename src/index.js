@@ -2,6 +2,8 @@
 
 import merge from "deepmerge";
 import { registerRootComponent } from "expo";
+import { object } from "dot-object";
+
 import React from "react";
 
 // ****** EXAMPLE CONFIGS START ****************
@@ -47,7 +49,12 @@ class App extends React.Component {
         <GridSection
           layoutConfig={this?.state?.config}
           routes={routes}
-          setLayoutConfig={(config) =>
+          setLayoutConfig={(config, isDottedFormat = false) => {
+            // TODO: find out if the object is in collapsed/dotted format
+            if (isDottedFormat) {
+              // expand to proper JSON from dotted notation
+              config = object(config);
+            }
             this.setState(
               {
                 // TODO: fix thois to be possible with only identifier
@@ -56,8 +63,8 @@ class App extends React.Component {
               () => {
                 console.log(this?.state?.config);
               }
-            )
-          }
+            );
+          }}
         />
       </>
     );

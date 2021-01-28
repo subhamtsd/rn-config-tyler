@@ -5,23 +5,6 @@ import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { styles } from "../examples/common";
-
-/*
-1. DONE ::: Layout from JSON
-2. Routes from JSON
-3. DONE ::: Shared app State (workJSONEditoring in this)
-4. Events management from JSON
-5. Mobile First, Web compatible
-6. DONE ::: JSON Forms
-7. JSON based Lists
-8. API Connectors (Datafire)
-9. Scrollable Views (Outer and Inner)
-10. Examples config JSONs for realistic apps
-
-
-
-
-*/
 // ******************************************************************** //
 
 // render a grid layout as per the configuration
@@ -46,7 +29,6 @@ export const GridSection = ({
     setAppState,
     setLayoutConfig,
   }) => {
-    // console.log(`label is ${label}`);
     const colSection = createElement(
       label &&
         appState[label]?.ui &&
@@ -162,7 +144,7 @@ export const GridSection = ({
         if (rId === "colConfig") {
           return null;
         } else {
-          console.log(rows[rId]?.rowConfig?.rowSize);
+          // console.log(rows[rId]?.rowConfig?.rowSize);
           return (
             <Row
               size={rows[rId]?.rowConfig?.rowSize || 1}
@@ -183,7 +165,6 @@ export const GridSection = ({
       ); /// return all rows in layout
     };
 
-    console.log(`colSize is ${layoutConfig?.colConfig?.colSize}`);
     return (
       <Col
         size={layoutConfig?.colConfig?.colSize || 1}
