@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable react/prop-types */
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
 import React, { createElement, useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { styles } from "../examples/common";
+import styles from "../styles";
 // ******************************************************************** //
 
 // render a grid layout as per the configuration
@@ -16,14 +18,11 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
     label,
     key,
     idx,
-    style,
-    colSize,
-    colStyle,
     children,
     passProps,
     appState,
     setAppState,
-    setLayoutConfig
+    setLayoutConfig,
   }) => {
     const colSection = createElement(
       label &&
@@ -39,7 +38,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
         setAppState,
         ...styles,
         label,
-        setLayoutConfig
+        setLayoutConfig,
       },
       appState[label]?.children || children
     );
@@ -48,24 +47,19 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
   const linksSection = Object.keys(layoutConfig.links).map((path, id) => {
     const { style, linkText, linkStyle } = layoutConfig.links[path];
     return (
-      <Col
-        to={path}
-        underlayColor="#f0f4f7"
-        style={style}
-        key={`${id}-${path}`}
-      >
+      <View style={style} key={`${id}-${path}`}>
         <Text style={linkStyle}>{linkText}</Text>
-      </Col>
+      </View>
     );
   });
 
-  const headerSection = <Col style={styles.nav}>{linksSection}</Col>;
+  const headerSection = <Col>{linksSection}</Col>;
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
     ui: {},
     children: {},
-    props: {}
+    props: {},
   });
 
   const setAppState = (newAppState) => {
@@ -98,7 +92,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
               colStyle,
               appState,
               setAppState,
-              setLayoutConfig
+              setLayoutConfig,
             };
 
             // console.log(`colSize is ${colSize}`);
@@ -121,7 +115,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
                 style={{
                   ...(cols[cId].layout?.colConfig?.colStyle || {}),
                   borderWidth: 0,
-                  borderColor: "blue"
+                  borderColor: "blue",
                 }}
               >
                 <Grid style={{}}>{UX(cols[cId].layout)}</Grid>
@@ -139,7 +133,6 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
           // const style = rows[rId]?.rowConfig?.rowStyle || {};
           // console.log(rows[rId].rowConfig);
 
-          // FIXME: fix rowSize. is rowConfig used ?
           if (rId === "colConfig") {
             return null;
           } else {
@@ -151,7 +144,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
                 style={{
                   borderWidth: 6,
                   borderColor: "gray",
-                  ...rows[rId]?.rowConfig?.rowStyle
+                  ...rows[rId]?.rowConfig?.rowStyle,
                 }}
               >
                 {colsSection(rId, rows[rId])}
@@ -173,7 +166,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
       <Col
         size={layoutConfig?.colConfig?.colSize || 1}
         style={{
-          ...layoutConfig?.colConfig?.colStyle
+          ...layoutConfig?.colConfig?.colStyle,
         }}
       >
         {gridSection(layoutConfig, setLayoutConfig)}

@@ -1,10 +1,14 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // import { registerRootComponent } from "expo";
 import merge from "deepmerge";
 import { object } from "dot-object";
 import React from "react";
 
-import { GridSection } from "./App";
-import { JSONEditor } from "./internal/components/JSONEditor";
+// FIXME: when publish the module, use only one of two lines below, right now local npm linking being used  
+// import { GridSection, JSONEditor } from "./lib/dist/index.es";
+import { GridSection, JSONEditor } from "rn-config-tyler/dist/index.es";
+
 
 if (process.env.NODE_ENV !== "production") {
   console.log("Looks like we are in development mode!");
@@ -15,7 +19,7 @@ export default class WrappedApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      config: props?.appConfig
+      config: props?.appConfig,
     };
   }
 
@@ -45,7 +49,7 @@ export default class WrappedApp extends React.Component {
             this.setState(
               {
                 // TODO: fix thois to be possible with only identifier
-                config: merge(this?.state?.config, { layout: config })
+                config: merge(this?.state?.config, { layout: config }),
               },
               () => {
                 console.log(this?.state?.config);

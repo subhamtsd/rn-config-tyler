@@ -4,8 +4,7 @@ import { Comp5 } from "../../src/components/Comp5";
 // import { JsonForm } from "./components/JsonForm";
 import { Home } from "../../src/components/Home";
 import { RandomPic } from "../../src/components/RandomPic";
-import { rowStyle, styles } from "../common";
-import { object, dot } from "dot-object";
+import { rowStyle, styles } from "../../src/lib";
 
 // All component which will be rendered
 export const componentsSet = {

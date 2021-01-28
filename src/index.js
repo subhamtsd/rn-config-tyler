@@ -4,11 +4,11 @@ import React from "react";
 // import { appConfig, routes } from "../examples/sagar-poc/layout"; /// example with button clicks and routing with dynamic changes to screen
 
 // import { appConfig, routes } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
-// import { appConfig, routes } from "../examples/app-one/layout"; /// example with button clicks and routing with dynamic changes to screen
-import { appConfig, routes } from "../examples/app-two/layout"; /// another example with changes
+import { appConfig, routes } from "../examples/app-one/layout"; /// example with button clicks and routing with dynamic changes to screen
+// import { appConfig, routes } from "../examples/app-two/layout"; /// another example with changes
 // ****** EXAMPLE CONFIGS END ****************
 
-import App from "./WrappedApp";
+import WrappedApp from "./WrappedApp";
 
 // **************************************************
 // TODO uncomment below, and comment section at very bottom for non-codesandbox
@@ -16,7 +16,7 @@ import App from "./WrappedApp";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { registerRootComponent } = require("expo");
 registerRootComponent(() => (
-  <App appConfig={appConfig} routes={routes} debug={false} />
+  <WrappedApp appConfig={appConfig} routes={routes} debug={false} />
 ));
 
 // **************************************************
@@ -31,9 +31,9 @@ registerRootComponent(() => (
 //     {/*
 //       `appConfig` is the original layout configuration for initial render
 //       `routes` is the routes object (multiple possible layout configurations possible) for later renders
-//       `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree) 
+//       `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree)
 //     */}
-//     <App appConfig={appConfig} routes={routes} debug={false} />
+//     <WrappedApp appConfig={appConfig} routes={routes} debug={false} />
 //   </React.StrictMode>,
 //   rootElement
 // );

@@ -51,3 +51,9 @@ export const styles = {
     fontSize: 15,
   },
 };
+
+export default {
+  gridStyle,
+  rowStyle,
+  styles,
+};
