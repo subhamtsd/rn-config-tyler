@@ -3,17 +3,6 @@ import merge from "deepmerge";
 import { object } from "dot-object";
 import React from "react";
 
-// ****** EXAMPLE CONFIGS START ****************
-// import { appConfig, routes } from "../examples/sagar-poc/layout"; /// example with button clicks and routing with dynamic changes to screen
-
-// import {
-//   appConfig,
-//   routes,
-// } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
-import { appConfig, routes } from "../examples/app-one/layout"; /// example with button clicks and routing with dynamic changes to screen
-// import { appConfig, routes } from "../examples/app-two/layout"; /// another example with changes
-// ****** EXAMPLE CONFIGS END ****************
-
 import { GridSection } from "./App";
 import { JSONEditor } from "./internal/components/JSONEditor";
 
@@ -23,29 +12,30 @@ if (process.env.NODE_ENV !== "production") {
 
 //  overall container app
 export default class WrappedApp extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      config: appConfig
+      config: props?.appConfig
     };
-    // console.log(this.state.config);
   }
 
   render() {
     return (
       <>
-        <JSONEditor
-          json={this.state?.config}
-          onChangeJSON={(json) => {
-            // TODO: add schema conformation for JSONEditor values of component names
-            this.setState({ config: json }, () => {
-              //
-            });
-          }}
-        />
+        {this.props?.debug ? (
+          <JSONEditor
+            json={this.state?.config}
+            onChangeJSON={(json) => {
+              // TODO: add schema conformation for JSONEditor values of component names
+              this.setState({ config: json }, () => {
+                //
+              });
+            }}
+          />
+        ) : null}
         <GridSection
-          layoutConfig={this?.state?.config}
-          routes={routes}
+          layoutConfig={this.state?.config}
+          routes={this.props?.routes}
           setLayoutConfig={(config, isDottedFormat = false) => {
             // TODO: find out if the object is in collapsed/dotted format
             if (isDottedFormat) {
