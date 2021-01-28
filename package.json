@@ -23,7 +23,6 @@
      "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-easy-grid": "0.2.2",
     "react-native-sortable-multilist": "1.1.2",
-    "react-native-web": "0.14.10",
     "react-native-web-jsonschema-form": "3.1.2",
     "react-native-web-ui-components": "5.0.4"
   },
@@ -69,7 +68,7 @@
     "jest-json-schema": "^2.1.0",
     "prettier": "^2.1.2",
     "react-native-testing-library": "^6.0.0",
-    "react-native-web": "~0.13.12",
+    "react-native-web": "0.14.10",
     "react-test-renderer": "16.9.0",
     "sentry-expo": "2.0.3",
     "typescript": "~4.0.0",
