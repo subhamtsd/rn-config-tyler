@@ -19,7 +19,7 @@ export const ActionComp = ({
       <Button
         title={"Back"}
         onPress={() => {
-          setLayoutConfig(routes?.routeOne);
+          setLayoutConfig(routes?.routeOne, true);
         }}
       ></Button>
       <Button title={"Trigger"}></Button>

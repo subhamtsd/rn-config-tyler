@@ -11,7 +11,12 @@ export const About = ({
   return (
     <View>
       <Text>About *** {label}</Text>
-      <Button title={`${"About"}Flash`}></Button>
+      <Button
+        title={`${"About "} Flash`}
+        onPress={() => {
+          setLayoutConfig(routes?.routeThree);
+        }}
+      ></Button>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );
