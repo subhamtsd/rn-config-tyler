@@ -5,6 +5,7 @@ import { Comp5 } from "../../src/components/Comp5";
 import { Home } from "../../src/components/Home";
 import { RandomPic } from "../../src/components/RandomPic";
 import { rowStyle, styles } from "../common";
+import { object, dot } from "dot-object";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -20,10 +21,29 @@ export const componentsSet = {
 
 export const routes = {};
 
+// dotted notation config route
 routes.routeOne = {
-  "1.container": {
-    // col no
-    "1.1.leftNavCol": {
+  "1container.11leftNavCol.layout.colConfig.colStyle.display": "block",
+  "1container.12bodyCol.layout.colConfig.colSize": 11,
+  "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx": "ActionComp",
+  "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx": "RandomPic",
+  "1container.12bodyCol.layout.123bodyFooterRow.bodyFooter.idx": "ActionComp",
+};
+
+// dotted notation config route
+routes.routeTwo = {
+  "1container.11leftNavCol.layout.colConfig.colStyle.display": "none",
+  "1container.12bodyCol.layout.colConfig.colSize": 11,
+  "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx": "ActionComp",
+  "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx": "RandomPic",
+  "1container.12bodyCol.layout.123bodyFooterRow.bodyFooter.idx": "About",
+};
+
+// expanded (non-dottend notation) route config
+routes.routeThree = {
+  // row no
+  "1container": {
+    "11leftNavCol": {
       layout: {
         colConfig: {
           colStyle: { display: "block" },
@@ -31,72 +51,24 @@ routes.routeOne = {
       },
       // layout: null,
     },
-    // "1.2.bodyCol": {
-    //   layout: {
-    //     colConfig: {
-    //       colSize: 11,
-    //     },
-    //     "1.2.1.bodyHeaderRow": {
-    //       bodyHeader: {
-    //         idx: "ActionComp",
-    //       },
-    //     },
-    //     "1.2.2.bodyContentRow": {
-    //       bodyContent: {
-    //         idx: "RandomPic",
-    //       },
-    //     },
-    //     "1.2.3.bodyFooterRow": {
-    //       bodyFooter: {
-    //         idx: "About",
-    //       },
-    //     },
-    //   },
-    // },
-  },
-};
-
-routes.routeTwo = {
-  // row no
-  "1.container": {
     // col no
-    "1.1.leftNavCol": {
+    "12bodyCol": {
       layout: {
         colConfig: {
-          colStyle: { display: "none" },
+          colSize: 18,
         },
-      },
-      // layout: null,
-    },
-    "1.2.bodyCol": {
-      layout: {
-        colConfig: {
-          colSize: 11,
-        },
-        "1.2.1.bodyHeaderRow": {
-          bodyHeader: {
-            idx: "ActionComp",
-          },
-        },
-        "1.2.2.bodyContentRow": {
+        "122bodyContentRow": {
           bodyContent: {
-            idx: "RandomPic",
-          },
-        },
-        "1.2.3.bodyFooterRow": {
-          bodyFooter: {
-            idx: "About",
+            idx: "Home",
           },
         },
       },
     },
   },
 };
-
 // *************************************************
 //  Layout config
 // *************************************************
-
 // links row
 const links = {
   "/": {
@@ -119,21 +91,21 @@ const links = {
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
+  links,
   layout: {
     // row no
-    "1.container": {
+    "1container": {
       rowConfig: {
         rowSize: 1,
         rowStyle: rowStyle,
       },
       // col no
-      "1.1.leftNavCol": {
+      "11leftNavCol": {
         layout: {
           colConfig: {
             colSize: 2,
           },
-          "1.1.leftNavHeaderRow": {
+          "11leftNavHeaderRow": {
             // row no
             rowConfig: {
               rowSize: 0.5,
@@ -147,7 +119,7 @@ export const appConfig = {
               colStyle: { borderWidth: 1, height: "10vh" },
             },
           },
-          "1.1.leftNavBodyRow": {
+          "11leftNavBodyRow": {
             rowConfig: {
               rowSize: 5,
               // rowStyle: rowStyle,
@@ -162,7 +134,7 @@ export const appConfig = {
           },
         },
       },
-      "1.2.bodyCol": {
+      "12bodyCol": {
         rowConfig: {
           rowSize: 1,
           rowStyle: rowStyle,
@@ -172,7 +144,7 @@ export const appConfig = {
             colSize: 11,
             colStyle: { borderColor: "cyan", borderWidth: 4 },
           },
-          "1.2.1.bodyHeaderRow": {
+          "121bodyHeaderRow": {
             rowConfig: {
               rowSize: 1,
               rowStyle: rowStyle,
@@ -185,7 +157,7 @@ export const appConfig = {
               colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
             },
           },
-          "1.2.2.bodyContentRow": {
+          "122bodyContentRow": {
             rowConfig: {
               rowSize: 12,
               rowStyle: rowStyle,
@@ -198,7 +170,7 @@ export const appConfig = {
               colStyle: { borderColor: "red", borderWidth: 2, height: "80vh" },
             },
           },
-          "1.2.3.bodyFooterRow": {
+          "123bodyFooterRow": {
             rowConfig: {
               rowSize: 1,
               rowStyle: rowStyle,
@@ -214,7 +186,7 @@ export const appConfig = {
         },
       },
     },
-    "2.container": {
+    "2container": {
       rowConfig: {
         rowSize: 1,
         rowStyle: rowStyle,

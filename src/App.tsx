@@ -5,31 +5,10 @@ import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { styles } from "../examples/common";
-
-/*
-1. DONE ::: Layout from JSON
-2. Routes from JSON
-3. DONE ::: Shared app State (workJSONEditoring in this)
-4. Events management from JSON
-5. Mobile First, Web compatible
-6. DONE ::: JSON Forms
-7. JSON based Lists
-8. API Connectors (Datafire)
-9. Scrollable Views (Outer and Inner)
-10. Examples config JSONs for realistic apps
-
-
-
-
-*/
 // ******************************************************************** //
 
 // render a grid layout as per the configuration
-export const GridSection = ({
-  layoutConfig,
-  setLayoutConfig,
-  routes,
-}) => {
+export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
   // const history = useHistory();
 
   // pick from pre-loaded components and render properly, renders each component at column level
@@ -44,9 +23,8 @@ export const GridSection = ({
     passProps,
     appState,
     setAppState,
-    setLayoutConfig,
+    setLayoutConfig
   }) => {
-    // console.log(`label is ${label}`);
     const colSection = createElement(
       label &&
         appState[label]?.ui &&
@@ -61,7 +39,7 @@ export const GridSection = ({
         setAppState,
         ...styles,
         label,
-        setLayoutConfig,
+        setLayoutConfig
       },
       appState[label]?.children || children
     );
@@ -87,7 +65,7 @@ export const GridSection = ({
   const [appState, _setAppState] = useState({
     ui: {},
     children: {},
-    props: {},
+    props: {}
   });
 
   const setAppState = (newAppState) => {
@@ -106,7 +84,9 @@ export const GridSection = ({
           if (cId === "rowConfig") {
             return null;
           } else if (cols[cId].idx) {
-            const { idx, label, colSize, props, children, colStyle } = cols[cId];
+            const { idx, label, colSize, props, children, colStyle } = cols[
+              cId
+            ];
 
             const passProps = {
               ...props,
@@ -118,7 +98,7 @@ export const GridSection = ({
               colStyle,
               appState,
               setAppState,
-              setLayoutConfig,
+              setLayoutConfig
             };
 
             // console.log(`colSize is ${colSize}`);
@@ -141,7 +121,7 @@ export const GridSection = ({
                 style={{
                   ...(cols[cId].layout?.colConfig?.colStyle || {}),
                   borderWidth: 0,
-                  borderColor: "blue",
+                  borderColor: "blue"
                 }}
               >
                 <Grid style={{}}>{UX(cols[cId].layout)}</Grid>
@@ -154,41 +134,46 @@ export const GridSection = ({
       };
 
       let gridJsx = [];
-      gridJsx = Object.keys(rows).map((rId) => {
-        // const style = rows[rId]?.rowConfig?.rowStyle || {};
-        // console.log(rows[rId].rowConfig);
+      if (rows && Object.keys(rows)) {
+        gridJsx = Object.keys(rows).map((rId) => {
+          // const style = rows[rId]?.rowConfig?.rowStyle || {};
+          // console.log(rows[rId].rowConfig);
 
-        // FIXME: fix rowSize. is rowConfig used ?
-        if (rId === "colConfig") {
-          return null;
-        } else {
-          console.log(rows[rId]?.rowConfig?.rowSize);
-          return (
-            <Row
-              size={rows[rId]?.rowConfig?.rowSize || 1}
-              key={`${rId}`}
-              style={{
-                borderWidth: 6,
-                borderColor: "gray",
-                ...rows[rId]?.rowConfig?.rowStyle,
-              }}
-            >
-              {colsSection(rId, rows[rId])}
-            </Row>
-          );
-        }
-      });
-      return (
-        <Col style={{ borderWidth: 0, borderColor: "red" }}>{gridJsx}</Col>
-      ); /// return all rows in layout
+          // FIXME: fix rowSize. is rowConfig used ?
+          if (rId === "colConfig") {
+            return null;
+          } else {
+            // console.log(rows[rId]?.rowConfig?.rowSize);
+            return (
+              <Row
+                size={rows[rId]?.rowConfig?.rowSize || 1}
+                key={`${rId}`}
+                style={{
+                  borderWidth: 6,
+                  borderColor: "gray",
+                  ...rows[rId]?.rowConfig?.rowStyle
+                }}
+              >
+                {colsSection(rId, rows[rId])}
+              </Row>
+            );
+          }
+        });
+        return (
+          <Col style={{ borderWidth: 0, borderColor: "red" }}>{gridJsx}</Col>
+        ); /// return all rows in layout
+      } else {
+        console.log(
+          "ERROR  :::: Possibly some routing label is incorrect in youir routes configuration."
+        );
+      }
     };
 
-    console.log(`colSize is ${layoutConfig?.colConfig?.colSize}`);
     return (
       <Col
         size={layoutConfig?.colConfig?.colSize || 1}
         style={{
-          ...layoutConfig?.colConfig?.colStyle,
+          ...layoutConfig?.colConfig?.colStyle
         }}
       >
         {gridSection(layoutConfig, setLayoutConfig)}
