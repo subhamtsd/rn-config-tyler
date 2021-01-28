@@ -11,6 +11,7 @@ export class JSONEditor extends Component {
       return null;
     } else {
       require("./JSONEditor.css");
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const Editor = require("jsoneditor-react").JsonEditor;
 
       const { json, onError, onChangeJSON } = this.props;

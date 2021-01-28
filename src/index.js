@@ -13,21 +13,22 @@ import App from "./WrappedApp";
 // **************************************************
 // TODO uncomment below, and comment section at very bottom for non-codesandbox
 // **************************************************
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { registerRootComponent } = require("expo");
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in the Expo client or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+registerRootComponent(() => (
+  <App appConfig={appConfig} routes={routes} debug={false} />
+));
 
 // **************************************************
 // TODO: below section to make it run on codesandbox.io
 // **************************************************
-/* 
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 // const { render } = require("react-dom");
 // const rootElement = document.getElementById("root");
 // render(
 //   <React.StrictMode>
-//     {/* 
+//     {/*
 //       `appConfig` is the original layout configuration for initial render
 //       `routes` is the routes object (multiple possible layout configurations possible) for later renders
 //       `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree) 
@@ -36,4 +37,3 @@ registerRootComponent(App);
 //   </React.StrictMode>,
 //   rootElement
 // );
-*/
