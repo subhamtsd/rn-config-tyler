@@ -13,25 +13,27 @@ import App from "./WrappedApp";
 // **************************************************
 // TODO uncomment below, and comment section at very bottom for non-codesandbox
 // **************************************************
-// const { registerRootComponent } = require("expo");
-// // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// // It also ensures that whether you load the app in the Expo client or in a native build,
-// // the environment is set up appropriately
-// registerRootComponent(App);
+const { registerRootComponent } = require("expo");
+// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
+// It also ensures that whether you load the app in the Expo client or in a native build,
+// the environment is set up appropriately
+registerRootComponent(App);
 
 // **************************************************
 // TODO: below section to make it run on codesandbox.io
 // **************************************************
-const { render } = require("react-dom");
-const rootElement = document.getElementById("root");
-render(
-  <React.StrictMode>
-    {/* 
-      `appConfig` is the original layout configuration for initial render
-      `routes` is the routes object (multiple possible layout configurations possible) for later renders
-      `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree) 
-    */}
-    <App appConfig={appConfig} routes={routes} debug={false} />
-  </React.StrictMode>,
-  rootElement
-);
+/* 
+// const { render } = require("react-dom");
+// const rootElement = document.getElementById("root");
+// render(
+//   <React.StrictMode>
+//     {/* 
+//       `appConfig` is the original layout configuration for initial render
+//       `routes` is the routes object (multiple possible layout configurations possible) for later renders
+//       `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree) 
+//     */}
+//     <App appConfig={appConfig} routes={routes} debug={false} />
+//   </React.StrictMode>,
+//   rootElement
+// );
+*/
