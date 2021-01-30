@@ -28,6 +28,10 @@
 
 1. Create the initial page layout config, which is also called `layoutConfig` or `appConfig`. Have a look at the examples folder `layout` files to figure out how to write a layoutConfig. At minimal it needs to have an appConfig JSON to be declared and exported out of that file. A snippet is given below, but it is _complex_, running the examples in `examples` folde would be much better to get started. Trust me :-)
 
+### Demo
+
+![demo for the router](https://github.com/applerdotxyz/rn-config-tyler/blob/develop/demo-config-router.png)
+
 #### STEP 1: COMPONENTS SET(your code)
 
 ```
