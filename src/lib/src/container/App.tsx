@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable react/prop-types */
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
 import React, { createElement, useState } from "react";

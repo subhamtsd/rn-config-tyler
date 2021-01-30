@@ -1,14 +1,7 @@
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var merge = require('deepmerge');
-var React = require('react');
-var reactNative = require('react-native');
-var reactNativeEasyGrid = require('react-native-easy-grid');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+import merge from 'deepmerge';
+import React, { useState, createElement, Component } from 'react';
+import { View, Text } from 'react-native';
+import { Col, Grid, Row } from 'react-native-easy-grid';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -50,17 +43,9 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-var colStyle = {
-    borderWidth: 1,
-    borderColor: "cyan",
-};
 var rowStyle = {
     borderWidth: 1,
     borderColor: "red",
-};
-var style1 = {
-    borderWidth: 1,
-    borderColor: "yellow",
 };
 var gridStyle = {
     borderWidth: 1,
@@ -99,6 +84,11 @@ var styles = {
         fontSize: 15,
     },
 };
+var styles$1 = {
+    gridStyle: gridStyle,
+    rowStyle: rowStyle,
+    styles: styles,
+};
 
 // ******************************************************************** //
 // render a grid layout as per the configuration
@@ -109,30 +99,30 @@ var GridSection = function (_a) {
     var UXColumn = function (_a) {
         var _b, _c, _d, _e;
         var label = _a.label, key = _a.key, idx = _a.idx, children = _a.children, passProps = _a.passProps, appState = _a.appState, setAppState = _a.setAppState, setLayoutConfig = _a.setLayoutConfig;
-        var colSection = React.createElement(label && ((_b = appState[label]) === null || _b === void 0 ? void 0 : _b.ui) &&
+        var colSection = createElement(label && ((_b = appState[label]) === null || _b === void 0 ? void 0 : _b.ui) &&
             layoutConfig.componentsSet[(_c = appState[label]) === null || _c === void 0 ? void 0 : _c.ui]
             ? layoutConfig.componentsSet[(_d = appState[label]) === null || _d === void 0 ? void 0 : _d.ui]
             : layoutConfig.componentsSet[idx], __assign(__assign(__assign(__assign({}, passProps), { appState: appState,
             routes: routes,
             key: key,
-            setAppState: setAppState }), styles), { label: label,
+            setAppState: setAppState }), styles$1), { label: label,
             setLayoutConfig: setLayoutConfig }), ((_e = appState[label]) === null || _e === void 0 ? void 0 : _e.children) || children);
         return colSection;
     };
     var linksSection = Object.keys(layoutConfig.links).map(function (path, id) {
         var _a = layoutConfig.links[path], style = _a.style, linkText = _a.linkText, linkStyle = _a.linkStyle;
-        return (React__default['default'].createElement(reactNative.View, { style: style, key: id + "-" + path },
-            React__default['default'].createElement(reactNative.Text, { style: linkStyle }, linkText)));
+        return (React.createElement(View, { style: style, key: id + "-" + path },
+            React.createElement(Text, { style: linkStyle }, linkText)));
     });
-    var headerSection = React__default['default'].createElement(reactNativeEasyGrid.Col, null, linksSection);
+    var headerSection = React.createElement(Col, null, linksSection);
     // TODO: add ability to add/remove labels and row/columns new from layout config
-    var _b = React.useState({
+    var _b = useState({
         ui: {},
         children: {},
         props: {},
     }), appState = _b[0], _setAppState = _b[1];
     var setAppState = function (newAppState) {
-        _setAppState(merge__default['default'](appState, newAppState));
+        _setAppState(merge(appState, newAppState));
     };
     //  overall routing engine
     var UX = function (layoutConfig) {
@@ -159,13 +149,13 @@ var GridSection = function (_a) {
                             setAppState: setAppState,
                             setLayoutConfig: setLayoutConfig });
                         // console.log(`colSize is ${colSize}`);
-                        return (React__default['default'].createElement(reactNativeEasyGrid.Col, { size: colSize, style: __assign({}, colStyle), key: rId + "-" + colNo },
-                            React__default['default'].createElement(UXColumn, __assign({}, passProps))));
+                        return (React.createElement(Col, { size: colSize, style: __assign({}, colStyle), key: rId + "-" + colNo },
+                            React.createElement(UXColumn, __assign({}, passProps))));
                     }
                     if (cols[cId].layout) {
                         // console.log(cols[cId]?.layout.colConfig?.colSize);
-                        return (React__default['default'].createElement(reactNativeEasyGrid.Col, { size: ((_b = (_a = cols[cId].layout) === null || _a === void 0 ? void 0 : _a.colConfig) === null || _b === void 0 ? void 0 : _b.colSize) || 1, style: __assign(__assign({}, (((_d = (_c = cols[cId].layout) === null || _c === void 0 ? void 0 : _c.colConfig) === null || _d === void 0 ? void 0 : _d.colStyle) || {})), { borderWidth: 0, borderColor: "blue" }) },
-                            React__default['default'].createElement(reactNativeEasyGrid.Grid, { style: {} }, UX(cols[cId].layout))));
+                        return (React.createElement(Col, { size: ((_b = (_a = cols[cId].layout) === null || _a === void 0 ? void 0 : _a.colConfig) === null || _b === void 0 ? void 0 : _b.colSize) || 1, style: __assign(__assign({}, (((_d = (_c = cols[cId].layout) === null || _c === void 0 ? void 0 : _c.colConfig) === null || _d === void 0 ? void 0 : _d.colStyle) || {})), { borderWidth: 0, borderColor: "blue" }) },
+                            React.createElement(Grid, { style: {} }, UX(cols[cId].layout))));
                     }
                 });
                 // console.log(`rowSize is ${rowSize}`);
@@ -182,21 +172,21 @@ var GridSection = function (_a) {
                     }
                     else {
                         // console.log(rows[rId]?.rowConfig?.rowSize);
-                        return (React__default['default'].createElement(reactNativeEasyGrid.Row, { size: ((_b = (_a = rows[rId]) === null || _a === void 0 ? void 0 : _a.rowConfig) === null || _b === void 0 ? void 0 : _b.rowSize) || 1, key: "" + rId, style: __assign({ borderWidth: 6, borderColor: "gray" }, (_d = (_c = rows[rId]) === null || _c === void 0 ? void 0 : _c.rowConfig) === null || _d === void 0 ? void 0 : _d.rowStyle) }, colsSection(rId, rows[rId])));
+                        return (React.createElement(Row, { size: ((_b = (_a = rows[rId]) === null || _a === void 0 ? void 0 : _a.rowConfig) === null || _b === void 0 ? void 0 : _b.rowSize) || 1, key: "" + rId, style: __assign({ borderWidth: 6, borderColor: "gray" }, (_d = (_c = rows[rId]) === null || _c === void 0 ? void 0 : _c.rowConfig) === null || _d === void 0 ? void 0 : _d.rowStyle) }, colsSection(rId, rows[rId])));
                     }
                 });
-                return (React__default['default'].createElement(reactNativeEasyGrid.Col, { style: { borderWidth: 0, borderColor: "red" } }, gridJsx)); /// return all rows in layout
+                return (React.createElement(Col, { style: { borderWidth: 0, borderColor: "red" } }, gridJsx)); /// return all rows in layout
             }
             else {
                 console.log("ERROR  :::: Possibly some routing label is incorrect in youir routes configuration.");
             }
         };
-        return (React__default['default'].createElement(reactNativeEasyGrid.Col, { size: ((_a = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _a === void 0 ? void 0 : _a.colSize) || 1, style: __assign({}, (_b = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _b === void 0 ? void 0 : _b.colStyle) }, gridSection(layoutConfig, setLayoutConfig)));
+        return (React.createElement(Col, { size: ((_a = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _a === void 0 ? void 0 : _a.colSize) || 1, style: __assign({}, (_b = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _b === void 0 ? void 0 : _b.colStyle) }, gridSection(layoutConfig, setLayoutConfig)));
     };
     // console.log(layoutConfig);
-    return (React__default['default'].createElement(reactNativeEasyGrid.Grid, { style: { flex: 1, borderWidth: 0, borderColor: "yellow" } },
-        React__default['default'].createElement(reactNativeEasyGrid.Row, null, headerSection),
-        React__default['default'].createElement(reactNativeEasyGrid.Row, null, UX(layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.layout) || {})));
+    return (React.createElement(Grid, { style: { flex: 1, borderWidth: 0, borderColor: "yellow" } },
+        React.createElement(Row, null, headerSection),
+        React.createElement(Row, null, UX(layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.layout) || {})));
 };
 
 var JSONEditor = /** @class */ (function (_super) {
@@ -208,12 +198,6 @@ var JSONEditor = /** @class */ (function (_super) {
         return null;
     };
     return JSONEditor;
-}(React.Component));
+}(Component));
 
-exports.GridSection = GridSection;
-exports.JSONEditor = JSONEditor;
-exports.colStyle = colStyle;
-exports.gridStyle = gridStyle;
-exports.rowStyle = rowStyle;
-exports.style1 = style1;
-exports.styles = styles;
+export { GridSection, JSONEditor, styles };

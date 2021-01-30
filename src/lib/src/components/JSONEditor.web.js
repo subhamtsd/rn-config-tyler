@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable react/prop-types */
-
 import ace from "brace";
 import "brace/mode/json";
 import "brace/theme/github";

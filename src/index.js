@@ -7,7 +7,6 @@ import React from "react";
 import { appConfig, routes } from "../examples/app-one/layout"; /// example with button clicks and routing with dynamic changes to screen
 // import { appConfig, routes } from "../examples/app-two/layout"; /// another example with changes
 // ****** EXAMPLE CONFIGS END ****************
-
 import WrappedApp from "./WrappedApp";
 
 // **************************************************

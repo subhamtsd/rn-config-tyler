@@ -1,14 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // import { registerRootComponent } from "expo";
 import merge from "deepmerge";
 import { object } from "dot-object";
 import React from "react";
 
-// FIXME: when publish the module, use only one of two lines below, right now local npm linking being used  
-// import { GridSection, JSONEditor } from "./lib/dist/index.es";
+// FIXME: when publish the module, use only one of two lines below, right now local npm linking being used
+// import { GridSection, JSONEditor } from "./lib/src";
 import { GridSection, JSONEditor } from "rn-config-tyler/dist/index.es";
-
 
 if (process.env.NODE_ENV !== "production") {
   console.log("Looks like we are in development mode!");

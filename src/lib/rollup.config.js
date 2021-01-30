@@ -1,9 +1,13 @@
-import typescript from '@rollup/plugin-typescript';
-import commonjs from '@rollup/plugin-commonjs';
+import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
 // import jsx from 'acorn-jsx';
-import pkg from './package.json';
+import pkg from "./package.json";
 
-const external = Object.keys(pkg.dependencies).concat(['path', 'fs', 'typescript']);
+const external = Object.keys(pkg.dependencies).concat([
+  "path",
+  "fs",
+  "typescript",
+]);
 
 // export default {
 //     plugins: [typescript({ sourceMap: false })],
@@ -14,10 +18,8 @@ const external = Object.keys(pkg.dependencies).concat(['path', 'fs', 'typescript
 //     ]
 // };
 
-
 export default {
-    input: './src/index.js',
-    plugins: [
-        typescript({ sourceMap: false, jsx: 'preserve' }),
-    ],
+  input: "./src/index.js",
+  plugins: [typescript({ sourceMap: false })],
+  output: [{ format: "esm", file: "./dist/index.es.js" }],
 };
