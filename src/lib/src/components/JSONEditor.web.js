@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import ace from "brace";
 import "brace/mode/json";
 import "brace/theme/github";
+import React, { Component } from "react";
 import { Platform } from "react-native";
 
 export class JSONEditor extends Component {
@@ -11,6 +10,7 @@ export class JSONEditor extends Component {
       return null;
     } else {
       require("./JSONEditor.css");
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const Editor = require("jsoneditor-react").JsonEditor;
 
       const { json, onError, onChangeJSON } = this.props;
@@ -32,9 +32,3 @@ export class JSONEditor extends Component {
     }
   }
 }
-
-JSONEditor.propTypes = {
-  json: PropTypes.object,
-  onError: PropTypes.func,
-  onChangeJSON: PropTypes.func,
-};
