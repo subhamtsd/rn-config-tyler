@@ -1,14 +1,19 @@
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
 import React, { createElement, useState } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
-import styles from "../styles";
+import { styles } from "../styles";
 // ******************************************************************** //
 
 // render a grid layout as per the configuration
-export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
+export const GridSection = ({
+  layoutConfig,
+  setLayoutConfig,
+  routes,
+  getEvents,
+}) => {
   // const history = useHistory();
 
   // pick from pre-loaded components and render properly, renders each component at column level
@@ -16,6 +21,9 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
     label,
     key,
     idx,
+    style,
+    colSize,
+    colStyle,
     children,
     passProps,
     appState,
@@ -37,6 +45,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
         ...styles,
         label,
         setLayoutConfig,
+        getEvents,
       },
       appState[label]?.children || children
     );
@@ -45,13 +54,18 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
   const linksSection = Object.keys(layoutConfig.links).map((path, id) => {
     const { style, linkText, linkStyle } = layoutConfig.links[path];
     return (
-      <View style={style} key={`${id}-${path}`}>
+      <Col
+        to={path}
+        underlayColor="#f0f4f7"
+        style={style}
+        key={`${id}-${path}`}
+      >
         <Text style={linkStyle}>{linkText}</Text>
-      </View>
+      </Col>
     );
   });
 
-  const headerSection = <Col>{linksSection}</Col>;
+  const headerSection = <Col style={styles.nav}>{linksSection}</Col>;
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
@@ -91,6 +105,7 @@ export const GridSection = ({ layoutConfig, setLayoutConfig, routes }) => {
               appState,
               setAppState,
               setLayoutConfig,
+              getEvents,
             };
 
             // console.log(`colSize is ${colSize}`);
