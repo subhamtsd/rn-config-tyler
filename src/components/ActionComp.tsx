@@ -3,12 +3,10 @@ import { Button, Text, View } from "react-native";
 
 export const ActionComp = ({
   label,
-  appState,
   children,
-  setAppState,
   setLayoutConfig,
-  events,
-  getEvents
+  routes,
+  appState,
 }) => {
   return (
     <View
@@ -20,18 +18,14 @@ export const ActionComp = ({
     >
       <Button
         title={"Back"}
-        testID={`${label}-btn-two`}
-        {...getEvents(events, `${label}-btn-two`, setLayoutConfig, setAppState)}
+        onPress={() => {
+          setLayoutConfig(routes?.routeOne, true);
+        }}
       ></Button>
-      <Button
-        testID={`${label}-btn-one`}
-        title={"Trigger"}
-        {...getEvents(events, `${label}-btn-one`, setLayoutConfig, setAppState)}
-      ></Button>
+      <Button title={"Trigger"}></Button>
       <Text style={{ textAlign: "center" }}>{label}</Text>
 
       {children || (appState && appState[label] && appState[label]?.children)}
-      {/* <Text>{appState && JSON.stringify(appState)}</Text> */}
     </View>
   );
 };
