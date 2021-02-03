@@ -29,8 +29,6 @@ cypress/videos
 e2e/cypress.json
 cypress/screenshots/App.spec.js/RN Compose Test -- check all needed is present (failed).png
 src/lib/node_modules
-.expo
-packages/lib/node_modules
-packages/components/node_modules
-packages/demoes/node_modules
-packages/examples/node_modules
+examples/react-router-port/.expo
+example/node_modules
+.vercel

@@ -35,7 +35,7 @@ export const RandomPic = ({
               home: {
                 ui: "About",
                 props: { label: "home->1" },
-                children: <Text>Hello from RandomPic</Text>,
+                children: <Text>Hola from RandomPic</Text>,
               },
               actioncomp: {
                 ui: "Home",
@@ -44,7 +44,7 @@ export const RandomPic = ({
               },
             });
           }}
-          title={`New Image ${label}`}
+          title={`Image ${label}`}
         ></Button>
       </View>
       {randomCatImg !== "" ? (

@@ -1,254 +1,274 @@
-import { About } from "../../src/components/About";
-import { ActionComp } from "../../src/components/ActionComp";
-import { Comp5 } from "../../src/components/Comp5";
-// import { JsonForm } from "./components/JsonForm";
-import { Home } from "../../src/components/Home";
-import { RandomPic } from "../../src/components/RandomPic";
-import { rowStyle, styles } from "../../src/lib";
-
-const schema = {
-  type: "object",
-  properties: {
-    username: { type: "string" },
-    password: { type: "string" },
-  },
-};
-
-// *****************************************************
-// import all your available components and export from one `componentsSet` object
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {
+  About,
+  ActionComp,
+  Comp5,
+  Home,
+  RandomPic,
+  JsonForm,
+} from "./components";
+import { rowStyle, styles } from "../common";
 // All component which will be rendered
-// *****************************************************
 export const componentsSet = {
   Comp5,
   ActionComp,
   Home,
   About,
   RandomPic,
-  // JsonForm
+  JsonForm,
 };
-
-// *****************************************************
-// declare all the layout changes that your application
-//  would have, and declare them as different `routes` insed a `routes` object which is exported.
-// *****************************************************
+// components section
+const _formData = {
+  phone: 8654787549,
+  otp: 654789,
+};
+const schema = {
+  type: "object",
+  properties: {
+    phone: { type: "number" },
+    otp: { type: "number" },
+  },
+};
+const uiSchema = {
+  phone: {
+    "ui:title": "Phone No. ",
+  },
+};
 export const routes = {};
 routes.routeOne = {
-  0: {
-    0: {
-      // layout: null // evict the earlier 1st column, other way is to hide it
+  "1.container": {
+    // col no
+    "1.1.leftNavCol": {
       layout: {
         colConfig: {
-          // colSize: 0, // *** change the colSize
-
-          colStyle: { display: "none" }, // *** hide the 1st column
+          colStyle: { display: "none" },
         },
       },
     },
-    1: {
+    "1.2.bodyCol": {
       layout: {
         colConfig: {
-          colSize: 8, // *** change the colSize
+          colSize: 1,
         },
-
-        1: {
-          // *** below we are adding a new row(this will replace current layout config values), and this will have 2 columns
-          0: {
-            // col no
-            colSize: 10,
-            idx: "RandomPic",
-            label: "comp5 >> changed at runtime 1",
+        "1.2.1.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: rowStyle,
           },
-          1: {
-            // col no
-            colSize: 10,
-            idx: "RandomPic",
-            label: "comp5 >> changed at runtime 2",
+          bodyHeader: {
+            colSize: 1,
+            idx: "About",
+            label: "bodyHeader-changed at 1st",
           },
         },
       },
     },
   },
 };
-
 routes.routeTwo = {
-  0: {
-    0: {
-      // layout: null // evict the earlier 1st column, other way is to hide it
+  // row no
+  "1.container": {
+    // col no
+    "1.1.leftNavCol": {
       layout: {
         colConfig: {
-          // colSize: 0, // *** change the colSize
-          colStyle: { display: "block" }, // *** hide the 1st column
+          colStyle: { display: "none" },
         },
       },
     },
-    1: {
+    "1.2.bodyCol": {
+      rowConfig: {
+        rowSize: 3,
+        rowStyle: { height: "100%" },
+      },
       layout: {
         colConfig: {
-          colSize: 3, // *** change the colSize
+          colSize: 1,
         },
-
-        1: {
-          // *** below we are adding a new row(this will replace current layout config values), and this will have 2 columns
-          0: {
-            // col no
-            colSize: 10,
-            idx: "About",
-            label: "comp5 >> changed at runtime 1",
+        "1.2.1.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: { height: "30%" },
           },
-          1: {
-            // col no
-            colSize: 10,
+          bodyHeader: {
+            // colSize: 1,
             idx: "About",
-            label: "comp5 >> changed at runtime 2",
+            label: "bodyHeader-changed at 2nd",
+            colStyle: {
+              borderColor: "cyan",
+              borderWidth: 4,
+              height: "30%",
+              backgroundColor: "skyblue",
+            },
+          },
+        },
+        "1.2.2.bodyContentRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: { height: "40%" },
+          },
+          bodyContent: {
+            // colSize: 1,
+            idx: "About",
+            label: "bodyContent",
+            colStyle: {
+              borderColor: "cyan",
+              borderWidth: 4,
+              height: "40%",
+              backgroundColor: "red",
+            },
+          },
+        },
+        "1.2.3.bodyFooterRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: { height: "30%" },
+          },
+          bodyFooter: {
+            // colSize: 1,
+            idx: "Home",
+            label: "bodyFooter",
+            colStyle: {
+              borderColor: "cyan",
+              borderWidth: 4,
+              height: "30%",
+              backgroundColor: "yellow",
+            },
           },
         },
       },
     },
   },
 };
-
 // *************************************************
-//  exported `appConfig` object - represents initial Layout configuration
+//  Layout config
 // *************************************************
-export const appConfig = {
-  componentsSet,
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-    "/contact": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Messages",
-    },
+// links row
+const links = {
+  "/": {
+    style: styles.navItem,
+    linkStyle: styles.tabName,
+    linkText: "Home",
   },
+  "/about": {
+    style: styles.navItem,
+    linkStyle: styles.tabName,
+    linkText: "Feed",
+  },
+};
+export const appConfig = {
+  /// 1st layout
+  componentsSet,
+  links,
   layout: {
-    colConfig: {
-      colSize: 1,
-    },
     // row no
-    0: {
+    "1.container": {
       rowConfig: {
         rowSize: 1,
-        rowStyle: { height: "100vh" },
+        rowStyle: { height: "100%" },
       },
       // col no
-      0: {
+      "1.1.leftNavCol": {
         layout: {
           colConfig: {
-            colSize: 2,
+            colSize: 1,
+            colStyle: { backgroundColor: "grey" },
           },
-          0: {
+          "1.1.leftNavHeaderRow": {
             // row no
             rowConfig: {
               rowSize: 1,
-              rowStyle: { height: "5vh" },
+              rowStyle: { height: "100%" },
             },
-            0: {
+            leftNavHeader: {
               // col no
               colSize: 1,
               idx: "Home",
-              label: "home",
-              colStyle: { borderWidth: 4 },
-            },
-          },
-          1: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "90vh" },
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "About",
-              label: "about",
-              colStyle: { borderWidth: 4 },
-            },
-            1: {
-              // col no
-              colSize: 1,
-              idx: "Comp5",
-              label: "comp5",
-              colStyle: { borderWidth: 4 },
-            },
-          },
-          2: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "10vh" },
-            },
-            0: {
-              // col no
-              colSize: 4,
-              idx: "RandomPic",
-              label: "rpic",
-              colStyle: { borderWidth: 4 },
+              label: "leftNavHeader",
+              colStyle: {
+                borderColor: "cyan",
+                borderWidth: 4,
+                height: "100%",
+                backgroundColor: "lightgreen",
+              },
             },
           },
         },
       },
-      1: {
+      "1.2.bodyCol": {
+        rowConfig: {
+          rowSize: 1,
+          rowStyle: { height: "100%" },
+        },
         layout: {
           colConfig: {
-            colSize: 5,
+            colSize: 2,
+            colStyle: {
+              backgroundColor: "grey",
+            },
           },
-          0: {
-            // row no
+          "1.2.1.bodyHeaderRow": {
             rowConfig: {
               rowSize: 1,
-              rowStyle: { height: "10vh" },
+              rowStyle: { height: "80%" },
             },
-            0: {
+            bodyHeader: {
               // col no
-              colSize: 24,
-              idx: "Comp5",
-              label: "comp5.11",
-              schema,
-              colStyle: { borderWidth: 4 },
-            },
-          },
-          1: {
-            // row no
-            rowConfig: {
-              rowSize: 12,
-              rowStyle: { height: "10vh" },
-            },
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Comp5",
-              label: "comp5.12",
-              schema,
-              colStyle: { borderWidth: 4 },
-            },
-          },
-          2: {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "10vh" },
-            },
-
-            0: {
-              // col no
-              colSize: 1,
-              idx: "Comp5",
-              label: "comp5.13",
-              schema,
-              colStyle: { borderWidth: 4 },
+              colSize: 2,
+              //   idx: "About",
+              idx: "JsonForm",
+              label: "bodyHeader",
+              colStyle: {
+                borderColor: "cyan",
+                alignSelf: "center",
+                borderWidth: 4,
+                height: "80%",
+                backgroundColor: "skyblue",
+              },
+              passProps: {
+                schema,
+                uiSchema,
+                _formData,
+              },
             },
           },
         },
       },
     },
   },
+};
+// *************************************************
+//  "../applications/app-one/screen-one";
+// *************************************************
+// bind events to
+//  logic that binds
+export const events = {
+  //<label>-<element-id> : <handler>
+  "leftNavHeader-btn-one": {
+    // <event> :: <handler>
+    onPress: (setLayoutConfig) => {
+      setLayoutConfig(routes["routeOne"]);
+    },
+  },
+  "bodyHeader-changed at 1st-btn-one": {
+    // <event> :: <handler>
+    onPress: (setLayoutConfig) => {
+      setLayoutConfig(routes["routeTwo"]);
+    },
+  },
+};
+// *************************************************
+//  Helper Util
+// *************************************************
+// bind events based on the layout config
+export const getEvents = (elId, setLayoutConfig, setAppState) => {
+  const elEvents = {};
+  events[elId] &&
+    Object.keys(events[elId]).map((eventName) => {
+      elEvents[eventName] = () =>
+        events[elId] && events[elId][eventName] && events[elId][eventName]
+          ? events[elId][eventName](setLayoutConfig, setAppState)
+          : {};
+    });
+  return elEvents;
 };

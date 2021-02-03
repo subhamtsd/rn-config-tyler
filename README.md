@@ -24,6 +24,8 @@
 - ability to jump to any route by switching config
 - All JSON based app configuration (easier to change workflows)
 
+[Minimal Sample Built](https://rn-config-tyler.vercel.app/) 
+
 ### getting started
 
 1. Create the initial page layout config, which is also called `layoutConfig` or `appConfig`. Have a look at the examples folder `layout` files to figure out how to write a layoutConfig. At minimal it needs to have an appConfig JSON to be declared and exported out of that file. A snippet is given below, but it is _complex_, running the examples in `examples` folde would be much better to get started. Trust me :-)
