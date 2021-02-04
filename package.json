@@ -1,7 +1,45 @@
 {
-  "name": "rn-composable",
-  "private": true,
+  "name": "rn-config-tyler",
+  "version": "0.0.1",
+  "description": "[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/applerdotxyz/rn-config-tyler)",
+  "keywords": [],
+  "main": "packages/lib/dist/index.es.js",
+  "module": "dist/index.es.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "peerDependencies": {
+    "tslib": "*"
+  },
+  "dependencies": {
+    
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
-  }
+  },
+  "scripts": {
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "files": [
+    "dist"
+  ],
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/applerdotxyz/rn-config-tyler.git"
+  },
+  "author": "applerdotxyz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/applerdotxyz/rn-config-tyler/issues"
+  },
+  "homepage": "https://github.com/applerdotxyz/rn-config-tyler#readme"
 }
+
