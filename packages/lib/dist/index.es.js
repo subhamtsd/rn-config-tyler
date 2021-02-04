@@ -140,25 +140,24 @@ var GridSection = function (_a) {
                 return rowJsx;
             };
             var gridJsx = [];
-            // if (rows && Object.keys(rows)) {
-            gridJsx = Object.keys(rows).map(function (rId) {
-                // const style = rows[rId]?.rowConfig?.rowStyle || {};
-                // console.log(rows[rId].rowConfig);
-                var _a, _b, _c, _d;
-                if (rId === "colConfig") {
-                    return null;
-                }
-                else {
-                    // console.log(rows[rId]?.rowConfig?.rowSize);
-                    return (React.createElement(Row, { size: ((_b = (_a = rows[rId]) === null || _a === void 0 ? void 0 : _a.rowConfig) === null || _b === void 0 ? void 0 : _b.rowSize) || 1, key: "" + rId, style: __assign({ borderWidth: 6, borderColor: "gray" }, (_d = (_c = rows[rId]) === null || _c === void 0 ? void 0 : _c.rowConfig) === null || _d === void 0 ? void 0 : _d.rowStyle) }, colsSection(rId, rows[rId])));
-                }
-            });
-            return (React.createElement(Col, { style: { borderWidth: 0, borderColor: "red" } }, gridJsx)); /// return all rows in layout
-            // } else {
-            //   console.log(
-            //     "ERROR  :::: Possibly some routing label is incorrect in youir routes configuration."
-            //   );
-            // }
+            if (rows && Object.keys(rows)) {
+                gridJsx = Object.keys(rows).map(function (rId) {
+                    // const style = rows[rId]?.rowConfig?.rowStyle || {};
+                    // console.log(rows[rId].rowConfig);
+                    var _a, _b, _c, _d;
+                    if (rId === "colConfig") {
+                        return null;
+                    }
+                    else {
+                        // console.log(rows[rId]?.rowConfig?.rowSize);
+                        return (React.createElement(Row, { size: ((_b = (_a = rows[rId]) === null || _a === void 0 ? void 0 : _a.rowConfig) === null || _b === void 0 ? void 0 : _b.rowSize) || 1, key: "" + rId, style: __assign({ borderWidth: 6, borderColor: "gray" }, (_d = (_c = rows[rId]) === null || _c === void 0 ? void 0 : _c.rowConfig) === null || _d === void 0 ? void 0 : _d.rowStyle) }, colsSection(rId, rows[rId])));
+                    }
+                });
+                return (React.createElement(Col, { style: { borderWidth: 0, borderColor: "red" } }, gridJsx)); /// return all rows in layout
+            }
+            else {
+                console.log("ERROR  :::: Possibly some routing label is incorrect in youir routes configuration.");
+            }
         };
         return (React.createElement(Col, { size: ((_a = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _a === void 0 ? void 0 : _a.colSize) || 1, style: __assign({}, (_b = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _b === void 0 ? void 0 : _b.colStyle) }, gridSection(layoutConfig, setLayoutConfig)));
     };
