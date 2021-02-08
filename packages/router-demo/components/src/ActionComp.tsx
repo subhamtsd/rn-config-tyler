@@ -7,7 +7,10 @@ export const ActionComp = ({
   setLayoutConfig,
   routes,
   appState,
+  setAppState,
 }) => {
+  console.log(appState.global?.total);
+  
   return (
     <View
       style={
@@ -22,7 +25,7 @@ export const ActionComp = ({
           setLayoutConfig(routes?.routeOne, true);
         }}
       ></Button>
-      <Button title={"Trigger"}></Button>
+      <Button title={`${appState?.global?.total} Trigger`}></Button>
       <Text style={{ textAlign: "center" }}>{label}</Text>
 
       {children || (appState && appState[label] && appState[label]?.children)}
