@@ -1,7 +1,7 @@
 import React from "react";
 
 // ****** EXAMPLE CONFIGS START ****************
-import { appConfig, routes } from "./layout"; /// example with button clicks and routing with dynamic changes to screen
+import { appConfig, routes } from "../examples/layout"; /// example with button clicks and routing with dynamic changes to screen
 // import { appConfig, routes } from "../examples/sagar-poc/layout"; /// example with button clicks and routing with dynamic changes to screen
 // import { appConfig, routes } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
 // import { appConfig, routes } from "../../examples/app-two/layout"; /// another example with changes

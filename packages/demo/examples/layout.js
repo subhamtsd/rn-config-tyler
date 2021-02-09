@@ -4,9 +4,9 @@ import {
   Home,
   About,
   RandomPic,
-} from "./components/src/index.js";
+} from "../components/src/index.js";
 // } from "composable-components/dist/index.es.js";
-import { rowStyle, styles } from "./helpers/lib/src/styles";
+import { rowStyle, styles } from "../helpers/lib/src/styles";
 
 // All component which will be rendered
 export const componentsSet = {

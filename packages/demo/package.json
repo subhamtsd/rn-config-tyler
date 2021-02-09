@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/applerdotxyz/rn-config-tyler)",
   "keywords": [],
-  "main": "index.js",
+  "main": "./router-demo/index.js",
   "dependencies": {
     "dot-object": "2.1.4",
     "expo": "^40.0.1",
