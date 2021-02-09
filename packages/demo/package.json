@@ -16,6 +16,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "latest",
     "@commitlint/config-conventional": "^8.3.4",
+    "@expo/webpack-config": "^0.12.58",
     "@types/dot-object": "^2.1.2",
     "@types/jest": "^26.0.4",
     "@types/jest-json-schema": "^2.1.2",
