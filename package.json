@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/applerdotxyz/rn-config-tyler)",
   "keywords": [],
-  "main": "packages/lib/dist/index.es.js",
+  "main": "packages/demo/router-demo/helpers/lib/dist/index.es.js",
   "module": "dist/index.es.js",
   "engines": {
     "node": ">=8.0.0"
