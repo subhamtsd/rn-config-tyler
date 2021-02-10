@@ -1,7 +1,8 @@
 // import { registerRootComponent } from "expo";
+import React, { useState } from "react";
 import merge from "deepmerge";
 import { object } from "dot-object";
-import React from "react";
+
 // FIXME: when publish the module, use only one of two lines below, right now local npm linking being used
 import { GridSection, JSONEditor } from "../helpers/lib/src/index";
 // import { GridSection, JSONEditor } from "rn-config-tyler";
@@ -13,49 +14,36 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 //  overall container app
-export default class WrappedApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      config: props?.appConfig,
-    };
-  }
+const WrappedApp = (props) => {
+  const [config, setConfig] = useState(props?.appConfig);
 
-  render() {
-    return (
-      <>
-        {this.props?.debug ? (
-          <JSONEditor
-            json={this.state?.config}
-            onChangeJSON={(json) => {
-              // TODO: add schema conformation for JSONEditor values of component names
-              this.setState({ config: json }, () => {
-                //
-              });
-            }}
-          />
-        ) : null}
-        <GridSection
-          layoutConfig={this.state?.config}
-          routes={this.props?.routes}
-          setLayoutConfig={(config, isDottedFormat = false) => {
-            // TODO: find out if the object is in collapsed/dotted format
-            if (isDottedFormat) {
-              // expand to proper JSON from dotted notation
-              config = object(config);
-            }
-            this.setState(
-              {
-                // TODO: fix thois to be possible with only identifier
-                config: merge(this?.state?.config, { layout: config }),
-              },
-              () => {
-                console.log(this?.state?.config);
-              }
-            );
+  const setLayoutConfig = (_config, isDottedFormat = false) => {
+    // find out if the object is in collapsed/dotted format
+    if (isDottedFormat) {
+      // expand to proper JSON from dotted notation
+      _config = object(_config);
+    }
+    setConfig(merge(config, { layout: _config }));
+    // console.log(config);
+  };
+  return (
+    <>
+      {props?.debug ? (
+        <JSONEditor
+          json={config}
+          onChangeJSON={(json) => {
+            // TODO: add schema conformation for JSONEditor values of component names
+            setConfig(json);
           }}
         />
-      </>
-    );
-  }
-}
+      ) : null}
+      <GridSection
+        layoutConfig={config}
+        getEvents={props?.getEvents}
+        routes={props?.routes}
+        setLayoutConfig={setLayoutConfig}
+      />
+    </>
+  );
+};
+export default WrappedApp;

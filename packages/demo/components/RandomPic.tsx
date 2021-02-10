@@ -7,7 +7,7 @@ export const RandomPic = ({
   setAppState,
   appState,
   getEvents,
-}) => {
+}: any) => {
   const [randomCatImg, setRandomCatImg] = useState(null);
 
   const fetchRandomCat = () => {
@@ -28,23 +28,24 @@ export const RandomPic = ({
   return (
     <View>
       <View>
+        <Text>`RandomPic *** {label}`</Text>
         <Button
           onPress={() => {
             fetchRandomCat();
             setAppState({
-              home: {
+              bodyFooter: {
                 ui: "About",
-                props: { label: "home->1" },
-                children: <Text>Hola from RandomPic</Text>,
+                props: { label: "bodyFooter1" },
+                children: <Text>Hello from RandomPic</Text>,
               },
-              actioncomp: {
+              bodyContent: {
                 ui: "Home",
                 props: { label: "actioncomp-2" },
                 children: null,
               },
             });
           }}
-          title={`Image ${label}`}
+          title={`New Image ${label}`}
         ></Button>
       </View>
       {randomCatImg !== "" ? (
@@ -57,7 +58,7 @@ export const RandomPic = ({
           />
         </View>
       ) : (
-        <Text>Loading Image</Text>
+        <Text>`Loading Image *** {label}`</Text>
       )}
     </View>
   );

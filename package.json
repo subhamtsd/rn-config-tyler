@@ -12,13 +12,12 @@
     "tslib": "*"
   },
   "dependencies": {
-    
+    "react-native-web-jsonschema-form": "^3.1.4"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -42,4 +41,3 @@
   },
   "homepage": "https://github.com/applerdotxyz/rn-config-tyler#readme"
 }
-

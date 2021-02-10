@@ -91,7 +91,7 @@ var GridSection = function (_a) {
         return (React.createElement(Col, { to: path, underlayColor: "#f0f4f7", style: style, key: id + "-" + path },
             React.createElement(Text, { style: linkStyle }, linkText)));
     });
-    var headerSection = React.createElement(Col, { style: styles.nav }, linksSection);
+    var headerSection = (React.createElement(Col, { style: __assign({}, styles.nav) }, linksSection));
     // TODO: add ability to add/remove labels and row/columns new from layout config
     var _b = useState({
         ui: {},
@@ -163,7 +163,7 @@ var GridSection = function (_a) {
     };
     // console.log(layoutConfig);
     return (React.createElement(Grid, { style: { flex: 1, borderWidth: 0, borderColor: "yellow" } },
-        React.createElement(Row, null, headerSection),
+        React.createElement(Row, { style: { maxHeight: "5vh" } }, headerSection),
         React.createElement(Row, null, UX(layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.layout) || {})));
 };
 

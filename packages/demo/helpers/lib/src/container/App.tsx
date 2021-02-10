@@ -1,6 +1,6 @@
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
-import React, { createElement, useState } from "react";
+import React, { createElement, useEffect, useState } from "react";
 import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
@@ -51,7 +51,7 @@ export const GridSection = ({
     );
     return colSection;
   };
-  const linksSection = Object.keys(layoutConfig.links).map((path, id) => {
+  const linksSection = Object.keys(layoutConfig.links || {}).map((path, id) => {
     const { style, linkText, linkStyle } = layoutConfig.links[path];
     return (
       <Col
@@ -65,18 +65,24 @@ export const GridSection = ({
     );
   });
 
-  const headerSection = <Col style={styles.nav}>{linksSection}</Col>;
+  const headerSection = <Col style={{ ...styles.nav }}>{linksSection}</Col>;
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
     ui: {},
     children: {},
     props: {},
+    $global: {},
   });
 
   const setAppState = (newAppState) => {
     _setAppState(merge(appState, newAppState));
   };
+
+  useEffect(() => {
+    // {/* TRIGGER initial events */}
+    getEvents("$appInit", setLayoutConfig, setAppState);
+  }, []);
 
   //  overall routing engine
   const UX = (layoutConfig) => {
@@ -191,7 +197,7 @@ export const GridSection = ({
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      <Row>{headerSection}</Row>
+      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
       <Row>{UX(layoutConfig?.layout) || {}}</Row>
     </Grid>
   );

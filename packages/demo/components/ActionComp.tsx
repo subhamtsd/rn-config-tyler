@@ -3,14 +3,13 @@ import { Button, Text, View } from "react-native";
 
 export const ActionComp = ({
   label,
-  children,
-  setLayoutConfig,
-  routes,
   appState,
+  children,
   setAppState,
-}) => {
-  console.log(appState.global?.total);
-  
+  setLayoutConfig,
+  events,
+  getEvents,
+}: any) => {
   return (
     <View
       style={
@@ -21,14 +20,18 @@ export const ActionComp = ({
     >
       <Button
         title={"Back"}
-        onPress={() => {
-          setLayoutConfig(routes?.routeOne, true);
-        }}
+        testID={`${label}-btn-two`}
+        {...getEvents(`${label}-btn-two`, setLayoutConfig, setAppState)}
       ></Button>
-      <Button title={`${appState?.global?.total} Trigger`}></Button>
+      <Button
+        testID={`${label}-btn-one`}
+        title={"Trigger"}
+        {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
+      ></Button>
       <Text style={{ textAlign: "center" }}>{label}</Text>
 
       {children || (appState && appState[label] && appState[label]?.children)}
+      {/* <Text>{appState && JSON.stringify(appState)}</Text> */}
     </View>
   );
 };
