@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import merge from "deepmerge";
 import { object } from "dot-object";
 
-// FIXME: when publish the module, use only one of two lines below, right now local npm linking being used
 import { GridSection, JSONEditor } from "../helpers/lib/src/index";
+// FIXME: when publish the module, use only one of two lines below, right now local npm linking being used
 // import { GridSection, JSONEditor } from "rn-config-tyler";
-
 // import { GridSection, JSONEditor, styles } from "rn-config-tyler/dist/index.es";
 
 if (process.env.NODE_ENV !== "production") {

@@ -8,5 +8,6 @@ export * from "./RenderList";
 export * from "./json-form/JsonForm";
 export * from "./ListEntities";
 export * from "./TabComponent";
+export * from "./Cal";
 export * from "./NavigationBar/index";
 // export * from "./json-form/JsonForm";

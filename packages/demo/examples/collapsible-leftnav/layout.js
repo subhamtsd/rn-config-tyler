@@ -1,13 +1,19 @@
 import React from "react";
 import { Text } from "react-native";
-import { About } from "../../src/components/About";
-import { ActionComp } from "../../src/components/ActionComp";
-import { Comp5 } from "../../src/components/Comp5";
-// import { JsonForm } from "./components/JsonForm";
-import { Home } from "../../src/components/Home";
-import { RandomPic } from "../../src/components/RandomPic";
-import {  rowStyle, styles } from "../common";
-
+import {
+  About,
+  ActionComp,
+  Comp5,
+  Home,
+  RandomPic,
+  JsonForm,
+  ListEntities,
+  RenderList,
+  NavigationBar,
+  TabComponent,
+  Cal,
+} from "../../components";
+import { styles, rowStyle } from "../common";
 // All component which will be rendered
 export const componentsSet = {
   Comp5,

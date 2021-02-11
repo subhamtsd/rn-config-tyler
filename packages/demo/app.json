@@ -1,7 +1,7 @@
 {
     "expo": {
-      "name": "rn-config-tyler",
-      "slug": "rn-config-tyler",
+      "name": "rn-config-tyler-demo",
+      "slug": "rn-config-tyler-demo",
       "platforms": ["ios", "android", "web"],
       "version": "1.0.0",
       "orientation": "portrait",

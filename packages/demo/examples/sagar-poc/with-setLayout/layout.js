@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About } from "../../../src/components/About";
-import { ActionComp } from "../../../src/components/ActionComp";
-import { Comp5 } from "../../../src/components/Comp5";
-import { Home } from "../../../src/components/Home";
-import { RandomPic } from "../../../src/components/RandomPic";
+import {
+  About,
+  ActionComp,
+  Comp5,
+  Home,
+  RandomPic,
+  JsonForm,
+  ListEntities,
+  RenderList,
+  NavigationBar,
+  TabComponent,
+} from "../../../components";
 import { styles, rowStyle } from "../../common";
 
 // All component which will be rendered
