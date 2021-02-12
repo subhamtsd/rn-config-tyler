@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,7 +14,7 @@ import { RenderList } from "../components/RenderList";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const ListEntities = () => {
-  const { goBack } = useNavigation();
+  // const { goBack } = useNavigation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +74,7 @@ export const ListEntities = () => {
         <Button
           accessibilityLabel="link"
           onPress={() => {
-            goBack();
+            // goBack();
           }}
           title="Go Back"
         />
