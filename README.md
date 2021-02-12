@@ -34,6 +34,8 @@
 
 ![demo for the router](https://github.com/applerdotxyz/rn-config-tyler/blob/develop/demo-config-router.png)
 
+
+![demo for the router-mobile](https://github.com/applerdotxyz/rn-config-tyler/blob/develop/demo.png)
 #### STEP 1: COMPONENTS SET(your code)
 
 ```
