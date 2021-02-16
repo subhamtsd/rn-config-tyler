@@ -373,10 +373,12 @@ export const events = {
               list_of_complaints: {
                 data: _data.ticketDetails,
               },
-              form: {
-                formData: args.params.values,
-                schema,
-                uiSchema,
+              bodyHeader: {
+                form: {
+                  formData: args.params.values,
+                  schema,
+                  uiSchema,
+                },
               },
             },
           });

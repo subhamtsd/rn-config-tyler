@@ -120,9 +120,9 @@ export const NavigationBar = (props: {
                   />
                 ))}
                 <Text>
-                  {appState?.$global?.form?.formData?.phone
+                  {appState?.$global["bodyHeader"]?.form?.formData?.phone
                     ? "Verified Phone No:- " +
-                      appState?.$global?.form?.formData?.phone
+                      appState?.$global["bodyHeader"]?.form?.formData?.phone
                     : null}
                 </Text>
               </ScrollView>

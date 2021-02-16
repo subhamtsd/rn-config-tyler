@@ -38,21 +38,8 @@ export const JsonForm = ({
   // TODO: submit formData to ideal connected endpoint
   const [formData, setFormData] = useSafeSetState({
     ..._formData,
-    ...appState?.$global?.form?.formData, // FIXME: get this based on component property
+    ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
   });
-  // const onBeforeSubmit = (event) => {
-  //   console.log("*** onBeforeSubmit ***");
-  //   console.log(event.params.values.phone);
-  //   console.log(event.params.values.otp);
-  //   console.log(event);
-  //   // console.log(e.params.values);
-  //   setAppState({
-  //     $appState: {
-  //       loginValues: event.param.values,
-  //     },
-  //   });
-  //   _onBeforeSubmit(event);
-  // };
   const onError = (event) => {
     console.log("*** onError ***");
     console.log(event);
