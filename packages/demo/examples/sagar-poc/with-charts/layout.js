@@ -6,10 +6,10 @@ import {
   Home,
   RandomPic,
   JsonForm,
-  AgendaScroll,
-  Cal,
+  Charts,
 } from "../../../components";
 import { styles, rowStyle } from "../../common";
+
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -18,8 +18,7 @@ export const componentsSet = {
   About,
   RandomPic,
   JsonForm,
-  Cal,
-  AgendaScroll,
+  Charts,
 };
 
 // components section
@@ -48,8 +47,7 @@ routes.routeOne = {
           },
           bodyHeader: {
             colSize: 1,
-            //   idx: "About",
-            idx: "Cal",
+            idx: "Charts",
             label: "bodyHeader",
             colStyle: {
               borderColor: "cyan",
@@ -147,8 +145,7 @@ export const appConfig = {
             bodyHeader: {
               // col no
               colSize: 1,
-              //   idx: "About",
-              idx: "AgendaScroll",
+              idx: "About",
               label: "bodyHeader",
               colStyle: {
                 borderColor: "cyan",

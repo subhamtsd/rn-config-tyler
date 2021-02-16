@@ -36,6 +36,7 @@ export const styles = {
   nav: {
     flexDirection: "row",
     justifyContent: "space-around",
+    // marginTop:"5%"
   },
   navItem: {
     flex: 1,

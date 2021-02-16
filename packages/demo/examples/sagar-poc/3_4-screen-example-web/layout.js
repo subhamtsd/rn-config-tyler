@@ -263,7 +263,7 @@ export const appConfig = {
             leftNavHeader: {
               // col no
               colSize: 1,
-              idx: "NavigationBar",
+              idx: "Home",
               label: "leftNavHeader",
               colStyle: {
                 borderColor: "cyan",
@@ -339,11 +339,13 @@ export const events = {
     },
   },
   "bodyHeader-form": {
-    onSuccess: (setLayoutConfig, setAppState, appState) => {
+    onSuccess: (event, setLayoutConfig, setAppState, appState) => {
+      console.log("here");
       console.log(event);
       // alert("here");
       // PREPARING THE DATA
       // FIXME: MOVE THIS TO EVENT MANAGEMENT SIDE
+
       setAppState({
         $global: {
           list_of_complaints: {
@@ -359,28 +361,33 @@ export const events = {
       const res = fetch(
         "https://run.mocky.io/v3/15c75559-42b2-45ed-bcf2-06c48aa51bdf"
       )
+        // .then((res) => {
+        //   console.log(res);
+        //   return res.json();
+        // })
+        // .then((res) => {
+        //   console.log(res);
+        // })
         .then((res) => res.json())
         .then((_data) => {
-          const _formData = {
-            phone: 8654787549,
-            otp: 654789,
-          };
-
-          const schema = {
-            type: "object",
-            properties: {
-              phone: { type: "number" },
-              otp: { type: "number" },
-            },
-          };
-
-          const uiSchema = {
-            phone: {
-              "ui:title": "Phone No. ",
-            },
-          };
           setAppState({
             $global: {
+              // const _formData : {
+              //   phone: 8654787549,
+              //   otp: 654789,
+              // },
+              // const schema : {
+              //   type: "object",
+              //   properties: {
+              //     phone: { type: "number" },
+              //     otp: { type: "number" },
+              //   },
+              // },
+              // const uiSchema : {
+              //   phone: {
+              //     "ui:title": "Phone No. ",
+              //   },
+              // },
               list_of_complaints: {
                 data: _data.ticketDetails,
               },
@@ -394,12 +401,8 @@ export const events = {
           // FIXME: below change is not immedeately reflected , fix the bug
           setLayoutConfig(
             {
-              // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
-              //   "Home",
               "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx":
                 "RenderList",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
-                "bodyContent-changed",
               "1container.12bodyCol.layout.122bodyContentRow.bodyContent.passProps": {
                 data: appState?.$global?.list_of_complaints?.data,
                 searchFields: [
@@ -412,6 +415,8 @@ export const events = {
                 titleStyle: null,
                 dataStyle: { color: "darkblue" },
               },
+              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
+                "bodyContent-changed",
             },
             true
           );
@@ -439,7 +444,13 @@ export const events = {
 //  Helper Util
 // *************************************************
 // bind events based on the layout config
-export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
+export const getEvents = (
+  elId,
+  event,
+  setLayoutConfig,
+  setAppState,
+  appState
+) => {
   // if (elId === "$appInit") {
   //   await events["$appInit"](setLayoutConfig, setAppState);
   // } else {
@@ -448,7 +459,12 @@ export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
     Object.keys(events[elId]).map((eventName) => {
       elEvents[eventName] = () =>
         events[elId] && events[elId][eventName] && events[elId][eventName]
-          ? events[elId][eventName](setLayoutConfig, setAppState, appState)
+          ? events[elId][eventName](
+              event,
+              setLayoutConfig,
+              setAppState,
+              appState
+            )
           : {};
     });
   return elEvents;

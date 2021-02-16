@@ -197,7 +197,7 @@ export const GridSection = ({
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
+      <Row style={{ maxHeight: "7%" }}>{headerSection}</Row>
       <Row>{UX(layoutConfig?.layout) || {}}</Row>
     </Grid>
   );

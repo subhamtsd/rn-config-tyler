@@ -1,2 +1,1 @@
-
-export const JSONEditor = function () => null;
+export default (function () {});

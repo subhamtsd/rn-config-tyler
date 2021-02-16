@@ -75,7 +75,7 @@ routes.routeTwo = {
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "30%" },
+            rowStyle: { height: "100%" },
           },
           bodyHeader: {
             // colSize: 1,
@@ -84,7 +84,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "30%",
+              height: "100%",
               backgroundColor: "skyblue",
             },
           },
@@ -92,7 +92,7 @@ routes.routeTwo = {
         "1.2.2.bodyContentRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "40%" },
+            rowStyle: { height: "100%" },
           },
           bodyContent: {
             // colSize: 1,
@@ -101,7 +101,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "40%",
+              height: "100%",
               backgroundColor: "red",
             },
           },
@@ -109,7 +109,7 @@ routes.routeTwo = {
         "1.2.3.bodyFooterRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "30%" },
+            rowStyle: { height: "100%" },
           },
           bodyFooter: {
             // colSize: 1,
@@ -118,7 +118,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "30%",
+              height: "100%",
               backgroundColor: "yellow",
             },
           },

@@ -15,6 +15,7 @@ const noOp = (): void => {};
 
 export const JsonForm = ({
   formId = "form",
+  event,
   setAppState,
   appState,
   _onBeforeSubmit = noOp,
@@ -46,22 +47,25 @@ export const JsonForm = ({
     console.log(event.params.values.otp);
     console.log(event);
     // console.log(e.params.values);
-    setAppState({
-      $appState: {
-        loginValues: event.param.values,
-      },
-    });
+
+    // setAppState({
+    //   $appState: {
+    //     loginValues: event.param.values,
+    //   },
+    // });
+    setFormData(event.params.value)
+
     _onBeforeSubmit(event);
   };
 
-  const onSuccess = (event) => {
-    console.log("onSuccess outer called");
-    const { response } = event.params;
-    console.log(response);
-    _onSuccess(event);
-    // setLoading(false);
-    // setMessage(response.data[controller][action].message);
-  };
+  // const onSuccess = (event) => {
+  //   console.log("onSuccess outer called");
+  //   const { response } = event.params;
+  //   console.log(response);
+  //   _onSuccess(event);
+  //   // setLoading(false);
+  //   // setMessage(response.data[controller][action].message);
+  // };
 
   const onError = (event) => {
     console.log("*** onError ***");
@@ -165,7 +169,7 @@ export const JsonForm = ({
         cancelButton={false}
         onChange={_onChange}
         buttonPosition="center"
-        {...getEvents(`${label}-form`, setLayoutConfig, setAppState, appState)}
+        {...getEvents(`${label}-form`, event,setLayoutConfig, setAppState, appState)}
       />
       {/* </MainContainer> */}
     </ThemeWrapper>
