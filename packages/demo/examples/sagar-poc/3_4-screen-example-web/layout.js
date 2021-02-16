@@ -12,6 +12,7 @@ import {
   TabComponent,
 } from "../../../components";
 import { styles, rowStyle } from "../../common";
+
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -25,27 +26,6 @@ export const componentsSet = {
   NavigationBar,
   TabComponent,
 };
-
-let data = [];
-const _formData = {
-  phone: 8654787549,
-  otp: 654789,
-};
-
-const schema = {
-  type: "object",
-  properties: {
-    phone: { type: "number" },
-    otp: { type: "number" },
-  },
-};
-
-const uiSchema = {
-  phone: {
-    "ui:title": "Phone No. ",
-  },
-};
-
 export const routes = {};
 routes.routeOne = {
   // row no
@@ -237,6 +217,26 @@ const links = {
   },
 };
 
+let data = [];
+const _formData = {
+  phone: 8654787549,
+  otp: 654789,
+};
+
+const schema = {
+  type: "object",
+  properties: {
+    phone: { type: "number" },
+    otp: { type: "number" },
+  },
+};
+
+const uiSchema = {
+  phone: {
+    "ui:title": "Phone No. ",
+  },
+};
+
 export const appConfig = {
   /// 1st layout
   componentsSet,
@@ -293,7 +293,7 @@ export const appConfig = {
                 backgroundColor: "skyblue",
               },
               passProps: {
-                _formData,
+                _formData: { ..._formData },
                 schema,
                 uiSchema,
               },
@@ -339,32 +339,17 @@ export const events = {
     },
   },
   "bodyHeader-form": {
-    onSuccess: (setLayoutConfig, setAppState, appState) => {
-      console.log(event);
-      // alert("here");
+    // form data mutator
+    onSuccess: (setLayoutConfig, setAppState, appState, args) => {
+      console.log(args.params.values);
       // PREPARING THE DATA
       // FIXME: MOVE THIS TO EVENT MANAGEMENT SIDE
-      setAppState({
-        $global: {
-          list_of_complaints: {
-            data: [],
-          },
-          form: {
-            formData: {},
-            schema,
-            uiSchema,
-          },
-        },
-      });
       const res = fetch(
         "https://run.mocky.io/v3/15c75559-42b2-45ed-bcf2-06c48aa51bdf"
       )
         .then((res) => res.json())
         .then((_data) => {
-          const _formData = {
-            phone: 8654787549,
-            otp: 654789,
-          };
+          const _formData = args.params.values;
 
           const schema = {
             type: "object",
@@ -379,19 +364,24 @@ export const events = {
               "ui:title": "Phone No. ",
             },
           };
+
+          console.log(`*** _data.ticketDetails`);
+          console.log(_data.ticketDetails);
+
           setAppState({
             $global: {
               list_of_complaints: {
                 data: _data.ticketDetails,
               },
               form: {
-                formData: _formData,
+                formData: args.params.values,
                 schema,
                 uiSchema,
               },
             },
           });
-          // FIXME: below change is not immedeately reflected , fix the bug
+          console.log(appState?.$global?.list_of_complaints?.data);
+
           setLayoutConfig(
             {
               // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
@@ -416,12 +406,13 @@ export const events = {
             true
           );
         });
+      // FIXME: below change is not immedeately reflected , fix the bug
     },
-    onSubmit: (setLayoutConfig) => {
-      console.log("submitted");
-      // FIXME: fill in data
-      // setLayoutConfig(routes.showListing);
-    },
+    // onSubmit: (setLayoutConfig) => {
+    //   console.log("submitted");
+    //   // FIXME: fill in data
+    //   // setLayoutConfig(routes.showListing);
+    // },
   },
   "bodyHeader-changed at 1st-btn-one": {
     onPress: (setLayoutConfig) => {
@@ -446,10 +437,18 @@ export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {
-      elEvents[eventName] = () =>
-        events[elId] && events[elId][eventName] && events[elId][eventName]
-          ? events[elId][eventName](setLayoutConfig, setAppState, appState)
+      elEvents[eventName] = (args) => {
+        return events[elId] &&
+          events[elId][eventName] &&
+          events[elId][eventName]
+          ? events[elId][eventName](
+              setLayoutConfig,
+              setAppState,
+              appState,
+              args
+            )
           : {};
+      };
     });
   return elEvents;
   // }

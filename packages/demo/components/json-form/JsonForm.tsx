@@ -10,9 +10,7 @@ import { UIProvider } from "react-native-web-ui-components";
 import { getEvents } from "../../examples/sagar-poc/3_4-screen-example-web/layout";
 import useSafeSetState from "../utils/useSafeState";
 export { useSafeSetState };
-
 const noOp = (): void => {};
-
 export const JsonForm = ({
   formId = "form",
   setAppState,
@@ -26,9 +24,9 @@ export const JsonForm = ({
   _onClose = noOp,
   schema = {},
   uiSchema = {},
-  label,
+  label = "",
   _submitButton = true,
-  setLayoutConfig,
+  setLayoutConfig = {},
   ...props
 }): AnyRecord => {
   // TODO: show loading indicator based on loading value
@@ -38,31 +36,23 @@ export const JsonForm = ({
   // TODO: show message
   const [message, setMessage] = useSafeSetState(null);
   // TODO: submit formData to ideal connected endpoint
-  const [formData, setFormData] = useSafeSetState(_formData);
-
-  const onBeforeSubmit = (event) => {
-    console.log("*** onBeforeSubmit ***");
-    console.log(event.params.values.phone);
-    console.log(event.params.values.otp);
-    console.log(event);
-    // console.log(e.params.values);
-    setAppState({
-      $appState: {
-        loginValues: event.param.values,
-      },
-    });
-    _onBeforeSubmit(event);
-  };
-
-  const onSuccess = (event) => {
-    console.log("onSuccess outer called");
-    const { response } = event.params;
-    console.log(response);
-    _onSuccess(event);
-    // setLoading(false);
-    // setMessage(response.data[controller][action].message);
-  };
-
+  const [formData, setFormData] = useSafeSetState({
+    ..._formData,
+    ...appState?.$global?.form?.formData, // FIXME: get this based on component property
+  });
+  // const onBeforeSubmit = (event) => {
+  //   console.log("*** onBeforeSubmit ***");
+  //   console.log(event.params.values.phone);
+  //   console.log(event.params.values.otp);
+  //   console.log(event);
+  //   // console.log(e.params.values);
+  //   setAppState({
+  //     $appState: {
+  //       loginValues: event.param.values,
+  //     },
+  //   });
+  //   _onBeforeSubmit(event);
+  // };
   const onError = (event) => {
     console.log("*** onError ***");
     console.log(event);
@@ -76,17 +66,14 @@ export const JsonForm = ({
     //   setException(exceptionsMessages.join("\n"));
     // }
   };
-
   const onErrorOk = () => setException(null);
-
   // form data mutator
   const onChange = (event) => {
     setFormData({
-      ..._formData,
+      ...formData,
       [event.params.name]: event.params.value,
     });
   };
-
   const theme = {
     input: {
       focused: StyleSheet.create({
@@ -117,23 +104,20 @@ export const JsonForm = ({
       }),
     },
   };
-
-  const onSubmit = async (event) => {
-    await onBeforeSubmit(event);
-    setLoading(true);
-    const { values } = event.params;
-    _onSubmit(event);
-    // const mutation = getMutation({
-    //   values,
-    //   controller,
-    //   action,
-    // });
-
-    // return mutate({ client, mutation }).catch((err) => {
-    //   throw toErrorSchema(err);
-    // });
-  };
-
+  // const onSubmit = async (event) => {
+  //   await onBeforeSubmit(event);
+  //   setLoading(true);
+  //   const { values } = event.params;
+  //   _onSubmit(event);
+  //   // const mutation = getMutation({
+  //   //   values,
+  //   //   controller,
+  //   //   action,
+  //   // });
+  //   // return mutate({ client, mutation }).catch((err) => {
+  //   //   throw toErrorSchema(err);
+  //   // });
+  // };
   const ThemeWrapper = ({ children }) => {
     return (
       <UIProvider
@@ -144,7 +128,6 @@ export const JsonForm = ({
       </UIProvider>
     );
   };
-
   return (
     <ThemeWrapper>
       {/* <MainContainer
@@ -163,7 +146,7 @@ export const JsonForm = ({
         uiSchema={uiSchema}
         submitButton={_submitButton}
         cancelButton={false}
-        onChange={_onChange}
+        onChange={onChange}
         buttonPosition="center"
         {...getEvents(`${label}-form`, setLayoutConfig, setAppState, appState)}
       />

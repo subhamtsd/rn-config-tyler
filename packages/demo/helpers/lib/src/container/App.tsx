@@ -1,11 +1,14 @@
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
-import React, { createElement, useEffect, useState } from "react";
+import React, { createElement, useEffect } from "react";
 import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
+import { useSafeSetState } from "../../../../../../../rn-config-tyler/packages/demo/components/utils/useSafeState";
 import { styles } from "../styles";
+
 // ******************************************************************** //
+const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const GridSection = ({
@@ -68,15 +71,20 @@ export const GridSection = ({
   const headerSection = <Col style={{ ...styles.nav }}>{linksSection}</Col>;
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
-  const [appState, _setAppState] = useState({
+  const [appState, _setAppState] = useSafeSetState({
     ui: {},
     children: {},
     props: {},
     $global: {},
   });
 
-  const setAppState = (newAppState) => {
-    _setAppState(merge(appState, newAppState));
+  const setAppState = async (newAppState) => {
+    return new Promise((resolve) => {
+      _setAppState(
+        merge(appState, newAppState, { arrayMerge: overwriteMerge }),
+        resolve
+      );
+    });
   };
 
   useEffect(() => {

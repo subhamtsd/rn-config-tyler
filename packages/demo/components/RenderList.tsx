@@ -18,7 +18,7 @@ export function RenderList({
 }: any) {
   const [searchItem, setSearchItem] = useState("");
 
-  const filterData = data.filter(createFilter(searchItem, searchFields));
+  const filterData = data.filter(createFilter(searchItem, searchFields)) || [];
 
   const keys = visibleKeys || Object.keys(data[0] || []);
 

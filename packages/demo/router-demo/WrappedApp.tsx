@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import merge from "deepmerge";
 import { object } from "dot-object";
 
+const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
+
 import { GridSection, JSONEditor } from "../helpers/lib/src/index";
 // FIXME: when publish the module, use only one of two lines below, right now local npm linking being used
 // import { GridSection, JSONEditor } from "rn-config-tyler";
@@ -18,12 +20,22 @@ const WrappedApp = (props) => {
 
   const setLayoutConfig = (_config, isDottedFormat = false) => {
     // find out if the object is in collapsed/dotted format
+    // find out if the object is in collapsed/dotted format
     if (isDottedFormat) {
       // expand to proper JSON from dotted notation
       _config = object(_config);
+      setConfig(
+        merge(
+          config,
+          { layout: object(_config) },
+          { arrayMerge: overwriteMerge }
+        )
+      );
+    } else {
+      setConfig(
+        merge(config, { layout: _config }, { arrayMerge: overwriteMerge })
+      );
     }
-    setConfig(merge(config, { layout: _config }));
-    // console.log(config);
   };
   return (
     <>
