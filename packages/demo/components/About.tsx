@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Text, View } from "react-native";
 
 export const About = ({
@@ -10,9 +10,12 @@ export const About = ({
   layoutConfig,
   setLayoutConfig,
   getEvents,
+  getInitEvents,
   events,
 }) => {
-  // console.log(getEvents(events, `${label}-btn-one`, setLayoutConfig, setAppState));
+  useEffect(() => {
+    getInitEvents(`${label}-$init`, setLayoutConfig, setAppState);
+  }, []);
 
   return (
     <View>
@@ -22,6 +25,7 @@ export const About = ({
         testID={`${label}-btn-one`}
         title={`${"About"}Flash`}
       ></Button>
+      <Text>{appState.$global.key}</Text>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

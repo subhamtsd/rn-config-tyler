@@ -1,6 +1,7 @@
 // TODO: See if the below LIB can be removed
 import merge from "deepmerge";
 import React, { createElement, useEffect } from "react";
+import { useState } from "react";
 import { Text } from "react-native";
 // TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
@@ -78,7 +79,7 @@ export const GridSection = ({
   const headerSection = <Col style={{ ...styles.nav }}>{linksSection}</Col>;
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
-  const [appState, _setAppState] = useSafeSetState({
+  const [appState, _setAppState] = useState({
     ui: {},
     children: {},
     props: {},
