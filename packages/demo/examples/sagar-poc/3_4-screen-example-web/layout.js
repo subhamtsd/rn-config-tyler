@@ -12,6 +12,8 @@ import {
   TabComponent,
 } from "../../../components";
 import { styles, rowStyle } from "../../common";
+import merge from "deepmerge";
+import { nextTick } from "process";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -331,6 +333,15 @@ export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
   $appInit: (setLayoutConfig, setAppState) => {},
 
+  // the below logic to be run in component load phase for each mounting like componentDidMount
+  "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {
+    // setAppState({
+    //   $global: {
+    //     key: "Loaded...",
+    //   },
+    // });
+  },
+
   //<label>-<element-id> : <handler>
   "leftNavHeader-button-one": {
     // <event> :: <handler>
@@ -433,9 +444,7 @@ export const events = {
 // *************************************************
 // bind events based on the layout config
 export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
-  // if (elId === "$appInit") {
-  //   await events["$appInit"](setLayoutConfig, setAppState);
-  // } else {
+  console.log(`elId is ${elId}`);
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {
@@ -453,5 +462,11 @@ export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
       };
     });
   return elEvents;
-  // }
+};
+
+// logic for init logic for components `<label>-$init` in events object
+export const getInitEvents = (elId, setLayoutConfig, setAppState, appState) => {
+  if (elId && events[elId]) {
+    events[elId](setLayoutConfig, setAppState, appState);
+  }
 };

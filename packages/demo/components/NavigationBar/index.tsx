@@ -115,8 +115,9 @@ export const NavigationBar = (props: {
                     onClickFunction={() => {
                       updateLayout(key);
                     }}
-                    props={props}
+                    {...props}
                     item={item}
+
                   />
                 ))}
                 <Text>

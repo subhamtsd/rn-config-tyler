@@ -4,7 +4,7 @@
 /* eslint-disable react/prop-types */
 import { createBrowserHistory } from "history";
 import React from "react";
-import { Platform, StyleSheet, Text } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
 import { getEvents } from "../../examples/sagar-poc/3_4-screen-example-web/layout";
@@ -116,8 +116,9 @@ export const JsonForm = ({
     );
   };
   return (
-    <ThemeWrapper>
-      {/* <MainContainer
+    <View>
+      <ThemeWrapper>
+        {/* <MainContainer
         style={{
           padding: "2%",
           marginHorizontal: 10,
@@ -125,19 +126,25 @@ export const JsonForm = ({
           minHeight: 10,
         }}
       > */}
-      <Text>{label}</Text>
-      <Form
-        // style={{ margin: 30 }}
-        formData={formData}
-        schema={schema}
-        uiSchema={uiSchema}
-        submitButton={_submitButton}
-        cancelButton={false}
-        onChange={onChange}
-        buttonPosition="center"
-        {...getEvents(`${label}-form`, setLayoutConfig, setAppState, appState)}
-      />
-      {/* </MainContainer> */}
-    </ThemeWrapper>
+        <Text>{label}</Text>
+        <Form
+          // style={{ margin: 30 }}
+          formData={formData}
+          schema={schema}
+          uiSchema={uiSchema}
+          submitButton={_submitButton}
+          cancelButton={false}
+          onChange={onChange}
+          buttonPosition="center"
+          {...getEvents(
+            `${label}-form`,
+            setLayoutConfig,
+            setAppState,
+            appState
+          )}
+        />
+        {/* </MainContainer> */}
+      </ThemeWrapper>
+    </View>
   );
 };

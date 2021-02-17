@@ -16,6 +16,7 @@ export const GridSection = ({
   setLayoutConfig,
   routes,
   getEvents,
+  getInitEvents,
 }) => {
   // const history = useHistory();
 
@@ -33,6 +34,11 @@ export const GridSection = ({
     setAppState,
     setLayoutConfig,
   }) => {
+    // useEffect(() => {
+    //   // getInitEvents(`${label}-$init`, setLayoutConfig, setAppState, appState);
+    // }, []);
+
+    
     const colSection = createElement(
       label &&
         appState[label]?.ui &&
@@ -49,6 +55,7 @@ export const GridSection = ({
         label,
         setLayoutConfig,
         getEvents,
+        getInitEvents,
       },
       appState[label]?.children || children
     );
@@ -87,10 +94,10 @@ export const GridSection = ({
     });
   };
 
-  useEffect(() => {
-    // {/* TRIGGER initial events */}
-    getEvents("$appInit", setLayoutConfig, setAppState);
-  }, []);
+  // useEffect(() => {
+  //   // {/* TRIGGER initial events */}
+  //   getEvents("$appInit", setLayoutConfig, setAppState);
+  // }, []);
 
   //  overall routing engine
   const UX = (layoutConfig) => {
