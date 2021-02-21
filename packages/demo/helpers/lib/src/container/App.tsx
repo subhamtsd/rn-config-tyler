@@ -4,6 +4,7 @@ import React, { createElement, useState } from "react";
 import { Text } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
+import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
 
 // ******************************************************************** //
@@ -217,6 +218,15 @@ export const App = (props: AppProps) => {
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
+      {props?.debug ? (
+        <JSONEditor
+          json={config}
+          onChangeJSON={(json) => {
+            // TODO: add schema conformation for JSONEditor values of component names
+            setConfig(json);
+          }}
+        />
+      ) : null}
       <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
