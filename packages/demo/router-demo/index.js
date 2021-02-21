@@ -33,6 +33,7 @@ import {
   routes,
   getEvents,
 } from "../examples/sagar-poc/3_4-screen-example-web/layout";
+import { App } from "../helpers/lib/src";
 
 // import {
 //   appConfig,
@@ -62,16 +63,22 @@ import {
 
 // ****** EXAMPLE CONFIGS END ****************
 
-import WrappedApp from "./WrappedApp";
-
 // **************************************************
 // TODO uncomment below, and comment section at very bottom for non-codesandbox
 // **************************************************
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { registerRootComponent } = require("expo");
 
-const passProps = { appConfig, routes, debug, getEvents };
-registerRootComponent(() => <WrappedApp {...passProps} />);
+registerRootComponent(() => (
+  // {/* FIXME: debug=true below results in error */}
+  <App
+    config={appConfig}
+    routes={routes}
+    debug={false}
+    getEvents={getEvents}
+    getInitEvents={getInitEvents}
+  />
+));
 
 // **************************************************
 // TODO: below section to make it run on codesandbox.io

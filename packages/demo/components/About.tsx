@@ -14,7 +14,15 @@ export const About = ({
   events,
 }) => {
   useEffect(() => {
-    getInitEvents(`${label}-$init`, setLayoutConfig, setAppState);
+    getInitEvents(
+      `${label}-$init`,
+      setLayoutConfig,
+      async (s) => {
+        await setAppState({ $global: s });
+        console.log(appState);
+      },
+      appState
+    );
   }, []);
 
   return (

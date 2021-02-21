@@ -19,6 +19,10 @@ export const componentsSet = {
   RandomPic,
 };
 
+export const getInitEvents = () => {
+  /** */
+};
+
 export const routes = {};
 
 // *************************************************

@@ -379,6 +379,7 @@ export const events = {
           console.log(`*** _data.ticketDetails`);
           console.log(_data.ticketDetails);
 
+          console.log(appState?.$global?.list_of_complaints?.data);
           setAppState({
             $global: {
               list_of_complaints: {
@@ -393,33 +394,33 @@ export const events = {
               },
             },
           });
-          console.log(appState?.$global?.list_of_complaints?.data);
-
-          setLayoutConfig(
-            {
-              // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
-              //   "Home",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx":
-                "RenderList",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
-                "bodyContent-changed",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.passProps": {
-                data: appState?.$global?.list_of_complaints?.data,
-                searchFields: [
-                  "name",
-                  "description",
-                  "category",
-                  "subCategory",
-                ],
-                visibleKeys: ["name", "category", "subCategory"],
-                titleStyle: null,
-                dataStyle: { color: "darkblue" },
+          // FIXME: below change is not immedeately reflected , fix the bug
+          if (appState?.$global?.list_of_complaints?.data) {
+            setLayoutConfig(
+              {
+                // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
+                //   "Home",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx":
+                  "RenderList",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
+                  "bodyContent-changed",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.passProps": {
+                  data: appState?.$global?.list_of_complaints?.data,
+                  searchFields: [
+                    "name",
+                    "description",
+                    "category",
+                    "subCategory",
+                  ],
+                  visibleKeys: ["name", "category", "subCategory"],
+                  titleStyle: null,
+                  dataStyle: { color: "darkblue" },
+                },
               },
-            },
-            true
-          );
+              true
+            );
+          }
         });
-      // FIXME: below change is not immedeately reflected , fix the bug
     },
     // onSubmit: (setLayoutConfig) => {
     //   console.log("submitted");
