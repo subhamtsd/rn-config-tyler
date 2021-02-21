@@ -4,16 +4,14 @@ import {
   ActionComp,
   Comp5,
   Home,
-  RandomPic,
   JsonForm,
   ListEntities,
-  RenderList,
   NavigationBar,
+  RandomPic,
+  RenderList,
   TabComponent,
 } from "../../../components";
-import { styles, rowStyle } from "../../common";
-import merge from "deepmerge";
-import { nextTick } from "process";
+import { rowStyle, styles } from "../../common";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -89,16 +87,14 @@ export const appConfig = {
 // *************************************************
 // bind events to
 //  logic that binds
-
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
-  $appInit: (setLayoutConfig, setAppState) => {},
-
   // the below logic to be run in component load phase for each mounting like componentDidMount
-  "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {
-    setAppState({ $global: { ...appState?.$global, key: "Loaded..." } });
+  "bodyHeader-$init": async (setLayoutConfig, setAppState, appState) => {
+    // await setAppState({
+    //   key: "Loaded...",
+    // });
   },
-
   //<label>-<element-id> : <handler>
   "leftNavHeader-button-one": {
     // <event> :: <handler>

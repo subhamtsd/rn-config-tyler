@@ -1,7 +1,7 @@
 import merge from "deepmerge";
 import { object } from "dot-object";
 
-export { GridSection } from "./container/App";
+export { App } from "./container/App";
 export { JSONEditor } from "./components/JSONEditor";
 export { styles, rowStyle } from "./styles";
 
