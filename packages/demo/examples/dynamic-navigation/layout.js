@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About } from "../../src/components/About";
-import { ActionComp } from "../../src/components/ActionComp";
-import { Comp5 } from "../../src/components/Comp5";
-import { Home } from "../../src/components/Home";
-import { RandomPic } from "../../src/components/RandomPic";
+import { About } from "../../components/About";
+import { ActionComp } from "../../components/ActionComp";
+import { Comp5 } from "../../components/Comp5";
+import { Home } from "../../components/Home";
+import { RandomPic } from "../../components/RandomPic";
 import { rowStyle, styles } from "../common";
-import { JsonForm } from "../../src/components/json-form/JsonForm";
+import { JsonForm } from "../../components/json-form/JsonForm";
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
