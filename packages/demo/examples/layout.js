@@ -4,7 +4,7 @@ import {
   Home,
   About,
   RandomPic,
-} from "../components/src/index.js";
+} from "../components/index.js";
 // } from "composable-components/dist/index.es.js";
 import { rowStyle, styles } from "../helpers/lib/src/styles";
 

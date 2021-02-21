@@ -1,11 +1,11 @@
 import React from "react";
 import { Text } from "react-native";
-import { About } from "../../src/components/About";
-import { ActionComp } from "../../src/components/ActionComp";
-import { Comp5 } from "../../src/components/Comp5";
+import { About } from "../../components/About";
+import { ActionComp } from "../../components/ActionComp";
+import { Comp5 } from "../../components/Comp5";
 // import { JsonForm } from "./components/JsonForm";
-import { Home } from "../../src/components/Home";
-import { RandomPic } from "../../src/components/RandomPic";
+import { Home } from "../../components/Home";
+import { RandomPic } from "../../components/RandomPic";
 import { rowStyle, styles } from "../common";
 
 // ******************** TODO APP EXAMPLE ************************* //

@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { rowStyle, styles } from "../../src/lib";
+import { rowStyle, styles } from "../common";
 
 export const routes = {};
 
