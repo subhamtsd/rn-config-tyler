@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About } from "../../../components/About";
-import { ActionComp } from "../../../components/ActionComp";
-import { Comp5 } from "../../../components/Comp5";
-import { Home } from "../../../components/Home";
-import { RandomPic } from "../../../components/RandomPic";
+import { About, ActionComp, Home, Comp5, RandomPic } from "../../../components";
 import { rowStyle, styles } from "../../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
 
@@ -75,7 +71,7 @@ routes.routeTwo = {
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "30%" },
+            rowStyle: { height: "100%" },
           },
           bodyHeader: {
             // colSize: 1,
@@ -84,7 +80,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "30%",
+              height: "100%",
               backgroundColor: "skyblue",
             },
           },
@@ -92,7 +88,7 @@ routes.routeTwo = {
         "1.2.2.bodyContentRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "40%" },
+            rowStyle: { height: "100%" },
           },
           bodyContent: {
             // colSize: 1,
@@ -101,7 +97,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "40%",
+              height: "100%",
               backgroundColor: "red",
             },
           },
@@ -109,7 +105,7 @@ routes.routeTwo = {
         "1.2.3.bodyFooterRow": {
           rowConfig: {
             rowSize: 1,
-            rowStyle: { height: "30%" },
+            rowStyle: { height: "100%" },
           },
           bodyFooter: {
             // colSize: 1,
@@ -118,7 +114,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "30%",
+              height: "100%",
               backgroundColor: "yellow",
             },
           },

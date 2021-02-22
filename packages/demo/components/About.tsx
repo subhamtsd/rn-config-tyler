@@ -13,17 +13,9 @@ export const About = ({
   getInitEvents,
   events,
 }) => {
-  useEffect(() => {
-    getInitEvents(
-      `${label}-$init`,
-      setLayoutConfig,
-      async (s) => {
-        await setAppState({ $global: s });
-        console.log(appState);
-      },
-      appState
-    );
-  }, []);
+//   useEffect(() => {
+//     getInitEvents(`${label}-$init`, setLayoutConfig, setAppState);
+//   }, []);
 
   return (
     <View>

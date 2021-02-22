@@ -1,5 +1,9 @@
 import React from "react";
 import { Text } from "react-native";
+<<<<<<< HEAD
+import { Comp5, ActionComp, Home, About, RandomPic } from "../../components";
+import {  styles } from "../common";
+=======
 import { About } from "../../components/About";
 import { ActionComp } from "../../components/ActionComp";
 import { Comp5 } from "../../components/Comp5";
@@ -7,6 +11,7 @@ import { Comp5 } from "../../components/Comp5";
 import { Home } from "../../components/Home";
 import { RandomPic } from "../../components/RandomPic";
 import { rowStyle, styles } from "../common";
+>>>>>>> 205f5006e7caef20e8f553e7a9d409fcb393777a
 
 // ******************** TODO APP EXAMPLE ************************* //
 import { TodoApp1 } from "./TODOAPP/TodoApp1";
