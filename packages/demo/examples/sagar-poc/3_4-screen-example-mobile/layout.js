@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About } from "../../components/About";
-import { ActionComp } from "../../components/ActionComp";
-import { Comp5 } from "../../components/Comp5";
-import { Home } from "../../components/Home";
-import { RandomPic } from "../../components/RandomPic";
-import { rowStyle, styles } from "../common";
+import { About, ActionComp, Home, Comp5, RandomPic } from "../../../components";
+import { rowStyle, styles } from "../../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
 
 // All component which will be rendered

@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About } from "../../../components/About";
-import { ActionComp } from "../../../components/ActionComp";
-import { Comp5 } from "../../../components/Comp5";
-import { Home } from "../../../components/Home";
-import { RandomPic } from "../../../components/RandomPic";
+import { About, ActionComp, Home, Comp5, RandomPic } from "../../../components";
 import { rowStyle, styles } from "../../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
 
@@ -22,21 +18,9 @@ export const routes = {};
 
 routes.routeZero = {
   "1.container": {
-    // rowConfig: {
-    //   rowSize: 1,
-    //   rowStyle: { height: "100%" },
-    // },
     "1.1.leftNavCol": {
       layout: {
-        // colConfig: {
-        //   colSize: 1,
-        //   colStyle: { backgroundColor: "grey" },
-        // },
         "1.1.leftNavHeaderRow": {
-        //   rowConfig: {
-        //     rowSize: 1,
-        //     rowStyle: { height: "100%" },
-        //   },
           leftNavHeader: {
             colSize: 1,
             idx: "Home",
@@ -53,9 +37,6 @@ routes.routeZero = {
     },
   },
   "2.container": {
-    // rowConfig: {
-    //   rowSize: 0.2,
-    // },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -69,15 +50,7 @@ routes.routeOne = {
   "1.container": {
     "1.1.leftNavCol": {
       layout: {
-        // colConfig: {
-        //   colSize: 1,
-        //   colStyle: { backgroundColor: "grey" },
-        // },
         "1.1.leftNavHeaderRow": {
-        //   rowConfig: {
-        //     rowSize: 1,
-        //     rowStyle: { height: "100%" },
-        //   },
           leftNavHeader: {
             colSize: 1,
             idx: "About",
@@ -94,9 +67,6 @@ routes.routeOne = {
     },
   },
   "2.container": {
-    // rowConfig: {
-    //   rowSize: 0.2,
-    // },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -108,21 +78,9 @@ routes.routeOne = {
 
 routes.routeTwo = {
   "1.container": {
-    rowConfig: {
-      rowSize: 1,
-      rowStyle: { height: "100%" },
-    },
     "1.1.leftNavCol": {
       layout: {
-        colConfig: {
-          colSize: 1,
-          colStyle: { backgroundColor: "grey" },
-        },
         "1.1.leftNavHeaderRow": {
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "100%" },
-            },
           leftNavHeader: {
             colSize: 1,
             idx: "About",
@@ -136,10 +94,6 @@ routes.routeTwo = {
           },
         },
         "1.2.leftNavHeaderRow": {
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "100%" },
-            },
           leftNavHeader1: {
             colSize: 1,
             idx: "RandomPic",
@@ -156,9 +110,6 @@ routes.routeTwo = {
     },
   },
   "2.container": {
-    rowConfig: {
-      rowSize: 0.2,
-    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -253,12 +204,7 @@ export const events = {
     },
   },
 
-  //   "footer-btn-two": {
-  //     // <event> :: <handler>
-  //     onPress: (setLayoutConfig) => {
-  //       setLayoutConfig(routes["routeOne"]);
-  //     },
-  //   },
+
 
   "footer-btn-one": {
     // <event> :: <handler>
