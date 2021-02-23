@@ -57,7 +57,14 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
             onPress={() => {
               // TODO : How to seprate this part to make it a generic component ? [setAppState is taking indivisual modules one by one]
               // on click of the module tsdApp state will be updated with new activeModule
-              console.log("item : : : in Ex component : : : ", item);
+              // console.log(
+              //   "item : : : in Ex component : : : ",
+              //   item.tabs[0].actions
+              // );
+              const filteredAction = item.tabs[0].actions.find(
+                ({ actionName }) => actionName === "Search"
+              );
+
 
               setAppState({
                 global: {
@@ -70,13 +77,13 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                       name: item.tabs[0].tabName,
                       key: item.tabs[0].tabKey,
                     },
-                    // activeAction: {
-                    //   name: item.actions[0].actionName,
-                    //   key: item.actions[0].actionKey,
-                    //   endPoint: item.actions[0].endPoint,
-                    //   httpMethod: item.actions[0].httpMethod,
-                    //   showButton: item.actions[0].showButton,
-                    // },
+                    activeAction: {
+                      name: filteredAction.actionName,
+                      key: filteredAction.actionKey,
+                      endPoint: filteredAction.endPoint,
+                      httpMethod: filteredAction.httpMethod,
+                      showButton: filteredAction.showButton,
+                    },
                   },
                 },
               });

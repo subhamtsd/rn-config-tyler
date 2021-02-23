@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -36,52 +37,62 @@ export const ActionComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   // const state = useSelector((s: any) => s);
   // const dispatch = useDispatch((s: any) => s);
-  const [data, setdata] = useState({});
-  const [action, setaction] = useState(`Search`);
+  // const [data, setdata] = useState({});
+  // const [action, setaction] = useState(`Search`);
 
   // console.log("Action Set : : : : : ", action);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleName: "Service Orders",
-            tabName: "BookOrders",
-            actionName: action,
-          }),
-        }
-      );
-      const resJSON = await res.json();
-      // // console.log("active module : : : :", state.activeModuleSelection);
+  const fetchData = async (action) => {
+    const res = await fetch(
+      `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule.name
+              : "Service Orders",
+          tabName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab.name
+              : "CreateOrders",
+          actionName: action,
+        }),
+      }
+    );
+    const resJSON = await res.json();
 
-      console.log(
-        "Buisness Functions with ACTION :  : : : : :: ------------------",
-        resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-      );
-      setdata(resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]);
-      // dispatch(
-      //   updateActionSelection(
-      //     resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-      //   )
-      // );
-    };
-    fetchData();
-  }, [
-    // state.activeModuleSelection.name,
-    // state.activeActionSelection.actionData.actionName,
-    // state.activeTabSelection.name,
-    // state.activeBuisnessFunctionSelection.key,
-    action,
-  ]);
+    setAppState({
+      global: {
+        tsdApp: {
+          activeAction: {
+            name:
+              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .actionName,
+            key:
+              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .actionKey,
+            endPoint:
+              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .endPoint,
+            httpMethod:
+              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .httpMethod,
+            showButton:
+              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .showButton,
+          },
+        },
+      },
+    });
+  };
+
   return (
     <View>
       <Grid>
@@ -97,14 +108,19 @@ export const ActionComponent = (props: {
           >
             <TouchableOpacity
               onPress={() => {
-                setaction("Create");
+                // setaction("Create");
                 // setLayoutConfig(routes["defaultAppConfig"]);
+                fetchData("Create");
               }}
               style={{
-                backgroundColor: "#5cabc5",
-                // "Create" === state.activeActionSelection.actionData.actionName
-                //   ? "#b2c560"
-                //   : "#5cabc5",
+                backgroundColor:
+                  appState.global != undefined
+                    ? appState.global.tsdApp.activeAction.name === "Create"
+                      ? "#b2c560"
+                      : "#5cabc5"
+                    : "Create" === "Create"
+                    ? "#5cabc5"
+                    : "#5cabc5",
                 height: 35,
                 paddingTop: 7,
                 paddingBottom: 5,
@@ -142,15 +158,19 @@ export const ActionComponent = (props: {
           >
             <TouchableOpacity
               onPress={() => {
-                console.log(
-                  "SEARCH ACTION : : : : ",
-                  // state.activeActionSelection.actionData.actionName
-                );
-                setaction("Search");
-                setLayoutConfig(routes["defaultAppConfig"]);
+                // setaction("Search");
+                // setLayoutConfig(routes["defaultAppConfig"]);
+                fetchData("Search");
               }}
               style={{
-                backgroundColor: "#5cabc5",
+                backgroundColor:
+                  appState.global != undefined
+                    ? appState.global.tsdApp.activeAction.name === "Search"
+                      ? "#b2c560"
+                      : "#5cabc5"
+                    : "Search" === "Search"
+                    ? "#5cabc5"
+                    : "#5cabc5",
                 // "Search" === state.activeActionSelection.actionData.actionName
                 //   ? "#b2c560"
                 //   : "#5cabc5",
