@@ -24,8 +24,6 @@ export const App = (props: AppProps) => {
 
   // logic to update layout config (which is stored in config state var)
   const setLayoutConfig = (config, isDottedFormat = false) => {
-    console.log(config);
-
     // find out if the object is in collapsed/dotted format
     if (isDottedFormat) {
       // expand to proper JSON from dotted notation
@@ -37,7 +35,7 @@ export const App = (props: AppProps) => {
         {
           layout: config,
         },
-        { arrayMerge: overwriteMerge },
+        { arrayMerge: overwriteMerge }
       )
     );
   };

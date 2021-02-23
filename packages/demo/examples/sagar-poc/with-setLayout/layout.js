@@ -63,13 +63,13 @@ routes.routeOne = {
             colSize: 2,
             idx: "About",
             label: "bodyHeader",
-            colStyle: { borderWidth: 2, height: "100vh" },
+            colStyle: { borderWidth: 2, height: "60vh" },
           },
           bodyHeader1: {
             colSize: 8,
             idx: "About",
             label: "bodyHeader1",
-            colStyle: { borderWidth: 2, height: "100vh" },
+            colStyle: { borderWidth: 2, height: "60vh" },
           },
         },
         "1.2.2.bodyContentRow": {
