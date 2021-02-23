@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
-  Comp5,
-  ActionComp,
-  Home,
   About,
+  ActionComp,
+  Comp5,
+  Home,
   RandomPic,
-  Cal,
+  JsonForm,
+  Charts,
 } from "../../../components";
-import AgendaScroll from "../../../components/AgendaScroll";
-
-import { rowStyle, styles } from "../../common";
+import { styles, rowStyle } from "../../common";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -18,8 +17,8 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
-  Cal,
-  AgendaScroll,
+  JsonForm,
+  Charts,
 };
 
 // components section
@@ -48,8 +47,7 @@ routes.routeOne = {
           },
           bodyHeader: {
             colSize: 1,
-            //   idx: "About",
-            idx: "Cal",
+            idx: "Charts",
             label: "bodyHeader",
             colStyle: {
               borderColor: "cyan",
@@ -147,8 +145,7 @@ export const appConfig = {
             bodyHeader: {
               // col no
               colSize: 1,
-              //   idx: "About",
-              idx: "AgendaScroll",
+              idx: "About",
               label: "bodyHeader",
               colStyle: {
                 borderColor: "cyan",
