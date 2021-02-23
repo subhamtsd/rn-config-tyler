@@ -18,7 +18,7 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
   //Custom Component for the Expandable List
   const [layoutHeight, setLayoutHeight] = useState(100);
 
-  console.log("props : : : : ", props);
+  // console.log("props : : : : ", props);
 
   useEffect(() => {
     if (item.isExpanded) {
@@ -57,6 +57,8 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
             onPress={() => {
               // TODO : How to seprate this part to make it a generic component ? [setAppState is taking indivisual modules one by one]
               // on click of the module tsdApp state will be updated with new activeModule
+              console.log("item : : : in Ex component : : : ", item);
+
               setAppState({
                 global: {
                   tsdApp: {
@@ -64,6 +66,17 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                       name: item.moduleName,
                       key: item.moduleKey,
                     },
+                    activeTab: {
+                      name: item.tabs[0].tabName,
+                      key: item.tabs[0].tabKey,
+                    },
+                    // activeAction: {
+                    //   name: item.actions[0].actionName,
+                    //   key: item.actions[0].actionKey,
+                    //   endPoint: item.actions[0].endPoint,
+                    //   httpMethod: item.actions[0].httpMethod,
+                    //   showButton: item.actions[0].showButton,
+                    // },
                   },
                 },
               });
@@ -74,8 +87,16 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                 fontSize: 16,
                 color: "white",
                 padding: 10,
+                // TODO : Optimised and add some generalise logic for this
                 backgroundColor:
-                  item.moduleName === item.moduleName ? "#b2c560" : "",
+                  appState.global != undefined
+                    ? appState.global.tsdApp.activeModule.name ===
+                      item.moduleName
+                      ? "#b2c560"
+                      : ""
+                    : item.moduleName === item.moduleName
+                    ? "#b2c560"
+                    : "",
               }}
             >
               {item.moduleDisplayName}

@@ -8,12 +8,6 @@ import {
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 // import { useSelector, useDispatch } from "react-redux";
-import {
-  updateActionSelection,
-  updateBuisnessFunctionSelection,
-  updateModuleSelection,
-  updateTabSelection,
-} from "../../../../src/state-management/actions";
 import { routes } from "../../configs/routes/routesConfig";
 
 export const ActionComponent = (props: {

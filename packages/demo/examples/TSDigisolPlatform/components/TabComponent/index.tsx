@@ -3,7 +3,7 @@ import { cleanup } from "detox";
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, ScrollView, TouchableOpacity } from "react-native";
 // import { useSelector, useDispatch } from "react-redux";
-import { updateTabSelection } from "../../../../src/state-management/actions";
+// import { updateTabSelection } from "../../../../src/state-management/actions";
 
 export const TabComponent = (props: {
   appState;
@@ -53,9 +53,16 @@ export const TabComponent = (props: {
             body: JSON.stringify({
               userId: "TsdAdmin",
               roleKey: 1,
-              moduleName: "Service Orders",
+              // TODO : Conditional for default state undefined
+              moduleName:
+                appState.global != undefined
+                  ? appState.global.tsdApp.activeModule.name
+                  : "Service Orders",
               // tabName: "CreateOrders",
-              actionName: "Search",
+              actionName:
+                appState.global != undefined
+                  ? appState.global.tsdApp.activeAction.name
+                  : "Search",
             }),
           }
         );
@@ -103,19 +110,37 @@ export const TabComponent = (props: {
           >
             <TouchableOpacity
               onPress={() => {
-                //   TODO : SAVE THE TAB IN THE APP STATE AND THEN CHANGE THE DEFAULT ACTIVE STATE FROM TRUE TO FALSE
-                console.log(
-                  "Button with Tab item : "
-                  // item.tabName + " " + state.activeTabSelection.name
-                );
+                // console.log("Button with Tab item : ", item);
+                // TODO : Should come from event management
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      activeTab: {
+                        name: item.tabName,
+                        key: item.tabKey,
+                      },
+                      activeAction: {
+                        name: item.actions[0].actionName,
+                        key: item.actions[0].actionKey,
+                        endPoint: item.actions[0].endPoint,
+                        httpMethod: item.actions[0].httpMethod,
+                        showButton: item.actions[0].showButton,
+                      },
+                    },
+                  },
+                });
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}
               // TODO : Title of button should come from API
               style={{
-                backgroundColor: "#b2c560",
-                // item.tabName === state.activeTabSelection.name
-                // ? "#b2c560"
-                // : "transparent", // TODO : WORK on it to update via state
+                backgroundColor:
+                  appState.global != undefined
+                    ? appState.global.tsdApp.activeTab.name === item.tabName
+                      ? "#b2c560"
+                      : ""
+                    : item.tabName === item.tabName
+                    ? "#b2c560"
+                    : "",
                 height: 40,
                 paddingTop: 10,
                 paddingBottom: 10,

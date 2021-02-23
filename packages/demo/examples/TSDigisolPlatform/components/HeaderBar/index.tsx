@@ -88,7 +88,39 @@ export const HeaderBar = (props: {
         </Col>
         <Col>
           <View style={HeaderStyles.logoutViewStyle}>
-            <Text style={HeaderStyles.logoutTextStyle}>Logout</Text>
+            {/* <Text style={HeaderStyles.logoutTextStyle}>Logout</Text> */}
+            <Button
+              testID={`${label}-btn-one`}
+              title="Update Default State"
+              onPress={() => {
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      activeBuisnessFunction: {
+                        name: "Foundation",
+                        key: "1000",
+                      },
+                      activeModule: {
+                        name: "Catalog",
+                        key: "2001",
+                      },
+                      activeTab: {
+                        name: "Organisation",
+                        key: "118201",
+                      },
+                      activeAction: {
+                        name: "Search",
+                        key: "124684",
+                        endPoint: "v1/organization/list",
+                        httpMethod: "POST",
+                        showButton: true,
+                      },
+                    },
+                  },
+                });
+              }}
+              {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
+            ></Button>
           </View>
         </Col>
       </Row>

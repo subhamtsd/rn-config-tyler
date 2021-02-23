@@ -72,7 +72,7 @@ export const NavigationBar = (props: {
       setLoading(false);
     };
     fetchData();
-    console.log("appState in useEffect : : : ", appState);
+    // console.log("appState in useEffect : : : ", appState);
     // setAppState({ global: { total: 1 } });
   }, []);
 
