@@ -10,4 +10,4 @@ export * from "./ListEntities";
 export * from "./TabComponent";
 export * from "./Cal";
 export * from "./NavigationBar/index";
-export * from "./Charts";
+// export * from "./json-form/JsonForm";

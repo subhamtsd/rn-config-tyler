@@ -25,7 +25,7 @@ export const ActionComp = ({
       ></Button>
       <Button
         testID={`${label}-btn-one`}
-        title={"Next"}
+        title={"Trigger"}
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
       ></Button>
       <Text style={{ textAlign: "center" }}>{label}</Text>
