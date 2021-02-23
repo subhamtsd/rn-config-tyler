@@ -33,15 +33,6 @@ export const ActionComponent = (props: {
     getEvents,
   } = props;
 
-  // console.log(`label is ${label}`);
-  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  // const state = useSelector((s: any) => s);
-  // const dispatch = useDispatch((s: any) => s);
-  // const [data, setdata] = useState({});
-  // const [action, setaction] = useState(`Search`);
-
-  // console.log("Action Set : : : : : ", action);
-
   const fetchData = async (action) => {
     const res = await fetch(
       `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
@@ -108,8 +99,6 @@ export const ActionComponent = (props: {
           >
             <TouchableOpacity
               onPress={() => {
-                // setaction("Create");
-                // setLayoutConfig(routes["defaultAppConfig"]);
                 fetchData("Create");
               }}
               style={{
@@ -153,13 +142,10 @@ export const ActionComponent = (props: {
               marginBottom: 10,
               marginLeft: 180,
               marginRight: 180,
-              // borderWidth: 2,
             }}
           >
             <TouchableOpacity
               onPress={() => {
-                // setaction("Search");
-                // setLayoutConfig(routes["defaultAppConfig"]);
                 fetchData("Search");
               }}
               style={{
@@ -171,9 +157,6 @@ export const ActionComponent = (props: {
                     : "Search" === "Search"
                     ? "#5cabc5"
                     : "#5cabc5",
-                // "Search" === state.activeActionSelection.actionData.actionName
-                //   ? "#b2c560"
-                //   : "#5cabc5",
                 height: 35,
                 paddingTop: 7,
                 paddingBottom: 5,

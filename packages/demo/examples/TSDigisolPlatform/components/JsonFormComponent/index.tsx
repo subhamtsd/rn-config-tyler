@@ -40,9 +40,6 @@ export const JsonFormComponent = (props: {
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
-  // const state = useSelector((s: any) => s);
-  // const dispatch = useDispatch((s: any) => s);
-
   // console.log("DISPATCH : : : : ", dispatch);
 
   const _formData = {
@@ -171,7 +168,50 @@ export const JsonFormComponent = (props: {
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
 
-  console.log("FormLayoout : : : : : ", formLayout);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "TsdAdmin",
+            roleKey: 1,
+            moduleKey:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeModule.key
+                : "23751",
+            tabKey:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeTab.key
+                : "34601",
+            actionName:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeAction.name
+                : "Search",
+          }),
+        }
+      );
+      const resJSON = await res.json();
+      const objectName =
+        appState.global != undefined
+          ? appState.global.tsdApp.activeAction.name +
+            appState.global.tsdApp.activeTab.name +
+            "Schema"
+          : "SearchCreateOrdersSchema";
+
+      console.log("objectName : : : : ", objectName);
+
+      console.log("FormLayout Json : : : : : ---> ", resJSON[objectName]);
+      setformLayout(resJSON[objectName]);
+    };
+    fetchData();
+  }, []);
+
 
   return (
     <ScrollView
@@ -200,8 +240,8 @@ export const JsonFormComponent = (props: {
       {/* <ScrollView>  */}
       {/* Use Grid */}
       <JsonForm
-        // schema={formLayout}
-        schema={_schema}
+        schema={formLayout}
+        // schema={_schema}
         uiSchema={_uiSchema}
         _formData={_formData}
         // _onBeforeSubmit={(e) => {

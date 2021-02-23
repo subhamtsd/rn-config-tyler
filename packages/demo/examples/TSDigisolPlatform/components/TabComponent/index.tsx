@@ -27,62 +27,45 @@ export const TabComponent = (props: {
     getEvents,
   } = props;
 
-  // TODO : ....
-  // console.log(`label is ${label}`);
-  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-
-  //   TODO : Integrate with API or app state to update the data array
-  // const data: any[] = [];
-  // const state = useSelector((s: any) => s);
-  // const dispatch = useDispatch((s: any) => s);
-  // console.log("State in tab Component : : : : :", state);
-
   const [data, setdata] = useState([]);
 
-  useEffect(
-    () => {
-      const fetchData = async () => {
-        const res = await fetch(
-          `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userId: "TsdAdmin",
-              roleKey: 1,
-              // TODO : Conditional for default state undefined
-              moduleName:
-                appState.global != undefined
-                  ? appState.global.tsdApp.activeModule.name
-                  : "Service Orders",
-              // tabName: "CreateOrders",
-              actionName:
-                appState.global != undefined
-                  ? appState.global.tsdApp.activeAction.name
-                  : "Search",
-            }),
-          }
-        );
-        const resJSON = await res.json();
-        // console.log("active module : : : :", state.activeModuleSelection);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "TsdAdmin",
+            roleKey: 1,
+            // TODO : Conditional for default state undefined
+            moduleName:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeModule.name
+                : "Service Orders",
+            // tabName: "CreateOrders",
+            actionName:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeAction.name
+                : "Search",
+          }),
+        }
+      );
+      const resJSON = await res.json();
+      // console.log("active module : : : :", state.activeModuleSelection);
 
-        console.log(
-          "Buisness Functions with Tabs",
-          resJSON.businessFunctions[0].modules[0].tabs
-        );
-        setdata(resJSON.businessFunctions[0].modules[0].tabs);
-      };
-      fetchData();
-    },
-    [
-      // state.activeModuleSelection.name,
-      // state.activeActionSelection.actionData.actionName,
-      // state.activeTabSelection.name,
-    ]
-  );
+      console.log(
+        "Buisness Functions with Tabs",
+        resJSON.businessFunctions[0].modules[0].tabs
+      );
+      setdata(resJSON.businessFunctions[0].modules[0].tabs);
+    };
+    fetchData();
+  }, []);
 
   return (
     <View
