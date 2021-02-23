@@ -1,12 +1,14 @@
-import React from "react";
-import { Text } from "react-native";
-import { About } from "../../src/components/About";
-import { ActionComp } from "../../src/components/ActionComp";
-import { Comp5 } from "../../src/components/Comp5";
+import { About } from "../../components/About";
+import { ActionComp } from "../../components/ActionComp";
+import { Comp5 } from "../../components/Comp5";
 // import { JsonForm } from "./components/JsonForm";
-import { Home } from "../../src/components/Home";
-import { RandomPic } from "../../src/components/RandomPic";
-import { rowStyle, styles } from "../common";
+import { Home } from "../../components/Home";
+import { RandomPic } from "../../components/RandomPic";
+import { styles } from "../common";
+
+export const getInitEvents = () => {
+  /** */
+};
 
 // All component which will be rendered
 export const componentsSet = {
@@ -231,11 +233,11 @@ export const appConfig = {
       },
     },
     "2.container": {
-    //   // row no
-    //   rowConfig: {
-    //     rowSize: "0.21",
-    //     style: rowStyle,
-    //   },
+      //   // row no
+      //   rowConfig: {
+      //     rowSize: "0.21",
+      //     style: rowStyle,
+      //   },
       footer: {
         // col no
         colSize: 1,

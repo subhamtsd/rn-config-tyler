@@ -1,51 +1,80 @@
-// TODO: See if the below LIB can be removed
 import merge from "deepmerge";
-import React, { createElement, useEffect } from "react";
-import { useState } from "react";
+import { object } from "dot-object";
+import React, { createElement, useState } from "react";
 import { Text } from "react-native";
-// TODO: See if the below LIB can be removed
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { useSafeSetState } from "../../../../../../../rn-config-tyler/packages/demo/components/utils/useSafeState";
+import { AppProps, UXColumnProps } from "../AppProps";
+import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
 
 // ******************************************************************** //
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
-export const GridSection = ({
-  layoutConfig,
-  setLayoutConfig,
-  routes,
-  getEvents,
-  getInitEvents,
-}) => {
+export const App = (props: AppProps) => {
+  const [config, setConfig] = useState(props?.config);
+  const [ui, setUi] = useState({ ui: {} });
+  // TODO: add ability to add/remove labels and row/columns new from layout config
+  const [appState, _setAppState] = useState({
+    ui: {},
+    children: {},
+    props: {},
+    $global: {},
+  });
+
+  // logic to update layout config (which is stored in config state var)
+  const setLayoutConfig = (config, isDottedFormat = false) => {
+    console.log(config);
+
+    // find out if the object is in collapsed/dotted format
+    if (isDottedFormat) {
+      // expand to proper JSON from dotted notation
+      config = object(config);
+    }
+    setConfig(
+      merge(
+        props?.config,
+        {
+          layout: config,
+        },
+        { arrayMerge: overwriteMerge },
+      )
+    );
+  };
+
+  // logic to update app state
+  const setAppState = (newAppState, isPartial = true) => {
+    if (isPartial) {
+      _setAppState(
+        merge(appState, newAppState, { arrayMerge: overwriteMerge })
+      );
+    } else {
+      _setAppState(newAppState);
+    }
+  };
+
   // const history = useHistory();
+  const getInitEvents = props.getInitEvents;
+  const getEvents = props.getEvents;
+  const routes = props.routes;
 
   // pick from pre-loaded components and render properly, renders each component at column level
-  const UXColumn = ({
-    label,
-    key,
-    idx,
-    style,
-    colSize,
-    colStyle,
-    children,
-    passProps,
-    appState,
-    setAppState,
-    setLayoutConfig,
-  }) => {
-    // useEffect(() => {
-    //   // getInitEvents(`${label}-$init`, setLayoutConfig, setAppState, appState);
-    // }, []);
+  const UXColumn = (colProps: UXColumnProps) => {
+    const {
+      label,
+      key,
+      idx,
+      children,
+      passProps,
+      appState,
+      setAppState,
+      setLayoutConfig,
+    } = colProps;
 
-    
     const colSection = createElement(
-      label &&
-        appState[label]?.ui &&
-        layoutConfig.componentsSet[appState[label]?.ui]
-        ? layoutConfig.componentsSet[appState[label]?.ui]
-        : layoutConfig.componentsSet[idx],
+      label && appState[label]?.ui && config.componentsSet[appState[label]?.ui]
+        ? config.componentsSet[appState[label]?.ui]
+        : config.componentsSet[idx],
       {
         ...passProps,
         appState,
@@ -62,8 +91,8 @@ export const GridSection = ({
     );
     return colSection;
   };
-  const linksSection = Object.keys(layoutConfig.links || {}).map((path, id) => {
-    const { style, linkText, linkStyle } = layoutConfig.links[path];
+  const linksSection = Object.keys(config.links || {}).map((path, id) => {
+    const { style, linkText, linkStyle } = config.links[path];
     return (
       <Col
         to={path}
@@ -77,28 +106,6 @@ export const GridSection = ({
   });
 
   const headerSection = <Col style={{ ...styles.nav }}>{linksSection}</Col>;
-
-  // TODO: add ability to add/remove labels and row/columns new from layout config
-  const [appState, _setAppState] = useState({
-    ui: {},
-    children: {},
-    props: {},
-    $global: {},
-  });
-
-  const setAppState = async (newAppState) => {
-    return new Promise((resolve) => {
-      _setAppState(
-        merge(appState, newAppState, { arrayMerge: overwriteMerge }),
-        resolve
-      );
-    });
-  };
-
-  // useEffect(() => {
-  //   // {/* TRIGGER initial events */}
-  //   getEvents("$appInit", setLayoutConfig, setAppState);
-  // }, []);
 
   //  overall routing engine
   const UX = (layoutConfig) => {
@@ -213,8 +220,17 @@ export const GridSection = ({
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
+      {props?.debug ? (
+        <JSONEditor
+          json={config}
+          onChangeJSON={(json) => {
+            // TODO: add schema conformation for JSONEditor values of component names
+            setConfig(json);
+          }}
+        />
+      ) : null}
       <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
-      <Row>{UX(layoutConfig?.layout) || {}}</Row>
+      <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );
 };

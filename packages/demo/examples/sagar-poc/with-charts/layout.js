@@ -6,8 +6,10 @@ import {
   Home,
   RandomPic,
   JsonForm,
-} from "../../components";
-import { rowStyle, styles } from "../common";
+  Charts,
+} from "../../../components";
+import { styles, rowStyle } from "../../common";
+
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -16,25 +18,13 @@ export const componentsSet = {
   About,
   RandomPic,
   JsonForm,
+  Charts,
 };
+
 // components section
-const _formData = {
-  phone: 8654787549,
-  otp: 654789,
-};
-const schema = {
-  type: "object",
-  properties: {
-    phone: { type: "number" },
-    otp: { type: "number" },
-  },
-};
-const uiSchema = {
-  phone: {
-    "ui:title": "Phone No. ",
-  },
-};
+
 export const routes = {};
+
 routes.routeOne = {
   "1.container": {
     // col no
@@ -48,7 +38,7 @@ routes.routeOne = {
     "1.2.bodyCol": {
       layout: {
         colConfig: {
-          colSize: 1,
+          colSize: 11,
         },
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
@@ -57,92 +47,26 @@ routes.routeOne = {
           },
           bodyHeader: {
             colSize: 1,
-            idx: "About",
-            label: "bodyHeader-changed at 1st",
-          },
-        },
-      },
-    },
-  },
-};
-routes.routeTwo = {
-  // row no
-  "1.container": {
-    // col no
-    "1.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colStyle: { display: "none" },
-        },
-      },
-    },
-    "1.2.bodyCol": {
-      rowConfig: {
-        rowSize: 3,
-        rowStyle: { height: "100%" },
-      },
-      layout: {
-        colConfig: {
-          colSize: 1,
-        },
-        "1.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "30%" },
-          },
-          bodyHeader: {
-            // colSize: 1,
-            idx: "About",
-            label: "bodyHeader-changed at 2nd",
+            idx: "Charts",
+            label: "bodyHeader",
             colStyle: {
               borderColor: "cyan",
+              alignSelf: "center",
               borderWidth: 4,
-              height: "30%",
+              height: 700,
               backgroundColor: "skyblue",
             },
           },
         },
-        "1.2.2.bodyContentRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "40%" },
-          },
-          bodyContent: {
-            // colSize: 1,
-            idx: "About",
-            label: "bodyContent",
-            colStyle: {
-              borderColor: "cyan",
-              borderWidth: 4,
-              height: "40%",
-              backgroundColor: "red",
-            },
-          },
-        },
-        "1.2.3.bodyFooterRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "30%" },
-          },
-          bodyFooter: {
-            // colSize: 1,
-            idx: "Home",
-            label: "bodyFooter",
-            colStyle: {
-              borderColor: "cyan",
-              borderWidth: 4,
-              height: "30%",
-              backgroundColor: "yellow",
-            },
-          },
-        },
       },
     },
   },
 };
+
 // *************************************************
 //  Layout config
 // *************************************************
+
 // links row
 const links = {
   "/": {
@@ -155,30 +79,36 @@ const links = {
     linkStyle: styles.tabName,
     linkText: "Feed",
   },
+  "/contact": {
+    style: styles.navItem,
+    linkStyle: styles.tabName,
+    linkText: "Messages",
+  },
 };
+
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links,
+  links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
   layout: {
     // row no
     "1.container": {
       rowConfig: {
         rowSize: 1,
-        rowStyle: { height: "100%" },
+        rowStyle: rowStyle,
       },
       // col no
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
-            colSize: 1,
+            colSize: 3,
             colStyle: { backgroundColor: "grey" },
           },
           "1.1.leftNavHeaderRow": {
             // row no
             rowConfig: {
               rowSize: 1,
-              rowStyle: { height: "100%" },
+              rowStyle: rowStyle,
             },
             leftNavHeader: {
               // col no
@@ -188,7 +118,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: "100%",
+                height: 700,
                 backgroundColor: "lightgreen",
               },
             },
@@ -198,11 +128,11 @@ export const appConfig = {
       "1.2.bodyCol": {
         rowConfig: {
           rowSize: 1,
-          rowStyle: { height: "100%" },
+          rowStyle: rowStyle,
         },
         layout: {
           colConfig: {
-            colSize: 2,
+            colSize: 11,
             colStyle: {
               backgroundColor: "grey",
             },
@@ -210,25 +140,19 @@ export const appConfig = {
           "1.2.1.bodyHeaderRow": {
             rowConfig: {
               rowSize: 1,
-              rowStyle: { height: "80%" },
+              rowStyle: rowStyle,
             },
             bodyHeader: {
               // col no
-              colSize: 2,
-              //   idx: "About",
-              idx: "JsonForm",
+              colSize: 1,
+              idx: "About",
               label: "bodyHeader",
               colStyle: {
                 borderColor: "cyan",
                 alignSelf: "center",
                 borderWidth: 4,
-                height: "80%",
+                height: 500,
                 backgroundColor: "skyblue",
-              },
-              passProps: {
-                schema,
-                uiSchema,
-                _formData,
               },
             },
           },
@@ -237,11 +161,13 @@ export const appConfig = {
     },
   },
 };
+
 // *************************************************
 //  "../applications/app-one/screen-one";
 // *************************************************
 // bind events to
 //  logic that binds
+
 export const events = {
   //<label>-<element-id> : <handler>
   "leftNavHeader-btn-one": {
@@ -250,13 +176,8 @@ export const events = {
       setLayoutConfig(routes["routeOne"]);
     },
   },
-  "bodyHeader-changed at 1st-btn-one": {
-    // <event> :: <handler>
-    onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeTwo"]);
-    },
-  },
 };
+
 // *************************************************
 //  Helper Util
 // *************************************************

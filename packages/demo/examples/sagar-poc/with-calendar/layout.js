@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
-  About,
-  ActionComp,
   Comp5,
+  ActionComp,
   Home,
+  About,
   RandomPic,
-  JsonForm,
-  ListEntities,
-  RenderList,
-  NavigationBar,
-  TabComponent,
   Cal,
 } from "../../../components";
-import { styles, rowStyle } from "../../common";
+import AgendaScroll from "../../../components/AgendaScroll";
+
+import { rowStyle, styles } from "../../common";
+
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -20,8 +18,8 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
-  JsonForm,
   Cal,
+  AgendaScroll,
 };
 
 // components section
@@ -150,7 +148,7 @@ export const appConfig = {
               // col no
               colSize: 1,
               //   idx: "About",
-              idx: "About",
+              idx: "AgendaScroll",
               label: "bodyHeader",
               colStyle: {
                 borderColor: "cyan",
