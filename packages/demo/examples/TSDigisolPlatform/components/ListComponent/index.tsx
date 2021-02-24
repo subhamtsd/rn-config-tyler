@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { componentGridStyle } from "../../styles/common";
 import SearchListComponent from "./SearchListComponent";
 // import { useRouting } from "expo-next-react-navigation";
 
@@ -51,7 +52,7 @@ export const ListComponent = ({ match, routes }: any) => {
     );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={componentGridStyle}>
       <Text style={styles.heading}>Order Line List View</Text>
       <SearchListComponent
         data={data}
@@ -70,7 +71,11 @@ export const ListComponent = ({ match, routes }: any) => {
           "shipNode",
           "Action",
         ]}
-        flexWidth={[1, 1, 1, 1, 1, 0.001]} // Column-span (length of array should be equal to that of visibleKeys)
+        flexWidth={
+          [
+            // 1, 1, 1, 1, 1, 0.001
+          ]
+        } // Column-span (length of array should be equal to that of visibleKeys)
         numberOfLines={2} // Row-span
         searchBarWrapperStyle={null}
         searchBarStyle={null}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import {
@@ -33,7 +34,7 @@ export const ActionComponent = (props: {
     getEvents,
   } = props;
 
-  const fetchData = async (action) => {
+  const fetchData = async (action: string) => {
     const res = await fetch(
       `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
       {
@@ -102,6 +103,7 @@ export const ActionComponent = (props: {
                 fetchData("Create");
               }}
               style={{
+                width: "100%",
                 backgroundColor:
                   appState.global != undefined
                     ? appState.global.tsdApp.activeAction.name === "Create"
@@ -112,6 +114,8 @@ export const ActionComponent = (props: {
                     : "#5cabc5",
                 height: 35,
                 paddingTop: 7,
+                justifyContent: "center",
+                alignContent: "center",
                 paddingBottom: 5,
                 paddingLeft: 50,
                 paddingRight: 30,

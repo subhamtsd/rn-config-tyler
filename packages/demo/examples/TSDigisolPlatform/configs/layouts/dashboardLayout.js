@@ -1,11 +1,3 @@
-// import { About } from "../../../../src/components/About";
-// import { ActionComp } from "../../../../src/components/ActionComp";
-// import { Comp5 } from "../../../../src/components/Comp5";
-// // import { JsonForm } from "./components/JsonForm";
-// import { Home } from "../../../../src/components/Home";
-// import { RandomPic } from "../../../../src/components/RandomPic";
-// import { rowStyle, styles } from "../../styles/common";
-
 import {
   About,
   ActionComp,
@@ -214,6 +206,7 @@ export const appConfig = {
     },
   },
 };
+
 // export const appConfig4 = {
 //   /// 1st layout
 //   componentsSet,
@@ -245,7 +238,6 @@ export const appConfig = {
 //     },
 //   },
 // };
-
 
 // export const appConfig2 = {
 //   componentsSet,

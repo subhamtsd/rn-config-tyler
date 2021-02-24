@@ -227,7 +227,7 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
+      {/* <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row> */}
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );

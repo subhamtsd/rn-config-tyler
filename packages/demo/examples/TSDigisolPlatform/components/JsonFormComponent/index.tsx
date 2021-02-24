@@ -13,6 +13,7 @@ import useSafeSetState from "../../helper/useSafeState";
 // } from "../../../../src/state-management/actions";
 // import { DEV_END_POINT } from "../../../../src/state-management/config/constant";
 import { routes } from "../../configs/routes/routesConfig";
+import { componentGridStyle } from "../../styles/common";
 
 export const JsonFormComponent = (props: {
   appState: any;
@@ -212,23 +213,7 @@ export const JsonFormComponent = (props: {
   }, []);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{
-        flex: 1,
-        borderWidth: 0,
-        // minHeight: Dimensions.get("window").height - 85,
-        minWidth: Dimensions.get("window").width / 4,
-        padding: 5,
-        maxHeight: 430,
-        margin: 2,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 5,
-      }}
-    >
+    <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       {/* TODO : Remove before final demo */}
       {/* <Text>{JSON.stringify(props)}</Text> */}
       {/* <Text accessibilityRole="header" style={{ alignSelf: "center" }}>
@@ -256,16 +241,6 @@ export const JsonFormComponent = (props: {
         // }}
         _onSuccess={(e: any) => {
           console.log("e : : : : ", e);
-
-          // dispatch(updateState());
-          // dispatch(updateModuleSelection("Hello", "1233"));
-          // dispatch(updateTabSelection("Bolo", "12334"));
-          // dispatch(updateActionSelection("Gooo", "893839"));
-          // console.log("Hello onSuccess");
-          // console.log("state inside JSON FORM : : : : ", state);
-
-          // TODO : REDIRECT TO SEARCH ROUTE
-          setLayoutConfig(routes["search"]);
         }}
         // _onChange={(e) => {
         //   console.log("data changed");

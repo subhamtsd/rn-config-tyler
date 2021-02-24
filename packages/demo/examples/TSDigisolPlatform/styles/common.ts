@@ -1,3 +1,5 @@
+import { Dimensions } from "react-native";
+
 export const colStyle = {
   borderWidth: 1,
   borderColor: "cyan",
@@ -17,6 +19,23 @@ export const gridStyle = {
   borderWidth: 1,
   borderColor: "blue",
   // minHeight: 500,
+};
+
+export const componentGridStyle = {
+  flex: 1,
+  borderWidth: 0,
+  // minHeight: Dimensions.get("window").height - 85,
+  padding: 10,
+  margin: 15,
+  minWidth: Dimensions.get("window").width / 4,
+  maxHeight: 500,
+  borderTopWidth: 1,
+  borderTopColor: "#c5c5c5",
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.5,
+  shadowRadius: 2,
+  elevation: 5,
 };
 
 export const styles = {
