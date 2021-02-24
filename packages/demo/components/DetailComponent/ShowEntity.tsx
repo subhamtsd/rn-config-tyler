@@ -12,9 +12,9 @@ import {
   StyleSheet,
   ActivityIndicator,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { ScrollView } from "react-native-gesture-handler";
 import { routes } from "../../configs/routes/routesConfig";
 
 const TextRender = ({ textFeild, value }: any) => {

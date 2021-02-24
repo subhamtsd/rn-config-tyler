@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { Dimensions, Text, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { Dimensions, ScrollView, Text, View } from "react-native";
 import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../helper/useSafeState";
@@ -211,7 +210,6 @@ export const JsonFormComponent = (props: {
     };
     fetchData();
   }, []);
-
 
   return (
     <ScrollView
