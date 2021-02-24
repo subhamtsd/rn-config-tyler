@@ -126,7 +126,7 @@ export const appConfig = {
           "11leftNavHeaderRow": {
             // row no
             rowConfig: {
-              rowSize: 0.1,
+              rowSize: 0.5,
               rowStyle: rowStyle,
             },
             leftNavHeader: {
