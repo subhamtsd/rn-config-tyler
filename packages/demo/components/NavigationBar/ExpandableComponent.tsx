@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { getEvents } from "../../examples/sagar-poc/3_4-screen-example-web/layout";
+import { getEvents } from "../../examples/3_4-screen-example-web/layout";
 
 export const ExpandableComponent = ({
   props,

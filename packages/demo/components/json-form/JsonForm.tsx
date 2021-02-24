@@ -7,7 +7,7 @@ import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
-import { getEvents } from "../../examples/sagar-poc/3_4-screen-example-web/layout";
+import { getEvents } from "../../examples/3_4-screen-example-web/layout";
 import useSafeSetState from "../utils/useSafeState";
 export { useSafeSetState };
 const noOp = (): void => {};

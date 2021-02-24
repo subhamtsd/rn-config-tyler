@@ -11,8 +11,8 @@ import {
   RenderList,
   NavigationBar,
   TabComponent,
-} from "../../../components";
-import { styles, rowStyle } from "../../common";
+} from "../../components";
+import { styles, rowStyle } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {
