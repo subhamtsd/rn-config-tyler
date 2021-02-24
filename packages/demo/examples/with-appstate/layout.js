@@ -6,9 +6,9 @@ import {
   About,
   RandomPic,
   // JsonForm,
-} from "../../../components";
+} from "../../components";
 
-import { styles } from "../../common";
+import { styles } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {
