@@ -12,8 +12,30 @@ const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
-  const [config, setConfig] = useState(props?.config);
+  const [config, setConfig] = useState(props?.config || {});
+  const [routes, setRoutes] = useState(props?.routes || {});
   const [ui, setUi] = useState({ ui: {} });
+
+  // const history = useHistory();
+  const getInitEvents = props.getInitEvents;
+  const getEvents = props.getEvents;
+
+  if (props.fetchConfig) {
+    // FIXME: appConfig and routyes fetch, partial events Data
+    // change the code to be able to take variable data from a JSON URL
+    // 1st test the same with a similar JSON file from local file
+    // events and state management part to be worked upon
+    fetch("https://run.mocky.io/v3/fa244ead-8fd0-4c1f-a591-be35938d3804")
+      .then((_config) => {
+        return _config.json();
+      })
+      .then((data) => {
+        setConfig(data.appConfig);
+        setRoutes(data.routes);
+        console.log(data);
+      });
+  }
+
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
     ui: {},
@@ -50,11 +72,6 @@ export const App = (props: AppProps) => {
       _setAppState(newAppState);
     }
   };
-
-  // const history = useHistory();
-  const getInitEvents = props.getInitEvents;
-  const getEvents = props.getEvents;
-  const routes = props.routes;
 
   // pick from pre-loaded components and render properly, renders each component at column level
   const UXColumn = (colProps: UXColumnProps) => {

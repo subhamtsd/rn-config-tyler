@@ -10,6 +10,7 @@ import {
   RenderList,
   NavigationBar,
   TabComponent,
+  AlertBox,
 } from "../../../components";
 import { styles, rowStyle } from "../../common";
 import merge from "deepmerge";
@@ -27,6 +28,7 @@ export const componentsSet = {
   RenderList,
   NavigationBar,
   TabComponent,
+  AlertBox,
 };
 export const routes = {};
 routes.routeOne = {
@@ -298,6 +300,25 @@ export const appConfig = {
                 _formData: { ..._formData },
                 schema,
                 uiSchema,
+              },
+            },
+          },
+          "122notificationRow": {
+            rowConfig: {
+              rowSize: 1.5,
+            },
+            notification: {
+              // col no
+              idx: "AlertBox",
+              label: "notification",
+              passProps: {
+                color: "danger",
+                message: "Lorem ipsum idorm message.",
+                heading: "Message Below",
+                messageAction: "Close",
+              },
+              colStyle: {
+                margin: 5,
               },
             },
           },
