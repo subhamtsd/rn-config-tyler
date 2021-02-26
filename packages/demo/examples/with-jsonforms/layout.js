@@ -11,8 +11,8 @@ import {
   NavigationBar,
   TabComponent,
   Cal,
-} from "../../../components";
-import { styles, rowStyle } from "../../common";
+} from "../../components";
+import { styles, rowStyle } from "../common";
 // All component which will be rendered
 export const componentsSet = {
   Comp5,
@@ -21,14 +21,140 @@ export const componentsSet = {
   About,
   RandomPic,
   JsonForm,
-  Cal,
 };
 
 // components section
 
-export const routes = {};
+const _formData = {
+  phone: 8654787549,
+  otp: 654789,
+};
 
+const schema = {
+  type: "object",
+  properties: {
+    phone: { type: "number" },
+    phone1: { type: "number" },
+    otp: { type: "number" },
+  },
+};
+
+const uiSchema = {
+  phone: {
+    "ui:title": "Phone No. ",
+  },
+  otp: {
+    "ui:otp": "OTP",
+  },
+};
+
+export const routes = {};
 routes.routeOne = {
+  // row no
+  "1.container": {
+    // col no
+    "1.1.leftNavCol": {
+      layout: {
+        colConfig: {
+          colStyle: { display: "none" },
+        },
+      },
+    },
+    "1.2.bodyCol": {
+      layout: {
+        colConfig: {
+          colSize: 11,
+        },
+        "1.2.1.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 2,
+            rowStyle: rowStyle,
+          },
+          bodyHeader: {
+            colSize: 1,
+            idx: "About",
+            label: "bodyHeader-changed at 1st",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "none",
+              borderWidth: 4,
+              height: "100vh",
+              backgroundColor: "skyblue",
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+routes.routeTwo = {
+  // row no
+  "1.container": {
+    // col no
+    "1.1.leftNavCol": {
+      layout: {
+        colConfig: {
+          colStyle: { display: "none" },
+        },
+      },
+    },
+    "1.2.bodyCol": {
+      layout: {
+        colConfig: {
+          colSize: 11,
+        },
+        "1.2.1.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 2,
+            rowStyle: rowStyle,
+          },
+          bodyHeader: {
+            colSize: 1,
+            idx: "About",
+            label: "bodyHeader-changed at 2nd",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "none",
+              borderWidth: 4,
+              height: "50vh",
+              backgroundColor: "skyblue",
+            },
+          },
+          bodyHeader1: {
+            colSize: 1,
+            idx: "About",
+            label: "bodyHeader1",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "none",
+              borderWidth: 4,
+              height: "50vh",
+              backgroundColor: "red",
+            },
+          },
+        },
+        "1.2.2.bodyContentRow": {
+          bodyContent: {
+            colSize: 1,
+            idx: "Home",
+            label: "bodyContent",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "none",
+              borderWidth: 4,
+              height: "50vh",
+              backgroundColor: "yellow",
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+routes.routeThree = {
+  // row no
   "1.container": {
     // col no
     "1.1.leftNavCol": {
@@ -49,16 +175,21 @@ routes.routeOne = {
             rowStyle: rowStyle,
           },
           bodyHeader: {
-            colSize: 1,
-            //   idx: "About",
-            idx: "Cal",
-            label: "bodyHeader",
+            colStyle: { display: "none" },
+          },
+          bodyHeader1: {
+            colSize: 11,
+            idx: "About",
+            label: "bodyHeader1-changed 1st",
             colStyle: {
-              borderColor: "cyan",
-              alignSelf: "center",
-              borderWidth: 4,
-              height: 700,
-              backgroundColor: "skyblue",
+              height: "100vh",
+            },
+          },
+        },
+        "1.2.2.bodyContentRow": {
+          bodyContent: {
+            colStyle: {
+              display: "none",
             },
           },
         },
@@ -122,7 +253,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: 700,
+                height: "100vh",
                 backgroundColor: "lightgreen",
               },
             },
@@ -149,15 +280,20 @@ export const appConfig = {
             bodyHeader: {
               // col no
               colSize: 1,
-              //   idx: "About",
-              idx: "About",
+              idx: "JsonForm",
               label: "bodyHeader",
               colStyle: {
                 borderColor: "cyan",
                 alignSelf: "center",
                 borderWidth: 4,
-                height: 500,
+                height: "80vh",
                 backgroundColor: "skyblue",
+              },
+              passProps: {
+                _formData,
+                schema,
+                uiSchema,
+                _onSuccess: (e) => {},
               },
             },
           },
@@ -179,6 +315,17 @@ export const events = {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
       setLayoutConfig(routes["routeOne"]);
+    },
+  },
+
+  "bodyHeader-changed at 1st-btn-one": {
+    onPress: (setLayoutConfig) => {
+      setLayoutConfig(routes["routeTwo"]);
+    },
+  },
+  "bodyHeader1-btn-one": {
+    onPress: (setLayoutConfig) => {
+      setLayoutConfig(routes["routeThree"]);
     },
   },
 };

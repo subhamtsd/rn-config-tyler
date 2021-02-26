@@ -11,8 +11,8 @@ import {
   RenderList,
   NavigationBar,
   TabComponent,
-} from "../../../components";
-import { styles, rowStyle } from "../../common";
+} from "../../components";
+import { styles, rowStyle } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -63,13 +63,13 @@ routes.routeOne = {
             colSize: 2,
             idx: "About",
             label: "bodyHeader",
-            colStyle: { borderWidth: 2, height: "60vh" },
+            colStyle: { borderWidth: 2, height: "100vh" },
           },
           bodyHeader1: {
             colSize: 8,
             idx: "About",
             label: "bodyHeader1",
-            colStyle: { borderWidth: 2, height: "60vh" },
+            colStyle: { borderWidth: 2, height: "100vh" },
           },
         },
         "1.2.2.bodyContentRow": {
