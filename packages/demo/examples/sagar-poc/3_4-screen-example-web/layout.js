@@ -60,7 +60,7 @@ routes.routeOne = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "100vh",
+              height: "100%",
               backgroundColor: "skyblue",
             },
           },
@@ -99,7 +99,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50vh",
+              height: "50%",
               backgroundColor: "skyblue",
             },
           },
@@ -111,7 +111,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50vh",
+              height: "50%",
               backgroundColor: "red",
             },
           },
@@ -125,7 +125,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50vh",
+              height: "50%",
               backgroundColor: "yellow",
             },
           },
@@ -164,7 +164,7 @@ routes.routeThree = {
             idx: "About",
             label: "bodyHeader1-changed 1st",
             colStyle: {
-              height: "100vh",
+              height: "100%",
             },
           },
         },
@@ -272,7 +272,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: "100vh",
+                height: "100%",
                 backgroundColor: "lightgreen",
               },
             },
@@ -286,7 +286,7 @@ export const appConfig = {
           },
           "121bodyHeaderRow": {
             rowConfig: {
-              rowSize: 4,
+              rowSize: 8,
             },
             bodyHeader: {
               // col no
@@ -305,7 +305,7 @@ export const appConfig = {
           },
           "122notificationRow": {
             rowConfig: {
-              rowSize: 1.5,
+              rowSize: 2.5,
             },
             notification: {
               // col no
@@ -333,7 +333,7 @@ export const appConfig = {
               label: "bodyContent",
               colStyle: {
                 borderColor: "red",
-                height: "90vh",
+                height: "90%",
                 backgroundColor: "lightgray",
               },
             },

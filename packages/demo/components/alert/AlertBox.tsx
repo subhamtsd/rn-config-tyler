@@ -24,7 +24,7 @@ export const AlertBox = ({ color, message, heading, messageAction }) => {
       role="alert"
     >
       <Text style={tailwind("font-bold")}>{heading}</Text>
-      <View style={tailwind("block sm:inline")}>{message}</View>
+      <Text style={tailwind("block sm:inline")}>{message}</Text>
       <View style={tailwind("absolute top-0 bottom-0 right-0 px-4 py-3")}>
         <Text style={{ color: selectedIconColor }}>{messageAction}</Text>
       </View>

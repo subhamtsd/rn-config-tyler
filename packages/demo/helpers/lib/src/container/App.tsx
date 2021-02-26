@@ -235,7 +235,7 @@ export const App = (props: AppProps) => {
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      {props?.debug ? (
+      {props?.debug && Platform.OS === "web" ? (
         <JSONEditor
           json={config}
           onChangeJSON={(json) => {
@@ -244,7 +244,7 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
+      <Row style={{ maxHeight: 5 }}>{headerSection}</Row>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );

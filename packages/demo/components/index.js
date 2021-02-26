@@ -9,6 +9,5 @@ export * from "./json-form/JsonForm";
 export * from "./ListEntities";
 export * from "./TabComponent";
 export * from "./Cal";
-export * from "./alert/AlertBox";
 export * from "./NavigationBar/index";
-// export * from "./json-form/JsonForm";
+export * from "./alert/AlertBox";
