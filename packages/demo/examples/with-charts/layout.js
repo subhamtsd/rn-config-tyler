@@ -46,51 +46,67 @@ routes.routeOne = {
             rowStyle: rowStyle,
           },
           bodyHeader: {
-            colSize: 1,
+            colSize: 5,
             idx: "Charts",
             label: "bodyHeader",
             colStyle: {
               borderColor: "cyan",
               alignSelf: "center",
               borderWidth: 4,
-              height: 700,
+              height: 300,
               backgroundColor: "skyblue",
             },
-            //react-native-chart-kit -- 
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
+            passProps: {
+              type: "bar",
+            },
+          },
+          bodyHeader1: {
+            colSize: 5,
+            idx: "Charts",
+            label: "bodyHeader1",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "center",
+              borderWidth: 4,
+              height: 300,
+              backgroundColor: "skyblue",
+            },
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
             passProps: {
               type: "pie",
               data: [
                 {
                   name: "Total cases",
-                  recovery: 107890656,
+                  recovery: 50,
                   color: "grey",
                   legendFontColor: "#7F7F7F",
                   legendFontSize: 15,
                 },
                 {
                   name: "Total deaths",
-                  recovery: 2365917,
+                  recovery: 6,
                   color: "red",
                   legendFontColor: "#7F7F7F",
                   legendFontSize: 15,
                 },
                 {
                   name: "Total recoverd",
-                  recovery: 79913802,
+                  recovery: 20,
                   color: "yellow",
                   legendFontColor: "#7F7F7F",
                   legendFontSize: 15,
                 },
                 {
                   name: "Active cases",
-                  recovery: 25462431,
+                  recovery: 4,
                   color: "green",
                   legendFontColor: "#7F7F7F",
                   legendFontSize: 15,
                 },
                 {
                   name: "Closed cases",
-                  recovery: 82428225,
+                  recovery: 20,
                   color: "orange",
                   legendFontColor: "#7F7F7F",
                   legendFontSize: 15,
@@ -106,6 +122,84 @@ routes.routeOne = {
                   borderRadius: 16,
                 },
               },
+              // height: 200,
+              // ChartWidth: 450,
+            },
+          },
+        },
+        "1.2.2.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: rowStyle,
+          },
+          bodyHeader2: {
+            colSize: 5,
+            idx: "Charts",
+            label: "bodyHeader2",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "center",
+              borderWidth: 4,
+              height: 300,
+              backgroundColor: "skyblue",
+            },
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
+            passProps: {
+              type: "stacked",
+            },
+          },
+          bodyHeader3: {
+            colSize: 5,
+            idx: "Charts",
+            label: "bodyHeader3",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "center",
+              borderWidth: 4,
+              height: 300,
+              backgroundColor: "skyblue",
+            },
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
+            passProps: {
+              type: "contribution",
+            },
+          },
+        },
+        "1.2.3.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 1,
+            rowStyle: rowStyle,
+          },
+          bodyHeader4: {
+            colSize: 5,
+            idx: "Charts",
+            label: "bodyHeader4",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "center",
+              borderWidth: 4,
+              height: 300,
+              backgroundColor: "skyblue",
+            },
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
+            passProps: {
+              type: "progress",
+            },
+          },
+          bodyHeader5: {
+            colSize: 5,
+            idx: "Charts",
+            label: "bodyHeader5",
+            colStyle: {
+              borderColor: "cyan",
+              alignSelf: "center",
+              borderWidth: 4,
+              height: 300,
+              backgroundColor: "skyblue",
+            },
+            //react-native-chart-kit -- https://github.com/indiespirit/react-native-chart-kit
+            passProps: {
+              type: "line",
             },
           },
         },
