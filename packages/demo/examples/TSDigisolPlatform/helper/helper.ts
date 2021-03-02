@@ -21,3 +21,10 @@ export const getSchema = async (roleKey: string, userId: string) => {
   console.log("resJson from getSchema : : : : ----> ", await resJSON);
   return await resJSON;
 };
+
+export const removeKeyFromUrl = async (
+  urlWithKeyParameter: string,
+  regressExpression
+) => {
+  return urlWithKeyParameter.replace(regressExpression, "");
+};

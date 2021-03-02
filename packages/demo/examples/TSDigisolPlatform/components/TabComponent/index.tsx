@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
-import { cleanup } from "detox";
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { appConfig } from "../../configs/layouts/dashboardLayout";
+import { routes } from "../../configs/routes/routesConfig";
 // import { useSelector, useDispatch } from "react-redux";
 // import { updateTabSelection } from "../../../../src/state-management/actions";
 
@@ -45,19 +48,22 @@ export const TabComponent = (props: {
             // TODO : Conditional for default state undefined
             moduleName:
               appState.global != undefined
-                ? appState.global.tsdApp.activeModule.name
+                ? appState.global.tsdApp.activeModule != undefined
+                  ? appState.global.tsdApp.activeModule.name
+                  : "Service Orders"
                 : "Service Orders",
             // tabName: "CreateOrders",
             actionName:
               appState.global != undefined
-                ? appState.global.tsdApp.activeAction.name
+                ? appState.global.tsdApp.activeAction != undefined
+                  ? appState.global.tsdApp.activeAction.name
+                  : "Search"
                 : "Search",
           }),
         }
       );
       const resJSON = await res.json();
       // console.log("active module : : : :", state.activeModuleSelection);
-
       console.log(
         "Buisness Functions with Tabs",
         resJSON.businessFunctions[0].modules[0].tabs
@@ -109,9 +115,15 @@ export const TabComponent = (props: {
                         httpMethod: item.actions[0].httpMethod,
                         showButton: item.actions[0].showButton,
                       },
+                      listComponent: {
+                        data: {
+                          response: [],
+                        },
+                      },
                     },
                   },
                 });
+                setLayoutConfig(appConfig);
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}
               // TODO : Title of button should come from API

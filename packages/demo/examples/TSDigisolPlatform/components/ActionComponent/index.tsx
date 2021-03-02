@@ -85,6 +85,8 @@ export const ActionComponent = (props: {
     });
   };
 
+  console.log("appState in action : : : : ", props);
+
   return (
     <View>
       <Grid>
@@ -106,8 +108,10 @@ export const ActionComponent = (props: {
                 width: "100%",
                 backgroundColor:
                   appState.global != undefined
-                    ? appState.global.tsdApp.activeAction.name === "Create"
-                      ? "#b2c560"
+                    ? appState.global.tsdApp.activeAction != undefined
+                      ? appState.global.tsdApp.activeAction.name === "Create"
+                        ? "#b2c560"
+                        : "#5cabc5"
                       : "#5cabc5"
                     : "Create" === "Create"
                     ? "#5cabc5"
@@ -155,8 +159,10 @@ export const ActionComponent = (props: {
               style={{
                 backgroundColor:
                   appState.global != undefined
-                    ? appState.global.tsdApp.activeAction.name === "Search"
-                      ? "#b2c560"
+                    ? appState.global.tsdApp.activeAction != undefined
+                      ? appState.global.tsdApp.activeAction.name === "Search"
+                        ? "#b2c560"
+                        : "#5cabc5"
                       : "#5cabc5"
                     : "Search" === "Search"
                     ? "#5cabc5"

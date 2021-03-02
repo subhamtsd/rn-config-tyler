@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 
-export const JsonFormComponent = (props: {
+export const EditComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -42,18 +43,7 @@ export const JsonFormComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   // console.log("DISPATCH : : : : ", dispatch);
-
-  const _formData = {
-    firstName: "Raj",
-    lastName: "Shah",
-    stype: "Male",
-    date: "11-01-2021",
-    username: "raj@1234",
-    password: "Raj@123",
-    "Confirm password": "Raj@123",
-    languages: ["Java", "C"],
-    recievemsgs: true,
-  };
+  const _formData = appState.global.tsdApp.listComponent.selectedRowKey;
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -198,8 +188,8 @@ export const JsonFormComponent = (props: {
               appState.global != undefined
                 ? appState.global.tsdApp.activeAction != undefined
                   ? appState.global.tsdApp.activeAction.name
-                  : "Search"
-                : "Search",
+                  : "Edit"
+                : "Edit",
           }),
         }
       );
@@ -209,7 +199,7 @@ export const JsonFormComponent = (props: {
           ? appState.global.tsdApp.activeAction.name +
             appState.global.tsdApp.activeTab.name +
             "Schema"
-          : "SearchCreateOrdersSchema";
+          : "EditCreateOrdersSchema";
 
       console.log("objectName : : : : ", objectName);
 
@@ -218,6 +208,8 @@ export const JsonFormComponent = (props: {
     };
     fetchData();
   }, []);
+
+  console.log("formData  : : :  in edit component : : : ", _formData);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>

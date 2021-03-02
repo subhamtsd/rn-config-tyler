@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { Col, Row } from "react-native-easy-grid";
@@ -41,69 +44,20 @@ export const DetailListComponent = (props: {
   });
 
   const [data, setdata] = useState({});
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchAction = async () => {
-      const res1 = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-        // `https://run.mocky.io/v3/31e2c2ab-c3de-464a-9f75-17324669aa95`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleName: "Catalog",
-            actionName: "View",
-            tabName: "Sku",
-          }),
-        }
-      );
-      const res1JSON = await res1.json();
-      // console.log(
-      //   "action : : ",
-      //   res1JSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-      // );
-
-      setAction(res1JSON.businessFunctions[0].modules[0].tabs[0].actions[0]);
-    };
-
-    const fetchData = async () => {
-      const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/sku/112264303`,
-        // `http://localhost:8080/transaction-web/${action.endPoint}1122137901`,
-        // `https://run.mocky.io/v3/31e2c2ab-c3de-464a-9f75-17324669aa95`,
-        {
-          method: `${action.httpMethod}`,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            languageKey: 1,
-          },
-        }
-      );
-      const resJSON = await res.json();
-      setdata(resJSON);
-
-      setLoading(false);
-    };
-
-    fetchAction();
-    // fetchFormLayout();
-    fetchData();
+    appState.global
+      ? setdata(appState.global.tsdApp.listComponent.selectedRowKey)
+      : setdata({});
   }, []);
 
-  if (loading)
-    return (
-      <View style={detailViewStyles.container}>
-        <ActivityIndicator />
-      </View>
-    );
+  // if (loading)
+  //   return (
+  //     <View style={detailViewStyles.container}>
+  //       <ActivityIndicator />
+  //     </View>
+  //   );
 
   return (
     <View>
@@ -164,3 +118,55 @@ const detailViewStyles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+/**
+ * 
+    setLoading(true);
+    const fetchAction = async () => {
+      const res1 = await fetch(
+        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+        // `https://run.mocky.io/v3/31e2c2ab-c3de-464a-9f75-17324669aa95`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "TsdAdmin",
+            roleKey: 1,
+            moduleName: "Catalog",
+            actionName: "View",
+            tabName: "Sku",
+          }),
+        }
+      );
+      const res1JSON = await res1.json();
+      // console.log(
+      //   "action : : ",
+      //   res1JSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+      // );
+      setAction(res1JSON.businessFunctions[0].modules[0].tabs[0].actions[0]);
+    };
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://localhost:8080/transaction-web/v1/sku/112264303`,
+        // `http://localhost:8080/transaction-web/${action.endPoint}1122137901`,
+        // `https://run.mocky.io/v3/31e2c2ab-c3de-464a-9f75-17324669aa95`,
+        {
+          method: `${action.httpMethod}`,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            languageKey: 1,
+          },
+        }
+      );
+      const resJSON = await res.json();
+      setdata(resJSON);
+      setLoading(false);
+    };
+    fetchAction();
+    // fetchFormLayout();
+    fetchData();
+ */

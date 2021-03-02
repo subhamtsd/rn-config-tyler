@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from "react";
 import { Text } from "react-native";
+import { removeKeyFromUrl } from "../../helper/helper";
 import { routes } from "../routes/routesConfig";
 
 export const events = {
@@ -23,80 +25,94 @@ export const events = {
   "bodyHeader-form": {
     // form data mutator
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
-      console.log(args.params.values);
-      // PREPARING THE DATA
-      // FIXME: MOVE THIS TO EVENT MANAGEMENT SIDE
-      const res = fetch(
-        "https://run.mocky.io/v3/15c75559-42b2-45ed-bcf2-06c48aa51bdf"
+      console.log("args.params.values : : : : : ", args.params.values);
+      const body = args.params.values;
+      const res1 = fetch(
+        `http://localhost:8080/transaction-web/${appState.global.tsdApp.activeAction.endPoint}`,
+        {
+          method: appState.global.tsdApp.activeAction.httpMethod,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
       )
         .then((res) => res.json())
         .then((_data) => {
           const _formData = args.params.values;
-
-          const schema = {
-            type: "object",
-            properties: {
-              phone: { type: "number" },
-              otp: { type: "number" },
-            },
-          };
-
-          const uiSchema = {
-            phone: {
-              "ui:title": "Phone No. ",
-            },
-          };
-
-          console.log(`*** _data.ticketDetails`);
-          console.log(_data.ticketDetails);
-
           setAppState({
-            $global: {
-              list_of_complaints: {
-                data: _data.ticketDetails,
-              },
-              bodyHeader: {
-                form: {
-                  formData: args.params.values,
-                  schema,
-                  uiSchema,
+            global: {
+              tsdApp: {
+                listComponent: {
+                  data: _data,
                 },
               },
             },
           });
           console.log(appState?.$global?.list_of_complaints?.data);
+          setLayoutConfig(routes["search"]);
+        });
+    },
+  },
+  "editComponent-form": {
+    // form data mutator
+    // call edit api from formData as body
+    // console the response
+    // redirect to detail component
+    onSuccess: (setLayoutConfig, setAppState, appState, args) => {
+      console.log("args.params.values : : : : : ", args.params.values);
 
-          setLayoutConfig(
-            {
-              // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
-              //   "Home",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx":
-                "RenderList",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
-                "bodyContent-changed",
-              "1container.12bodyCol.layout.122bodyContentRow.bodyContent.passProps": {
-                data: appState?.$global?.list_of_complaints?.data,
-                searchFields: [
-                  "name",
-                  "description",
-                  "category",
-                  "subCategory",
-                ],
-                visibleKeys: ["name", "category", "subCategory"],
-                titleStyle: null,
-                dataStyle: { color: "darkblue" },
+      console.log("appState in Edit event1 : : : ", appState);
+      const keyName = appState.global.tsdApp.activeTab.name.toLowerCase();
+      console.log("keyName : : : :", keyName); // Organisation --> organisation
+      const res1 = fetch(
+        `http://localhost:8080/transaction-web/${
+          appState.global.tsdApp.editComponent.action.endPoint
+        }${
+          appState.global.tsdApp.listComponent.selectedRowKey[`${keyName}Key`]
+        }`,
+        {
+          method: appState.global.tsdApp.editComponent.action.httpMethod,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(args.params.values),
+        }
+      )
+        .then((res) => res.json())
+        .then((_data) => {
+          // setAppState({
+          //   global: {
+          //     tsdApp: {
+          //       listComponent: {
+          //         data: _data,
+          //       },
+          //     },
+          //   },
+          // });
+
+          setAppState({
+            global: {
+              tsdApp: {
+                listComponent: {
+                  selectedRowKey: _data,
+                },
               },
             },
-            true
-          );
+          });
+          console.log("response from edit api : : : :: ", _data);
+          setLayoutConfig(routes["detail"]);
         });
-      // FIXME: below change is not immedeately reflected , fix the bug
     },
-    // onSubmit: (setLayoutConfig) => {
-    //   console.log("submitted");
-    //   // FIXME: fill in data
-    //   // setLayoutConfig(routes.showListing);
-    // },
+  },
+  "detailComponent-edit": {
+    onPress: (setLayoutConfig, setAppState, appState) => {
+      console.log("setLayoutConfig : : : : ", setLayoutConfig);
+      console.log("setAppState : : : : ", setAppState);
+      console.log("appState : : : : ", appState);
+    },
   },
   "bodyHeader-changed at 1st-btn-one": {
     onPress: (setLayoutConfig) => {

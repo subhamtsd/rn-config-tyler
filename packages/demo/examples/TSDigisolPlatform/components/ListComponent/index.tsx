@@ -1,28 +1,46 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, Text, View, ScrollView } from "react-native";
+import { events } from "../../configs/events/eventConfig";
 import { componentGridStyle } from "../../styles/common";
-import SearchListComponent from "./SearchListComponent";
-// import { useRouting } from "expo-next-react-navigation";
+import { ListRender } from "./ListRender";
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const ListComponent = ({ match, routes }: any) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+export const ListComponent = (props: {
+  appState: any;
+  label: any;
+  styles: any;
+  children: any;
+  setAppState: any;
+  layoutConfig: any;
+  setLayoutConfig: any;
+  getEvents: any;
+  events: any;
+}) => {
+  const {
+    appState,
+    label,
+    styles,
+    children,
+    setAppState,
+    layoutConfig,
+    setLayoutConfig,
+    getEvents,
+  } = props;
+
+  console.log(`label is ${label}`);
+  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
+  console.log("Props in ListComponent : :: : ",props);
+
+  const [listFormLayout, setlistFormLayout] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
     const fetchData = async () => {
       const res = await fetch(
         // "https://run.mocky.io/v3/1683d639-a832-4ce5-9173-1dfeff6dd741",
-        `http://localhost:8080/transaction-web/v1/listOrderLines/list`,
+        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
         {
           method: "POST",
           headers: {
@@ -30,119 +48,71 @@ export const ListComponent = ({ match, routes }: any) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            // TODO : REMOVE this hardcoding
-            orderHeaderKey: "112286601",
+            moduleKey:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeModule.key
+                : 23751,
+            roleKey: 1,
+            tabKey:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeTab.key
+                : 34601,
+            userId: "TsdAdmin",
+            actionName: "List",
           }),
         }
       );
       // console.log("Res : : : : : : ", res);
       const resJSON = await res.json();
-      setData(resJSON.response);
+      // TODO : HARDCODING remove
+      const property =
+        appState.global != undefined
+          ? `List` + `${appState.global.tsdApp.activeTab.name}` + `Schema`
+          : `ListCreateOrdersSchema`;
 
-      setLoading(false);
+      console.log("Property : : : ", property);
+
+      setlistFormLayout(resJSON[property]);
     };
     fetchData();
   }, []);
 
-  if (loading)
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-      </View>
-    );
+  // appState.global != undefined
+  //   ? setAppState({
+  //       global: {
+  //         tsdApp: {
+  //           listComponent: {
+  //             formLayout: resJSON[property],
+  //           },
+  //         },
+  //       },
+  //     })
+  //   : console.log("APP STATE WITH FORMLAYOUT UNSUCCESSFULL");
+
+  // console.log("List Form layout : : : ", listFormLayout);
 
   return (
-    <ScrollView style={componentGridStyle}>
-      <Text style={styles.heading}>Order Line List View</Text>
-      <SearchListComponent
-        data={data}
-        searchFields={[
-          "orderLineKey",
-          "itemCode",
-          "costPrice",
-          "unitPrice",
-          "shipNode",
-        ]}
-        visibleKeys={[
-          "orderLineKey",
-          "itemCode",
-          "costPrice",
-          "unitPrice",
-          "shipNode",
-          "Action",
-        ]}
-        flexWidth={
-          [
-            // 1, 1, 1, 1, 1, 0.001
-          ]
-        } // Column-span (length of array should be equal to that of visibleKeys)
-        numberOfLines={2} // Row-span
-        searchBarWrapperStyle={null}
-        searchBarStyle={null}
-        titleStyle={null}
-        dataStyle={{ color: "darkblue" }}
-        inputPlaceholder="Search Here"
-        buttonColor="#0e73ca"
-        buttonTitle="Show"
-        buttonPress={() => {
-          console.log("Button Clicked From List COmponent");
-        }}
-      />
-      {/* COmponent Satyam Rendered */}
-      {/* <SearchList 
-        data={data} 
-        searchFields={["name", "description", "category", "subCategory"]} 
-        visibleKeys={["name", "category", "description"]}
-        flexWidth={[1,1,3]} // Column-span (length of array should be equal to that of visibleKeys)
-        numberOfLines={3} // Row-span
-        searchBarWrapperStyle={null}
-        searchBarStyle={null}
-        titleStyle={null}
-        dataStyle={{color: 'darkblue'}}
-        inputPlaceholder="Search Here"
-    />  */}
-      {/* <View
-        style={{
-          marginLeft: 100,
-          marginRight: 100,
-          marginBottom: 10,
-          marginTop: 10,
-        }}
-      >
-        <Button
-          accessibilityLabel="link"
-          onPress={() => {
-            goBack();
-          }}
-          title="Go Back"
+    <View style={componentGridStyle}>
+      <Text>
+        {/* {appState.global != undefined
+          ? JSON.stringify(appState.global.tsdApp.listComponent)
+          : ""} */}
+      </Text>
+      <ScrollView horizontal>
+        <ListRender
+          listFormLayout={listFormLayout}
+          appState={appState}
+          label={label}
+          styles={styles}
+          children={children}
+          setAppState={setAppState}
+          layoutConfig={layoutConfig}
+          setLayoutConfig={setLayoutConfig}
+          getEvents={getEvents}
+          events={events}
         />
-      </View> */}
-    </ScrollView>
+      </ScrollView>
+      {children || (appState && appState[label] && appState[label]?.children)}
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderWidth: 0,
-    // minHeight: Dimensions.get("window").height - 50,
-    // minWidth: Dimensions.get("window").width / 4,
-    // alignItems: "center",
-    // flexGrow: 1,
-    // justifyContent: "center",
-  },
-  text: {
-    alignItems: "center",
-    fontSize: 24,
-    marginBottom: 24,
-  },
-  heading: {
-    fontSize: 20,
-    color: "#0d47a1",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  link: {
-    color: "blue",
-  },
-});

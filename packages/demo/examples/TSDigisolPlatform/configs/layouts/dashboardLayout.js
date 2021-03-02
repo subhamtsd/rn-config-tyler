@@ -22,6 +22,7 @@ import { JsonFormComponent } from "../../components/JsonFormComponent/index";
 import { DefaultScreen } from "../../components/DefaultScreen";
 import { ListComponent } from "../../components/ListComponent";
 import { DetailListComponent } from "../../components/DetailListComponent";
+import { EditComponent } from "../../components/EditComponent/index";
 export const componentsSet = {
   Comp5,
   ActionComp,
@@ -39,6 +40,7 @@ export const componentsSet = {
   JsonFormComponent,
   ListComponent,
   DetailListComponent,
+  EditComponent,
   // JsonForm
 };
 
@@ -180,7 +182,7 @@ export const appConfig = {
               // idx: "JsonFormComponent",
               idx: "JsonFormComponent",
               colSize: 2,
-              label: "jsonFormComponent",
+              label: "bodyHeader",
               colStyle: {
                 borderColor: "blue",
                 // borderWidth: 1,
@@ -190,7 +192,7 @@ export const appConfig = {
             "2.2.3.1.bodyContent2": {
               // col no
               // idx: "JsonFormComponent",
-              idx: "ListComponent",
+              idx: "DefaultScreen",
               colSize: 4,
               label: "listComponent",
               colStyle: {

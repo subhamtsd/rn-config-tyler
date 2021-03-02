@@ -12,8 +12,6 @@ import {
   TabComponent,
 } from "../../../components";
 import { styles, rowStyle } from "../../common";
-import merge from "deepmerge";
-import { nextTick } from "process";
 
 // All component which will be rendered
 export const componentsSet = {
