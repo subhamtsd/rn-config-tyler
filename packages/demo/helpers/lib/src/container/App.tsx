@@ -1,22 +1,27 @@
 import merge from "deepmerge";
 import { object } from "dot-object";
-import React, { createElement, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import React, { createElement, useState } from "react";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
+
+// import { About, Home, NavigationBar, JsonForm } from "../../../../components";
+// import { rowStyle, styles } from "../common";
+// All component which will be rendered
 
 // ******************************************************************** //
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
-  const [config, setConfig] = useState({});
-  const [routes, setRoutes] = useState({});
-  const [componentsSet, setComponents] = useState(null);
-
-  const [ui, setUi] = useState({ ui: {} });
+  const [config, setConfig] = useState(props?.config);
+  const routes = props?.routes;
+  const componentsSet = props?.config.componentsSet;
+  // const [routes, setRoutes] = useState({});
+  // const [componentsSet, setComponents] = useState(null);
+  // const [ui, setUi] = useState({ ui: {} });
 
   // const history = useHistory();
   const getInitEvents = props.getInitEvents;
@@ -47,20 +52,6 @@ export const App = (props: AppProps) => {
       }
     });
   };
-
-  useEffect(() => {
-    // FIXME: appConfig and routyes fetch, partial events Data
-    // change the code to be able to take variable data from a JSON URL
-    // 1st test the same with a similar JSON file from local file
-    // events and state management part to be worked upon
-    getRemoteConfig(props).then((data) => {
-      const { routes, config, componentsSet } = data;
-      console.log({ routes, config, componentsSet });
-      setComponents(componentsSet);
-      setRoutes(routes);
-      setConfig(config);
-    });
-  }, [props]);
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
@@ -113,7 +104,10 @@ export const App = (props: AppProps) => {
     } = colProps;
     console.log(`label is ${label}`);
     const colSection = createElement(
-      label && appState[label]?.ui && componentsSet[appState[label]?.ui]
+      label &&
+        appState[label] &&
+        appState[label]?.ui &&
+        componentsSet[appState[label]?.ui]
         ? componentsSet[appState[label]?.ui]
         : componentsSet[idx],
       {
@@ -133,12 +127,12 @@ export const App = (props: AppProps) => {
     return colSection;
   };
   const linksSection = Object.keys(config?.links || {}).map((path, id) => {
-    const { style, linkText, linkStyle } = config?.links[path];
+    const { containerStyle, linkText, linkStyle } = config?.links[path];
     return (
       <Col
         to={path}
         underlayColor="#f0f4f7"
-        style={style}
+        style={containerStyle}
         key={`${id}-${path}`}
       >
         <Text style={linkStyle}>{linkText}</Text>
@@ -178,7 +172,6 @@ export const App = (props: AppProps) => {
               getEvents,
             };
 
-            console.log(appState);
             // console.log(`colSize is ${colSize}`);
             return (
               <Col
@@ -280,7 +273,9 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row style={{ maxHeight: 5 }}>{headerSection}</Row>
+      <TouchableOpacity>
+        <Row style={{ maxHeight: 35, marginTop: "0%" }}>{headerSection}</Row>
+      </TouchableOpacity>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );

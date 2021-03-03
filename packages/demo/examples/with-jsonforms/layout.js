@@ -9,6 +9,13 @@ export const componentsSet = {
   NavigationBar,
 };
 
+// FIXME: uncomment below for remote config
+// export const fetchConfig = {
+//   method: "GET",
+//   url: "http://l77vj.mocklab.io/json/config/with-jsonforms",
+//   mode: "cors",
+// };
+
 // components section
 const _formData = {
   phone: 8654787549,
@@ -199,23 +206,24 @@ routes.routeThree = {
 // links row
 export const links = {
   "/": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Home",
   },
   "/about": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Feed",
   },
   "/contact": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Messages",
   },
 };
 
 export const appConfig = {
+  links,
   componentsSet,
   /// 1st layout
   layout: {
