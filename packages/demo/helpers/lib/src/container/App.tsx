@@ -7,10 +7,6 @@ import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
 
-// import { About, Home, NavigationBar, JsonForm } from "../../../../components";
-// import { rowStyle, styles } from "../common";
-// All component which will be rendered
-
 // ******************************************************************** //
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
