@@ -27,32 +27,6 @@ export const App = (props: AppProps) => {
   const getInitEvents = props.getInitEvents;
   const getEvents = props.getEvents;
 
-  // fetch remote config, get needed bits
-  const getRemoteConfig = (props) => {
-    return new Promise((resolve, reject) => {
-      if (props?.fetchConfig) {
-        return fetch(props?.fetchConfig.url)
-          .then((_data) => {
-            return _data.json();
-          })
-          .then((data) => {
-            const { appConfig, routes } = data;
-            const componentsSet = props?.config?.componentsSet;
-            return resolve({ componentsSet, config: appConfig, routes });
-          });
-      } else {
-        setTimeout(() => {
-          //INFO: mimic xhr
-          return resolve({
-            componentsSet: props?.config?.componentsSet,
-            config: props?.config,
-            routes: props?.routes,
-          });
-        }, 1000);
-      }
-    });
-  };
-
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
     ui: {},
