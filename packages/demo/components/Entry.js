@@ -5,28 +5,31 @@ import { Picker } from "@react-native-community/picker";
 const Empty = () => <Text>Sorry type not match</Text>;
 const Entry = () => {
   const [selectedValue, setSelectedValue] = useState("");
-  const Case = (setSelectedValue) => {
-    switch (setSelectedValue) {
-      case "form":
-        const {
-          appConfig,
-          routes,
-          getEvents,
-        } = require("../examples/with-jsonforms/layout");
-        const { App } = require("../helpers/lib/src");
-        return (
-          <App
-            config={appConfig}
-            routes={routes}
-            debug={false}
-            getEvents={getEvents}
-            // getInitEvents={getInitEvents}
-          />
-        );
-      default:
-        return <Empty />;
-    }
-  };
+  console.log(selectedValue);
+
+  // // let moduleConfig = { appConfig, routes, getEvents };
+  // function load(selectedValue) {
+  //   let moduleConfig = require("../examples/with-jsonforms/layout");
+  //   // let moduleConfig;
+  //   // import("../examples/with-jsonforms/layout").then((moduleData) => {
+  //   //   moduleConfig = moduleData;
+  //   //   console.log(selectedValue);
+  //   if (moduleConfig) {
+  //     const { App } = require("../helpers/lib/src/");
+  //     console.log(moduleConfig);
+  //     return (
+  //       <App
+  //         config={moduleConfig.appConfig}
+  //         routes={moduleConfig.routes}
+  //         debug={false}
+  //         getEvents={moduleConfig.getEvents}
+  //       />
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  //   // });
+  // }
 
   return (
     <View style={styles.container}>
@@ -34,15 +37,21 @@ const Entry = () => {
       <Picker
         style={{ height: 20, width: 300 }}
         selectedValue={selectedValue}
-        onValueChange={(selectedValue) => setSelectedValue(selectedValue)}
+        onValueChange={(selectedValue) => {
+          setSelectedValue(selectedValue);
+        }}
       >
-        <Picker.Item label="Form" value="form" />
-        <Picker.Item label="Charts" value="chart" />
+        <Picker.Item label="select" value="invalid entry" />
+        <Picker.Item label="Form" value="../examples/with-jsonforms/layout" />
+        <Picker.Item label="Charts" value="../examples/with-charts/layout" />
       </Picker>
       <Button
         title="Submit"
-        onPress={() => alert(setSelectedValue(selectedValue))}
+        onPress={() => {
+          load();
+        }}
       ></Button>
+      <View id="demo">{load()}</View>
     </View>
   );
 };
@@ -55,4 +64,24 @@ const styles = StyleSheet.create({
   },
 });
 
+function load(selectedValue) {
+  let moduleConfig = require("../examples/with-jsonforms/layout");
+  if (moduleConfig) {
+    const { App } = require("../helpers/lib/src/");
+    console.log(moduleConfig);
+    return (
+      <App
+        config={moduleConfig.appConfig}
+        routes={moduleConfig.routes}
+        debug={false}
+        getEvents={moduleConfig.getEvents}
+      />
+    );
+  } else {
+    return null;
+  }
+}
+
+// const { render } = require("react-dom");
+// render(load(), document.getElementById("demo"));
 export default Entry;
