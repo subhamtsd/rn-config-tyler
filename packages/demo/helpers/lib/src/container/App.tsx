@@ -6,9 +6,6 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
-
-// import { About, Home, NavigationBar, JsonForm } from "../../../../components";
-// import { rowStyle, styles } from "../common";
 // All component which will be rendered
 
 // ******************************************************************** //
@@ -19,10 +16,6 @@ export const App = (props: AppProps) => {
   const [config, setConfig] = useState(props?.config);
   const routes = props?.routes;
   const componentsSet = props?.config.componentsSet;
-  // const [routes, setRoutes] = useState({});
-  // const [componentsSet, setComponents] = useState(null);
-  // const [ui, setUi] = useState({ ui: {} });
-
   // const history = useHistory();
   const getInitEvents = props.getInitEvents;
   const getEvents = props.getEvents;
