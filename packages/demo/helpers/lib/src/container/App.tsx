@@ -1,40 +1,70 @@
 import merge from "deepmerge";
 import { object } from "dot-object";
-import React, { createElement, useState } from "react";
-import { Text } from "react-native";
+import React, { createElement, useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
+
+// import { About, Home, NavigationBar, JsonForm } from "../../../../components";
+// import { rowStyle, styles } from "../common";
+// All component which will be rendered
 
 // ******************************************************************** //
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
-  const [config, setConfig] = useState(props?.config || {});
-  const [routes, setRoutes] = useState(props?.routes || {});
+  const [config, setConfig] = useState({});
+  const [routes, setRoutes] = useState({});
+  const [componentsSet, setComponents] = useState(null);
+
   const [ui, setUi] = useState({ ui: {} });
 
   // const history = useHistory();
   const getInitEvents = props.getInitEvents;
   const getEvents = props.getEvents;
 
-  if (props.fetchConfig) {
+  // fetch remote config, get needed bits
+  const getRemoteConfig = (props) => {
+    return new Promise((resolve, reject) => {
+      if (props?.fetchConfig) {
+        return fetch(props?.fetchConfig.url)
+          .then((_data) => {
+            return _data.json();
+          })
+          .then((data) => {
+            const { appConfig, routes } = data;
+            const componentsSet = props?.config?.componentsSet;
+            return resolve({ componentsSet, config: appConfig, routes });
+          });
+      } else {
+        setTimeout(() => {
+          //INFO: mimic xhr
+          return resolve({
+            componentsSet: props?.config?.componentsSet,
+            config: props?.config,
+            routes: props?.routes,
+          });
+        }, 1000);
+      }
+    });
+  };
+
+  useEffect(() => {
     // FIXME: appConfig and routyes fetch, partial events Data
     // change the code to be able to take variable data from a JSON URL
     // 1st test the same with a similar JSON file from local file
     // events and state management part to be worked upon
-    fetch("https://run.mocky.io/v3/fa244ead-8fd0-4c1f-a591-be35938d3804")
-      .then((_config) => {
-        return _config.json();
-      })
-      .then((data) => {
-        setConfig(data.appConfig);
-        setRoutes(data.routes);
-        console.log(data);
-      });
-  }
+    getRemoteConfig(props).then((data) => {
+      const { routes, config, componentsSet } = data;
+      console.log({ routes, config, componentsSet });
+      setComponents(componentsSet);
+      setRoutes(routes);
+      setConfig(config);
+    });
+  }, [props]);
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
@@ -53,7 +83,7 @@ export const App = (props: AppProps) => {
     }
     setConfig(
       merge(
-        props?.config,
+        config,
         {
           layout: config,
         },
@@ -85,11 +115,11 @@ export const App = (props: AppProps) => {
       setAppState,
       setLayoutConfig,
     } = colProps;
-
+    console.log(`label is ${label}`);
     const colSection = createElement(
-      label && appState[label]?.ui && config.componentsSet[appState[label]?.ui]
-        ? config.componentsSet[appState[label]?.ui]
-        : config.componentsSet[idx],
+      label && appState[label]?.ui && componentsSet[appState[label]?.ui]
+        ? componentsSet[appState[label]?.ui]
+        : componentsSet[idx],
       {
         ...passProps,
         appState,
@@ -106,8 +136,8 @@ export const App = (props: AppProps) => {
     );
     return colSection;
   };
-  const linksSection = Object.keys(config.links || {}).map((path, id) => {
-    const { style, linkText, linkStyle } = config.links[path];
+  const linksSection = Object.keys(config?.links || {}).map((path, id) => {
+    const { style, linkText, linkStyle } = config?.links[path];
     return (
       <Col
         to={path}
@@ -152,6 +182,7 @@ export const App = (props: AppProps) => {
               getEvents,
             };
 
+            console.log(appState);
             // console.log(`colSize is ${colSize}`);
             return (
               <Col
@@ -168,6 +199,7 @@ export const App = (props: AppProps) => {
 
             return (
               <Col
+                key={`${rId}-${colNo}`}
                 size={cols[cId].layout?.colConfig?.colSize || 1}
                 style={{
                   ...(cols[cId].layout?.colConfig?.colStyle || {}),
@@ -229,6 +261,17 @@ export const App = (props: AppProps) => {
   };
 
   // console.log(layoutConfig);
+  if (
+    !config?.layout ||
+    !(routes && Object.keys(routes).length > 0) ||
+    !(componentsSet && Object.keys(componentsSet).length > 0)
+  ) {
+    return (
+      <View>
+        <Text>Loading ...</Text>
+      </View>
+    );
+  }
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
