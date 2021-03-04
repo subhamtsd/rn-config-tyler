@@ -39,10 +39,99 @@ export const NavigationBar = (props: {
   const [listDataSource, setListDataSource] = useState([]);
   const [multiSelect] = useState(true);
 
+  console.log("Props from Nav bar : : : : ", props);
+
+  if (Platform.OS === "android") {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      const res = await fetch(
+        `https://run.mocky.io/v3/c03ca82f-c15f-4bc3-beef-4f64d297654d`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // TODO : REMOVE this hardcoding
+            userId: "TsdAdmin",
+            roleKey: "1",
+          }),
+        }
+      );
+      const resJSON = await res.json();
+      console.log(resJSON);
+
+      setListDataSource(resJSON.businessFunctions);
+
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const updateLayout = (index: number) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    const array = [...listDataSource];
+    if (multiSelect) {
+      // If multiple select is enabled
+      array[index]["isExpanded"] = !array[index]["isExpanded"];
+    } else {
+      // If single select is enabled
+      array.map((value, placeindex) =>
+        placeindex === index
+          ? (array[placeindex]["isExpanded"] = !array[placeindex]["isExpanded"])
+          : (array[placeindex]["isExpanded"] = false)
+      );
+    }
+    setListDataSource(array);
+  };
+
+  if (loading)
+    return (
+      <View style={NavStyles.container}>
+        <ActivityIndicator />
+      </View>
+    );
+
   return (
-    <View style={NavStyles.container}>
-      <ActivityIndicator />
-    </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        minHeight: Dimensions.get("window").height / 2,
+      }}
+    >
+      <View style={NavStyles.container}>
+        <Grid>
+          <Row>
+            <Col size={1} style={{ backgroundColor: "#5cabc5" }}>
+              <ScrollView>
+                {listDataSource.map((item: any, key: any) => (
+                  <ExpandableComponent
+                    key={item.functionName}
+                    onClickFunction={() => {
+                      updateLayout(key);
+                    }}
+                    {...props}
+                    item={item}
+
+                  />
+                ))}
+                <Text>
+                  {appState?.$global["bodyHeader"]?.form?.formData?.phone
+                    ? "Verified Phone No:- " +
+                      appState?.$global["bodyHeader"]?.form?.formData?.phone
+                    : null}
+                </Text>
+              </ScrollView>
+            </Col>
+          </Row>
+        </Grid>
+      </View>
+    </SafeAreaView>
   );
 };
 
