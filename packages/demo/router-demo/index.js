@@ -1,100 +1,39 @@
-import React from "react";
-
-let debug = false;
 // ****** EXAMPLE CONFIGS START ****************
-// import { appConfig, routes } from "../examples/layout"; /// example with button clicks and routing with dynamic changes to screen
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/3_4-screen-example-mobile/layout";
-// import { appConfig, routes } from "../examples/react-router-port/layout"; /// starter example with nav bars and changes to content area
-// import { appConfig, routes } from "../../examples/app-two/layout"; /// another example with changes
-
-// import { appConfig, routes, getEvents } from "../examples/todo-app/layout";
-// import { appConfig, routes, getEvents } from "../examples/sagar-poc/layout"; /// example with button clicks and routing with dynamic changes to screen
-// import { appConfig, routes, getEvents } from "../examples/app-three/layout"; /// example with NavBarComponent addeed and Tab Component added
-// import { appConfig, routes, getEvents } from "../examples/sagar-poc/example1";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/with-appstate/layout";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/with-setLayout/layout";
-
-import {
-  appConfig,
-  routes,
-  getEvents,
-} from "../examples/sagar-poc/3_4-screen-example-web/layout";
-import { App } from "../helpers/lib/src";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/with-calendar/layout";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/3_4-screen-example-mobile/layout";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/sagar-poc/with-jsonforms/layout";
-
-// import {
-//   appConfig,
-//   routes,
-//   getEvents,
-// } from "../examples/vanilla-grid-layout/layout"; /// starter example with nav bars and changes to content area
-// import { appConfig, routes, getEvents } from "../examples/collapsible-leftnav/layout"; /// example with button clicks and routing with dynamic changes to screen
-// import { appConfig, routes, getEvents } from "../examples/another-grid/layout"; /// another example with changes
-
-// ****** EXAMPLE CONFIGS END ****************
-
-// **************************************************
-// TODO uncomment below, and comment section at very bottom for non-codesandbox
-// **************************************************
+// FIXME: fix the component mount stage example with <label>-$init logic fix
+/*** example with json based forms  */
+const configs = {
+  "with-charts": "with-charts",
+  "with-jsonforms": "with-jsonforms",
+  "another-grid": "another-grid",
+  "3_4-screen-example-mobile": "3_4-screen-example-mobile",
+  "3_4-screen-example-web": "3_4-screen-example-web",
+  "with-calendar": "with-calendar",
+  "component-mount": "component-mount",
+  "todo-app": "todo-app",
+  "with-appstate": "with-appstate",
+  "with-setLayout": "with-setLayout",
+  "with-setLayout (without hide)": "with-setLayout (without hide)",
+  "collapsible-leftnav": "collapsible-leftnav",
+};
+const selected = "with-jsonforms";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { registerRootComponent } = require("expo");
+let moduleConfig = require(`../examples/${configs[selected]}/layout`);
 
-registerRootComponent(() => (
-  // {/* FIXME: debug=true below results in error */}
-  <App
-    config={appConfig}
-    routes={routes}
-    debug={false}
-    getEvents={getEvents}
-    getInitEvents={getInitEvents}
-  />
-));
+const getComponents = moduleConfig.getComponents;
+const fetchConfig = moduleConfig.fetchConfig;
 
-// **************************************************
-// TODO: below section to make it run on codesandbox.io
-// **************************************************
+// ****** EXAMPLE CONFIGS END ****.************
+import React from "react";
+import { registerRootComponent } from "expo";
+
+// INFO: use the npmjs version of routing module
+import { App, init } from "rn-config-tyler";
+
+// INFO: if wanted to switch to current code version which is unpublished as a module, 
+// comment the above one (npmjs rn-config-tyler import) if using below one
+// import { App, init } from "../helpers/lib/src";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const { render } = require("react-dom");
-// const rootElement = document.getElementById("root");
-// render(
-//   <React.StrictMode>
-//     {/*
-//       `appConfig` is the original layout configuration for initial render
-//       `routes` is the routes object (multiple possible layout configurations possible) for later renders
-//       `debug` determines that whether `debugging` related features are enabled or not along with router (e.g. json tree)
-//     */}
-//     <WrappedApp appConfig={appConfig} routes={routes} debug={false} />
-//   </React.StrictMode>,
-//   rootElement
-// );
+init(moduleConfig, fetchConfig, getComponents).then((passProps) => {
+  registerRootComponent(() => <App debug={true} {...passProps} />);
+});

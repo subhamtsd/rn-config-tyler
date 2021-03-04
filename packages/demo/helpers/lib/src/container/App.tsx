@@ -1,11 +1,12 @@
 import merge from "deepmerge";
 import { object } from "dot-object";
 import React, { createElement, useState } from "react";
-import { Text } from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
+// All component which will be rendered
 
 // ******************************************************************** //
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
@@ -13,7 +14,12 @@ const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
   const [config, setConfig] = useState(props?.config);
-  const [ui, setUi] = useState({ ui: {} });
+  const routes = props?.routes;
+  const componentsSet = props?.config.componentsSet;
+  // const history = useHistory();
+  const getInitEvents = props.getInitEvents;
+  const getEvents = props.getEvents;
+
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
     ui: {},
@@ -31,7 +37,7 @@ export const App = (props: AppProps) => {
     }
     setConfig(
       merge(
-        props?.config,
+        config,
         {
           layout: config,
         },
@@ -51,11 +57,6 @@ export const App = (props: AppProps) => {
     }
   };
 
-  // const history = useHistory();
-  const getInitEvents = props.getInitEvents;
-  const getEvents = props.getEvents;
-  const routes = props.routes;
-
   // pick from pre-loaded components and render properly, renders each component at column level
   const UXColumn = (colProps: UXColumnProps) => {
     const {
@@ -68,11 +69,14 @@ export const App = (props: AppProps) => {
       setAppState,
       setLayoutConfig,
     } = colProps;
-
+    console.log(`label is ${label}`);
     const colSection = createElement(
-      label && appState[label]?.ui && config.componentsSet[appState[label]?.ui]
-        ? config.componentsSet[appState[label]?.ui]
-        : config.componentsSet[idx],
+      label &&
+        appState[label] &&
+        appState[label]?.ui &&
+        componentsSet[appState[label]?.ui]
+        ? componentsSet[appState[label]?.ui]
+        : componentsSet[idx],
       {
         ...passProps,
         appState,
@@ -89,13 +93,13 @@ export const App = (props: AppProps) => {
     );
     return colSection;
   };
-  const linksSection = Object.keys(config.links || {}).map((path, id) => {
-    const { style, linkText, linkStyle } = config.links[path];
+  const linksSection = Object.keys(config?.links || {}).map((path, id) => {
+    const { containerStyle, linkText, linkStyle } = config?.links[path];
     return (
       <Col
         to={path}
         underlayColor="#f0f4f7"
-        style={style}
+        style={containerStyle}
         key={`${id}-${path}`}
       >
         <Text style={linkStyle}>{linkText}</Text>
@@ -151,6 +155,7 @@ export const App = (props: AppProps) => {
 
             return (
               <Col
+                key={`${rId}-${colNo}`}
                 size={cols[cId].layout?.colConfig?.colSize || 1}
                 style={{
                   ...(cols[cId].layout?.colConfig?.colStyle || {}),
@@ -170,9 +175,6 @@ export const App = (props: AppProps) => {
       let gridJsx = [];
       if (rows && Object.keys(rows)) {
         gridJsx = Object.keys(rows).map((rId) => {
-          // const style = rows[rId]?.rowConfig?.rowStyle || {};
-          // console.log(rows[rId].rowConfig);
-
           if (rId === "colConfig") {
             return null;
           } else {
@@ -215,10 +217,21 @@ export const App = (props: AppProps) => {
   };
 
   // console.log(layoutConfig);
+  if (
+    !config?.layout ||
+    !(routes && Object.keys(routes).length > 0) ||
+    !(componentsSet && Object.keys(componentsSet).length > 0)
+  ) {
+    return (
+      <View>
+        <Text>Loading ...</Text>
+      </View>
+    );
+  }
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      {props?.debug ? (
+      {props?.debug && Platform.OS === "web" ? (
         <JSONEditor
           json={config}
           onChangeJSON={(json) => {
@@ -227,7 +240,9 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
+      <TouchableOpacity>
+        <Row style={{ maxHeight: 35, marginTop: "0%" }}>{headerSection}</Row>
+      </TouchableOpacity>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );

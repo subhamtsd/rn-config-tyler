@@ -1,30 +1,22 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {
-  About,
-  ActionComp,
-  Comp5,
-  Home,
-  RandomPic,
-  JsonForm,
-  ListEntities,
-  RenderList,
-  NavigationBar,
-  TabComponent,
-  Cal,
-} from "../../components";
-import { styles, rowStyle } from "../common";
+import { About, Home, NavigationBar, JsonForm } from "../../components";
+import { rowStyle, styles } from "../common";
 // All component which will be rendered
 export const componentsSet = {
-  Comp5,
-  ActionComp,
   Home,
   About,
-  RandomPic,
   JsonForm,
+  NavigationBar,
 };
 
-// components section
+// FIXME: uncomment below for remote config
+// export const fetchConfig = {
+//   method: "GET",
+//   url: "http://l77vj.mocklab.io/json/config/with-jsonforms",
+//   mode: "cors",
+// };
 
+// components section
 const _formData = {
   phone: 8654787549,
   otp: 654789,
@@ -46,6 +38,15 @@ const uiSchema = {
   otp: {
     "ui:otp": "OTP",
   },
+};
+// render a grid layout as per the configuration
+export const getComponents = () => {
+  return {
+    Home,
+    About,
+    JsonForm,
+    NavigationBar,
+  };
 };
 
 export const routes = {};
@@ -203,28 +204,28 @@ routes.routeThree = {
 // *************************************************
 
 // links row
-const links = {
+export const links = {
   "/": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Home",
   },
   "/about": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Feed",
   },
   "/contact": {
-    style: styles.navItem,
+    containerStyle: styles.navItem,
     linkStyle: styles.tabName,
     linkText: "Messages",
   },
 };
 
 export const appConfig = {
-  /// 1st layout
+  links,
   componentsSet,
-  links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
+  /// 1st layout
   layout: {
     // row no
     "1.container": {
@@ -345,3 +346,5 @@ export const getEvents = (elId, setLayoutConfig, setAppState) => {
     });
   return elEvents;
 };
+
+console.log(routes);
