@@ -22,7 +22,9 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "lerna": "^3.22.1"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "lerna run web --stream"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -32,9 +34,6 @@
   "files": [
     "dist"
   ],
-  "directories": {
-    "example": "examples"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/applerdotxyz/rn-config-tyler.git"
