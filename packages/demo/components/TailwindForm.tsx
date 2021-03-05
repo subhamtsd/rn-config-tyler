@@ -7,7 +7,6 @@ const TailwindForm = () => {
   const [hasFocus, setHasFocus] = useState(false);
 
   return (
-    // <View style={tailwind("form bg-white p-6 my-10 relative")}>
     <View style={tailwind("form bg-white p-6 my-10 relative")}>
       {/* <View style={tailwind("pt-12 items-center")}>
         <View style={tailwind("bg-blue-200 px-3 py-1 rounded-full")}>
@@ -81,7 +80,6 @@ const TailwindForm = () => {
         ></Button>
       </View>
     </View>
-    // </View>
   );
 };
 

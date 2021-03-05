@@ -7,30 +7,6 @@ const Entry = () => {
   const [selectedValue, setSelectedValue] = useState("");
   console.log(selectedValue);
 
-  // // let moduleConfig = { appConfig, routes, getEvents };
-  // function load(selectedValue) {
-  //   let moduleConfig = require("../examples/with-jsonforms/layout");
-  //   // let moduleConfig;
-  //   // import("../examples/with-jsonforms/layout").then((moduleData) => {
-  //   //   moduleConfig = moduleData;
-  //   //   console.log(selectedValue);
-  //   if (moduleConfig) {
-  //     const { App } = require("../helpers/lib/src/");
-  //     console.log(moduleConfig);
-  //     return (
-  //       <App
-  //         config={moduleConfig.appConfig}
-  //         routes={moduleConfig.routes}
-  //         debug={false}
-  //         getEvents={moduleConfig.getEvents}
-  //       />
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  //   // });
-  // }
-
   return (
     <View style={styles.container}>
       <Text>Examples</Text>
@@ -69,7 +45,7 @@ const styles = StyleSheet.create({
 });
 
 function load(selectedValue) {
-  let moduleConfig = require(`../examples/${selectedValue}/layout`);
+  const moduleConfig = require(`../examples/${selectedValue}/layout`);
   if (moduleConfig) {
     const { App } = require("../helpers/lib/src/");
     console.log(moduleConfig);
@@ -82,7 +58,7 @@ function load(selectedValue) {
       />
     );
   } else {
-    return null;
+    return <Empty />;
   }
 }
 
