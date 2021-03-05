@@ -1,22 +1,11 @@
-import merge from 'deepmerge';
 import React, { useState, createElement } from 'react';
-import { Text } from 'react-native';
+import { View, Text, Platform, TouchableOpacity } from 'react-native';
+import merge from 'deepmerge';
+import { object } from 'dot-object';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
+var JSONEditor = function () { return (React.createElement(View, null,
+    React.createElement(Text, null, "."))); };
 
 var __assign = function() {
     __assign = Object.assign || function __assign(t) {
@@ -66,41 +55,70 @@ var styles = {
     },
 };
 
+// All component which will be rendered
 // ******************************************************************** //
+var overwriteMerge = function (destinationArray, sourceArray, options) { return sourceArray; };
 // render a grid layout as per the configuration
-var GridSection = function (_a) {
+var App = function (props) {
+    var _a = useState(props === null || props === void 0 ? void 0 : props.config), config = _a[0], setConfig = _a[1];
+    var routes = props === null || props === void 0 ? void 0 : props.routes;
+    var componentsSet = props === null || props === void 0 ? void 0 : props.config.componentsSet;
     // const history = useHistory();
-    var layoutConfig = _a.layoutConfig, setLayoutConfig = _a.setLayoutConfig, routes = _a.routes, getEvents = _a.getEvents;
-    // pick from pre-loaded components and render properly, renders each component at column level
-    var UXColumn = function (_a) {
-        var _b, _c, _d, _e;
-        var label = _a.label, key = _a.key, idx = _a.idx; _a.style; _a.colSize; _a.colStyle; var children = _a.children, passProps = _a.passProps, appState = _a.appState, setAppState = _a.setAppState, setLayoutConfig = _a.setLayoutConfig;
-        var colSection = createElement(label && ((_b = appState[label]) === null || _b === void 0 ? void 0 : _b.ui) &&
-            layoutConfig.componentsSet[(_c = appState[label]) === null || _c === void 0 ? void 0 : _c.ui]
-            ? layoutConfig.componentsSet[(_d = appState[label]) === null || _d === void 0 ? void 0 : _d.ui]
-            : layoutConfig.componentsSet[idx], __assign(__assign(__assign(__assign({}, passProps), { appState: appState,
-            routes: routes,
-            key: key,
-            setAppState: setAppState }), styles), { label: label,
-            setLayoutConfig: setLayoutConfig,
-            getEvents: getEvents }), ((_e = appState[label]) === null || _e === void 0 ? void 0 : _e.children) || children);
-        return colSection;
-    };
-    var linksSection = Object.keys(layoutConfig.links).map(function (path, id) {
-        var _a = layoutConfig.links[path], style = _a.style, linkText = _a.linkText, linkStyle = _a.linkStyle;
-        return (React.createElement(Col, { to: path, underlayColor: "#f0f4f7", style: style, key: id + "-" + path },
-            React.createElement(Text, { style: linkStyle }, linkText)));
-    });
-    var headerSection = (React.createElement(Col, { style: __assign({}, styles.nav) }, linksSection));
+    var getInitEvents = props.getInitEvents;
+    var getEvents = props.getEvents;
     // TODO: add ability to add/remove labels and row/columns new from layout config
     var _b = useState({
         ui: {},
         children: {},
         props: {},
+        $global: {},
     }), appState = _b[0], _setAppState = _b[1];
-    var setAppState = function (newAppState) {
-        _setAppState(merge(appState, newAppState));
+    // logic to update layout config (which is stored in config state var)
+    var setLayoutConfig = function (config, isDottedFormat) {
+        if (isDottedFormat === void 0) { isDottedFormat = false; }
+        // find out if the object is in collapsed/dotted format
+        if (isDottedFormat) {
+            // expand to proper JSON from dotted notation
+            config = object(config);
+        }
+        setConfig(merge(config, {
+            layout: config,
+        }, { arrayMerge: overwriteMerge }));
     };
+    // logic to update app state
+    var setAppState = function (newAppState, isPartial) {
+        if (isPartial === void 0) { isPartial = true; }
+        if (isPartial) {
+            _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge }));
+        }
+        else {
+            _setAppState(newAppState);
+        }
+    };
+    // pick from pre-loaded components and render properly, renders each component at column level
+    var UXColumn = function (colProps) {
+        var _a, _b, _c, _d;
+        var label = colProps.label, key = colProps.key, idx = colProps.idx, children = colProps.children, passProps = colProps.passProps, appState = colProps.appState, setAppState = colProps.setAppState, setLayoutConfig = colProps.setLayoutConfig;
+        console.log("label is " + label);
+        var colSection = createElement(label &&
+            appState[label] && ((_a = appState[label]) === null || _a === void 0 ? void 0 : _a.ui) &&
+            componentsSet[(_b = appState[label]) === null || _b === void 0 ? void 0 : _b.ui]
+            ? componentsSet[(_c = appState[label]) === null || _c === void 0 ? void 0 : _c.ui]
+            : componentsSet[idx], __assign(__assign(__assign(__assign({}, passProps), { appState: appState,
+            routes: routes,
+            key: key,
+            setAppState: setAppState }), styles), { label: label,
+            setLayoutConfig: setLayoutConfig,
+            getEvents: getEvents,
+            getInitEvents: getInitEvents }), ((_d = appState[label]) === null || _d === void 0 ? void 0 : _d.children) || children);
+        return colSection;
+    };
+    var linksSection = Object.keys((config === null || config === void 0 ? void 0 : config.links) || {}).map(function (path, id) {
+        var _a = config === null || config === void 0 ? void 0 : config.links[path], containerStyle = _a.containerStyle, linkText = _a.linkText, linkStyle = _a.linkStyle;
+        return (React.createElement(Col, { to: path, underlayColor: "#f0f4f7", style: containerStyle, key: id + "-" + path },
+            React.createElement(Text, { style: linkStyle }, linkText)));
+    });
+    var headerSection = React.createElement(Col, { style: __assign({}, styles.nav) }, linksSection);
     //  overall routing engine
     var UX = function (layoutConfig) {
         var _a, _b;
@@ -116,8 +134,8 @@ var GridSection = function (_a) {
                         return null;
                     }
                     else if (cols[cId].idx) {
-                        var _e = cols[cId], idx = _e.idx, label = _e.label, colSize = _e.colSize, props = _e.props, children = _e.children, colStyle = _e.colStyle;
-                        var passProps = __assign(__assign(__assign({}, props), cols[cId]), { idx: idx,
+                        var _e = cols[cId], idx = _e.idx, label = _e.label, colSize = _e.colSize, props_1 = _e.props, children = _e.children, colStyle = _e.colStyle;
+                        var passProps = __assign(__assign(__assign({}, props_1), cols[cId]), { idx: idx,
                             label: label,
                             children: children,
                             colSize: colSize,
@@ -132,7 +150,7 @@ var GridSection = function (_a) {
                     }
                     if (cols[cId].layout) {
                         // console.log(cols[cId]?.layout.colConfig?.colSize);
-                        return (React.createElement(Col, { size: ((_b = (_a = cols[cId].layout) === null || _a === void 0 ? void 0 : _a.colConfig) === null || _b === void 0 ? void 0 : _b.colSize) || 1, style: __assign(__assign({}, (((_d = (_c = cols[cId].layout) === null || _c === void 0 ? void 0 : _c.colConfig) === null || _d === void 0 ? void 0 : _d.colStyle) || {})), { borderWidth: 0, borderColor: "blue" }) },
+                        return (React.createElement(Col, { key: rId + "-" + colNo, size: ((_b = (_a = cols[cId].layout) === null || _a === void 0 ? void 0 : _a.colConfig) === null || _b === void 0 ? void 0 : _b.colSize) || 1, style: __assign(__assign({}, (((_d = (_c = cols[cId].layout) === null || _c === void 0 ? void 0 : _c.colConfig) === null || _d === void 0 ? void 0 : _d.colStyle) || {})), { borderWidth: 0, borderColor: "blue" }) },
                             React.createElement(Grid, { style: {} }, UX(cols[cId].layout))));
                     }
                 });
@@ -142,8 +160,6 @@ var GridSection = function (_a) {
             var gridJsx = [];
             if (rows && Object.keys(rows)) {
                 gridJsx = Object.keys(rows).map(function (rId) {
-                    // const style = rows[rId]?.rowConfig?.rowStyle || {};
-                    // console.log(rows[rId].rowConfig);
                     var _a, _b, _c, _d;
                     if (rId === "colConfig") {
                         return null;
@@ -162,11 +178,54 @@ var GridSection = function (_a) {
         return (React.createElement(Col, { size: ((_a = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _a === void 0 ? void 0 : _a.colSize) || 1, style: __assign({}, (_b = layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.colConfig) === null || _b === void 0 ? void 0 : _b.colStyle) }, gridSection(layoutConfig, setLayoutConfig)));
     };
     // console.log(layoutConfig);
+    if (!(config === null || config === void 0 ? void 0 : config.layout) ||
+        !(routes && Object.keys(routes).length > 0) ||
+        !(componentsSet && Object.keys(componentsSet).length > 0)) {
+        return (React.createElement(View, null,
+            React.createElement(Text, null, "Loading ...")));
+    }
     return (React.createElement(Grid, { style: { flex: 1, borderWidth: 0, borderColor: "yellow" } },
-        React.createElement(Row, { style: { maxHeight: "5vh" } }, headerSection),
-        React.createElement(Row, null, UX(layoutConfig === null || layoutConfig === void 0 ? void 0 : layoutConfig.layout) || {})));
+        (props === null || props === void 0 ? void 0 : props.debug) && Platform.OS === "web" ? (React.createElement(JSONEditor, { json: config, onChangeJSON: function (json) {
+                // TODO: add schema conformation for JSONEditor values of component names
+                setConfig(json);
+            } })) : null,
+        React.createElement(TouchableOpacity, null,
+            React.createElement(Row, { style: { maxHeight: 35, marginTop: "0%" } }, headerSection)),
+        React.createElement(Row, null, UX(config === null || config === void 0 ? void 0 : config.layout) || {})));
 };
 
-var JSONEditor = function () { };
+// initialize the props to be passed
+var noOp = function () {
+    /* */
+};
+var init = function (moduleConfig, fetchConfig, getComponentsSet) {
+    if (moduleConfig === void 0) { moduleConfig = {}; }
+    if (fetchConfig === void 0) { fetchConfig = null; }
+    var passProps = {
+        config: moduleConfig === null || moduleConfig === void 0 ? void 0 : moduleConfig.appConfig,
+        routes: moduleConfig === null || moduleConfig === void 0 ? void 0 : moduleConfig.routes,
+        getEvents: (moduleConfig === null || moduleConfig === void 0 ? void 0 : moduleConfig.getEvents) || noOp,
+        getInitEvents: (moduleConfig === null || moduleConfig === void 0 ? void 0 : moduleConfig.getInitEvents) || noOp,
+    };
+    return new Promise(function (resolve, reject) {
+        if (fetchConfig) {
+            return fetch(fetchConfig.url, { headers: __assign({}, fetchConfig.headers) })
+                .then(function (_data) {
+                return _data.json();
+            })
+                .then(function (data) {
+                var appConfig = data.appConfig; data.routes;
+                var componentsSet = getComponentsSet();
+                appConfig.componentsSet = componentsSet;
+                passProps.config = appConfig;
+                console.log(passProps);
+                return resolve(passProps);
+            });
+        }
+        else {
+            return resolve(passProps);
+        }
+    });
+};
 
-export { GridSection, JSONEditor, rowStyle, styles };
+export { App, JSONEditor, init, rowStyle, styles };
