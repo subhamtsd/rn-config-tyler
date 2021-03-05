@@ -48,13 +48,13 @@ const Entry = () => {
       <Button
         title="Submit"
         onPress={() => {
-          load();
+          render(load(), document.getElementById("demo"));
         }}
       ></Button>
-      <View id="demo">{load()}</View>
+      {/* <View id="demo"></View> */}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -82,6 +82,6 @@ function load(selectedValue) {
   }
 }
 
-// const { render } = require("react-dom");
-// render(load(), document.getElementById("demo"));
+const { render } = require("react-dom");
+
 export default Entry;
