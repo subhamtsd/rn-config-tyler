@@ -42,19 +42,20 @@ const Entry = () => {
         }}
       >
         <Picker.Item label="select" value="invalid entry" />
-        <Picker.Item label="Form" value="../examples/with-jsonforms/layout" />
-        <Picker.Item label="Charts" value="../examples/with-charts/layout" />
+        <Picker.Item label="Form" value="with-jsonforms" />
+        <Picker.Item label="Charts" value="with-charts" />
       </Picker>
-      <Button
-        title="Submit"
-        onPress={() => {
-          render(load(), document.getElementById("demo"));
-        }}
-      ></Button>
-      {/* <View id="demo"></View> */}
+      <View style={styles.btn}>
+        <Button
+          title="Submit"
+          onPress={() => {
+            render(load(selectedValue), document.getElementById("demo"));
+          }}
+        ></Button>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,10 +63,13 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     alignItems: "center",
   },
+  btn: {
+    padding: 10,
+  },
 });
 
 function load(selectedValue) {
-  let moduleConfig = require("../examples/with-jsonforms/layout");
+  let moduleConfig = require(`../examples/${selectedValue}/layout`);
   if (moduleConfig) {
     const { App } = require("../helpers/lib/src/");
     console.log(moduleConfig);

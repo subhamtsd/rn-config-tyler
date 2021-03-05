@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { About, ActionComp, Home, Comp5, RandomPic } from ".././components";
-import TailwindForm from ".././components/TailwindForm";
-import { rowStyle, styles } from "./common";
+import { About, ActionComp, Home, Comp5, RandomPic } from "../../components";
+import TailwindForm from "../../components/TailwindForm";
+import { rowStyle, styles } from "../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
 
 // All component which will be rendered
@@ -39,6 +39,10 @@ routes.routeZero = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -69,6 +73,10 @@ routes.routeOne = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -112,6 +120,10 @@ routes.routeTwo = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
@@ -179,6 +191,7 @@ export const appConfig = {
     "2.container": {
       rowConfig: {
         rowSize: 0.2,
+        rowStyle: { height: "20%" },
       },
       footer: {
         // col no
