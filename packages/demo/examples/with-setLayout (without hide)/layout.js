@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Platform } from "react-native";
 import { About, ActionComp, Home, Comp5, RandomPic } from "../../components";
 import { rowStyle, styles } from "../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
+
+// FIXME: move this to f/w
+const dim = (dimensionNo) => {
+  if (Platform.OS === "web") {
+    return dimensionNo+"pc";
+  } else {
+    return dimensionNo+"%";
+  }
+}
 
 // All component which will be rendered
 export const componentsSet = {
@@ -28,7 +38,7 @@ routes.routeZero = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: dim(70),
               backgroundColor: "lightgreen",
             },
           },
@@ -41,7 +51,7 @@ routes.routeZero = {
       colSize: 1,
       idx: "ActionComp",
       label: "footer",
-      colStyle: { height: "20%" },
+      colStyle: { height: dim(20) },
     },
   },
 };
@@ -58,7 +68,7 @@ routes.routeOne = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: dim(60),
               backgroundColor: "red",
             },
           },
@@ -71,7 +81,7 @@ routes.routeOne = {
       colSize: 1,
       idx: "ActionComp",
       label: "footer1",
-      colStyle: { height: "20%" },
+      colStyle: { height: dim(20) },
     },
   },
 };
@@ -88,7 +98,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: dim(50),
               backgroundColor: "red",
             },
           },
@@ -101,7 +111,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: dim(50),
               backgroundColor: "blue",
             },
           },
@@ -114,7 +124,7 @@ routes.routeTwo = {
       colSize: 1,
       idx: "ActionComp",
       label: "footer2",
-      colStyle: { height: "20%" },
+      colStyle: { height: dim(20) },
     },
   },
 };
@@ -144,21 +154,21 @@ export const appConfig = {
   layout: {
     // row no
     "1.container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: { height: "100%" },
-      },
+      // rowConfig: {
+      //   rowSize: 1,
+      //   rowStyle: { height: "100%" },
+      // },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
             colSize: 1,
-            colStyle: { backgroundColor: "grey" },
+            colStyle: { backgroundColor: "grey", height: dim(70) },
           },
           "1.1.leftNavHeaderRow": {
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "100%" },
-            },
+            // rowConfig: {
+            //   rowSize: 1,
+            //   rowStyle: { height: "100%" },
+            // },
             leftNavHeader: {
               colSize: 1,
               idx: "Home",
@@ -166,7 +176,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: "100%",
+                height: dim(70),
                 backgroundColor: "lightgreen",
               },
             },
@@ -175,15 +185,15 @@ export const appConfig = {
       },
     },
     "2.container": {
-      rowConfig: {
-        rowSize: 0.2,
-      },
+      // rowConfig: {
+      //   rowSize: 0.2,
+      // },
       footer: {
         // col no
         colSize: 1,
         idx: "ActionComp",
         label: "footer",
-        colStyle: { height: "20%" },
+        colStyle: { height: dim(5) },
       },
     },
   },
