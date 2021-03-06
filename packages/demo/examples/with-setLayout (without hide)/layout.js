@@ -48,7 +48,7 @@ routes.routeZero = {
   },
   "2.container": {
     footer: {
-      colSize: 1,
+      // colSize: 1,
       idx: "ActionComp",
       label: "footer",
       colStyle: { height: dim(20) },
@@ -111,7 +111,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(50),
+              height: dim(35),
               backgroundColor: "blue",
             },
           },
@@ -162,7 +162,7 @@ export const appConfig = {
         layout: {
           colConfig: {
             colSize: 1,
-            colStyle: { backgroundColor: "grey", height: dim(70) },
+            colStyle: { backgroundColor: "grey", height: dim(50) },
           },
           "1.1.leftNavHeaderRow": {
             // rowConfig: {
@@ -176,7 +176,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: dim(70),
+                height: dim(50),
                 backgroundColor: "lightgreen",
               },
             },
@@ -193,7 +193,7 @@ export const appConfig = {
         colSize: 1,
         idx: "ActionComp",
         label: "footer",
-        colStyle: { height: dim(5) },
+        colStyle: { height: dim(20) },
       },
     },
   },
