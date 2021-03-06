@@ -25,7 +25,8 @@ export const JsonForm = ({
   schema = {}, // This data
   uiSchema = {}, // this data
   label = "",
-  _submitButton = true,
+  _submitButton = false,
+  _cancelButton = false,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
@@ -68,7 +69,7 @@ export const JsonForm = ({
     input: {
       focused: StyleSheet.create({
         border: {
-          borderColor: "yellow",
+          borderColor: "#5cabc5",
           borderWidth: 2,
           borderStyle: "solid",
         },
@@ -86,7 +87,7 @@ export const JsonForm = ({
           opacity: 1,
         },
         selected: {
-          color: "blue",
+          color: "#5cabc5",
         },
         unselected: {
           color: "#FAFAFA",
@@ -136,7 +137,7 @@ export const JsonForm = ({
           schema={schema}
           uiSchema={uiSchema}
           submitButton={_submitButton}
-          cancelButton={false}
+          cancelButton={_cancelButton}
           onChange={onChange}
           buttonPosition="center"
           {...getEvents(

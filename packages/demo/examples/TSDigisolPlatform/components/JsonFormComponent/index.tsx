@@ -15,6 +15,7 @@ import useSafeSetState from "../../helper/useSafeState";
 import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
+import { prepareSchema } from "../../helper/helper";
 
 export const JsonFormComponent = (props: {
   appState: any;
@@ -52,6 +53,7 @@ export const JsonFormComponent = (props: {
     password: "Raj@123",
     "Confirm password": "Raj@123",
     languages: ["Java", "C"],
+    roleName: ["admin"],
     recievemsgs: true,
   };
 
@@ -101,63 +103,72 @@ export const JsonFormComponent = (props: {
     },
   });
 
-  const languages = ["Java", "Python", "C"];
+  // const languages = ["Java", "Python", "C"];
 
-  // // form schema
   const _uiSchema = {
-    languages: {
-      "ui:title": "Languages Known",
-      "ui:options": {
-        addable: false,
-        orderable: false,
-        removable: false,
-        minimumNumberOfItems: languages.length,
-      },
-      items: {
-        // The `ui:iterate` allows you to define the uiSchema for each item of the array.
-        // The default is to have a list of TextInput.
-        "ui:iterate": (i: React.ReactText, { values }: any) => ({
-          "ui:title": false,
-          "ui:widget": "checkbox",
-          "ui:widgetProps": {
-            text: languages[i],
-            value: languages[i],
-            checked: (values.languages || []).includes(languages[i]),
-          },
-        }),
-      },
-    },
-    recievemsgs: {
-      "ui:title": "Are you okay if you recieve emails from our side?",
-      "ui:widget": "radio",
-      "ui:widgetProps": {
-        style: { backgroundColor: "lightgrey" },
-      },
-      "ui:containerProps": {
-        style: { paddingTop: 10 },
-      },
-    },
-    stype: {
-      "ui:title": "Gender",
-      "ui:placeholder": "Please select your gender",
+    roleName: {
+      "ui:title": "Role Name",
+      "ui:placeholder": "Please select your Role",
       "ui:widget": "select",
     },
-    date: {
-      "ui:widget": "date",
-      "ui:title": "Select your Birthdate ",
-    },
-    upload: {
-      "ui:widget": "file",
-      "ui:title": "Upload your documents",
-    },
-    submitButton: false,
-    age: {
-      "ui:widget": "range",
-    },
-    //   "background-color":{
-    //     'ui:widget':"ColorPicker"
-    // },
+    // submitButton: false,
   };
+
+  // // form schema
+  // const _uiSchema = {
+  //   languages: {
+  //     "ui:title": "Languages Known",
+  //     "ui:options": {
+  //       addable: false,
+  //       orderable: false,
+  //       removable: false,
+  //       minimumNumberOfItems: languages.length,
+  //     },
+  //     items: {
+  //       // The `ui:iterate` allows you to define the uiSchema for each item of the array.
+  //       // The default is to have a list of TextInput.
+  //       "ui:iterate": (i: React.ReactText, { values }: any) => ({
+  //         "ui:title": false,
+  //         "ui:widget": "checkbox",
+  //         "ui:widgetProps": {
+  //           text: languages[i],
+  //           value: languages[i],
+  //           checked: (values.languages || []).includes(languages[i]),
+  //         },
+  //       }),
+  //     },
+  //   },
+  //   recievemsgs: {
+  //     "ui:title": "Are you okay if you recieve emails from our side?",
+  //     "ui:widget": "radio",
+  //     "ui:widgetProps": {
+  //       style: { backgroundColor: "lightgrey" },
+  //     },
+  //     "ui:containerProps": {
+  //       style: { paddingTop: 10 },
+  //     },
+  //   },
+  //   stype: {
+  //     "ui:title": "Gender",
+  //     "ui:placeholder": "Please select your gender",
+  //     "ui:widget": "select",
+  //   },
+  //   date: {
+  //     "ui:widget": "date",
+  //     "ui:title": "Select your Birthdate ",
+  //   },
+  //   upload: {
+  //     "ui:widget": "file",
+  //     "ui:title": "Upload your documents",
+  //   },
+  //   submitButton: false,
+  //   age: {
+  //     "ui:widget": "range",
+  //   },
+  //   //   "background-color":{
+  //   //     'ui:widget':"ColorPicker"
+  //   // },
+  // };
 
   const initialFormSchema = {
     type: "object",
@@ -204,17 +215,49 @@ export const JsonFormComponent = (props: {
         }
       );
       const resJSON = await res.json();
-      const objectName =
-        appState.global != undefined
-          ? appState.global.tsdApp.activeAction.name +
-            appState.global.tsdApp.activeTab.name +
-            "Schema"
-          : "SearchCreateOrdersSchema";
 
-      console.log("objectName : : : : ", objectName);
+      console.log("response Json : : : : : ---> ", resJSON);
+      const jsonForm = {
+        CreateGroupSchema: {
+          type: "object",
+          required: ["groupName"],
+          properties: {
+            roleName: {
+              title: "Role Name",
+              type: "string",
+              displayType: "dropdown",
+              dropdownLoadApiURL: "v1/role/list",
+              dropdownLoadApiMethod: "POST",
+              uid: "roleName",
+              pattern: "[a-zA-Z0-9]",
+            },
+            groupName: {
+              title: "Group Name",
+              type: "string",
+              uid: "groupName",
+              pattern: "[a-zA-Z0-9]",
+            },
+          },
+        },
+      };
+      prepareSchema(resJSON)
+        .then((schemaJson) => {
+          console.log("SchemaJson updated : : :: ", schemaJson);
+          return schemaJson;
+        })
+        .then((formLayout) => {
+          console.log("Schema returened : : : ", formLayout);
+          const objectName =
+            appState.global != undefined
+              ? appState.global.tsdApp.activeAction.name +
+                appState.global.tsdApp.activeTab.name +
+                "Schema"
+              : "SearchCreateOrdersSchema";
 
-      console.log("FormLayout Json : : : : : ---> ", resJSON[objectName]);
-      setformLayout(resJSON[objectName]);
+          console.log("objectName : : : : ", objectName);
+          setformLayout(formLayout[objectName]);
+        });
+      // setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);
@@ -230,6 +273,8 @@ export const JsonFormComponent = (props: {
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
+        _submitButton={true}
+        _cancelButton={true}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

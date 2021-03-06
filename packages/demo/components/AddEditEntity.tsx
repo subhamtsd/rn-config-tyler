@@ -34,107 +34,145 @@ export const AddEditEntity = (props) => {
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
-    required: [
-      "firstName",
-      "lastName",
-      "stype",
-      "date",
-      "username",
-      "password",
-      "Confirm password",
-      "languages",
-      "recievemsgs",
-    ],
+    required: ["groupName"],
     properties: {
-      firstName: { type: "string" },
-      lastName: { type: "string" },
-      stype: {
-        enum: ["Male", "Female", "Others"],
+      roleName: {
+        title: "Role Name",
         type: "string",
+        enum: ["admin", "flatOwner", "others"],
+        // displayType: "dropdown",
+        // dropdownLoadApiURL: "v1/role/list",
+        // dropdownLoadApiMethod: "POST",
+        // uid: "roleName",
+        // pattern: "[a-zA-Z0-9]",
       },
-      date: {
-        format: "date",
+      groupName: {
+        title: "Group Name",
         type: "string",
-        title: "Date",
-      },
-      username: { type: "string" },
-      password: { type: "string" },
-      "Confirm password": { type: "string" },
-      languages: {
-        type: "array",
-        items: {
-          type: "string",
-        },
-      },
-      recievemsgs: { type: "boolean" },
-      upload: {
-        format: "data-url",
-        type: "string",
-      },
-      age: {
-        type: "integer",
-        title: "Age",
+        uid: "groupName",
+        pattern: "[a-zA-Z0-9]",
       },
     },
   });
 
+  const _uiSchema = {
+    roleName: {
+      "ui:title": "Role Name",
+      "ui:placeholder": "Please select your Role",
+      "ui:widget": "select",
+    },
+    submitButton: false,
+  };
+
+  // const [_schema, setSchema] = useSafeSetState({
+  //   type: "object",
+  //   required: [
+  //     "firstName",
+  //     "lastName",
+  //     "stype",
+  //     "date",
+  //     "username",
+  //     "password",
+  //     "Confirm password",
+  //     "languages",
+  //     "recievemsgs",
+  //   ],
+  //   properties: {
+  //     // firstName: { type: "string" },
+  //     // lastName: { type: "string" },
+  //     orderName: {
+  //       title: "Order Name",
+  //       type: "string",
+  //       uid: "orderName",
+  //       pattern: "[a-zA-Z0-9]",
+  //     },
+  //     stype: {
+  //       enum: ["Male", "Female", "Others"],
+  //       type: "string",
+  //     },
+  //     date: {
+  //       format: "date",
+  //       type: "string",
+  //       title: "Date",
+  //     },
+  //     // username: { type: "string" },
+  //     // password: { type: "string" },
+  //     // "Confirm password": { type: "string" },
+  //     languages: {
+  //       type: "array",
+  //       items: {
+  //         type: "string",
+  //       },
+  //     },
+  //     // recievemsgs: { type: "boolean" },
+  //     // upload: {
+  //     //   format: "data-url",
+  //     //   type: "string",
+  //     // },
+  //     age: {
+  //       type: "integer",
+  //       title: "Age",
+  //     },
+  //   },
+  // });
+
   const languages = ["Java", "Python", "C"];
 
   // // form schema
-  const _uiSchema = {
-    languages: {
-      "ui:title": "Languages Known",
-      "ui:options": {
-        addable: false,
-        orderable: false,
-        removable: false,
-        minimumNumberOfItems: languages.length,
-      },
-      items: {
-        // The `ui:iterate` allows you to define the uiSchema for each item of the array.
-        // The default is to have a list of TextInput.
-        "ui:iterate": (i, { values }) => ({
-          "ui:title": false,
-          "ui:widget": "checkbox",
-          "ui:widgetProps": {
-            text: languages[i],
-            value: languages[i],
-            checked: (values.languages || []).includes(languages[i]),
-          },
-        }),
-      },
-    },
-    recievemsgs: {
-      "ui:title": "Are you okay if you recieve emails from our side?",
-      "ui:widget": "radio",
-      "ui:widgetProps": {
-        style: { backgroundColor: "lightgrey" },
-      },
-      "ui:containerProps": {
-        style: { paddingTop: 10 },
-      },
-    },
-    stype: {
-      "ui:title": "Gender",
-      "ui:placeholder": "Please select your gender",
-      "ui:widget": "select",
-    },
-    date: {
-      "ui:widget": "date",
-      "ui:title": "Select your Birthdate ",
-    },
-    upload: {
-      "ui:widget": "file",
-      "ui:title": "Upload your documents",
-    },
-    submitButton: false,
-    age: {
-      "ui:widget": "range",
-    },
-    //   "background-color":{
-    //     'ui:widget':"ColorPicker"
-    // },
-  };
+  // const _uiSchema = {
+  //   languages: {
+  //     "ui:title": "Languages Known",
+  //     "ui:options": {
+  //       addable: false,
+  //       orderable: false,
+  //       removable: false,
+  //       minimumNumberOfItems: languages.length,
+  //     },
+  //     items: {
+  //       // The `ui:iterate` allows you to define the uiSchema for each item of the array.
+  //       // The default is to have a list of TextInput.
+  //       "ui:iterate": (i, { values }) => ({
+  //         "ui:title": false,
+  //         "ui:widget": "checkbox",
+  //         "ui:widgetProps": {
+  //           text: languages[i],
+  //           value: languages[i],
+  //           checked: (values.languages || []).includes(languages[i]),
+  //         },
+  //       }),
+  //     },
+  //   },
+  //   // recievemsgs: {
+  //   //   "ui:title": "Are you okay if you recieve emails from our side?",
+  //   //   "ui:widget": "radio",
+  //   //   "ui:widgetProps": {
+  //   //     style: { backgroundColor: "lightgrey" },
+  //   //   },
+  //   //   "ui:containerProps": {
+  //   //     style: { paddingTop: 10 },
+  //   //   },
+  //   // },
+  //   stype: {
+  //     "ui:title": "Gender",
+  //     "ui:placeholder": "Please select your gender",
+  //     "ui:widget": "select",
+  //   },
+  //   date: {
+  //     "ui:widget": "date",
+  //     "ui:title": "Select your Birthdate ",
+  //   },
+  //   // upload: {
+  //   //   "ui:widget": "file",
+  //   //   "ui:title": "Upload your documents",
+  //   // },
+  //   submitButton: false,
+  //   age: {
+  //     "ui:widget": "range",
+  //   },
+  //   //   "background-color":{
+  //   //     'ui:widget':"ColorPicker"
+  //   // },
+  // };
 
   const ThemeWrapper = ({ children }) => {
     return (
@@ -184,7 +222,8 @@ export const AddEditEntity = (props) => {
         // }}
         _onSuccess={(e) => {
           // props.route.params.dispatch(updateState());
-          props.navigation.navigate("First");
+          // props.navigation.navigate("First");
+          console.log("Button clicked");
         }}
         // _onChange={(e) => {
         //   console.log("data changed");

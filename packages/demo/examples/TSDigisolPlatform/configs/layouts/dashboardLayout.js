@@ -23,6 +23,10 @@ import { DefaultScreen } from "../../components/DefaultScreen";
 import { ListComponent } from "../../components/ListComponent";
 import { DetailListComponent } from "../../components/DetailListComponent";
 import { EditComponent } from "../../components/EditComponent/index";
+import { ListJsonFormComponent } from "../../../../components/ListJsonFormComponent";
+
+// ******************** TEST OF AddEditEntity *************************
+import { AddEditEntity } from "../../../../components/AddEditEntity";
 export const componentsSet = {
   Comp5,
   ActionComp,
@@ -41,7 +45,11 @@ export const componentsSet = {
   ListComponent,
   DetailListComponent,
   EditComponent,
+  ListJsonFormComponent,
   // JsonForm
+
+  // TEST FOR JSON FORM
+  AddEditEntity,
 };
 
 const links = {
@@ -192,9 +200,9 @@ export const appConfig = {
             "2.2.3.1.bodyContent2": {
               // col no
               // idx: "JsonFormComponent",
-              idx: "DefaultScreen",
+              idx: "ListJsonFormComponent",
               colSize: 4,
-              label: "listComponent",
+              label: "listJsonFormComponent",
               colStyle: {
                 display: "flex",
                 borderColor: "blue",
