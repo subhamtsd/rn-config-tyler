@@ -3,9 +3,13 @@ import { View, StyleSheet, Text, Button } from "react-native";
 import { Picker } from "@react-native-community/picker";
 
 const Empty = () => <Text>Sorry type not match</Text>;
-const Entry = () => {
+const Entry = ({ modules }) => {
   const [selectedValue, setSelectedValue] = useState("");
   console.log(selectedValue);
+
+  const pickerOptionsSection = Object.keys(modules).map((id) => {
+    return <Picker.Item label={modules[id]} value={modules[id]} />;
+  });
 
   return (
     <View style={styles.container}>
@@ -15,20 +19,16 @@ const Entry = () => {
         selectedValue={selectedValue}
         onValueChange={(selectedValue) => {
           setSelectedValue(selectedValue);
+          render(
+            load(selectedValue),
+            document.querySelector('[data-testid="demo"]')
+          );
         }}
       >
         <Picker.Item label="select" value="invalid entry" />
-        <Picker.Item label="Form" value="with-jsonforms" />
-        <Picker.Item label="Charts" value="with-charts" />
+        {pickerOptionsSection}
       </Picker>
-      <View style={styles.btn}>
-        <Button
-          title="Submit"
-          onPress={() => {
-            render(load(selectedValue), document.getElementById("demo"));
-          }}
-        ></Button>
-      </View>
+      <View testID="demo" style={{ width: "100%" }}></View>
     </View>
   );
 };
@@ -51,6 +51,7 @@ function load(selectedValue) {
     console.log(moduleConfig);
     return (
       <App
+        key={selectedValue}
         config={moduleConfig.appConfig}
         routes={moduleConfig.routes}
         debug={false}
