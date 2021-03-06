@@ -48,10 +48,10 @@ routes.routeOne = {
           colSize: 11,
         },
         "121bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 2,
-            rowStyle: rowStyle,
-          },
+          // rowConfig: {
+          //   rowSize: 2,
+          //   rowStyle: rowStyle,
+          // },
           bodyHeader: {
             colSize: 1,
             idx: "About",
@@ -152,10 +152,10 @@ routes.routeThree = {
           colSize: 11,
         },
         "1.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: rowStyle,
-          },
+          // rowConfig: {
+          //   rowSize: 1,
+          //   rowStyle: rowStyle,
+          // },
           bodyHeader: {
             colStyle: { display: "none" },
           },
@@ -248,10 +248,10 @@ export const appConfig = {
   layout: {
     // row no
     "1container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
+      // rowConfig: {
+      //   rowSize: 1,
+      //   rowStyle: rowStyle,
+      // },
       // col no
       "11leftNavCol": {
         layout: {
@@ -261,12 +261,12 @@ export const appConfig = {
           },
           "11leftNavHeaderRow": {
             // row no
-            rowConfig: {
-              rowSize: 1,
-            },
+            // rowConfig: {
+            //   rowSize: 1,
+            // },
             leftNavHeader: {
               // col no
-              colSize: 1,
+              // colSize: 1,
               idx: "NavigationBar",
               label: "leftNavHeader",
               colStyle: {
@@ -295,6 +295,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 backgroundColor: "skyblue",
+                height: "20vh",
               },
               passProps: {
                 _formData: { ..._formData },
@@ -304,9 +305,9 @@ export const appConfig = {
             },
           },
           "122notificationRow": {
-            rowConfig: {
-              rowSize: 2.5,
-            },
+            // rowConfig: {
+            //   rowSize: 2.5,
+            // },
             notification: {
               // col no
               idx: "AlertBox",
@@ -318,14 +319,15 @@ export const appConfig = {
                 messageAction: "Close",
               },
               colStyle: {
-                margin: 5,
+                // margin: 5,
+                height: "10vh",
               },
             },
           },
           "122bodyContentRow": {
-            rowConfig: {
-              rowSize: 12,
-            },
+            // rowConfig: {
+            //   rowSize: 12,
+            // },
             bodyContent: {
               // col no
               colSize: 1,
@@ -333,7 +335,7 @@ export const appConfig = {
               label: "bodyContent",
               colStyle: {
                 borderColor: "red",
-                height: "90vh",
+                height: "70vh",
                 backgroundColor: "lightgray",
               },
             },
