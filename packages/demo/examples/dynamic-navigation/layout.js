@@ -36,9 +36,9 @@ routes.routeOne = {
     },
     "1.2.bodyCol": {
       layout: {
-        colConfig: {
-          colSize: 11,
-        },
+        // colConfig: {
+        //   colSize: 11,
+        // },
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
             rowSize: 2,
@@ -193,7 +193,7 @@ export const appConfig = {
     // row no
     "1.container": {
       rowConfig: {
-        rowSize: 1,
+        // rowSize: 1,
         rowStyle: rowStyle,
       },
       // col no
@@ -226,7 +226,7 @@ export const appConfig = {
       },
       "1.2.bodyCol": {
         rowConfig: {
-          rowSize: 1,
+          // rowSize: 1,
           rowStyle: rowStyle,
         },
         layout: {
@@ -238,7 +238,7 @@ export const appConfig = {
           },
           "1.2.1.bodyHeaderRow": {
             rowConfig: {
-              rowSize: 1,
+              // rowSize: 1,
               rowStyle: rowStyle,
             },
             bodyHeader: {
@@ -250,7 +250,7 @@ export const appConfig = {
                 borderColor: "cyan",
                 alignSelf: "center",
                 borderWidth: 4,
-                height: "80vh",
+                height: "100vh",
                 backgroundColor: "skyblue",
               },
             //   props:{schema:schema}

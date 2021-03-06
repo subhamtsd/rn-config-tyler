@@ -181,7 +181,7 @@ export const App = (props: AppProps) => {
             // console.log(rows[rId]?.rowConfig?.rowSize);
             return (
               <Row
-                size={rows[rId]?.rowConfig?.rowSize || 1}
+                // size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
                 style={{
                   borderWidth: 6,
