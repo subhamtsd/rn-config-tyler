@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React from "react";
+import { Text } from "react-native";
 import {
   About,
   ActionComp,
@@ -63,6 +65,8 @@ routes.routeOne = {
             colSize: 2,
             idx: "About",
             label: "bodyHeader",
+            children: <Text>Hi user</Text>,
+
             colStyle: { borderWidth: 2, height: "100vh" },
           },
           bodyHeader1: {
@@ -145,6 +149,8 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavBody",
+              children: <Text>Hi</Text>,
+
               colStyle: { borderWidth: 1, height: "92vh" },
             },
           },
@@ -168,6 +174,7 @@ export const appConfig = {
               colSize: 6,
               idx: "RandomPic",
               label: "bodyHeader",
+
               colStyle: { borderWidth: 1, height: "40vh" },
             },
             bodyHeader1: {

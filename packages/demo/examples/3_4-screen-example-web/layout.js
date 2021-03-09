@@ -441,8 +441,8 @@ export const events = {
                   dataStyle: { color: "darkblue" },
                 },
               },
-              true,// dot-notationed
-              true,// sustain
+              true, // dot-notationed
+              true // sustain
             );
           }
         });

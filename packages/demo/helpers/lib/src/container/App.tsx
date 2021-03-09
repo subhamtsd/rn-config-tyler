@@ -29,11 +29,11 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (_config, isDottedFormat = false, sustain=false) => {
+  const setLayoutConfig = (config, isDottedFormat = false, sustain = false) => {
     // find out if the object is in collapsed/dotted format
     if (isDottedFormat) {
       // expand to proper JSON from dotted notation
-      _config = object(_config);
+      config = object(config);
     }
     let options = {};
     if (!sustain) {
@@ -43,9 +43,9 @@ export const App = (props: AppProps) => {
       merge(
         config,
         {
-          layout: _config,
+          layout: config, //saurabh have to look once on this for framework (_config/config)
         },
-        options,
+        options
       )
     );
   };
@@ -203,7 +203,7 @@ export const App = (props: AppProps) => {
         ); /// return all rows in layout
       } else {
         console.log(
-          "ERROR  :::: Possibly some routing label is incorrect in youir routes configuration."
+          "ERROR  :::: Possibly some routing label is incorrect in your routes configuration."
         );
       }
     };

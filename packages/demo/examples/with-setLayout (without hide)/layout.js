@@ -38,7 +38,7 @@ routes.routeZero = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(70),
+              height: dim(100),
               backgroundColor: "lightgreen",
             },
           },
@@ -68,7 +68,7 @@ routes.routeOne = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(60),
+              height: dim(100),
               backgroundColor: "red",
             },
           },
@@ -111,7 +111,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(35),
+              height: dim(50),
               backgroundColor: "blue",
             },
           },
@@ -162,7 +162,7 @@ export const appConfig = {
         layout: {
           colConfig: {
             colSize: 1,
-            colStyle: { backgroundColor: "grey", height: dim(50) },
+            colStyle: { backgroundColor: "grey", height: dim(100) },
           },
           "1.1.leftNavHeaderRow": {
             // rowConfig: {
@@ -176,7 +176,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: dim(50),
+                height: dim(100),
                 backgroundColor: "lightgreen",
               },
             },
