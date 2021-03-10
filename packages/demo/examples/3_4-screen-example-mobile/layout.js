@@ -33,10 +33,10 @@ routes.routeOne = {
           colSize: 1,
         },
         "1.2.1.bodyHeaderRow": {
-          // rowConfig: {
-          //   rowSize: 1,
-          //   rowStyle: rowStyle,
-          // },
+          rowConfig: {
+            // rowSize: 1,
+            rowStyle: rowStyle,
+          },
           bodyHeader: {
             colSize: 1,
             idx: "About",
@@ -61,18 +61,14 @@ routes.routeTwo = {
     },
     "1.2.bodyCol": {
       rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
+        // rowSize: 1,
+        // rowStyle: rowStyle,
       },
       layout: {
         colConfig: {
           colSize: 1,
         },
         "1.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "100%" },
-          },
           bodyHeader: {
             // colSize: 1,
             idx: "About",
@@ -80,16 +76,12 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: "10%",
               backgroundColor: "skyblue",
             },
           },
         },
         "1.2.2.bodyContentRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "100%" },
-          },
           bodyContent: {
             // colSize: 1,
             idx: "About",
@@ -97,16 +89,12 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
+              height: "85%",
               backgroundColor: "red",
             },
           },
         },
         "1.2.3.bodyFooterRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: { height: "100%" },
-          },
           bodyFooter: {
             // colSize: 1,
             idx: "Home",
@@ -114,8 +102,8 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: "100%",
               backgroundColor: "yellow",
+              height: "5%",
             },
           },
         },
@@ -137,8 +125,8 @@ routes.routeThree = {
     },
     "1.2.bodyCol": {
       rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
+        // rowSize: 1,
+        // rowStyle: rowStyle,
       },
       layout: {
         colConfig: {
@@ -146,13 +134,13 @@ routes.routeThree = {
         },
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
-            rowSize: 1,
+            // rowSize: 1,
             rowStyle: { display: "none" },
           },
         },
         "1.2.2.bodyContentRow": {
           rowConfig: {
-            rowSize: 1,
+            // rowSize: 1,
             rowStyle: { height: "100%" },
           },
           bodyContent: {
@@ -169,7 +157,7 @@ routes.routeThree = {
         },
         "1.2.3.bodyFooterRow": {
           rowConfig: {
-            rowSize: 1,
+            // rowSize: 1,
             rowStyle: { display: "none" },
           },
         },
@@ -204,22 +192,18 @@ export const appConfig = {
     // row no
     "1.container": {
       rowConfig: {
-        rowSize: 1,
-        rowStyle: { height: "100%" },
+        // rowSize: 1,
+        // rowStyle: { height: "100%" },
       },
       // col no
       "1.1.leftNavCol": {
         layout: {
-          colConfig: {
-            colSize: 1,
-            colStyle: { backgroundColor: "grey" },
-          },
+          // colConfig: {
+          //   colSize: 1,
+          //   colStyle: { backgroundColor: "grey" },
+          // },
           "1.1.leftNavHeaderRow": {
             // row no
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "100%" },
-            },
             leftNavHeader: {
               // col no
               colSize: 1,
@@ -237,8 +221,8 @@ export const appConfig = {
       },
       "1.2.bodyCol": {
         rowConfig: {
-          rowSize: 1,
-          rowStyle: { height: "100%" },
+          // rowSize: 1,
+          // rowStyle: { height: "100%" },
         },
         layout: {
           colConfig: {
@@ -249,8 +233,8 @@ export const appConfig = {
           },
           "1.2.1.bodyHeaderRow": {
             rowConfig: {
-              rowSize: 1,
-              rowStyle: { height: "80%" },
+              // rowSize: 1,
+              // rowStyle: { height: "100%" },
             },
             bodyHeader: {
               // col no
@@ -261,7 +245,7 @@ export const appConfig = {
                 borderColor: "cyan",
                 alignSelf: "center",
                 borderWidth: 4,
-                height: "80%",
+                height: "100%",
                 backgroundColor: "skyblue",
               },
             },

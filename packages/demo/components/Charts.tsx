@@ -13,6 +13,8 @@ export const Charts = (props) => {
             type={props.type}
             data={props.data}
             ChartConfig={props.ChartConfig}
+            // height={props.height}
+            // width={props.ChartWidth}
           />
         </View>
       </ScrollView>

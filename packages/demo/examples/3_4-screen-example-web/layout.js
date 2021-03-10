@@ -5,14 +5,16 @@ import {
   AlertBox,
   Comp5,
   Home,
+  RandomPic,
   JsonForm,
   ListEntities,
-  NavigationBar,
-  RandomPic,
   RenderList,
+  NavigationBar,
   TabComponent,
 } from "../../components";
-import { rowStyle, styles } from "../common";
+import { styles, rowStyle } from "../common";
+import merge from "deepmerge";
+import { nextTick } from "process";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -46,10 +48,10 @@ routes.routeOne = {
           colSize: 11,
         },
         "121bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 2,
-            rowStyle: rowStyle,
-          },
+          // rowConfig: {
+          //   rowSize: 2,
+          //   rowStyle: rowStyle,
+          // },
           bodyHeader: {
             colSize: 1,
             idx: "About",
@@ -58,7 +60,7 @@ routes.routeOne = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "100%",
+              height: "100vh",
               backgroundColor: "skyblue",
             },
           },
@@ -97,7 +99,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50%",
+              height: "50vh",
               backgroundColor: "skyblue",
             },
           },
@@ -109,7 +111,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50%",
+              height: "50vh",
               backgroundColor: "red",
             },
           },
@@ -123,7 +125,7 @@ routes.routeTwo = {
               borderColor: "cyan",
               alignSelf: "none",
               borderWidth: 4,
-              height: "50%",
+              height: "50vh",
               backgroundColor: "yellow",
             },
           },
@@ -150,10 +152,10 @@ routes.routeThree = {
           colSize: 11,
         },
         "1.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1,
-            rowStyle: rowStyle,
-          },
+          // rowConfig: {
+          //   rowSize: 1,
+          //   rowStyle: rowStyle,
+          // },
           bodyHeader: {
             colStyle: { display: "none" },
           },
@@ -162,7 +164,7 @@ routes.routeThree = {
             idx: "About",
             label: "bodyHeader1-changed 1st",
             colStyle: {
-              height: "100%",
+              height: "100vh",
             },
           },
         },
@@ -219,6 +221,7 @@ const links = {
   },
 };
 
+let data = [];
 const _formData = {
   phone: 8654787549,
   otp: 654789,
@@ -245,10 +248,10 @@ export const appConfig = {
   layout: {
     // row no
     "1container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
+      // rowConfig: {
+      //   rowSize: 1,
+      //   rowStyle: rowStyle,
+      // },
       // col no
       "11leftNavCol": {
         layout: {
@@ -258,18 +261,18 @@ export const appConfig = {
           },
           "11leftNavHeaderRow": {
             // row no
-            rowConfig: {
-              rowSize: 1,
-            },
+            // rowConfig: {
+            //   rowSize: 1,
+            // },
             leftNavHeader: {
               // col no
-              colSize: 1,
+              // colSize: 1,
               idx: "NavigationBar",
               label: "leftNavHeader",
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: "100%",
+                height: "100vh",
                 backgroundColor: "lightgreen",
               },
             },
@@ -283,7 +286,7 @@ export const appConfig = {
           },
           "121bodyHeaderRow": {
             rowConfig: {
-              rowSize: 8,
+              rowSize: 4,
             },
             bodyHeader: {
               // col no
@@ -292,6 +295,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 backgroundColor: "skyblue",
+                height: "20vh",
               },
               passProps: {
                 _formData: { ..._formData },
@@ -301,9 +305,9 @@ export const appConfig = {
             },
           },
           "122notificationRow": {
-            rowConfig: {
-              rowSize: 2.5,
-            },
+            // rowConfig: {
+            //   rowSize: 2.5,
+            // },
             notification: {
               // col no
               idx: "AlertBox",
@@ -315,14 +319,15 @@ export const appConfig = {
                 messageAction: "Close",
               },
               colStyle: {
-                margin: 5,
+                // margin: 5,
+                height: "10vh",
               },
             },
           },
           "122bodyContentRow": {
-            rowConfig: {
-              rowSize: 12,
-            },
+            // rowConfig: {
+            //   rowSize: 12,
+            // },
             bodyContent: {
               // col no
               colSize: 1,
@@ -330,7 +335,7 @@ export const appConfig = {
               label: "bodyContent",
               colStyle: {
                 borderColor: "red",
-                height: "90%",
+                height: "70vh",
                 backgroundColor: "lightgray",
               },
             },
@@ -349,10 +354,10 @@ export const appConfig = {
 
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
-  $appInit: () => {},
+  $appInit: (setLayoutConfig, setAppState) => {},
 
   // the below logic to be run in component load phase for each mounting like componentDidMount
-  "bodyHeader-$init": () => {
+  "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {
     // setAppState({
     //   $global: {
     //     key: "Loaded...",
@@ -363,7 +368,7 @@ export const events = {
   //<label>-<element-id> : <handler>
   "leftNavHeader-button-one": {
     // <event> :: <handler>
-    onPress: () => {
+    onPress: (setLayoutConfig, setAppState, appState) => {
       // components section
     },
   },
@@ -373,12 +378,75 @@ export const events = {
       console.log(args.params.values);
       // PREPARING THE DATA
       // FIXME: MOVE THIS TO EVENT MANAGEMENT SIDE
+      const res = fetch(
+        "https://run.mocky.io/v3/15c75559-42b2-45ed-bcf2-06c48aa51bdf"
+      )
+        .then((res) => res.json())
+        .then((_data) => {
+          const _formData = args.params.values;
+
+          const schema = {
+            type: "object",
+            properties: {
+              phone: { type: "number" },
+              otp: { type: "number" },
+            },
+          };
+
+          const uiSchema = {
+            phone: {
+              "ui:title": "Phone No. ",
+            },
+          };
+
+          console.log(`*** _data.ticketDetails`);
+          console.log(_data.ticketDetails);
+
+          console.log(appState?.$global?.list_of_complaints?.data);
+          setAppState({
+            $global: {
+              list_of_complaints: {
+                data: _data.ticketDetails,
+              },
+              bodyHeader: {
+                form: {
+                  formData: args.params.values,
+                  schema,
+                  uiSchema,
+                },
+              },
+            },
+          });
+          // FIXME: below change is not immedeately reflected , fix the bug
+          if (appState?.$global?.list_of_complaints?.data) {
+            // FIXME: this shall be a merge not an overwrite of current layout, put in a flag in logic
+            setLayoutConfig(
+              {
+                // "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx":
+                //   "Home",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx":
+                  "RenderList",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.label":
+                  "bodyContent-changed",
+                "1container.12bodyCol.layout.122bodyContentRow.bodyContent.passProps": {
+                  data: appState?.$global?.list_of_complaints?.data,
+                  searchFields: [
+                    "name",
+                    "description",
+                    "category",
+                    "subCategory",
+                  ],
+                  visibleKeys: ["name", "category", "subCategory"],
+                  titleStyle: null,
+                  dataStyle: { color: "darkblue" },
+                },
+              },
+              true,// dot-notationed
+              true,// sustain
+            );
+          }
+        });
     },
-    // onSubmit: (setLayoutConfig) => {
-    //   console.log("submitted");
-    //   // FIXME: fill in data
-    //   // setLayoutConfig(routes.showListing);
-    // },
   },
   "bodyHeader-changed at 1st-btn-one": {
     onPress: (setLayoutConfig) => {
@@ -396,6 +464,7 @@ export const events = {
 //  Helper Util
 // *************************************************
 // bind events based on the layout config
+// FIXME: move this getEvents and getInitEvents etc. over to the library
 export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
   console.log(`elId is ${elId}`);
   const elEvents = {};

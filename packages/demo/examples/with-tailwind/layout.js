@@ -1,17 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Platform } from "react-native";
 import { About, ActionComp, Home, Comp5, RandomPic } from "../../components";
+import TailwindForm from "../../components/TailwindForm";
 import { rowStyle, styles } from "../common";
 // import { JsonForm } from "../../../components/json-form/JsonForm";
-
-// FIXME: move this to f/w
-const dim = (dimensionNo) => {
-  if (Platform.OS === "web") {
-    return dimensionNo+"pc";
-  } else {
-    return dimensionNo+"%";
-  }
-}
 
 // All component which will be rendered
 export const componentsSet = {
@@ -20,6 +11,7 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
+  TailwindForm,
 };
 
 // components section
@@ -33,13 +25,13 @@ routes.routeZero = {
         "1.1.leftNavHeaderRow": {
           leftNavHeader: {
             colSize: 1,
-            idx: "Home",
+            idx: "TailwindForm",
             label: "home",
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(70),
-              backgroundColor: "lightgreen",
+              height: "100%",
+              //   backgroundColor: "lightgreen",
             },
           },
         },
@@ -47,11 +39,15 @@ routes.routeZero = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
-      // colSize: 1,
+      colSize: 1,
       idx: "ActionComp",
       label: "footer",
-      colStyle: { height: dim(20) },
+      colStyle: { height: "20%" },
     },
   },
 };
@@ -68,7 +64,7 @@ routes.routeOne = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(60),
+              height: "100%",
               backgroundColor: "red",
             },
           },
@@ -77,11 +73,15 @@ routes.routeOne = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
       label: "footer1",
-      colStyle: { height: dim(20) },
+      colStyle: { height: "20%" },
     },
   },
 };
@@ -98,7 +98,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(50),
+              height: "100%",
               backgroundColor: "red",
             },
           },
@@ -111,7 +111,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(35),
+              height: "100%",
               backgroundColor: "blue",
             },
           },
@@ -120,11 +120,15 @@ routes.routeTwo = {
     },
   },
   "2.container": {
+    rowConfig: {
+      rowSize: 0.2,
+      rowStyle: { height: "20%" },
+    },
     footer: {
       colSize: 1,
       idx: "ActionComp",
       label: "footer2",
-      colStyle: { height: dim(20) },
+      colStyle: { height: "20%" },
     },
   },
 };
@@ -154,30 +158,30 @@ export const appConfig = {
   layout: {
     // row no
     "1.container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: { height: "100%" },
-      // },
+      rowConfig: {
+        rowSize: 1,
+        rowStyle: { height: "100%" },
+      },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
             colSize: 1,
-            colStyle: { backgroundColor: "grey", height: dim(50) },
+            colStyle: { backgroundColor: "grey" },
           },
           "1.1.leftNavHeaderRow": {
-            // rowConfig: {
-            //   rowSize: 1,
-            //   rowStyle: { height: "100%" },
-            // },
+            rowConfig: {
+              rowSize: 1,
+              rowStyle: { height: "100%" },
+            },
             leftNavHeader: {
               colSize: 1,
-              idx: "Home",
+              idx: "TailwindForm",
               label: "home",
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: dim(50),
-                backgroundColor: "lightgreen",
+                height: "100%",
+                backgroundColor: "white",
               },
             },
           },
@@ -185,15 +189,16 @@ export const appConfig = {
       },
     },
     "2.container": {
-      // rowConfig: {
-      //   rowSize: 0.2,
-      // },
+      rowConfig: {
+        rowSize: 0.2,
+        rowStyle: { height: "20%" },
+      },
       footer: {
         // col no
         colSize: 1,
         idx: "ActionComp",
         label: "footer",
-        colStyle: { height: dim(20) },
+        colStyle: { height: "20%" },
       },
     },
   },
@@ -213,8 +218,6 @@ export const events = {
       setLayoutConfig(routes["routeOne"]);
     },
   },
-
-
 
   "footer-btn-one": {
     // <event> :: <handler>

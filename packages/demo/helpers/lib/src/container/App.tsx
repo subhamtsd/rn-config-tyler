@@ -29,19 +29,23 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (config, isDottedFormat = false) => {
+  const setLayoutConfig = (_config, isDottedFormat = false, sustain=false) => {
     // find out if the object is in collapsed/dotted format
     if (isDottedFormat) {
       // expand to proper JSON from dotted notation
-      config = object(config);
+      _config = object(_config);
+    }
+    let options = {};
+    if (!sustain) {
+      options = { arrayMerge: overwriteMerge };
     }
     setConfig(
       merge(
         config,
         {
-          layout: config,
+          layout: _config,
         },
-        { arrayMerge: overwriteMerge }
+        options,
       )
     );
   };
@@ -181,7 +185,7 @@ export const App = (props: AppProps) => {
             // console.log(rows[rId]?.rowConfig?.rowSize);
             return (
               <Row
-                size={rows[rId]?.rowConfig?.rowSize || 1}
+                // size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
                 style={{
                   borderWidth: 6,
