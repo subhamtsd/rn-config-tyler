@@ -26,8 +26,8 @@ export const DetailListComponent = (props: {
     getEvents,
   } = props;
 
-  console.log(`label is ${label}`);
-  console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
+  // console.log(`label is ${label}`);
+  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   const [action, setAction] = useState({
     actionKey: "",
@@ -61,16 +61,6 @@ export const DetailListComponent = (props: {
 
   return (
     <View>
-      {/* <Text style={{}}>DetailListComponent *** {label}</Text>
-      <Text>
-        <h1>{label}</h1>
-      </Text> */}
-      {/* <ScrollView
-        style={{
-          borderWidth: 5,
-          maxHeight: 400,
-        }}
-      > */}
       <View>
         <ShowEntity props={props} viewData={data} />
       </View>

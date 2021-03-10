@@ -201,7 +201,7 @@ export const EditComponent = (props: {
             "Schema"
           : "EditCreateOrdersSchema";
 
-      console.log("objectName : : : : ", objectName);
+      // console.log("objectName : : : : ", objectName);
 
       console.log("FormLayout Json : : : : : ---> ", resJSON[objectName]);
       setformLayout(resJSON[objectName]);
@@ -209,7 +209,7 @@ export const EditComponent = (props: {
     fetchData();
   }, []);
 
-  console.log("formData  : : :  in edit component : : : ", _formData);
+  // console.log("formData  : : :  in edit component : : : ", _formData);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>

@@ -31,6 +31,7 @@ export const events = {
         `http://localhost:8080/transaction-web/${appState.global.tsdApp.activeAction.endPoint}`,
         {
           method: appState.global.tsdApp.activeAction.httpMethod,
+          // method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export const events = {
               },
             },
           });
-          console.log(appState?.$global?.list_of_complaints?.data);
+          // console.log(appState?.$global?.list_of_complaints?.data);
           setLayoutConfig(routes["search"]);
         });
     },
@@ -61,17 +62,16 @@ export const events = {
     // console the response
     // redirect to detail component
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
-      console.log("args.params.values : : : : : ", args.params.values);
+      // console.log("args.params.values : : : : : ", args.params.values);
 
-      console.log("appState in Edit event1 : : : ", appState);
-      const keyName = appState.global.tsdApp.activeTab.name.toLowerCase();
-      console.log("keyName : : : :", keyName); // Organisation --> organisation
+      // console.log("appState in Edit event1 : : : ", appState);
+      const keyName = appState.global.tsdApp.editComponent.action.uriParams;
+      // console.log(
+      //   "Hello world : : : :",
+      //   appState.global.tsdApp.listComponent.selectedRowKey[keyName]
+      // ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${
-          appState.global.tsdApp.editComponent.action.endPoint
-        }${
-          appState.global.tsdApp.listComponent.selectedRowKey[`${keyName}Key`]
-        }`,
+        `http://localhost:8080/transaction-web/${appState.global.tsdApp.editComponent.action.endPoint}/${appState.global.tsdApp.listComponent.selectedRowKey[keyName]}`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
           headers: {
@@ -102,16 +102,76 @@ export const events = {
               },
             },
           });
-          console.log("response from edit api : : : :: ", _data);
+          // console.log("response from edit api : : : :: ", _data);
           setLayoutConfig(routes["detail"]);
         });
     },
   },
-  "detailComponent-edit": {
+  "detailListComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState) => {
-      console.log("setLayoutConfig : : : : ", setLayoutConfig);
-      console.log("setAppState : : : : ", setAppState);
-      console.log("appState : : : : ", appState);
+      const res = fetch(
+        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "TsdAdmin",
+            roleKey: 1,
+            moduleName:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeModule.name
+                : "Service Orders",
+            tabName:
+              appState.global != undefined
+                ? appState.global.tsdApp.activeTab.name
+                : "CreateOrders",
+            actionName: "Edit",
+          }),
+        }
+      )
+        .then((res) => res.json())
+        .then((_data) => {
+          // console.log("_Data : :: ", _data);
+          setAppState({
+            global: {
+              tsdApp: {
+                editComponent: {
+                  action: {
+                    name:
+                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                        .actionName,
+                    key:
+                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                        .actionKey,
+                    endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                      /{[^}]*}/,
+                      ""
+                    ),
+                    uriParams:
+                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                        .uriParams,
+                    httpMethod:
+                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                        .httpMethod,
+                    showButton:
+                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                        .showButton,
+                  },
+                },
+              },
+            },
+          });
+          console.log("appState in Edit event : : : ", appState);
+          setLayoutConfig(routes["edit"]);
+        });
+    },
+  },
+  "detailListComponent-delete-btn": {
+    onPress: (setLayoutConfig, setAppState, appState) => {
+      console.log("Delete button clicked");
     },
   },
   "bodyHeader-changed at 1st-btn-one": {
@@ -131,7 +191,7 @@ export const events = {
 // *************************************************
 // bind events based on the layout config
 export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
-  console.log(`elId is ${elId}`);
+  // console.log(`elId is ${elId}`);
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {

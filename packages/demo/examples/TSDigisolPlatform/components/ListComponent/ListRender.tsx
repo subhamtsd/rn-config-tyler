@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SearchListComponent from "./SearchListComponent";
 // import { useRouting } from "expo-next-react-navigation";
 
@@ -45,8 +45,8 @@ export const ListRender = (props: {
   //   );
 
   return (
-    <ScrollView>
-      <Text style={listRenderstyles.heading}>Order Line List View</Text>
+    <View style={{}}>
+      <Text style={listRenderstyles.heading}>Search Here</Text>
       <SearchListComponent
         data={
           props.appState.global != undefined
@@ -112,7 +112,7 @@ export const ListRender = (props: {
           title="Go Back"
         />
       </View> */}
-    </ScrollView>
+    </View>
   );
 };
 

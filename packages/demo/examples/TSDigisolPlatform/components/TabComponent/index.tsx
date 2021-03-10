@@ -64,10 +64,10 @@ export const TabComponent = (props: {
       );
       const resJSON = await res.json();
       // console.log("active module : : : :", state.activeModuleSelection);
-      console.log(
-        "Buisness Functions with Tabs",
-        resJSON.businessFunctions[0].modules[0].tabs
-      );
+      // console.log(
+      //   "Buisness Functions with Tabs",
+      //   resJSON.businessFunctions[0].modules[0].tabs
+      // );
       setdata(resJSON.businessFunctions[0].modules[0].tabs);
     };
     fetchData();

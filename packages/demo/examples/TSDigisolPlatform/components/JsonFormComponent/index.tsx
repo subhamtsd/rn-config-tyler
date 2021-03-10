@@ -1,17 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, Text, View } from "react-native";
-// import { JsonForm } from "../../../../components/json-form/JsonForm";
-// import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../helper/useSafeState";
-// import {
-//   updateActionSelection,
-//   updateModuleSelection,
-//   updateState,
-//   updateTabSelection,
-// } from "../../../../src/state-management/actions";
-// import { DEV_END_POINT } from "../../../../src/state-management/config/constant";
 import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
@@ -39,7 +31,7 @@ export const JsonFormComponent = (props: {
     getEvents,
   } = props;
 
-  // console.log(`label is ${label}`);
+  console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   // console.log("DISPATCH : : : : ", dispatch);
@@ -73,33 +65,6 @@ export const JsonFormComponent = (props: {
     properties: {
       firstName: { type: "string" },
       lastName: { type: "string" },
-      // stype: {
-      //   enum: ["Male", "Female", "Others"],
-      //   type: "string",
-      // },
-      // date: {
-      //   format: "date",
-      //   type: "string",
-      //   title: "Date",
-      // },
-      // username: { type: "string" },
-      // password: { type: "string" },
-      // "Confirm password": { type: "string" },
-      // languages: {
-      //   type: "array",
-      //   items: {
-      //     type: "string",
-      //   },
-      // },
-      // recievemsgs: { type: "boolean" },
-      // upload: {
-      //   format: "data-url",
-      //   type: "string",
-      // },
-      // age: {
-      //   type: "integer",
-      //   title: "Age",
-      // },
     },
   });
 
@@ -176,9 +141,12 @@ export const JsonFormComponent = (props: {
     properties: {
       keyName: { type: "string" },
     },
+    uischema: {},
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
+  const [uiSchema, setUISchema] = useState(_uiSchema);
+  const [responseStatus, setResponseStatus] = useState(200);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -214,53 +182,47 @@ export const JsonFormComponent = (props: {
           }),
         }
       );
-      const resJSON = await res.json();
+      const status = res.status;
+      console.log("status : :: : ", status);
+      if (status === 204) {
+        setResponseStatus(status);
+      } else {
+        const resJSON = await res.json();
+        console.log("response Json : : : : : formLayout ---> ", resJSON);
+        prepareSchema(resJSON)
+          .then((schemaJson) => {
+            console.log("SchemaJson updated : : :: ", schemaJson);
+            return schemaJson;
+          })
+          .then((formLayout) => {
+            console.log("Schema returened : : : ", formLayout);
+            const objectName =
+              appState.global != undefined
+                ? appState.global.tsdApp.activeAction.name +
+                  appState.global.tsdApp.activeTab.name +
+                  "Schema"
+                : "SearchCreateOrdersSchema";
 
-      console.log("response Json : : : : : ---> ", resJSON);
-      const jsonForm = {
-        CreateGroupSchema: {
-          type: "object",
-          required: ["groupName"],
-          properties: {
-            roleName: {
-              title: "Role Name",
-              type: "string",
-              displayType: "dropdown",
-              dropdownLoadApiURL: "v1/role/list",
-              dropdownLoadApiMethod: "POST",
-              uid: "roleName",
-              pattern: "[a-zA-Z0-9]",
-            },
-            groupName: {
-              title: "Group Name",
-              type: "string",
-              uid: "groupName",
-              pattern: "[a-zA-Z0-9]",
-            },
-          },
-        },
-      };
-      prepareSchema(resJSON)
-        .then((schemaJson) => {
-          console.log("SchemaJson updated : : :: ", schemaJson);
-          return schemaJson;
-        })
-        .then((formLayout) => {
-          console.log("Schema returened : : : ", formLayout);
-          const objectName =
-            appState.global != undefined
-              ? appState.global.tsdApp.activeAction.name +
-                appState.global.tsdApp.activeTab.name +
-                "Schema"
-              : "SearchCreateOrdersSchema";
+            console.log("objectName : : : : ", objectName);
+            setformLayout(formLayout[objectName]);
+            setUISchema(formLayout[objectName]);
+          });
+      }
 
-          console.log("objectName : : : : ", objectName);
-          setformLayout(formLayout[objectName]);
-        });
       // setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);
+
+  if (responseStatus === 204) {
+    return (
+      <View style={componentGridStyle}>
+        <Text>No data found</Text>
+      </View>
+    );
+  }
+
+  console.log("formLayout setFormLayout : :: : ", formLayout.uischema);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
@@ -269,7 +231,7 @@ export const JsonFormComponent = (props: {
         appState={appState}
         schema={formLayout}
         // schema={_schema}
-        uiSchema={_uiSchema}
+        uiSchema={formLayout.uischema}
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}

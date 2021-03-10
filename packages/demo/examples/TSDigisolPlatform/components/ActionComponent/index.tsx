@@ -85,7 +85,7 @@ export const ActionComponent = (props: {
     });
   };
 
-  console.log("appState in action : : : : ", props);
+  // console.log("appState in action : : : : ", props);
 
   return (
     <View>

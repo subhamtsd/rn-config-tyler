@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import {
 // import { CheckBox } from "@react-native-community/checkbox";
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
+import { routes } from "../../configs/routes/routesConfig";
 // import { useHistory } from "react-router-native";
 
 {
@@ -51,6 +53,23 @@ export default function SearchListComponent({
   // const history = useHistory();
   const [searchItem, setSearchItem] = useState("");
   const [isSelected, setSelected] = useState(false);
+
+  console.log("Props in SearchListComponent :: : ", {
+    data,
+    searchFields,
+    visibleKeys,
+    flexWidth,
+    titleStyle,
+    dataStyle,
+    inputPlaceholder,
+    numberOfLines,
+    searchBarWrapperStyle,
+    searchBarStyle,
+    buttonTitle,
+    buttonColor,
+    buttonPress,
+    ...props,
+  });
   // const initalCheckboxState = () => {
   //   var initialStateArray = [];
   //   for (var i = 0; i < numberOfLines; i++) {
@@ -60,6 +79,8 @@ export default function SearchListComponent({
   // };
   const [checked, setChecked] = useState([]); // [false, false]
   const filterData = data.filter(createFilter(searchItem, searchFields));
+
+  // visibleKeys.push("Action");
 
   const keys = visibleKeys || Object.keys(data[0] || []);
 
@@ -196,7 +217,8 @@ export default function SearchListComponent({
                 key={i}
                 style={[
                   styles.tableVal,
-                  { flex: flexWidth ? flexWidth[i] : 1 },
+                  // { flex: flexWidth ? flexWidth[i] : 1 },
+                  { flex: 2 },
                   titleStyle,
                 ]}
               >
@@ -206,7 +228,7 @@ export default function SearchListComponent({
           </View>
         ) : null}
         {filterData.map((d, i) => {
-          console.log("D : i --> ", d, "+" + " " + i);
+          // console.log("D : i --> ", d, "+" + " " + i);
           return (
             <TouchableOpacity key={d.id}>
               <View style={{ flexDirection: "row" }}>
@@ -249,7 +271,8 @@ export default function SearchListComponent({
                         {...props}
                         style={[
                           styles.tableVal,
-                          { flex: flexWidth ? flexWidth[i] : 1 },
+                          // { flex: flexWidth ? flexWidth[i] : 1 },
+                          { flex: 3 },
                           dataStyle,
                         ]}
                       >
@@ -262,7 +285,7 @@ export default function SearchListComponent({
                     margin: 5,
                   }}
                 >
-                  <Text style={{ alignItems: "center" }}>
+                  <View style={{ alignItems: "center" }}>
                     {
                       <Button
                         title={buttonTitle}
@@ -270,14 +293,29 @@ export default function SearchListComponent({
                         // TODO : Handler is not comming props need to add this functionality
                         onPress={() => {
                           console.log("i ==> ", i);
-                          console.log("d ==> ", d.addressKey);
+                          console.log("d ==> ", d);
                           // history.push(
                           //   `/orderdetails/${d.orderKey}/${d.addressKey}`
                           // );
+                          props.setAppState({
+                            global: {
+                              tsdApp: {
+                                listComponent: {
+                                  selectedRowKey: d,
+                                },
+                              },
+                            },
+                          });
+                          // TODO :Search List component is missing open ticket
+                          console.log(
+                            "appState in searchListComponent ",
+                            props.appState
+                          );
+                          props.setLayoutConfig(routes.detail);
                         }}
                       />
                     }
-                  </Text>
+                  </View>
                 </View>
               </View>
             </TouchableOpacity>
@@ -311,12 +349,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: "flex-start",
     fontWeight: "bold",
-    // borderWidth: 2,
+    borderWidth: 2,
   },
   tableVal: {
     // flex: 1,
     padding: 5,
-    // borderWidth: 2,
+    borderWidth: 2,
   },
   headerRow: {
     flexDirection: "row",

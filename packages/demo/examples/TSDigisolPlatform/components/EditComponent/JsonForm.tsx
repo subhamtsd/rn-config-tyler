@@ -65,7 +65,7 @@ export const JsonForm = ({
       ...formData,
       [event.params.name]: event.params.value,
     });
-    console.log("formData in jsonForm of Edit  onChange : : : ", formData);
+    // console.log("formData in jsonForm of Edit  onChange : : : ", formData);
   };
   const theme = {
     input: {

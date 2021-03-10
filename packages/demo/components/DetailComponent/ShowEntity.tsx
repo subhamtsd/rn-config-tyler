@@ -135,7 +135,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   // console.log("Props : : : : in ShowEntity : : : : ", appState);
 
-  console.log("viewData : : : : ", props);
+  console.log("viewData : : : : ", getEvents);
 
   const [selectedId, setSelectedId] = useState(null);
   const renderItem = ({ item }: any) => {
@@ -219,73 +219,15 @@ export const ShowEntity = (props: {
                   <Col style={{}}>
                     <View style={detailViewStyles.buttonView}>
                       <TouchableOpacity
+                        testID={`${label}-edit-btn`}
+                        {...getEvents(
+                          `${label}-edit-btn`,
+                          setLayoutConfig,
+                          setAppState,
+                          appState
+                        )}
                         style={detailViewStyles.button}
-                        onPress={() => {
-                          console.log("Hello Button ");
-                          const res = fetch(
-                            `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-                            {
-                              method: "POST",
-                              headers: {
-                                Accept: "application/json",
-                                "Content-Type": "application/json",
-                              },
-                              body: JSON.stringify({
-                                userId: "TsdAdmin",
-                                roleKey: 1,
-                                moduleName:
-                                  appState.global != undefined
-                                    ? appState.global.tsdApp.activeModule.name
-                                    : "Service Orders",
-                                tabName:
-                                  appState.global != undefined
-                                    ? appState.global.tsdApp.activeTab.name
-                                    : "CreateOrders",
-                                actionName: "Edit",
-                              }),
-                            }
-                          )
-                            .then((res) => res.json())
-                            .then((_data) => {
-                              setAppState({
-                                global: {
-                                  tsdApp: {
-                                    editComponent: {
-                                      action: {
-                                        name:
-                                          _data.businessFunctions[0].modules[0]
-                                            .tabs[0].actions[0].actionName,
-                                        key:
-                                          _data.businessFunctions[0].modules[0]
-                                            .tabs[0].actions[0].actionKey,
-                                        endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                                          /{[^}]*}/,
-                                          ""
-                                        ),
-                                        httpMethod:
-                                          _data.businessFunctions[0].modules[0]
-                                            .tabs[0].actions[0].httpMethod,
-                                        showButton:
-                                          _data.businessFunctions[0].modules[0]
-                                            .tabs[0].actions[0].showButton,
-                                      },
-                                    },
-                                  },
-                                },
-                              });
-                              console.log(
-                                "appState in Edit event : : : ",
-                                appState
-                              );
-                            });
-                          setLayoutConfig(routes["edit"]);
-                        }}
                       >
-                        {/* <Image
-                          style={detailViewStyles.button}
-                          source={require("../../../../assets/images/edit.svg")}
-                        /> */}
-
                         <Text style={detailViewStyles.textStyle}>EDIT</Text>
                       </TouchableOpacity>
                     </View>
@@ -327,6 +269,78 @@ export const ShowEntity = (props: {
                                   onPress={() => {
                                     // TODO : Add API for the Deleting the Selected row Data
                                     setModalVisible(!modalVisible);
+                                    const res = fetch(
+                                      `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+                                      {
+                                        method: "POST",
+                                        headers: {
+                                          Accept: "application/json",
+                                          "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                          userId: "TsdAdmin",
+                                          roleKey: 1,
+                                          moduleName:
+                                            appState.global != undefined
+                                              ? appState.global.tsdApp
+                                                  .activeModule.name
+                                              : "Service Orders",
+                                          tabName:
+                                            appState.global != undefined
+                                              ? appState.global.tsdApp.activeTab
+                                                  .name
+                                              : "CreateOrders",
+                                          actionName: "Delete",
+                                        }),
+                                      }
+                                    )
+                                      .then((res) => res.json())
+                                      .then((_data) => {
+                                        // console.log("_Data : :: ", _data);
+                                        setAppState({
+                                          global: {
+                                            tsdApp: {
+                                              deleteComponent: {
+                                                action: {
+                                                  name:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].actionName,
+                                                  key:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].actionKey,
+                                                  endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                                    /{[^}]*}/,
+                                                    ""
+                                                  ),
+                                                  uriParams:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].uriParams,
+                                                  httpMethod:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].httpMethod,
+                                                  showButton:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].showButton,
+                                                },
+                                              },
+                                            },
+                                          },
+                                        });
+                                        console.log(
+                                          "appState in Delete event : : : ",
+                                          appState
+                                        );
+                                      })
+                                      .then((result) => {
+                                        const keyName =
+                                          appState.global.tsdApp.deleteComponent
+                                            .action.uriParams;
+                                      });
                                     setLayoutConfig(routes["search"]);
                                   }}
                                 >
@@ -360,6 +374,13 @@ export const ShowEntity = (props: {
                     }
                     <View style={detailViewStyles.buttonView}>
                       <TouchableOpacity
+                        testID={`${label}-delete-btn`}
+                        {...getEvents(
+                          `${label}-delete-btn`,
+                          setLayoutConfig,
+                          setAppState,
+                          appState
+                        )}
                         style={detailViewStyles.button}
                         onPress={() => {
                           setModalVisible(true);

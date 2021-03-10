@@ -15,6 +15,7 @@ import {
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import { routes } from "../../configs/routes/routesConfig";
+import { Col, Grid, Row } from "react-native-easy-grid";
 // import { useHistory } from "react-router-native";
 
 {
@@ -54,7 +55,22 @@ export default function SearchListComponent({
   const [searchItem, setSearchItem] = useState("");
   const [isSelected, setSelected] = useState(false);
 
-  console.log("Props in SearchListComponent :: : ", props);
+  console.log("Props in SearchListComponent :: : ", {
+    data,
+    searchFields,
+    visibleKeys,
+    flexWidth,
+    titleStyle,
+    dataStyle,
+    inputPlaceholder,
+    numberOfLines,
+    searchBarWrapperStyle,
+    searchBarStyle,
+    buttonTitle,
+    buttonColor,
+    buttonPress,
+    ...props,
+  });
   // const initalCheckboxState = () => {
   //   var initialStateArray = [];
   //   for (var i = 0; i < numberOfLines; i++) {
@@ -64,6 +80,8 @@ export default function SearchListComponent({
   // };
   const [checked, setChecked] = useState([]); // [false, false]
   const filterData = data.filter(createFilter(searchItem, searchFields));
+
+  // visibleKeys.push("Action");
 
   const keys = visibleKeys || Object.keys(data[0] || []);
 
@@ -126,29 +144,6 @@ export default function SearchListComponent({
     setChecked(newArr);
   };
 
-  // const selectAll =(d)=>{
-  //   let helperArr=[]
-  //   for(let index=0;index<d.id.length;index++){
-  //     if(!isSelected){
-  //       helperArr.push(index);
-  //     }
-  //     else if(isSelected){
-  //       helperArr=[]
-  //     }
-  //     setSelection({
-  //       isSelected:!isSelected,
-  //     })
-  //   }
-  // }
-
-  // const checkboxHanlder = (index) => {
-  //   console.log("here----------",index)
-  //   checked[index] = !checked[index];
-  //   setChecked;
-  // };
-
-  // const {isSelectedArray,setSelected}=useState{["false"]};
-
   console.log("Checked Array : : : ", checked);
 
   return (
@@ -171,138 +166,155 @@ export default function SearchListComponent({
           ]}
         />
       </View>
-      <ScrollView style={{ margin: 10 }}>
-        {data.length && keys.length ? (
-          <View style={styles.headerRow}>
-            <Text style={[styles.tableVal, dataStyle]}>
-              {
-                <CheckBox
-                  color="#0e73ca"
-                  value={isSelected}
-                  onValueChange={setSelected}
-                  //arrow func ,toggle the value of isSelected ,iterate to checked array and make every value equals to isSelected
-                  // onValueChange={selectAll}
-                  // checked={isSelected}
-                  // onValueChange={() => {
-                  //   isSelected = !isSelected;
-                  //   // console.log(checked)
-                  //   for (const i in checked) {
-                  //     setSelection({});
-                  //   }
-                  //   console.log(checked);
-                  // }}
-                />
-              }
-            </Text>
-
-            {keys.map((key, i) => (
-              <Text
-                key={i}
-                style={[
-                  styles.tableVal,
-                  { flex: flexWidth ? flexWidth[i] : 1 },
-                  titleStyle,
-                ]}
-              >
-                {key.substring(0, 1).toUpperCase() + key.substring(1)}
-              </Text>
-            ))}
-          </View>
-        ) : null}
-        {filterData.map((d, i) => {
-          // console.log("D : i --> ", d, "+" + " " + i);
-          return (
-            <TouchableOpacity key={d.id}>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={[styles.tableVal, dataStyle]}>
+      <Grid>
+        <ScrollView style={{ margin: 10 }}>
+          {data.length && keys.length ? (
+            <Row style={styles.headerRow}>
+              <Col style={[styles.tableVal, dataStyle]}>
+                <Text adjustsFontSizeToFit allowFontScaling>
                   {
                     <CheckBox
                       color="#0e73ca"
-                      value={checked[i]}
-                      onValueChange={checkboxHanlder(i)}
-
-                      // onValueChange={() => toggleCheck(i)}
-                      // checked={checked[i]}
-
-                      /*onChange=
-                      {(e) => 
-                        let checked= {e.target.checked};
-                        setSelection
-                        (
-                          isSelected.map
-                          (data => 
-                            {
-                              if(d.id == data.id)
-                              {
-                                data.isSelected = true;
-                              }
-                                return data;
-                            }
-                          )
-                        );
-                      }*/
+                      value={isSelected}
+                      onValueChange={setSelected}
                     />
                   }
                 </Text>
-                {keys.length
-                  ? keys.map((key, i) => (
-                      // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
-                      // Doesn't seem too polished for web
-                      <Text
-                        key={i}
-                        {...props}
-                        style={[
-                          styles.tableVal,
-                          { flex: flexWidth ? flexWidth[i] : 1 },
-                          dataStyle,
-                        ]}
-                      >
-                        {d[key]}{" "}
-                      </Text>
-                    ))
-                  : null}
-                <View
+              </Col>
+
+              {keys.map((key, i) => (
+                <Col
+                  style={[
+                    styles.tableVal,
+                    // { flex: flexWidth ? flexWidth[i] : 1 },
+                    { flex: 2 },
+                    titleStyle,
+                  ]}
+                  key={i}
+                >
+                  <Text
+                    adjustsFontSizeToFit
+                    allowFontScaling
+                    style={{
+                      alignContent: "center",
+                      alignSelf: "center",
+                      textAlign: "center",
+                      textAlignVertical: "center",
+                      marginLeft: 20,
+                      marginRight: 20,
+                      fontWeight: "bold",
+                      fontSize: 15,
+                    }}
+                    key={i}
+                  >
+                    {key.substring(0, 1).toUpperCase() + key.substring(1)}
+                  </Text>
+                </Col>
+              ))}
+              <Col
+                style={[
+                  styles.tableVal,
+                  // { flex: flexWidth ? flexWidth[i] : 1 },
+                  { flex: 2 },
+                  titleStyle,
+                ]}
+              >
+                <Text
+                  adjustsFontSizeToFit
+                  allowFontScaling
                   style={{
-                    margin: 5,
+                    alignContent: "center",
+                    alignSelf: "center",
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                    marginLeft: 20,
+                    marginRight: 20,
+                    fontWeight: "bold",
                   }}
                 >
-                  <View style={{ alignItems: "center" }}>
-                    {
-                      <Button
-                        title={buttonTitle}
-                        color={buttonColor}
-                        // TODO : Handler is not comming props need to add this functionality
-                        onPress={() => {
-                          console.log("i ==> ", i);
-                          console.log("d ==> ", d);
-                          // history.push(
-                          //   `/orderdetails/${d.orderKey}/${d.addressKey}`
-                          // );
-                          props.setAppState({
-                            global: {
-                              tsdApp: {
-                                listComponent: {
-                                  selectedRowKey: d,
+                  Action
+                </Text>
+              </Col>
+            </Row>
+          ) : null}
+          {filterData.map((d, i) => {
+            // console.log("D : i --> ", d, "+" + " " + i);
+            return (
+              <TouchableOpacity key={d.id}>
+                <View style={{ flexDirection: "row" }}>
+                  <Col style={[styles.tableVal, dataStyle]}>
+                    <Text>
+                      {
+                        <CheckBox
+                          color="#0e73ca"
+                          value={checked[i]}
+                          onValueChange={checkboxHanlder(i)}
+                        />
+                      }
+                    </Text>
+                  </Col>
+                  {keys.length
+                    ? keys.map((key, i) => (
+                        // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
+                        // Doesn't seem too polished for web
+                        <Col key={i} style={[styles.tableVal, dataStyle]}>
+                          <Text
+                            adjustsFontSizeToFit
+                            allowFontScaling
+                            key={i}
+                            {...props}
+                            // style={[
+                            //   styles.tableVal,
+                            //   // { flex: flexWidth ? flexWidth[i] : 1 },
+                            //   { flex: 3 },
+                            //   dataStyle,
+                            // ]}
+                          >
+                            {d[key]}
+                          </Text>
+                        </Col>
+                      ))
+                    : null}
+
+                  <Col key={i} style={[styles.tableVal, dataStyle]}>
+                    <View style={{ alignItems: "center" }}>
+                      {
+                        <Button
+                          title={buttonTitle}
+                          color={buttonColor}
+                          // TODO : Handler is not comming props need to add this functionality
+                          onPress={() => {
+                            console.log("i ==> ", i);
+                            console.log("d ==> ", d);
+                            // history.push(
+                            //   `/orderdetails/${d.orderKey}/${d.addressKey}`
+                            // );
+                            props.setAppState({
+                              global: {
+                                tsdApp: {
+                                  listComponent: {
+                                    selectedRowKey: d,
+                                  },
                                 },
                               },
-                            },
-                          });
-                          // TODO :Search List component is missing open ticket
-                          console.log(
-                            "appState in searchListComponent ",
-                            props.appState
-                          );
-                          props.setLayoutConfig(routes.detail);
-                        }}
-                      />
-                    }
-                  </View>
+                            });
+                            // TODO :Search List component is missing open ticket
+                            console.log(
+                              "appState in searchListComponent ",
+                              props.appState
+                            );
+                            props.setLayoutConfig(routes.detail);
+                          }}
+                        />
+                      }
+                    </View>
+                  </Col>
                 </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      </Grid>
     </View>
   );
 }
@@ -330,12 +342,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: "flex-start",
     fontWeight: "bold",
-    borderWidth: 2,
+    // borderWidth: 2,
   },
   tableVal: {
     // flex: 1,
     padding: 5,
-    borderWidth: 2,
+    // borderWidth: 2,
+    borderBottomWidth: 2,
+    borderBottomColor: "grey",
   },
   headerRow: {
     flexDirection: "row",
