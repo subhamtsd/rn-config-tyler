@@ -27,7 +27,6 @@ export const routes = {};
 
 routes.routeOne = {
   "1.container": {
-    // col no
     "1.1.leftNavCol": {
       layout: {
         colConfig: {

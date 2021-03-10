@@ -48,7 +48,6 @@ routes.routeZero = {
   },
   "2.container": {
     footer: {
-      // colSize: 1,
       idx: "ActionComp",
       label: "footer",
       colStyle: { height: dim(20) },
@@ -148,16 +147,10 @@ const links = {
 };
 
 export const appConfig = {
-  /// 1st layout
   componentsSet,
   links,
   layout: {
-    // row no
     "1.container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: { height: "100%" },
-      // },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
@@ -165,10 +158,6 @@ export const appConfig = {
             colStyle: { backgroundColor: "grey", height: dim(100) },
           },
           "1.1.leftNavHeaderRow": {
-            // rowConfig: {
-            //   rowSize: 1,
-            //   rowStyle: { height: "100%" },
-            // },
             leftNavHeader: {
               colSize: 1,
               idx: "Home",
@@ -185,11 +174,7 @@ export const appConfig = {
       },
     },
     "2.container": {
-      // rowConfig: {
-      //   rowSize: 0.2,
-      // },
       footer: {
-        // col no
         colSize: 1,
         idx: "ActionComp",
         label: "footer",

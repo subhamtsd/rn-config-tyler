@@ -25,6 +25,9 @@ export const getInitEvents = () => {
 
 export const routes = {};
 
+// has to be added as of now if removed then app is not rendering "Loading" screen is getting displayed
+routes.routeOne = {}; 
+
 // *************************************************
 //  Layout config
 // *************************************************
