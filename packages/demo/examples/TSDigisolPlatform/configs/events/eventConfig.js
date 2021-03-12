@@ -27,33 +27,101 @@ export const events = {
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
       console.log("args.params.values : : : : : ", args.params.values);
       const body = args.params.values;
-      const res1 = fetch(
-        `http://localhost:8080/transaction-web/${appState.global.tsdApp.activeAction.endPoint}`,
-        {
-          method: appState.global.tsdApp.activeAction.httpMethod,
-          // method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      )
-        .then((res) => res.json())
-        .then((_data) => {
-          const _formData = args.params.values;
-          setAppState({
-            global: {
-              tsdApp: {
-                listComponent: {
-                  data: _data,
-                },
+
+      console.log(
+        "appState.global.tsdApp.activeAction.name : : ::  ",
+        appState.global.tsdApp.activeAction.name
+      );
+
+      // const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
+      //   const res1 = fetch(
+      //     `http://localhost:8080/transaction-web/${endPoint}`,
+      //     {
+      //       method: httpMethod,
+      //       // method: "POST",
+      //       headers: {
+      //         Accept: "application/json",
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(body),
+      //     }
+      //   )
+      //     .then((res) => res.json())
+      //     .then((_data) => {
+      //       const _formData = args.params.values;
+      //       setAppState({
+      //         global: {
+      //           tsdApp: {
+      //             listComponent: {
+      //               data: _data,
+      //             },
+      //           },
+      //         },
+      //       });
+      //       // console.log(appState?.$global?.list_of_complaints?.data);
+      //       setLayoutConfig(routeToRedirect);
+      //     });
+      // };
+
+      const saveCreateComponentData = async (tabName, body) => {
+        console.log("tabName in saveCreateComponentData : :: : : ", tabName);
+        setAppState({
+          global: {
+            tsdApp: {
+              createComponent: {
+                [tabName]: body,
               },
             },
-          });
-          // console.log(appState?.$global?.list_of_complaints?.data);
-          setLayoutConfig(routes["search"]);
+          },
         });
+        // await saveCreateComponentFormLayout();
+      };
+
+      if (appState.global.tsdApp.activeAction.name === "Search") {
+        body["page"] = {
+          pageSize: "10",
+          lastRecordKey: "0",
+        };
+        setAppState({
+          global: {
+            tsdApp: {
+              searchComponent: {
+                searchPayload: body,
+              },
+            },
+          },
+        });
+        setLayoutConfig(routes["search"]);
+        // fetchApi(
+        //   appState.global.tsdApp.activeAction.endPoint,
+        //   appState.global.tsdApp.activeAction.httpMethod,
+        //   body,
+        //   routes["search"]
+        // );
+      } else {
+        if (appState.global.tsdApp.activeAction.name === "Create") {
+          if (
+            appState.global.tsdApp.activeModule.name === "Catalog" &&
+            appState.global.tsdApp.activeTab.name === "Category"
+          ) {
+            console.log(appState.global.tsdApp.activeModule.name);
+            saveCreateComponentData(
+              appState.global.tsdApp.activeTab.name,
+              body
+            );
+          }
+          if (
+            appState.global.tsdApp.activeModule.name === "Catalog" &&
+            appState.global.tsdApp.activeTab.name === "Product"
+          ) {
+            console.log(appState.global.tsdApp.activeModule.name);
+            saveCreateComponentData(
+              appState.global.tsdApp.activeTab.name,
+              body
+            );
+          }
+        }
+      }
     },
   },
   "editComponent-form": {

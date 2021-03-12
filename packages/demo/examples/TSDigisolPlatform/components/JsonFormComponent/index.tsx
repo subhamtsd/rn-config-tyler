@@ -35,19 +35,10 @@ export const JsonFormComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   // console.log("DISPATCH : : : : ", dispatch);
-
-  const _formData = {
-    firstName: "Raj",
-    lastName: "Shah",
-    stype: "Male",
-    date: "11-01-2021",
-    username: "raj@1234",
-    password: "Raj@123",
-    "Confirm password": "Raj@123",
-    languages: ["Java", "C"],
-    roleName: ["admin"],
-    recievemsgs: true,
-  };
+  const activeTabName =
+    appState?.global?.tsdApp?.activeTab?.name || "CreateOrder";
+  const _formData =
+    appState?.global?.tsdApp?.createComponent[activeTabName] || {};
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -182,12 +173,13 @@ export const JsonFormComponent = (props: {
           }),
         }
       );
+      const resJSON = await res.json();
       const status = res.status;
       console.log("status : :: : ", status);
       if (status === 204) {
         setResponseStatus(status);
       } else {
-        const resJSON = await res.json();
+        // const resJSON = await res.json();
         console.log("response Json : : : : : formLayout ---> ", resJSON);
         prepareSchema(resJSON)
           .then((schemaJson) => {
@@ -208,8 +200,6 @@ export const JsonFormComponent = (props: {
             setUISchema(formLayout[objectName]);
           });
       }
-
-      // setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);

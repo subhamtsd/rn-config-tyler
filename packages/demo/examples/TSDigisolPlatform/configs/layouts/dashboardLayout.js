@@ -200,9 +200,9 @@ export const appConfig = {
             "2.2.3.1.bodyContent2": {
               // col no
               // idx: "JsonFormComponent",
-              idx: "ListJsonFormComponent",
+              idx: "DefaultScreen",
               colSize: 4,
-              label: "listJsonFormComponent",
+              label: "",
               colStyle: {
                 display: "flex",
                 borderColor: "blue",

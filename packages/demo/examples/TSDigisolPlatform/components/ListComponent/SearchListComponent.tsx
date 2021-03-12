@@ -152,7 +152,8 @@ export default function SearchListComponent({
         style={[
           {
             flexDirection: "row",
-            justifyContent: "space-around",
+            // justifyContent: "space-around",
+            // borderWidth: 2,
           },
           searchBarWrapperStyle,
         ]}
@@ -258,20 +259,31 @@ export default function SearchListComponent({
                         // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
                         // Doesn't seem too polished for web
                         <Col key={i} style={[styles.tableVal, dataStyle]}>
-                          <Text
-                            adjustsFontSizeToFit
-                            allowFontScaling
-                            key={i}
-                            {...props}
-                            // style={[
-                            //   styles.tableVal,
-                            //   // { flex: flexWidth ? flexWidth[i] : 1 },
-                            //   { flex: 3 },
-                            //   dataStyle,
-                            // ]}
-                          >
-                            {d[key]}
-                          </Text>
+                          <ScrollView horizontal style={{ maxWidth: 350 }}>
+                            <Text
+                              adjustsFontSizeToFit
+                              allowFontScaling
+                              key={i}
+                              {...props}
+                              // style={[
+                              //   styles.tableVal,
+                              //   // { flex: flexWidth ? flexWidth[i] : 1 },
+                              //   { flex: 3 },
+                              //   dataStyle,
+                              // ]}
+                              style={{
+                                alignContent: "center",
+                                alignSelf: "center",
+                                textAlign: "center",
+                                textAlignVertical: "center",
+                                // marginLeft: 20,
+                                // marginRight: 20,
+                                // fontWeight: "bold",
+                              }}
+                            >
+                              {d[key]}
+                            </Text>
+                          </ScrollView>
                         </Col>
                       ))
                     : null}

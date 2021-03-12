@@ -261,6 +261,13 @@ export const ShowEntity = (props: {
                                 }}
                               >
                                 <Pressable
+                                  testID={`${label}-delete-btn`}
+                                  {...getEvents(
+                                    `${label}-delete-btn`,
+                                    setLayoutConfig,
+                                    setAppState,
+                                    appState
+                                  )}
                                   style={[
                                     detailViewStyles.button,
                                     detailViewStyles.buttonClose,
@@ -296,7 +303,11 @@ export const ShowEntity = (props: {
                                     )
                                       .then((res) => res.json())
                                       .then((_data) => {
-                                        // console.log("_Data : :: ", _data);
+                                        console.log(
+                                          "_Data  in showEntity : :: ",
+                                          _data
+                                        );
+
                                         setAppState({
                                           global: {
                                             tsdApp: {
@@ -331,15 +342,43 @@ export const ShowEntity = (props: {
                                             },
                                           },
                                         });
-                                        console.log(
-                                          "appState in Delete event : : : ",
-                                          appState
+                                        // TODO : Appstate was getting delayed from adding the state for delete action made direct api data to add endpoint and uriparams
+                                        const res = fetch(
+                                          `http://localhost:8080/transaction-web/${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                            /{[^}]*}/,
+                                            ""
+                                          )}${
+                                            appState.global.tsdApp.listComponent
+                                              .selectedRowKey[
+                                              _data.businessFunctions[0]
+                                                .modules[0].tabs[0].actions[0]
+                                                .uriParams
+                                            ]
+                                          }`,
+                                          {
+                                            method:
+                                              _data.businessFunctions[0]
+                                                .modules[0].tabs[0].actions[0]
+                                                .httpMethod,
+                                            headers: {
+                                              Accept: "application/json",
+                                              "Content-Type":
+                                                "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                              isHardDelete: "true",
+                                            }),
+                                          }
                                         );
                                       })
                                       .then((result) => {
-                                        const keyName =
-                                          appState.global.tsdApp.deleteComponent
-                                            .action.uriParams;
+                                        // const keyName =
+                                        //   appState.global.tsdApp.deleteComponent
+                                        //     .action.uriParams;
+                                        console.log(
+                                          "result : : : : in showEntity : :: : ",
+                                          result
+                                        );
                                       });
                                     setLayoutConfig(routes["search"]);
                                   }}
@@ -359,7 +398,19 @@ export const ShowEntity = (props: {
                                     detailViewStyles.button,
                                     detailViewStyles.buttonClose,
                                   ]}
-                                  onPress={() => setModalVisible(!modalVisible)}
+                                  onPress={async () => {
+                                    // remove the delete action from delete component in action
+                                    setModalVisible(!modalVisible);
+                                    await setAppState({
+                                      global: {
+                                        tsdApp: {
+                                          deleteComponent: {
+                                            action: {},
+                                          },
+                                        },
+                                      },
+                                    });
+                                  }}
                                 >
                                   <Text style={detailViewStyles.textStyle2}>
                                     Cancel
@@ -374,13 +425,6 @@ export const ShowEntity = (props: {
                     }
                     <View style={detailViewStyles.buttonView}>
                       <TouchableOpacity
-                        testID={`${label}-delete-btn`}
-                        {...getEvents(
-                          `${label}-delete-btn`,
-                          setLayoutConfig,
-                          setAppState,
-                          appState
-                        )}
                         style={detailViewStyles.button}
                         onPress={() => {
                           setModalVisible(true);
@@ -469,7 +513,7 @@ const detailViewStyles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#5cabc5",
+    backgroundColor: "#0e73ca",
     height: 35,
     width: "100%",
     paddingTop: 7,

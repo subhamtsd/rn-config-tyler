@@ -475,6 +475,19 @@ routes.edit = {
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
+          "2.2.3.1.bodyContent2": {
+            // col no
+            // idx: "JsonFormComponent",
+            idx: "DefaultScreen",
+            colSize: 2,
+            label: "defaultScreen",
+            colStyle: {
+              display: "flex",
+              borderColor: "blue",
+              // borderWidth: 1,
+              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+          },
         },
       },
     },

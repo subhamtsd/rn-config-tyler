@@ -43,8 +43,13 @@ export const RenderTable = (props: {
 
   const [arrObj, setArrObj] = useState([]);
 
+  // TODO : REMOVE THE HARDCODING FOR PROPERTY
+  // const tableHeaderObj =
+  //   dataToRender.orderLines.properties.orderLine.items.properties;
+  // const tableHeaderObj =
+  //   dataToRender.parentCategories.properties.parentCategory.items.properties;
   const tableHeaderObj =
-    dataToRender.orderLines.properties.orderLine.items.properties;
+    dataToRender.Addresses.properties.address.items.properties;
 
   // console.log(
   //   "Properties : : :: ",
@@ -63,12 +68,23 @@ export const RenderTable = (props: {
     pattern: "[]",
   };
 
+  // TODO : REMOVE THE HARDCODING FOR REQUIRED FIELD
+  // const requiredField =
+  //   dataToRender.orderLines.properties.orderLine.items.required;
   const requiredField =
-    dataToRender.orderLines.properties.orderLine.items.required;
+    dataToRender.Addresses.properties.address.items.required;
+  // const requiredField =
+  //   dataToRender.parentCategories.properties.parentCategory.items.required;
 
   const keyIdPrefix = () => {
+    // TODO : Remove hardcoding
+    // const keyArray = Object.getOwnPropertyNames(
+    //   dataToRender.orderLines.properties
+    // );
     const keyArray = Object.getOwnPropertyNames(
-      dataToRender.orderLines.properties
+      // dataToRender.Orderlines.properties
+      dataToRender.Addresses.properties
+      // dataToRender.parentCategories.properties
     );
     return keyArray[0];
   };
@@ -85,7 +101,7 @@ export const RenderTable = (props: {
   const [item, setItem] = useState(intialJson); // Submit one row
   const [finalItem, setFinalItem] = useState(intialJson);
   const [listOfItems, setListItems] = useState([]); // Store all array of row data
-  const [isSelected, setSelection] = useState(false);
+  const [isSelected, setSelected] = useState(false);
   const [noOfRows, setNoOfRows] = useState(-1);
   const [noOfAddItemClick, setnoOfAddItemClick] = useState(-1);
 
@@ -103,12 +119,27 @@ export const RenderTable = (props: {
     }
   }, [finalItem]);
 
-  const rowSection = arrObj.map(() => {
+  const deleteHandler = (arrKey: any) => {
+    // console.log("arrKey in delete Handler", arrKey);
+    // remove arrKey index of listOfItems
+    // remove the arrKey index of arrObj
+    console.log("array item : : ", listOfItems[arrKey]);
+    // setListItems(listOfItems.slice(listOfItems[arrKey], 1));
+    // setArrObj(arrObj.slice(arrObj[arrKey], 1));
+  };
+
+  const rowSection = arrObj.map((arrKey) => {
+    // console.log("arrKey : : : ", arrKey);
+
     return (
       <Row>
-        {/* <Col>
-          <Text>Checkbox</Text>
-        </Col> */}
+        {/* <View>
+        <CheckBox
+          color="#0e73ca"
+          value={isSelected}
+          onValueChange={setSelected}
+        />
+        </View> */}
         {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
           const schema = {
             type: "object",
@@ -148,7 +179,7 @@ export const RenderTable = (props: {
                       }}
                     >
                       <Button
-                        title={`Add`}
+                        title={`+`}
                         color={"green"}
                         disabled={false}
                         onPress={() => {
@@ -175,16 +206,10 @@ export const RenderTable = (props: {
                       }}
                     >
                       <Button
-                        title={`Del`}
+                        title={`x`}
                         color={"red"}
-                        onPress={() => {
-                          console.log(
-                            "item[keyIdPrefix()] : :: Delete : : :: ",
-                            item[keyIdPrefix()]
-                          );
-                          console.log("array : : :: ", arrObj);
-                          // Delete the item with the index passed from ListOfItems
-                        }}
+                        disabled
+                        onPress={() => deleteHandler(arrKey)}
                       ></Button>
                     </View>
                   </View>
@@ -240,12 +265,14 @@ export const RenderTable = (props: {
       <Row>
         <Col
           style={{
-            marginLeft: 20,
-            marginRight: 20,
+            marginLeft: 60,
+            marginRight: 60,
+            marginBottom: 20,
           }}
         >
           <Button
             title={`Add Row`}
+            color="#0e73ca"
             onPress={() => {
               console.log("Add Row Clicked");
               // create new row
@@ -257,12 +284,15 @@ export const RenderTable = (props: {
         </Col>
         <Col
           style={{
-            marginLeft: 20,
-            marginRight: 20,
+            marginLeft: 60,
+            marginRight: 60,
+            marginBottom: 20,
           }}
         >
           <Button
             title={`Copy Row`}
+            color="#0e73ca"
+            disabled
             onPress={() => {
               console.log("Copy Row Clicked");
               // copy the last row
@@ -275,56 +305,76 @@ export const RenderTable = (props: {
           borderWidth: 0,
         }}
         horizontal={true}
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
       >
         <Grid>
           {/* TABLE HEADER DATA */}
-          <Row>
-            {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
-              return (
-                <Row
-                  style={{
-                    borderBottomWidth: 2,
-                    borderBottomColor: "grey",
-                    width: 140,
-                    padding: 5,
-                    alignContent: "center",
-                    alignSelf: "center",
-                  }}
-                >
-                  <Col
-                    size={7.1}
-                    style={
-                      {
-                        //   borderWidth: 3,
-                        //   borderRightWidth: 2,
-                        //   width: 220,
-                        //   // padding: 5,
-                        //   marginTop: 5,
-                        //   alignContent: "center",
-                        //   alignSelf: "center",
-                      }
-                    }
+          <ScrollView
+            style={{
+              // borderWidth: 2,
+              maxHeight: 250,
+              height: 250,
+            }}
+          >
+            <Row>
+              {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
+                return (
+                  <Row
+                    style={{
+                      borderBottomWidth: 2,
+                      borderBottomColor: "grey",
+                      width: 140,
+                      padding: 5,
+                      alignContent: "center",
+                      alignSelf: "center",
+                    }}
                   >
-                    <Text
-                      style={{
-                        alignContent: "center",
-                        alignSelf: "center",
-                        justifyContent: "center",
-                      }}
+                    <Col
+                      size={7.1}
+                      style={
+                        {
+                          //   borderWidth: 3,
+                          //   borderRightWidth: 2,
+                          //   width: 220,
+                          //   // padding: 5,
+                          //   marginTop: 5,
+                          //   alignContent: "center",
+                          //   alignSelf: "center",
+                        }
+                      }
                     >
-                      {tableHeaderObj[keyName].title}
-                    </Text>
-                  </Col>
-                </Row>
-              );
-            })}
-          </Row>
-          {/* TABLE DATA ROW */}
-          {rowSection}
-          {/* TODO : This iteration should be done with the help of loop */}
+                      <Text
+                        style={{
+                          alignContent: "center",
+                          alignSelf: "center",
+                          justifyContent: "center",
+                          fontWeight: "bold",
+                          fontSize: "15",
+                        }}
+                      >
+                        {tableHeaderObj[keyName].title}
+                      </Text>
+                    </Col>
+                  </Row>
+                );
+              })}
+            </Row>
+            {/* TABLE DATA ROW */}
+            {rowSection}
+            {/* TODO : This iteration should be done with the help of loop */}
+          </ScrollView>
         </Grid>
       </ScrollView>
+      <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>
+        <Button
+          title={`Submit`}
+          color="#0e73ca"
+          onPress={() => {
+            console.log("Final submit");
+            console.log("Final listOfItems : : : ", listOfItems);
+          }}
+        ></Button>
+      </View>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

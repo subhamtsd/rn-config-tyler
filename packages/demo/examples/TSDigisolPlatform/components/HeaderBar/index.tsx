@@ -115,6 +115,9 @@ export const HeaderBar = (props: {
                         httpMethod: "POST",
                         showButton: true,
                       },
+                      createComponent: {
+                        layout: {},
+                      },
                     },
                   },
                 });
