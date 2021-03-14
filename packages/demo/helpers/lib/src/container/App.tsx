@@ -15,10 +15,10 @@ const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 export const App = (props: AppProps) => {
   const [config, setConfig] = useState(props?.config);
   const routes = props?.routes;
-  const componentsSet = props?.config.componentsSet;
+  const componentsSet = props?.config?.componentsSet;
   // const history = useHistory();
-  const getInitEvents = props.getInitEvents;
-  const getEvents = props.getEvents;
+  const getInitEvents = props?.getInitEvents ? props?.getInitEvents : () => {};
+  const getEvents = props?.getEvents ? props?.getEvents : () => {};
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
@@ -223,7 +223,7 @@ export const App = (props: AppProps) => {
   // console.log(layoutConfig);
   if (
     !config?.layout ||
-    !(routes && Object.keys(routes).length > 0) ||
+    !(routes) ||
     !(componentsSet && Object.keys(componentsSet).length > 0)
   ) {
     return (
