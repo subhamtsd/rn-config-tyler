@@ -29,7 +29,11 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (_config, isDottedFormat = false, sustain=false) => {
+  const setLayoutConfig = (
+    _config,
+    isDottedFormat = false,
+    sustain = false
+  ) => {
     // find out if the object is in collapsed/dotted format
     if (isDottedFormat) {
       // expand to proper JSON from dotted notation
@@ -41,11 +45,11 @@ export const App = (props: AppProps) => {
     }
     setConfig(
       merge(
-        config,
+        config?.layout,
         {
           layout: _config,
         },
-        options,
+        options
       )
     );
   };
@@ -223,7 +227,7 @@ export const App = (props: AppProps) => {
   // console.log(layoutConfig);
   if (
     !config?.layout ||
-    !(routes) ||
+    !routes ||
     !(componentsSet && Object.keys(componentsSet).length > 0)
   ) {
     return (
