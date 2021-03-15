@@ -235,7 +235,7 @@ export const events = {
   "leftNavHeader-btn-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig, setAppState) => {
-      setLayoutConfig(routes["routeTwo"], true);
+      setLayoutConfig(routes["routeTwo"], "dotted");
     },
   },
   //<label>-<element-id>
@@ -268,7 +268,7 @@ export const events = {
   "bodyHeader-btn-two": {
     // <event> :: <handler>
     onPress: (setLayoutConfig, setAppState) => {
-      setLayoutConfig(routes["routeOne"], true);
+      setLayoutConfig(routes["routeOne"], "dotted");
     },
   },
 

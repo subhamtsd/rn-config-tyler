@@ -288,23 +288,23 @@ export const appConfig = {
               },
             },
           },
-          "122notificationRow": {
-            notification: {
-              // col no
-              idx: "AlertBox",
-              label: "notification",
-              passProps: {
-                color: "danger",
-                message: "Lorem ipsum idorm message.",
-                heading: "Message Below",
-                messageAction: "Close",
-              },
-              colStyle: {
-                // margin: 5,
-                height: "10vh",
-              },
-            },
-          },
+          // "122notificationRow": {
+          //   notification: {
+          //     // col no
+          //     idx: "AlertBox",
+          //     label: "notification",
+          //     passProps: {
+          //       color: "danger",
+          //       message: "Lorem ipsum idorm message.",
+          //       heading: "Message Below",
+          //       messageAction: "Close",
+          //     },
+          //     colStyle: {
+          //       // margin: 5,
+          //       height: "10vh",
+          //     },
+          //   },
+          // },
           "122bodyContentRow": {
             bodyContent: {
               colSize: 1,
@@ -418,8 +418,7 @@ export const events = {
                   dataStyle: { color: "darkblue" },
                 },
               },
-              true, // dot-notationed
-              true // sustain
+              "dotted"
             );
           }
         });
