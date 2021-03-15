@@ -199,7 +199,6 @@ export const App = (props: AppProps) => {
   // console.log(layoutConfig);
   if (
     !config?.layout ||
-    !routes ||
     !(componentsSet && Object.keys(componentsSet).length > 0)
   ) {
     return (

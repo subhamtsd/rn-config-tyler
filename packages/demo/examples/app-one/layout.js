@@ -1,7 +1,6 @@
 import { About } from "../../components/About";
 import { ActionComp } from "../../components/ActionComp";
 import { Comp5 } from "../../components/Comp5";
-// import { JsonForm } from "./components/JsonForm";
 import { Home } from "../../components/Home";
 import { RandomPic } from "../../components/RandomPic";
 import { rowStyle, styles } from "../common";
@@ -13,58 +12,10 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
-  // JsonForm
 };
 
 // components section
 
-export const routes = {};
-
-// dotted notation config route
-routes.routeOne = {
-  "1container.11leftNavCol.layout.colConfig.colStyle.display": "block",
-  "1container.12bodyCol.layout.colConfig.colSize": 11,
-  "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx": "ActionComp",
-  "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx": "RandomPic",
-  "1container.12bodyCol.layout.123bodyFooterRow.bodyFooter.idx": "ActionComp",
-};
-
-// dotted notation config route
-routes.routeTwo = {
-  "1container.11leftNavCol.layout.colConfig.colStyle.display": "none",
-  "1container.12bodyCol.layout.colConfig.colSize": 11,
-  "1container.12bodyCol.layout.121bodyHeaderRow.bodyHeader.idx": "ActionComp",
-  "1container.12bodyCol.layout.122bodyContentRow.bodyContent.idx": "RandomPic",
-  "1container.12bodyCol.layout.123bodyFooterRow.bodyFooter.idx": "About",
-};
-
-// expanded (non-dottend notation) route config
-routes.routeThree = {
-  // row no
-  "1container": {
-    "11leftNavCol": {
-      layout: {
-        colConfig: {
-          colStyle: { display: "block" },
-        },
-      },
-      // layout: null,
-    },
-    // col no
-    "12bodyCol": {
-      layout: {
-        colConfig: {
-          colSize: 18,
-        },
-        "122bodyContentRow": {
-          bodyContent: {
-            idx: "Home",
-          },
-        },
-      },
-    },
-  },
-};
 // *************************************************
 //  Layout config
 // *************************************************
