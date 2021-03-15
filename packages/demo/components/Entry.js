@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
 import { Picker } from "@react-native-community/picker";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const Empty = () => <Text>Sorry type not match</Text>;
 const Entry = ({ modules }) => {

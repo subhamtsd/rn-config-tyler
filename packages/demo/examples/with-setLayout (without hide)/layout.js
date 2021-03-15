@@ -7,11 +7,11 @@ import { rowStyle, styles } from "../common";
 // FIXME: move this to f/w
 const dim = (dimensionNo) => {
   if (Platform.OS === "web") {
-    return dimensionNo+"pc";
+    return dimensionNo + "pc";
   } else {
-    return dimensionNo+"%";
+    return dimensionNo + "%";
   }
-}
+};
 
 // All component which will be rendered
 export const componentsSet = {
@@ -48,7 +48,6 @@ routes.routeZero = {
   },
   "2.container": {
     footer: {
-      // colSize: 1,
       idx: "ActionComp",
       label: "footer",
       colStyle: { height: dim(20) },
@@ -148,16 +147,10 @@ const links = {
 };
 
 export const appConfig = {
-  /// 1st layout
   componentsSet,
   links,
   layout: {
-    // row no
     "1.container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: { height: "100%" },
-      // },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
@@ -165,10 +158,6 @@ export const appConfig = {
             colStyle: { backgroundColor: "grey", height: dim(100) },
           },
           "1.1.leftNavHeaderRow": {
-            // rowConfig: {
-            //   rowSize: 1,
-            //   rowStyle: { height: "100%" },
-            // },
             leftNavHeader: {
               colSize: 1,
               idx: "Home",
@@ -185,11 +174,7 @@ export const appConfig = {
       },
     },
     "2.container": {
-      // rowConfig: {
-      //   rowSize: 0.2,
-      // },
       footer: {
-        // col no
         colSize: 1,
         idx: "ActionComp",
         label: "footer",
@@ -210,44 +195,42 @@ export const events = {
   "home-btn-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeOne"]);
+      setLayoutConfig(routes["routeOne"], "copy");
     },
   },
-
-
 
   "footer-btn-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeOne"]);
+      setLayoutConfig(routes["routeOne"], "copy");
     },
   },
 
   "about-btn-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeTwo"]);
+      setLayoutConfig(routes["routeTwo"], "copy");
     },
   },
 
   "footer1-btn-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeTwo"]);
+      setLayoutConfig(routes["routeTwo"], "copy");
     },
   },
 
   "footer1-btn-two": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeZero"]);
+      setLayoutConfig(routes["routeZero"], "copy");
     },
   },
 
   "footer2-btn-two": {
     // <event> :: <handler>
     onPress: (setLayoutConfig) => {
-      setLayoutConfig(routes["routeOne"]);
+      setLayoutConfig(routes["routeOne"], "copy");
     },
   },
 };

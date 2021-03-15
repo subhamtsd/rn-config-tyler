@@ -15,7 +15,6 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
-  // JsonForm
 };
 
 // components section

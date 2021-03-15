@@ -1,24 +1,23 @@
-import merge from "deepmerge";
-import { object } from "dot-object";
+
 import React, { createElement, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
+import { setAppState as sa, setLayoutConfig as sl } from "./helpers";
 // All component which will be rendered
 
 // ******************************************************************** //
-const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
   const [config, setConfig] = useState(props?.config);
   const routes = props?.routes;
-  const componentsSet = props?.config.componentsSet;
+  const componentsSet = props?.config?.componentsSet;
   // const history = useHistory();
-  const getInitEvents = props.getInitEvents;
-  const getEvents = props.getEvents;
+  const getInitEvents = props?.getInitEvents ? props?.getInitEvents : () => {};
+  const getEvents = props?.getEvents ? props?.getEvents : () => {};
 
   // TODO: add ability to add/remove labels and row/columns new from layout config
   const [appState, _setAppState] = useState({
@@ -29,36 +28,13 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (config, isDottedFormat = false, sustain = false) => {
-    // find out if the object is in collapsed/dotted format
-    if (isDottedFormat) {
-      // expand to proper JSON from dotted notation
-      config = object(config);
-    }
-    let options = {};
-    if (!sustain) {
-      options = { arrayMerge: overwriteMerge };
-    }
-    setConfig(
-      merge(
-        config,
-        {
-          layout: config, //saurabh have to look once on this for framework (_config/config)
-        },
-        options
-      )
-    );
+  const setLayoutConfig = (_config, format = "none") => {
+    sl(setConfig, config, _config, format);
   };
 
   // logic to update app state
   const setAppState = (newAppState, isPartial = true) => {
-    if (isPartial) {
-      _setAppState(
-        merge(appState, newAppState, { arrayMerge: overwriteMerge })
-      );
-    } else {
-      _setAppState(newAppState);
-    }
+    sa(_setAppState, appState, newAppState, isPartial);
   };
 
   // pick from pre-loaded components and render properly, renders each component at column level
@@ -223,7 +199,6 @@ export const App = (props: AppProps) => {
   // console.log(layoutConfig);
   if (
     !config?.layout ||
-    !(routes && Object.keys(routes).length > 0) ||
     !(componentsSet && Object.keys(componentsSet).length > 0)
   ) {
     return (

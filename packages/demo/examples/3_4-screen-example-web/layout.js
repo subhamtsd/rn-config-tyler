@@ -48,10 +48,6 @@ routes.routeOne = {
           colSize: 11,
         },
         "121bodyHeaderRow": {
-          // rowConfig: {
-          //   rowSize: 2,
-          //   rowStyle: rowStyle,
-          // },
           bodyHeader: {
             colSize: 1,
             idx: "About",
@@ -152,10 +148,6 @@ routes.routeThree = {
           colSize: 11,
         },
         "1.2.1.bodyHeaderRow": {
-          // rowConfig: {
-          //   rowSize: 1,
-          //   rowStyle: rowStyle,
-          // },
           bodyHeader: {
             colStyle: { display: "none" },
           },
@@ -248,10 +240,6 @@ export const appConfig = {
   layout: {
     // row no
     "1container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: rowStyle,
-      // },
       // col no
       "11leftNavCol": {
         layout: {
@@ -260,10 +248,6 @@ export const appConfig = {
             colStyle: { backgroundColor: "grey" },
           },
           "11leftNavHeaderRow": {
-            // row no
-            // rowConfig: {
-            //   rowSize: 1,
-            // },
             leftNavHeader: {
               // col no
               // colSize: 1,
@@ -305,9 +289,6 @@ export const appConfig = {
             },
           },
           // "122notificationRow": {
-          //   // rowConfig: {
-          //   //   rowSize: 2.5,
-          //   // },
           //   notification: {
           //     // col no
           //     idx: "AlertBox",
@@ -325,11 +306,7 @@ export const appConfig = {
           //   },
           // },
           "122bodyContentRow": {
-            // rowConfig: {
-            //   rowSize: 12,
-            // },
             bodyContent: {
-              // col no
               colSize: 1,
               idx: "Home",
               label: "bodyContent",
@@ -441,8 +418,7 @@ export const events = {
                   dataStyle: { color: "darkblue" },
                 },
               },
-              true, // dot-notationed
-              true // sustain
+              "dotted"
             );
           }
         });
