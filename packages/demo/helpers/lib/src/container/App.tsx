@@ -179,7 +179,7 @@ export const App = (props: AppProps) => {
         ); /// return all rows in layout
       } else {
         console.log(
-          "ERROR  :::: Possibly some routing label is incorrect in youir routes configuration."
+          "ERROR  :::: Possibly some routing label is incorrect in your routes configuration."
         );
       }
     };

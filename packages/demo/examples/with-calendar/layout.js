@@ -48,7 +48,6 @@ routes.routeOne = {
           },
           bodyHeader: {
             colSize: 1,
-            //   idx: "About",
             idx: "Cal",
             label: "bodyHeader",
             colStyle: {
@@ -145,9 +144,7 @@ export const appConfig = {
               rowStyle: rowStyle,
             },
             bodyHeader: {
-              // col no
               colSize: 1,
-              //   idx: "About",
               idx: "AgendaScroll",
               label: "bodyHeader",
               colStyle: {
