@@ -38,7 +38,7 @@ routes.routeZero = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(70),
+              height: dim(100),
               backgroundColor: "lightgreen",
             },
           },
@@ -48,7 +48,6 @@ routes.routeZero = {
   },
   "2.container": {
     footer: {
-      // colSize: 1,
       idx: "ActionComp",
       label: "footer",
       colStyle: { height: dim(20) },
@@ -68,7 +67,7 @@ routes.routeOne = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(60),
+              height: dim(100),
               backgroundColor: "red",
             },
           },
@@ -111,7 +110,7 @@ routes.routeTwo = {
             colStyle: {
               borderColor: "cyan",
               borderWidth: 4,
-              height: dim(35),
+              height: dim(50),
               backgroundColor: "blue",
             },
           },
@@ -148,27 +147,17 @@ const links = {
 };
 
 export const appConfig = {
-  /// 1st layout
   componentsSet,
   links,
   layout: {
-    // row no
     "1.container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: { height: "100%" },
-      // },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
             colSize: 1,
-            colStyle: { backgroundColor: "grey", height: dim(50) },
+            colStyle: { backgroundColor: "grey", height: dim(100) },
           },
           "1.1.leftNavHeaderRow": {
-            // rowConfig: {
-            //   rowSize: 1,
-            //   rowStyle: { height: "100%" },
-            // },
             leftNavHeader: {
               colSize: 1,
               idx: "Home",
@@ -176,7 +165,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 borderWidth: 4,
-                height: dim(50),
+                height: dim(100),
                 backgroundColor: "lightgreen",
               },
             },
@@ -185,11 +174,7 @@ export const appConfig = {
       },
     },
     "2.container": {
-      // rowConfig: {
-      //   rowSize: 0.2,
-      // },
       footer: {
-        // col no
         colSize: 1,
         idx: "ActionComp",
         label: "footer",

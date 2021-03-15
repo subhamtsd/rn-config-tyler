@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
+
 import tailwind from "tailwind-rn";
 
 const TailwindForm = () => {
-  // const [value, onChangeText] = useState("");
   const [hasFocus, setHasFocus] = useState(false);
 
   return (
-    <View style={tailwind("form bg-white p-6 my-10 relative")}>
-      {/* <View style={tailwind("pt-12 items-center")}>
+    <View style={tailwind(" bg-white my-5 ")}>
+      <View style={tailwind("pt-12 items-center")}>
         <View style={tailwind("bg-blue-200 px-3 py-1 rounded-full")}>
-          <Text style={tailwind("text-blue-800 font-bold")}>Tailwind demo</Text>
+          <Text style={tailwind("text-blue-800 font-bold")}>
+            Tailwind Contact Form Demo
+          </Text>
         </View>
-      </View> */}
+      </View>
       <View style={tailwind("px-4 py-5 bg-white ")}>
         <View style={tailwind(" flex-row mt-1 ")}>
           <View style={tailwind("m-1 w-1/2")}>
@@ -20,10 +22,7 @@ const TailwindForm = () => {
               onFocus={() => {
                 setHasFocus(true);
               }}
-              style={tailwind(
-                // "mt-1 text-black-500 text-xl w-3/4 border border-indigo-200 rounded"
-                "border p-2  w-3/4"
-              )}
+              style={tailwind("border p-2  w-3/4")}
               placeholder="Your Name"
               clearButtonMode="always"
             />
@@ -34,10 +33,7 @@ const TailwindForm = () => {
               onFocus={() => {
                 setHasFocus(true);
               }}
-              style={tailwind(
-                // "mt-1 text-black-500 text-xl w-3/4 border border-indigo-200 rounded"
-                "border p-2  w-3/4"
-              )}
+              style={tailwind("border p-2  w-3/4")}
               placeholder="Your Number"
             />
           </View>
@@ -47,10 +43,7 @@ const TailwindForm = () => {
             setHasFocus(true);
           }}
           placeholder="Enter email"
-          style={tailwind(
-            // "mt-1 text-indigo-300 text-xl w-full border border-indigo-200 rounded"
-            "border p-2 w-full mt-3"
-          )}
+          style={tailwind("border p-2 w-full mt-3")}
         />
         <TextInput
           onFocus={() => {
@@ -60,10 +53,7 @@ const TailwindForm = () => {
           multiline={true}
           numberOfLines={3}
           maxLength={50}
-          style={tailwind(
-            // "mt-1 text-indigo-300 text-xl w-full border border-indigo-200 rounded "
-            "border p-2 mt-3 w-full"
-          )}
+          style={tailwind("border p-2 mt-3 w-full")}
         />
         <Text style={tailwind("font-bold text-sm mt-3")}>GDPR Agreement *</Text>
         <Text style={tailwind("text-gray-600 text-sm")}>

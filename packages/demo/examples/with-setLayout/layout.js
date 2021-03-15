@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React from "react";
+import { Text } from "react-native";
 import {
   About,
   ActionComp,
@@ -28,41 +30,25 @@ export const routes = {};
 routes.routeOne = {
   // row no
   "1.container": {
-    // rowConfig: {
-    //   rowSize: 1,
-    //   rowStyle: rowStyle,
-    // },
-    // col no
     "1.1.leftNavCol": {
       layout: {
         colConfig: {
           colStyle: { display: "none" },
         },
       },
-      // "1.1.leftNavHeaderRow": {
-      //   rowConfig: {
-      //     rowStyle: { display: "none" },
-      //   },
-      // },
     },
     "1.2.bodyCol": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: rowStyle,
-      // },
       layout: {
         colConfig: {
           colSize: 11,
         },
         "1.2.1.bodyHeaderRow": {
-          // rowConfig: {
-          //   rowSize: 1,
-          //   rowStyle: rowStyle,
-          // },
           bodyHeader: {
             colSize: 2,
             idx: "About",
             label: "bodyHeader",
+            children: <Text>Hi user</Text>, //children 
+
             colStyle: { borderWidth: 2, height: "100vh" },
           },
           bodyHeader1: {
@@ -118,21 +104,12 @@ export const appConfig = {
   links,
   layout: {
     "1.container": {
-      // rowConfig: {
-      //   rowSize: 1,
-      //   rowStyle: rowStyle,
-      // },
       "1.1.leftNavCol": {
         layout: {
           colConfig: {
             colSize: 3,
           },
           "1.1.leftNavHeaderRow": {
-            // row no
-            // rowConfig: {
-            //   rowSize: 1,
-            //   rowStyle: rowStyle,
-            // },
             leftNavHeader: {
               colSize: 1,
               idx: "Home",
@@ -145,16 +122,14 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavBody",
+              children: <Text>Hi</Text>, //children 
+
               colStyle: { borderWidth: 1, height: "92vh" },
             },
           },
         },
       },
       "1.2.bodyCol": {
-        // rowConfig: {
-        //   rowSize: 1,
-        //   rowStyle: rowStyle,
-        // },
         layout: {
           colConfig: {
             colSize: 11,
@@ -168,6 +143,7 @@ export const appConfig = {
               colSize: 6,
               idx: "RandomPic",
               label: "bodyHeader",
+
               colStyle: { borderWidth: 1, height: "40vh" },
             },
             bodyHeader1: {
