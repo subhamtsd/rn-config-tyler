@@ -15,7 +15,7 @@ const configs = {
   "with-setLayout (without hide)": "with-setLayout (without hide)",
   "collapsible-leftnav": "collapsible-leftnav",
 };
-const selected = "with-jsonforms";
+const selected = "3_4-screen-example-mobile";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 let moduleConfig = require(`../examples/${configs[selected]}/layout`);
 
