@@ -1,15 +1,14 @@
-import merge from "deepmerge";
-import { object } from "dot-object";
+
 import React, { createElement, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
+import { setAppState as sa, setLayoutConfig as sl } from "./helpers";
 // All component which will be rendered
 
 // ******************************************************************** //
-const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
 
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
@@ -29,40 +28,13 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (
-    _config,
-    isDottedFormat = false,
-    sustain = false
-  ) => {
-    // find out if the object is in collapsed/dotted format
-    if (isDottedFormat) {
-      // expand to proper JSON from dotted notation
-      _config = object(_config);
-    }
-    let options = {};
-    if (!sustain) {
-      options = { arrayMerge: overwriteMerge };
-    }
-    setConfig(
-      merge(
-        config?.layout,
-        {
-          layout: _config,
-        },
-        options
-      )
-    );
+  const setLayoutConfig = (_config, format = "none") => {
+    sl(setConfig, config, _config, format);
   };
 
   // logic to update app state
   const setAppState = (newAppState, isPartial = true) => {
-    if (isPartial) {
-      _setAppState(
-        merge(appState, newAppState, { arrayMerge: overwriteMerge })
-      );
-    } else {
-      _setAppState(newAppState);
-    }
+    sa(_setAppState, appState, newAppState, isPartial);
   };
 
   // pick from pre-loaded components and render properly, renders each component at column level
