@@ -44,8 +44,9 @@ export const ListRender = (props: {
   const [nextKey, setNextKey] = useState(0);
   const [noOfRows, setnoOfRows] = useState(10);
   const [responseData, setResponseData] = useState({});
+  const [pageArray, setPageArray] = useState(["0"]);
 
-  if (props.appState.global.tsdApp.listComponent.data?.page?.pageSize === "") {
+  if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
   }
 
@@ -73,15 +74,22 @@ export const ListRender = (props: {
     );
     const resJSON = await res.json();
     // TODO : HERE IT IS USED TO MODIFY THE VALUE OF NEXT AND PREV BUTTON
-    setResponseData(resJSON);
-    setFinalData(resJSON.response);
+    console.log("resJson in listRender : : :: : ", resJSON.status);
+
+    if (resJSON.status === "FAILURE") {
+      setFinalData([]);
+    } else {
+      setFinalData(resJSON.response);
+    }
+    // setResponseData(resJSON);
+    // setFinalData(resJSON.response);
     // TODO : Remove hardcoding for pageSize
     // When the pageSize is not empty string
     if (resJSON.pageSize === "") {
       setIsPaginationAvailable(false);
     } else {
       setPrevKey(nextKey);
-      setNextKey(resJSON.page.lastRecordKey);
+      setNextKey(resJSON.page?.lastRecordKey);
     }
   };
 
@@ -129,6 +137,7 @@ export const ListRender = (props: {
       pageSize: "10",
       lastRecordKey: nextKey,
     };
+    setPageArray(() => [...pageArray, nextKey]);
     console.log("NextHandler Press : :: : ", body);
     fetchApi(
       props.appState.global.tsdApp.activeAction.endPoint,
@@ -136,6 +145,8 @@ export const ListRender = (props: {
       body
     );
   };
+
+  console.log("pageArray : : :: : ", pageArray);
 
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
@@ -187,6 +198,15 @@ export const ListRender = (props: {
     } else return <View />;
   };
 
+  if (finalData.length === 0) {
+    return (
+      <View>
+        <Text>No Data found</Text>
+      </View>
+    );
+  }
+
+
   return (
     <View style={{}}>
       <View
@@ -198,8 +218,12 @@ export const ListRender = (props: {
         <Text style={listRenderstyles.heading}>Search Here</Text>
         {paginationView(isPaginationAvailable)}
       </View>
+      {/* <View>
+        <Text>{JSON.stringify(finalData)}</Text>
+      </View> */}
       <SearchListComponent
         data={
+          // []
           finalData
           // props.appState.global != undefined
           //   ? props.appState.global.tsdApp.listComponent != undefined
@@ -214,7 +238,7 @@ export const ListRender = (props: {
           return data.field;
         })}
         flexWidth={[]} // Column-span (length of array should be equal to that of visibleKeys)
-        numberOfLines={10} // Row-span
+        numberOfLines={finalData.length} // Row-span
         searchBarWrapperStyle={null}
         searchBarStyle={null}
         titleStyle={null}
