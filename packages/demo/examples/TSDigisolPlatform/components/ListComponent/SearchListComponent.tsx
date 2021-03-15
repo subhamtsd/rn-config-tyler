@@ -298,24 +298,105 @@ export default function SearchListComponent({
                           onPress={() => {
                             console.log("i ==> ", i);
                             console.log("d ==> ", d);
-                            // history.push(
-                            //   `/orderdetails/${d.orderKey}/${d.addressKey}`
-                            // );
-                            props.setAppState({
-                              global: {
-                                tsdApp: {
-                                  listComponent: {
-                                    selectedRowKey: d,
-                                  },
+                            const res = fetch(
+                              `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+                              {
+                                method: "POST",
+                                headers: {
+                                  Accept: "application/json",
+                                  "Content-Type": "application/json",
                                 },
-                              },
-                            });
+                                body: JSON.stringify({
+                                  userId: "TsdAdmin",
+                                  roleKey: 1,
+                                  // TODO : Conditional for default state undefined
+                                  tabName:
+                                    props.appState.global != undefined
+                                      ? props.appState.global.tsdApp
+                                          .activeTab != undefined
+                                        ? props.appState.global.tsdApp.activeTab
+                                            .name
+                                        : "Create Order"
+                                      : "Create Order",
+                                  moduleName:
+                                    props.appState.global != undefined
+                                      ? props.appState.global.tsdApp
+                                          .activeModule != undefined
+                                        ? props.appState.global.tsdApp
+                                            .activeModule.name
+                                        : "Service Orders"
+                                      : "Service Orders",
+                                  actionName: "View",
+                                }),
+                              }
+                            )
+                              .then((res) => res.json())
+                              .then((_data) => {
+                                console.log(
+                                  "_Data in searchList ::::::",
+                                  _data
+                                );
+                                // get data from view action
+                                const res1 = fetch(
+                                  `http://localhost:8080/transaction-web/${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                    /{[^}]*}/,
+                                    ""
+                                  )}/${
+                                    d[
+                                      _data.businessFunctions[0].modules[0]
+                                        .tabs[0].actions[0].uriParams
+                                    ]
+                                  }`,
+                                  {
+                                    method:
+                                      _data.businessFunctions[0].modules[0]
+                                        .tabs[0].actions[0].httpMethod,
+                                    headers: {
+                                      Accept: "application/json",
+                                      "Content-Type": "application/json",
+                                      languageKey: 1,
+                                    },
+                                    // body: JSON.stringify(args.params.values),
+                                  }
+                                )
+                                  .then((res1) => res1.json())
+                                  .then((data) => {
+                                    console.log(
+                                      "GET API IN SEARCH : ::::",
+                                      data
+                                    );
+                                    return data;
+                                  })
+                                  .then((finalData) => {
+                                    props.setAppState({
+                                      global: {
+                                        tsdApp: {
+                                          viewComponent: {
+                                            selectedRowKey: finalData,
+                                          },
+                                        },
+                                      },
+                                    });
+                                  })
+                                  .then(() => {
+                                    props.setLayoutConfig(routes.detail);
+                                  });
+                                // console.log("GET API IN SEARCH :::: ", res1);
+                              });
+                            // props.setAppState({
+                            //   global: {
+                            //     tsdApp: {
+                            //       listComponent: {
+                            //         selectedRowKey: d,
+                            //       },
+                            //     },
+                            //   },
+                            // });
                             // TODO :Search List component is missing open ticket
                             console.log(
                               "appState in searchListComponent ",
                               props.appState
                             );
-                            props.setLayoutConfig(routes.detail);
                           }}
                         />
                       }

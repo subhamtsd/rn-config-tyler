@@ -134,12 +134,16 @@ export const events = {
 
       // console.log("appState in Edit event1 : : : ", appState);
       const keyName = appState.global.tsdApp.editComponent.action.uriParams;
-      // console.log(
-      //   "Hello world : : : :",
-      //   appState.global.tsdApp.listComponent.selectedRowKey[keyName]
-      // ); // Organisation --> organisation
+      console.log(
+        "Hello world : : : :",
+        appState.global.tsdApp.viewComponent.selectedRowKey[keyName],
+        "\n name of the key ::::",
+        keyName,
+        "\n appState ::: ",
+        appState
+      ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${appState.global.tsdApp.editComponent.action.endPoint}/${appState.global.tsdApp.listComponent.selectedRowKey[keyName]}`,
+        `http://localhost:8080/transaction-web/${appState.global.tsdApp.editComponent.action.endPoint}/${appState.global.tsdApp.viewComponent.selectedRowKey[keyName]}`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
           headers: {
@@ -151,26 +155,15 @@ export const events = {
       )
         .then((res) => res.json())
         .then((_data) => {
-          // setAppState({
-          //   global: {
-          //     tsdApp: {
-          //       listComponent: {
-          //         data: _data,
-          //       },
-          //     },
-          //   },
-          // });
-
           setAppState({
             global: {
               tsdApp: {
-                listComponent: {
+                viewComponent: {
                   selectedRowKey: _data,
                 },
               },
             },
           });
-          // console.log("response from edit api : : : :: ", _data);
           setLayoutConfig(routes["detail"]);
         });
     },

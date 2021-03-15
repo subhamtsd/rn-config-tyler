@@ -47,8 +47,9 @@ export const DetailListComponent = (props: {
   // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("appState in Detail component : : :: ", appState);
     appState.global
-      ? setdata(appState.global.tsdApp.listComponent.selectedRowKey)
+      ? setdata(appState.global.tsdApp.viewComponent.selectedRowKey)
       : setdata({});
   }, []);
 

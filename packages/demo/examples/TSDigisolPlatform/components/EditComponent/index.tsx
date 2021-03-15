@@ -43,7 +43,7 @@ export const EditComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   // console.log("DISPATCH : : : : ", dispatch);
-  const _formData = appState.global.tsdApp.listComponent.selectedRowKey;
+  const _formData = appState.global.tsdApp.viewComponent.selectedRowKey;
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -186,17 +186,19 @@ export const EditComponent = (props: {
                 : "34601",
             actionName:
               appState.global != undefined
-                ? appState.global.tsdApp.activeAction != undefined
-                  ? appState.global.tsdApp.activeAction.name
+                ? appState.global.tsdApp.editComponent.action != undefined
+                  ? appState.global.tsdApp.editComponent.action.name
                   : "Edit"
                 : "Edit",
           }),
         }
       );
       const resJSON = await res.json();
+      console.log("resJson ::::: ---> ", resJSON);
+      
       const objectName =
         appState.global != undefined
-          ? appState.global.tsdApp.activeAction.name +
+          ? appState.global.tsdApp.editComponent.action.name +
             appState.global.tsdApp.activeTab.name +
             "Schema"
           : "EditCreateOrdersSchema";

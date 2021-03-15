@@ -52,7 +52,12 @@ export const TabComponent = (props: {
                   ? appState.global.tsdApp.activeModule.name
                   : "Service Orders"
                 : "Service Orders",
-            // tabName: "CreateOrders",
+            // tabName:
+            //   appState.global != undefined
+            //     ? appState.global.tsdApp.activeTab != undefined
+            //       ? appState.global.tsdApp.activeTab.name
+            //       : "CreateOrders"
+            //     : "CreateOrders",
             actionName:
               appState.global != undefined
                 ? appState.global.tsdApp.activeAction != undefined
