@@ -12,11 +12,18 @@
     "tslib": "*"
   },
   "dependencies": {
+    "@react-native-community/picker": "^1.8.1",
     "brace": "^0.11.1",
+    "dot-object": "^2.1.4",
     "history": "^5.0.0",
     "jsoneditor": "^9.1.9",
     "jsoneditor-react": "^3.1.0",
-    "react-native-web-jsonschema-form": "^3.1.4"
+    "modal-react-native-web": "^0.2.0",
+    "react-native-calendars": "^1.1254.0",
+    "react-native-chart-kit": "^6.11.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-web-jsonschema-form": "^3.1.4",
+    "tailwind-rn": "^3.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",

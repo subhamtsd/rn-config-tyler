@@ -1,4 +1,3 @@
-
 import React, { createElement, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
@@ -210,7 +209,7 @@ export const App = (props: AppProps) => {
 
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      {props?.debug && Platform.OS === "web" ? (
+      {/* {props?.debug && Platform.OS === "web" ? (
         <JSONEditor
           json={config}
           onChangeJSON={(json) => {
@@ -218,7 +217,7 @@ export const App = (props: AppProps) => {
             setConfig(json);
           }}
         />
-      ) : null}
+      ) : null} */}
       <TouchableOpacity>
         <Row style={{ maxHeight: 35, marginTop: "0%" }}>{headerSection}</Row>
       </TouchableOpacity>
