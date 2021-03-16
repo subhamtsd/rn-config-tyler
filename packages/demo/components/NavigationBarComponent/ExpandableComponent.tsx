@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { appConfig } from "../../examples/TSDigisolPlatform/configs/layouts/dashboardLayout";
 
 const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
   const {
@@ -18,7 +20,7 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
   //Custom Component for the Expandable List
   const [layoutHeight, setLayoutHeight] = useState(100);
 
-  console.log("props : : : : ", props);
+  // console.log("props : : : : ", props);
 
   useEffect(() => {
     if (item.isExpanded) {
@@ -57,6 +59,13 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
             onPress={() => {
               // TODO : How to seprate this part to make it a generic component ? [setAppState is taking indivisual modules one by one]
               // on click of the module tsdApp state will be updated with new activeModule
+              // console.log(
+              //   "item : : : in Ex component : : : ",
+              //   item.tabs[0].actions
+              // );
+              const filteredAction = item.tabs[0].actions.find(
+                ({ actionName }) => actionName === "Search"
+              );
               setAppState({
                 global: {
                   tsdApp: {
@@ -64,9 +73,21 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                       name: item.moduleName,
                       key: item.moduleKey,
                     },
+                    activeTab: {
+                      name: item.tabs[0].tabName,
+                      key: item.tabs[0].tabKey,
+                    },
+                    activeAction: {
+                      name: filteredAction.actionName,
+                      key: filteredAction.actionKey,
+                      endPoint: filteredAction.endPoint,
+                      httpMethod: filteredAction.httpMethod,
+                      showButton: filteredAction.showButton,
+                    },
                   },
                 },
               });
+              setLayoutConfig(appConfig);
             }}
           >
             <Text
@@ -74,8 +95,16 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                 fontSize: 16,
                 color: "white",
                 padding: 10,
+                // TODO : Optimised and add some generalise logic for this
                 backgroundColor:
-                  item.moduleName === item.moduleName ? "#b2c560" : "",
+                  appState.global != undefined
+                    ? appState.global.tsdApp.activeModule.name ===
+                      item.moduleName
+                      ? "#b2c560"
+                      : ""
+                    : item.moduleName === item.moduleName
+                    ? "#b2c560"
+                    : "",
               }}
             >
               {item.moduleDisplayName}

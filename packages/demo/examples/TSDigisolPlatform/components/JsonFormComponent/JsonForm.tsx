@@ -7,8 +7,8 @@ import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
-import { getEvents } from "../../examples/3_4-screen-example-web/layout";
-import useSafeSetState from "../utils/useSafeState";
+import { getEvents } from "../../configs/events/eventConfig";
+import useSafeSetState from "../../helper/useSafeState";
 export { useSafeSetState };
 const noOp = (): void => {};
 export const JsonForm = ({
@@ -20,12 +20,13 @@ export const JsonForm = ({
   _onError = noOp,
   _onSubmit = noOp,
   _onChange = noOp,
-  _formData = {},
+  _formData = {}, // This data
   _onClose = noOp,
-  schema = {},
-  uiSchema = {},
+  schema = {}, // This data
+  uiSchema = {}, // this data
   label = "",
   _submitButton = false,
+  _cancelButton = false,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
@@ -40,6 +41,9 @@ export const JsonForm = ({
     ..._formData,
     ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
   });
+
+  console.log("AnyRecord : : : : ", _onBeforeSubmit);
+
   const onError = (event) => {
     console.log("*** onError ***");
     console.log(event);
@@ -65,7 +69,7 @@ export const JsonForm = ({
     input: {
       focused: StyleSheet.create({
         border: {
-          borderColor: "yellow",
+          borderColor: "#5cabc5",
           borderWidth: 2,
           borderStyle: "solid",
         },
@@ -83,7 +87,7 @@ export const JsonForm = ({
           opacity: 1,
         },
         selected: {
-          color: "blue",
+          color: "#5cabc5",
         },
         unselected: {
           color: "#FAFAFA",
@@ -126,14 +130,14 @@ export const JsonForm = ({
           minHeight: 10,
         }}
       > */}
-        <Text>{label}</Text>
+        {/* <Text>{label}</Text> */}
         <Form
           // style={{ margin: 30 }}
           formData={formData}
           schema={schema}
           uiSchema={uiSchema}
           submitButton={_submitButton}
-          cancelButton={false}
+          cancelButton={_cancelButton}
           onChange={onChange}
           buttonPosition="center"
           {...getEvents(

@@ -7,8 +7,8 @@ import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
-import { getEvents } from "../../examples/3_4-screen-example-web/layout";
-import useSafeSetState from "../utils/useSafeState";
+import { getEvents } from "../../configs/events/eventConfig";
+import useSafeSetState from "../../helper/useSafeState";
 export { useSafeSetState };
 const noOp = (): void => {};
 export const JsonForm = ({
@@ -20,12 +20,12 @@ export const JsonForm = ({
   _onError = noOp,
   _onSubmit = noOp,
   _onChange = noOp,
-  _formData = {},
+  _formData = {}, // This data
   _onClose = noOp,
-  schema = {},
-  uiSchema = {},
+  schema = {}, // This data
+  uiSchema = {}, // this data
   label = "",
-  _submitButton = false,
+  _submitButton = true,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
@@ -38,8 +38,11 @@ export const JsonForm = ({
   // TODO: submit formData to ideal connected endpoint
   const [formData, setFormData] = useSafeSetState({
     ..._formData,
-    ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
+    ...appState?.$global[label]?.form?.formData,
   });
+
+  console.log("AnyRecord : : : : ", _onBeforeSubmit);
+
   const onError = (event) => {
     console.log("*** onError ***");
     console.log(event);
@@ -55,11 +58,14 @@ export const JsonForm = ({
   };
   const onErrorOk = () => setException(null);
   // form data mutator
+  console.log("formData in jsonForm of Edit : : : ", formData);
+
   const onChange = (event) => {
     setFormData({
       ...formData,
       [event.params.name]: event.params.value,
     });
+    // console.log("formData in jsonForm of Edit  onChange : : : ", formData);
   };
   const theme = {
     input: {
@@ -126,9 +132,9 @@ export const JsonForm = ({
           minHeight: 10,
         }}
       > */}
-        <Text>{label}</Text>
+        {/* <Text>{label}</Text> */}
         <Form
-          // style={{ margin: 30 }}
+          //   style={{ margin: 30 }}
           formData={formData}
           schema={schema}
           uiSchema={uiSchema}

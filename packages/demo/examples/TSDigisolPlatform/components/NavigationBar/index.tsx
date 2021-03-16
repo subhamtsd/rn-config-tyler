@@ -9,10 +9,9 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
 } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
-import ExpandableComponent from "./ExpandableComponent";
+import ExpandableComponent from "../../../../components/NavigationBarComponent/ExpandableComponent";
 
 export const NavigationBar = (props: {
   appState;
@@ -35,21 +34,22 @@ export const NavigationBar = (props: {
     setLayoutConfig,
     getEvents,
   } = props;
+
   const [loading, setLoading] = useState(true);
   const [listDataSource, setListDataSource] = useState([]);
-  const [multiSelect] = useState(true);
-
-  console.log("Props from Nav bar : : : : ", props);
-
-  if (Platform.OS === "android") {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
+  const [multiSelect, setMultiSelect] = useState(false);
 
   useEffect(() => {
     setLoading(true);
+
+    /**
+     * @DOC : SCHEMA API to fetch buisness Function Data
+     */
+
     const fetchData = async () => {
       const res = await fetch(
-        `https://run.mocky.io/v3/c03ca82f-c15f-4bc3-beef-4f64d297654d`,
+        // `https://run.mocky.io/v3/1f38d881-eaae-4fcd-b6fe-05fdc83f5554`,
+        `http://localhost:8080/transaction-web/v1/schema/`,
         {
           method: "POST",
           headers: {
@@ -57,25 +57,40 @@ export const NavigationBar = (props: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            // TODO : REMOVE this hardcoding
             userId: "TsdAdmin",
-            roleKey: "1",
+            roleKey: 1,
           }),
         }
       );
       const resJSON = await res.json();
-      console.log(resJSON);
+
+      /**
+       * @DOC : Buisness Functions response is saved in listDataSource
+       */
 
       setListDataSource(resJSON.businessFunctions);
-
       setLoading(false);
     };
     fetchData();
+    // console.log("appState in useEffect : : : ", appState);
+    // setAppState({ global: { total: 1 } });
   }, []);
 
+  console.log("appState in NavBar : : : ", appState);
+
+  if (Platform.OS === "android") {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  /**
+   * @description : Update layout handler for Navigation Bar
+   * @param index : number
+   */
   const updateLayout = (index: number) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    const array = [...listDataSource];
+
+    const array: any[] = [...listDataSource];
+
     if (multiSelect) {
       // If multiple select is enabled
       array[index]["isExpanded"] = !array[index]["isExpanded"];
@@ -87,8 +102,8 @@ export const NavigationBar = (props: {
           : (array[placeindex]["isExpanded"] = false)
       );
     }
+
     setListDataSource(array);
-    console.log("Navigation Clicked");
   };
 
   if (loading)
@@ -110,22 +125,17 @@ export const NavigationBar = (props: {
           <Row>
             <Col size={1} style={{ backgroundColor: "#5cabc5" }}>
               <ScrollView>
-                {listDataSource.map((item: any, key: any) => (
+                {listDataSource.map((item, key) => (
                   <ExpandableComponent
                     key={item.functionName}
                     onClickFunction={() => {
+                      // setAppState({ global: { total: 1 } });
                       updateLayout(key);
                     }}
-                    {...props}
                     item={item}
+                    props={props}
                   />
                 ))}
-                <Text>
-                  {appState?.$global["bodyHeader"]?.form?.formData?.phone
-                    ? "Verified Phone No:- " +
-                      appState?.$global["bodyHeader"]?.form?.formData?.phone
-                    : null}
-                </Text>
               </ScrollView>
             </Col>
           </Row>
@@ -146,11 +156,6 @@ const NavStyles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 10,
   },
-  //   titleText: {
-  //     flex: 1,
-  //     fontSize: 22,
-  //     fontWeight: 'bold',
-  //   },
   header: {
     backgroundColor: "#F5FCFF",
     padding: 20,
