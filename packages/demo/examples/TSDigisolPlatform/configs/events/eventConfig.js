@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React from "react";
-import { Text } from "react-native";
-import { removeKeyFromUrl } from "../../helper/helper";
 import { routes } from "../routes/routesConfig";
 
 export const events = {
@@ -33,35 +30,34 @@ export const events = {
         appState.global.tsdApp.activeAction.name
       );
 
-      // const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-      //   const res1 = fetch(
-      //     `http://localhost:8080/transaction-web/${endPoint}`,
-      //     {
-      //       method: httpMethod,
-      //       // method: "POST",
-      //       headers: {
-      //         Accept: "application/json",
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(body),
-      //     }
-      //   )
-      //     .then((res) => res.json())
-      //     .then((_data) => {
-      //       const _formData = args.params.values;
-      //       setAppState({
-      //         global: {
-      //           tsdApp: {
-      //             listComponent: {
-      //               data: _data,
-      //             },
-      //           },
-      //         },
-      //       });
-      //       // console.log(appState?.$global?.list_of_complaints?.data);
-      //       setLayoutConfig(routeToRedirect);
-      //     });
-      // };
+      const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
+        const res1 = fetch(
+          `http://localhost:8080/transaction-web/${endPoint}`,
+          {
+            method: httpMethod,
+            // method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        )
+          .then((res) => res.json())
+          .then((_data) => {
+            const _formData = args.params.values;
+            setAppState({
+              global: {
+                tsdApp: {
+                  createComponent: {
+                    [appState.global.tsdApp.activeTab.name]: _data,
+                    formData: body,
+                  },
+                },
+              },
+            });
+          });
+      };
 
       const saveCreateComponentData = async (tabName, body) => {
         console.log("tabName in saveCreateComponentData : :: : : ", tabName);
@@ -99,28 +95,12 @@ export const events = {
         //   routes["search"]
         // );
       } else {
-        if (appState.global.tsdApp.activeAction.name === "Create") {
-          if (
-            appState.global.tsdApp.activeModule.name === "Catalog" &&
-            appState.global.tsdApp.activeTab.name === "Category"
-          ) {
-            console.log(appState.global.tsdApp.activeModule.name);
-            saveCreateComponentData(
-              appState.global.tsdApp.activeTab.name,
-              body
-            );
-          }
-          if (
-            appState.global.tsdApp.activeModule.name === "Catalog" &&
-            appState.global.tsdApp.activeTab.name === "Product"
-          ) {
-            console.log(appState.global.tsdApp.activeModule.name);
-            saveCreateComponentData(
-              appState.global.tsdApp.activeTab.name,
-              body
-            );
-          }
-        }
+        fetchApi(
+          appState.global.tsdApp.activeAction.endPoint,
+          appState.global.tsdApp.activeAction.httpMethod,
+          body,
+          routes["search"]
+        );
       }
     },
   },
@@ -136,14 +116,22 @@ export const events = {
       const keyName = appState.global.tsdApp.editComponent.action.uriParams;
       console.log(
         "Hello world : : : :",
-        appState.global.tsdApp.viewComponent.selectedRowKey[keyName],
+        appState.global.tsdApp.viewComponent[
+          appState.global.tsdApp.activeTab.name
+        ][keyName],
         "\n name of the key ::::",
         keyName,
         "\n appState ::: ",
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${appState.global.tsdApp.editComponent.action.endPoint}/${appState.global.tsdApp.viewComponent.selectedRowKey[keyName]}`,
+        `http://localhost:8080/transaction-web/${
+          appState.global.tsdApp.editComponent.action.endPoint
+        }/${
+          appState.global.tsdApp.viewComponent[
+            appState.global.tsdApp.activeTab.name
+          ][keyName]
+        }`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
           headers: {
@@ -159,7 +147,7 @@ export const events = {
             global: {
               tsdApp: {
                 viewComponent: {
-                  selectedRowKey: _data,
+                  [appState.global.tsdApp.activeTab.name]: _data,
                 },
               },
             },
@@ -279,3 +267,26 @@ export const getInitEvents = (elId, setLayoutConfig, setAppState, appState) => {
     events[elId](setLayoutConfig, setAppState, appState);
   }
 };
+
+// if (appState.global.tsdApp.activeAction.name === "Create") {
+//   if (
+//     appState.global.tsdApp.activeModule.name === "Catalog" &&
+//     appState.global.tsdApp.activeTab.name === "Category"
+//   ) {
+//     console.log(appState.global.tsdApp.activeModule.name);
+//     saveCreateComponentData(
+//       appState.global.tsdApp.activeTab.name,
+//       body
+//     );
+//   }
+//   if (
+//     appState.global.tsdApp.activeModule.name === "Catalog" &&
+//     appState.global.tsdApp.activeTab.name === "Product"
+//   ) {
+//     console.log(appState.global.tsdApp.activeModule.name);
+//     saveCreateComponentData(
+//       appState.global.tsdApp.activeTab.name,
+//       body
+//     );
+//   }
+// }

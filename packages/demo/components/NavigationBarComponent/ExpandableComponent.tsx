@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { appConfig } from "../../examples/TSDigisolPlatform/configs/layouts/dashboardLayout";
 
 const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
   const {
@@ -64,8 +66,6 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
               const filteredAction = item.tabs[0].actions.find(
                 ({ actionName }) => actionName === "Search"
               );
-
-
               setAppState({
                 global: {
                   tsdApp: {
@@ -87,6 +87,7 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                   },
                 },
               });
+              setLayoutConfig(appConfig);
             }}
           >
             <Text

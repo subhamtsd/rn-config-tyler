@@ -49,7 +49,11 @@ export const DetailListComponent = (props: {
   useEffect(() => {
     console.log("appState in Detail component : : :: ", appState);
     appState.global
-      ? setdata(appState.global.tsdApp.viewComponent.selectedRowKey)
+      ? setdata(
+          appState.global.tsdApp.viewComponent[
+            appState.global.tsdApp.activeTab.name
+          ]
+        )
       : setdata({});
   }, []);
 

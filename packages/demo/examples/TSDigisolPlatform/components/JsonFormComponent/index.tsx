@@ -126,14 +126,16 @@ export const JsonFormComponent = (props: {
   //   // },
   // };
 
-  const initialFormSchema = {
-    type: "object",
-    required: ["keyName"],
-    properties: {
-      keyName: { type: "string" },
-    },
-    uischema: {},
-  };
+  // const initialFormSchema = {
+  //   type: "object",
+  //   required: ["keyName"],
+  //   properties: {
+  //     keyName: { type: "string" },
+  //   },
+  //   uischema: {},
+  // };
+
+  const initialFormSchema = {};
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
   const [uiSchema, setUISchema] = useState(_uiSchema);
@@ -204,7 +206,7 @@ export const JsonFormComponent = (props: {
     fetchData();
   }, []);
 
-  if (responseStatus === 204) {
+  if (formLayout === initialFormSchema) {
     return (
       <View style={componentGridStyle}>
         <Text>No data found</Text>

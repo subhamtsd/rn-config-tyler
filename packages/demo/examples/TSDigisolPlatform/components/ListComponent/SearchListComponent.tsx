@@ -361,18 +361,24 @@ export default function SearchListComponent({
                                 )
                                   .then((res1) => res1.json())
                                   .then((data) => {
-                                    console.log(
-                                      "GET API IN SEARCH : ::::",
-                                      data
-                                    );
+                                    // console.log(
+                                    //   "GET API IN SEARCH : ::::",
+                                    //   data
+                                    // );
                                     return data;
                                   })
                                   .then((finalData) => {
+                                    console.log(
+                                      "appState in Search List :::",
+                                      props.appState
+                                    );
+
                                     props.setAppState({
                                       global: {
                                         tsdApp: {
                                           viewComponent: {
-                                            selectedRowKey: finalData,
+                                            [props.appState.global.tsdApp
+                                              .activeTab.name]: finalData,
                                           },
                                         },
                                       },
@@ -393,10 +399,10 @@ export default function SearchListComponent({
                             //   },
                             // });
                             // TODO :Search List component is missing open ticket
-                            console.log(
-                              "appState in searchListComponent ",
-                              props.appState
-                            );
+                            // console.log(
+                            //   "appState in searchListComponent ",
+                            //   props.appState
+                            // );
                           }}
                         />
                       }

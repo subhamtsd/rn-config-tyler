@@ -88,6 +88,7 @@ export const NavigationBar = (props: {
       );
     }
     setListDataSource(array);
+    console.log("Navigation Clicked");
   };
 
   if (loading)
@@ -117,7 +118,6 @@ export const NavigationBar = (props: {
                     }}
                     {...props}
                     item={item}
-
                   />
                 ))}
                 <Text>

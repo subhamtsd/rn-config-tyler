@@ -43,7 +43,8 @@ export const EditComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
 
   // console.log("DISPATCH : : : : ", dispatch);
-  const _formData = appState.global.tsdApp.viewComponent.selectedRowKey;
+  const _formData =
+    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name];
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -195,7 +196,7 @@ export const EditComponent = (props: {
       );
       const resJSON = await res.json();
       console.log("resJson ::::: ---> ", resJSON);
-      
+
       const objectName =
         appState.global != undefined
           ? appState.global.tsdApp.editComponent.action.name +
