@@ -45,22 +45,13 @@ export const appConfig = {
   layout: {
     // row no
     "1container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
-      // col no
       "11leftNavCol": {
         layout: {
           colConfig: {
             colSize: 2,
           },
           "11leftNavHeaderRow": {
-            // row no
-            rowConfig: {
-              rowSize: 0.5,
-              rowStyle: rowStyle,
-            },
+
             leftNavHeader: {
               // col no
               colSize: 1,
@@ -70,10 +61,7 @@ export const appConfig = {
             },
           },
           "11leftNavBodyRow": {
-            rowConfig: {
-              rowSize: 5,
-              // rowStyle: rowStyle,
-            },
+
             leftNavBody: {
               // col no
               colSize: 1,

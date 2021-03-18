@@ -63,7 +63,7 @@ routes.routeOne = {
 // *************************************************
 
 // links row
-export const links = {
+const links = {
   "/": {
     containerStyle: styles.navItem,
     linkStyle: styles.tabName,

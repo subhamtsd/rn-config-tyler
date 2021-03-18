@@ -21,7 +21,6 @@ export const componentsSet = {
   Home,
   About,
   RandomPic,
-  // JsonForm
 };
 
 // components section
@@ -86,49 +85,20 @@ routes.routeThree = {
 //  Layout config
 // *************************************************
 
-// links row
-const links = {
-  "/": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Home",
-  },
-  "/about": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Feed",
-  },
-  "/contact": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Messages",
-  },
-};
 
 
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links,
   layout: {
-    // row no
+
     "1container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
-      // col no
       "11leftNavCol": {
         layout: {
           colConfig: {
             colSize: 2,
           },
           "11leftNavHeaderRow": {
-            // row no
-            rowConfig: {
-              rowSize: 0.5,
-              rowStyle: rowStyle,
-            },
             leftNavHeader: {
               // col no
               colSize: 1,
@@ -138,10 +108,6 @@ export const appConfig = {
             },
           },
           "11leftNavBodyRow": {
-            rowConfig: {
-              rowSize: 5,
-              // rowStyle: rowStyle,
-            },
             leftNavBody: {
               // col no
               colSize: 1,
@@ -153,21 +119,13 @@ export const appConfig = {
         },
       },
       "12bodyCol": {
-        rowConfig: {
-          rowSize: 1,
-          rowStyle: rowStyle,
-        },
         layout: {
           colConfig: {
             colSize: 11,
             colStyle: { borderColor: "cyan", borderWidth: 4 },
           },
           "121bodyHeaderRow": {
-            rowConfig: {
-              rowSize: 1,
-              // rowStyle: rowStyle,
-              rowStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
-            },
+
             bodyHeader: {
               // col no
               colSize: 1,
@@ -177,13 +135,8 @@ export const appConfig = {
             },
           },
           "122bodyContentRow": {
-            rowConfig: {
-              rowSize: 12,
-              // rowStyle: rowStyle,
-              rowStyle: { borderColor: "red", borderWidth: 2, height: "80vh" },
-            },
+
             bodyContent: {
-              // col no
               idx: "Home",
               colSize: 1,
               label: "bodyContent",
@@ -191,13 +144,8 @@ export const appConfig = {
             },
           },
           "123bodyFooterRow": {
-            rowConfig: {
-              rowSize: 1,
-              // rowStyle: rowStyle,
-              rowStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
-            },
+
             bodyFooter: {
-              // col no
               idx: "Home",
               colSize: 1,
               label: "bodyFooter",
@@ -208,10 +156,7 @@ export const appConfig = {
       },
     },
     "2container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
+
       footer: {
         // col no
         colSize: 1,

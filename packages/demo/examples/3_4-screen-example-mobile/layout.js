@@ -156,28 +156,13 @@ routes.routeThree = {
 //  Layout config
 // *************************************************
 
-// links row
-const links = {
-  "/": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Home",
-  },
-  "/about": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Feed",
-  },
-};
 
 export const appConfig = {
   componentsSet,
-  links,
   layout: {
     "1.container": {
       "1.1.leftNavCol": {
         layout: {
-          
           "1.1.leftNavHeaderRow": {
             leftNavHeader: {
               colSize: 1,

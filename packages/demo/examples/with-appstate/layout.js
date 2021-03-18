@@ -20,13 +20,9 @@ export const componentsSet = {
 };
 
 export const getInitEvents = () => {
-  /** */
 };
 
 export const routes = {};
-
-// has to be added as of now if removed then app is not rendering "Loading" screen is getting displayed
-routes.routeOne = {}; 
 
 // *************************************************
 //  Layout config
@@ -100,13 +96,13 @@ export const appConfig = {
             },
             bodyContent1: {
               colSize: 2,
-              idx: "About",
+              idx: "Home",
               label: "bodyContent1",
               colStyle: { borderWidth: 3, borderColor: "red" },
             },
             bodyContent2: {
               colSize: 4,
-              idx: "About",
+              idx: "Home",
               label: "bodyContent2",
               colStyle: { borderWidth: 4, borderColor: "black" },
             },
