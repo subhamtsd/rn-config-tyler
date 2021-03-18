@@ -30,6 +30,8 @@ export const HeaderBar = (props: {
     getEvents,
   } = props;
 
+  console.log("LayoutConfig ::: ", layoutConfig);
+
   // useEffect(() => {
   //   getInitEvents(`${label}-$init`, setLayoutConfig, setAppState);
   // }, []);

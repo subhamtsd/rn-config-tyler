@@ -3,9 +3,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { values } from "core-js/core/array";
+import { setDate } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { Button, Text, View, ScrollView } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { Grid } from "react-native-easy-grid";
+import { isPropertyAssignment } from "typescript";
 import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
 import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
@@ -20,7 +29,8 @@ export const ListJsonFormComponent = (props: {
   layoutConfig: any;
   setLayoutConfig: any;
   getEvents: any;
-  ntevents: any;
+  events: any;
+  _childDependeny: any;
 }) => {
   const {
     appState,
@@ -31,181 +41,26 @@ export const ListJsonFormComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    events,
+    _childDependeny,
   } = props;
 
   console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log(props.appState);
+  console.log("listJsonFormComponent :::: ---> ", props);
 
-  const [data, setdata] = useState({});
-  const [responseStatus, setResponseStatus] = useState(200);
-
-  const dataToRender = {
-    Addresses: {
-      title: "Addresses",
-      type: "object",
-      properties: {
-        address: {
-          title: "Address",
-          type: "array",
-          items: {
-            type: "object",
-            required: ["city", "state", "firstName", "lastName", "postalCode"],
-            properties: {
-              city: {
-                title: "City",
-                type: "string",
-                format: "",
-                displayType: "dropdown",
-                dropdownLoadApiURL: "v1/device/list",
-                dropdownLoadApiMethod: "POST",
-                uid: "city",
-                pattern: "[A-Z{3,6}]",
-              },
-              state: {
-                title: "State",
-                type: "string",
-                format: "",
-                uid: "state",
-                pattern: "[A-Z{3,6}]",
-              },
-              firstName: {
-                title: "First Name",
-                type: "string",
-                format: "",
-                uid: "firstName",
-                pattern: "[a-zA-Z0-9]",
-              },
-              lastName: {
-                title: "Last Name",
-                type: "string",
-                format: "",
-                uid: "lastName",
-                pattern: "[a-zA-Z0-9]",
-              },
-              postalCode: {
-                title: "Postal Code",
-                type: "string",
-                format: "",
-                uid: "postalCode",
-                pattern: "[a-zA-Z0-9]",
-              },
-            },
-          },
-        },
-      },
-    },
+  const initialVal = {
+    key: "values",
   };
+  // const [data, setdata] = useState(initialVal);
+  const [formLayout, setformLayout] = useState(initialVal);
+  const [loading, setLoading] = useState(true);
 
-  const dataToRender2 = {
-    parentCategories: {
-      title: "Parent Categories",
-      type: "object",
-      properties: {
-        parentCategory: {
-          title: "parentCategory",
-          type: "array",
-          items: {
-            type: "object",
-            required: ["sequence", "code"],
-            properties: {
-              sequence: {
-                title: "Sequence",
-                type: "string",
-                format: "",
-                uid: "sequence",
-                pattern: "[0-9]",
-              },
-              code: {
-                title: "Code",
-                type: "string",
-                format: "",
-                uid: "code",
-                pattern: "[a-zA-Z0-9]",
-              },
-            },
-          },
-        },
-      },
-    },
-  };
-
-  // OrderLine
-  const dataToRender1 = {
-    orderLines: {
-      title: "Order Lines",
-      type: "object",
-      properties: {
-        orderLine: {
-          title: "Order Line",
-          type: "array",
-          items: {
-            type: "object",
-            required: [
-              "bookDate",
-              "unitPrice",
-              "orderedQty",
-              "skuCode",
-              "slotCode",
-              "addressKey",
-              "shipNode",
-            ],
-            properties: {
-              bookDate: {
-                title: "Booking Date",
-                type: "string",
-                uid: "bookDate",
-                pattern: "[a-zA-Z0-9]",
-              },
-              unitPrice: {
-                title: "Unit Price",
-                type: "string",
-                uid: "unitPrice",
-                pattern: "^[0-9]+(.[0-9]{1,2})?$",
-              },
-              orderedQty: {
-                title: "orderedQty",
-                type: "string",
-                uid: "orderedQty",
-                pattern: "[0-9]",
-              },
-              skuCode: {
-                title: "Sku Code",
-                type: "string",
-                displayType: "dropdown",
-                dropdownLoadApiURL: "v1/sku/list",
-                dropdownLoadApiMethod: "POST",
-                uid: "skuCode",
-                pattern: "[a-zA-Z0-9]",
-              },
-              slotCode: {
-                title: "Slot Code",
-                type: "string",
-                uid: "slotCode",
-                pattern: "[a-zA-Z0-9]",
-              },
-              addressKey: {
-                title: "Address Key",
-                type: "string",
-                uid: "addressKey",
-                pattern: "[0-9]",
-              },
-              shipNode: {
-                title: "Ship Node",
-                type: "string",
-                uid: "shipNode",
-                pattern: "[a-zA-Z0-9]",
-              },
-            },
-          },
-        },
-      },
-    },
-  };
   useEffect(() => {
     const fetchFormLayout = async () => {
+      setLoading(true);
       const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
+        `http://localhost:8080/transaction-web/v1/schema/singlechildformLayout`,
         {
           method: "POST",
           headers: {
@@ -216,74 +71,27 @@ export const ListJsonFormComponent = (props: {
             userId: "TsdAdmin",
             roleKey: 1,
             moduleKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule != undefined
-                  ? appState.global.tsdApp.activeModule.key
-                  : "23751"
-                : "23751",
+              props._childDependeny.ListJsonFormComponentDependency.moduleKey,
             tabKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab != undefined
-                  ? appState.global.tsdApp.activeTab.key
-                  : "34601"
-                : "34601",
+              props._childDependeny.ListJsonFormComponentDependency.tabKey,
             actionName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeAction != undefined
-                  ? appState.global.tsdApp.activeAction.name
-                  : "Search"
-                : "Search",
+              props._childDependeny.ListJsonFormComponentDependency.actionName,
           }),
         }
       );
       const resJSON = await res.json();
-      const status = res.status;
-      if (status === 204) {
-        setResponseStatus(status);
-      }
+      setformLayout(resJSON);
       console.log("response Json : : : : : formLayout ---> ", resJSON);
-      prepareSchema(resJSON)
-        .then((schemaJson) => {
-          console.log("SchemaJson updated : : :: ", schemaJson);
-          return schemaJson;
-        })
-        .then((formLayout) => {
-          console.log("Schema returened : : : ", formLayout);
-          const objectName =
-            appState.global != undefined
-              ? appState.global.tsdApp.activeAction.name +
-                appState.global.tsdApp.activeTab.name +
-                "Schema"
-              : "SearchCreateOrdersSchema";
-
-          console.log("objectName : : : : ", objectName);
-          console.log(
-            "____formLayout_____:::::",
-            formLayout[objectName][`properties`]
-          );
-          setdata(formLayout[objectName]["properties"]);
-          // setformLayout(formLayout[objectName]);
-          // setUISchema(formLayout[objectName]);
-        });
+      setLoading(false);
     };
-    // return () => {};
     fetchFormLayout();
   }, []);
 
-  // if (responseStatus) {
-  //   return (
-  //     <View style={componentGridStyle}>
-  //       <Text>No data found</Text>
-  //     </View>
-  //   );
-  // }
-  // TODO : Remove hardcoding
-  const noOfColumns = Object.keys(
-    dataToRender.Addresses.properties.address.items.properties
-    // dataToRender.parentCategories.properties.parentCategory.items.properties
-  ).length;
-
-  return (
+  return loading ? (
+    <View style={componentGridStyle}>
+      <ActivityIndicator />
+    </View>
+  ) : (
     <View style={componentGridStyle}>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
@@ -295,7 +103,7 @@ export const ListJsonFormComponent = (props: {
       <View>
         <ScrollView>
           <Grid>
-            <Text>{noOfColumns}</Text>
+            {/* <Text>{noOfColumns}</Text> */}
             <RenderTable
               appState={appState}
               label={label}
@@ -306,8 +114,8 @@ export const ListJsonFormComponent = (props: {
               setLayoutConfig={setLayoutConfig}
               getEvents={getEvents}
               events={events}
-              noOfColumns={noOfColumns}
-              dataToRender={dataToRender}
+              noOfColumns={7}
+              dataToRender={formLayout}
             />
           </Grid>
         </ScrollView>
@@ -316,3 +124,115 @@ export const ListJsonFormComponent = (props: {
     </View>
   );
 };
+
+// {// body of parent form
+// },
+// addresses : [
+//   {},{},{},{}
+// ]
+
+// const dataToRender2 = {
+//   parentCategories: {
+//     title: "Parent Categories",
+//     type: "object",
+//     properties: {
+//       parentCategory: {
+//         title: "parentCategory",
+//         type: "array",
+//         items: {
+//           type: "object",
+//           required: ["sequence", "code"],
+//           properties: {
+//             sequence: {
+//               title: "Sequence",
+//               type: "string",
+//               format: "",
+//               uid: "sequence",
+//               pattern: "[0-9]",
+//             },
+//             code: {
+//               title: "Code",
+//               type: "string",
+//               format: "",
+//               uid: "code",
+//               pattern: "[a-zA-Z0-9]",
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
+
+// // OrderLine
+// const dataToRender1 = {
+//   orderLines: {
+//     title: "Order Lines",
+//     type: "object",
+//     properties: {
+//       orderLine: {
+//         title: "Order Line",
+//         type: "array",
+//         items: {
+//           type: "object",
+//           required: [
+//             "bookDate",
+//             "unitPrice",
+//             "orderedQty",
+//             "skuCode",
+//             "slotCode",
+//             "addressKey",
+//             "shipNode",
+//           ],
+//           properties: {
+//             bookDate: {
+//               title: "Booking Date",
+//               type: "string",
+//               uid: "bookDate",
+//               pattern: "[a-zA-Z0-9]",
+//             },
+//             unitPrice: {
+//               title: "Unit Price",
+//               type: "string",
+//               uid: "unitPrice",
+//               pattern: "^[0-9]+(.[0-9]{1,2})?$",
+//             },
+//             orderedQty: {
+//               title: "orderedQty",
+//               type: "string",
+//               uid: "orderedQty",
+//               pattern: "[0-9]",
+//             },
+//             skuCode: {
+//               title: "Sku Code",
+//               type: "string",
+//               displayType: "dropdown",
+//               dropdownLoadApiURL: "v1/sku/list",
+//               dropdownLoadApiMethod: "POST",
+//               uid: "skuCode",
+//               pattern: "[a-zA-Z0-9]",
+//             },
+//             slotCode: {
+//               title: "Slot Code",
+//               type: "string",
+//               uid: "slotCode",
+//               pattern: "[a-zA-Z0-9]",
+//             },
+//             addressKey: {
+//               title: "Address Key",
+//               type: "string",
+//               uid: "addressKey",
+//               pattern: "[0-9]",
+//             },
+//             shipNode: {
+//               title: "Ship Node",
+//               type: "string",
+//               uid: "shipNode",
+//               pattern: "[a-zA-Z0-9]",
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { routes } from "../routes/routesConfig";
 
 export const events = {
@@ -53,9 +50,13 @@ export const events = {
                     [appState.global.tsdApp.activeTab.name]: _data,
                     formData: body,
                   },
+                  viewComponent: {
+                    [appState.global.tsdApp.activeTab.name]: _data,
+                  },
                 },
               },
             });
+            setLayoutConfig(routeToRedirect);
           });
       };
 
@@ -71,6 +72,129 @@ export const events = {
           },
         });
         // await saveCreateComponentFormLayout();
+      };
+
+      const getScreenLayout = async (
+        url,
+        moduleKey,
+        tabKey,
+        actionName,
+        buttonName
+      ) => {
+        const body = {
+          moduleKey: moduleKey,
+          tabKey: tabKey,
+          actionName: actionName,
+          buttonName: buttonName,
+        };
+
+        console.log("BODY in getScreenLayout :::: ", body);
+        const res1 = await fetch(
+          // `https://run.mocky.io/v3/6e15e1eb-d62f-4d7a-a708-eb6fe07d56e7`,
+          // `https://run.mocky.io/v3/d4624439-ce25-47db-96e1-649b2f8d6795`,
+          url,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        )
+          .then((res) => res.json())
+          .then(async (_data) => {
+            console.log("Layout config ::::: ", _data);
+            setLayoutConfig(_data);
+            console.log("LAYOUT CHANGED :::", routes["userChildLayout"]);
+          });
+      };
+
+      const createOperation = async () => {
+        const activeTabName = appState.global.tsdApp.activeTab.name;
+        saveCreateComponentData(activeTabName, body);
+        // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
+        if (activeTabName === "Category" || activeTabName === "Screen") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+          // console.log("Screen Layout :::: ", screenLayout);
+        } else if (activeTabName === "Product") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "User") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "CreateOrders") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/41c26646-4bf0-4f40-96d5-323fca7d640e`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "BookOrders") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/5b4c0e4d-00f6-4fa9-a54a-643b7bc75a1c`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "AllocateOrders") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "ReserveOrders") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/ea33ccb7-04c0-4e21-b5b5-6ec776a7084a`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "InventorySupply") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "Attributes") {
+          await getScreenLayout(
+            `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else {
+          fetchApi(
+            appState.global.tsdApp.activeAction.endPoint,
+            appState.global.tsdApp.activeAction.httpMethod,
+            body,
+            routes["detail"]
+          );
+        }
       };
 
       if (appState.global.tsdApp.activeAction.name === "Search") {
@@ -95,12 +219,8 @@ export const events = {
         //   routes["search"]
         // );
       } else {
-        fetchApi(
-          appState.global.tsdApp.activeAction.endPoint,
-          appState.global.tsdApp.activeAction.httpMethod,
-          body,
-          routes["search"]
-        );
+        createOperation();
+        // setLayoutConfig(routes["userChildLayout"]);
       }
     },
   },
@@ -267,26 +387,3 @@ export const getInitEvents = (elId, setLayoutConfig, setAppState, appState) => {
     events[elId](setLayoutConfig, setAppState, appState);
   }
 };
-
-// if (appState.global.tsdApp.activeAction.name === "Create") {
-//   if (
-//     appState.global.tsdApp.activeModule.name === "Catalog" &&
-//     appState.global.tsdApp.activeTab.name === "Category"
-//   ) {
-//     console.log(appState.global.tsdApp.activeModule.name);
-//     saveCreateComponentData(
-//       appState.global.tsdApp.activeTab.name,
-//       body
-//     );
-//   }
-//   if (
-//     appState.global.tsdApp.activeModule.name === "Catalog" &&
-//     appState.global.tsdApp.activeTab.name === "Product"
-//   ) {
-//     console.log(appState.global.tsdApp.activeModule.name);
-//     saveCreateComponentData(
-//       appState.global.tsdApp.activeTab.name,
-//       body
-//     );
-//   }
-// }
