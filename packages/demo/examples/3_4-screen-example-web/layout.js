@@ -343,12 +343,12 @@ export const events = {
   },
 
   //<label>-<element-id> : <handler>
-  "leftNavHeader-button-one": {
-    // <event> :: <handler>
-    onPress: (setLayoutConfig, setAppState, appState) => {
-      // components section
-    },
-  },
+  // "leftNavHeader-button-one": {
+  //   // <event> :: <handler>
+  //   onPress: (setLayoutConfig, setAppState, appState) => {
+  //     // components section
+  //   },
+  // },
   "bodyHeader-form": {
     // form data mutator
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
