@@ -34,7 +34,7 @@ export const SideNavBar = (props: {
           margin: 20,
         }}
       >
-        <Button testID={`${label}-btn-one`} title="TODO APP DEMO"></Button>
+        <Button testID={`${label}-btn-one`} title="TODO APP DEMO" {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}></Button>
       </View>
       <View
         style={{
