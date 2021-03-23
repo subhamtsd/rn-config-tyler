@@ -261,7 +261,7 @@ export const RenderTable = (props: {
   });
 
   return (
-    <View style={{ borderWidth: "1px" }}>
+    <View style={{ borderWidth: 1 }}>
       <Row>
         <Col
           style={{

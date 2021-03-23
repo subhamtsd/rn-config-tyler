@@ -15,9 +15,6 @@ import {
 } from "react-native";
 import { Grid } from "react-native-easy-grid";
 import { isPropertyAssignment } from "typescript";
-import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { RenderTable } from "./RenderTable";
 
 export const ListJsonFormComponent = (props: {
@@ -83,7 +80,7 @@ export const ListJsonFormComponent = (props: {
   };
 
   return (
-    <View style={componentGridStyle}>
+    <View style={{ borderWidth: 1 }}>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
