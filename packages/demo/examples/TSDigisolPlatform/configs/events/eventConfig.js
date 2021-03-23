@@ -85,7 +85,7 @@ export const events = {
           moduleKey: moduleKey,
           tabKey: tabKey,
           actionName: actionName,
-          buttonName: buttonName,
+          // buttonName: buttonName,
         };
 
         console.log("BODY in getScreenLayout :::: ", body);
@@ -133,44 +133,53 @@ export const events = {
           );
         } else if (activeTabName === "User") {
           await getScreenLayout(
-            `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
+            // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
             "Submit-button"
           );
-        } else if (activeTabName === "CreateOrders") {
-          await getScreenLayout(
-            `https://run.mocky.io/v3/41c26646-4bf0-4f40-96d5-323fca7d640e`,
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
-            "Submit-button"
-          );
-        } else if (activeTabName === "BookOrders") {
-          await getScreenLayout(
-            `https://run.mocky.io/v3/5b4c0e4d-00f6-4fa9-a54a-643b7bc75a1c`,
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
-            "Submit-button"
-          );
+        } else if (
+          activeTabName === "CreateOrders" ||
+          activeTabName === "BookOrders" ||
+          activeTabName === "ReserveOrders"
+        ) {
+          if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
+            await getScreenLayout(
+              `https://run.mocky.io/v3/41c26646-4bf0-4f40-96d5-323fca7d640e`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          } else {
+            await getScreenLayout(
+              `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          }
         } else if (activeTabName === "AllocateOrders") {
-          await getScreenLayout(
-            `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
-            "Submit-button"
-          );
-        } else if (activeTabName === "ReserveOrders") {
-          await getScreenLayout(
-            `https://run.mocky.io/v3/ea33ccb7-04c0-4e21-b5b5-6ec776a7084a`,
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
-            "Submit-button"
-          );
+          if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
+            await getScreenLayout(
+              `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          } else {
+            await getScreenLayout(
+              `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          }
         } else if (activeTabName === "InventorySupply") {
           await getScreenLayout(
             `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,

@@ -341,6 +341,50 @@ export const RenderTable = (props: {
       >
         <Grid>
           {/* TABLE HEADER DATA */}
+          <Row>
+            {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
+              return (
+                <Row
+                  style={{
+                    borderBottomWidth: 2,
+                    borderBottomColor: "grey",
+                    width: 140,
+                    padding: 5,
+                    alignContent: "center",
+                    alignSelf: "center",
+                  }}
+                >
+                  <Col
+                    size={7.1}
+                    style={
+                      {
+                        //   borderWidth: 3,
+                        //   borderRightWidth: 2,
+                        //   width: 220,
+                        //   // padding: 5,
+                        //   marginTop: 5,
+                        //   alignContent: "center",
+                        //   alignSelf: "center",
+                      }
+                    }
+                  >
+                    <Text
+                      style={{
+                        alignContent: "center",
+                        alignSelf: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                        fontSize: "15",
+                      }}
+                    >
+                      {tableHeaderObj[keyName].title}
+                    </Text>
+                  </Col>
+                </Row>
+              );
+            })}
+          </Row>
+          {/* TABLE DATA ROW */}
           <ScrollView
             style={{
               // borderWidth: 2,
@@ -348,53 +392,9 @@ export const RenderTable = (props: {
               height: 250,
             }}
           >
-            <Row>
-              {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
-                return (
-                  <Row
-                    style={{
-                      borderBottomWidth: 2,
-                      borderBottomColor: "grey",
-                      width: 140,
-                      padding: 5,
-                      alignContent: "center",
-                      alignSelf: "center",
-                    }}
-                  >
-                    <Col
-                      size={7.1}
-                      style={
-                        {
-                          //   borderWidth: 3,
-                          //   borderRightWidth: 2,
-                          //   width: 220,
-                          //   // padding: 5,
-                          //   marginTop: 5,
-                          //   alignContent: "center",
-                          //   alignSelf: "center",
-                        }
-                      }
-                    >
-                      <Text
-                        style={{
-                          alignContent: "center",
-                          alignSelf: "center",
-                          justifyContent: "center",
-                          fontWeight: "bold",
-                          fontSize: "15",
-                        }}
-                      >
-                        {tableHeaderObj[keyName].title}
-                      </Text>
-                    </Col>
-                  </Row>
-                );
-              })}
-            </Row>
-            {/* TABLE DATA ROW */}
-            {rowSection}
-            {/* TODO : This iteration should be done with the help of loop */}
+          {rowSection}
           </ScrollView>
+          {/* TODO : This iteration should be done with the help of loop */}
         </Grid>
       </ScrollView>
       <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>

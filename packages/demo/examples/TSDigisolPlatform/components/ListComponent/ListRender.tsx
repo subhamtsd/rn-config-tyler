@@ -206,7 +206,6 @@ export const ListRender = (props: {
     );
   }
 
-
   return (
     <View style={{}}>
       <View

@@ -71,11 +71,11 @@ export const ListJsonFormComponent = (props: {
             userId: "TsdAdmin",
             roleKey: 1,
             moduleKey:
-              props._childDependeny.ListJsonFormComponentDependency.moduleKey,
+              props._childDependeny.listJsonFormComponentDependency.moduleKey,
             tabKey:
-              props._childDependeny.ListJsonFormComponentDependency.tabKey,
+              props._childDependeny.listJsonFormComponentDependency.tabKey,
             actionName:
-              props._childDependeny.ListJsonFormComponentDependency.actionName,
+              props._childDependeny.listJsonFormComponentDependency.actionName,
           }),
         }
       );

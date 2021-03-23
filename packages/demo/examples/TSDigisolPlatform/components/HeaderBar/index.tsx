@@ -113,7 +113,7 @@ export const HeaderBar = (props: {
                       activeAction: {
                         name: "Search",
                         key: "124684",
-                        endPoint: "v1/organization/list",
+                        endPoint: "v1/organization/alllist",
                         httpMethod: "POST",
                         showButton: true,
                       },
