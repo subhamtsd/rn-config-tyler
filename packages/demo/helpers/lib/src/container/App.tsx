@@ -132,6 +132,7 @@ export const App = (props: AppProps) => {
           }
           if (cols[cId].layout) {
             // console.log(cols[cId]?.layout.colConfig?.colSize);
+
             return (
               <Col
                 key={`${rId}-${colNo}`}
@@ -218,9 +219,9 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      {/* <TouchableOpacity> */}
+      <TouchableOpacity>
         <Row style={{ maxHeight: 35, marginTop: "0%" }}>{headerSection}</Row>
-      {/* </TouchableOpacity> */}
+      </TouchableOpacity>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );

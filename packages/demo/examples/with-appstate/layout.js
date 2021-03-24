@@ -8,7 +8,6 @@ import {
   // JsonForm,
 } from "../../components";
 
-import { styles } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -58,7 +57,45 @@ export const appConfig = {
           },
         },
       },
-     c
+      "1.2.bodyCol": {
+        layout: {
+          colConfig: {
+            colSize: 11,
+          },
+          "1.2.1.bodyHeaderRow": {
+            bodyHeader: {
+              idx: "RandomPic",
+              label: "bodyHeader",
+              colStyle: { borderWidth: 1, height: "40vh", flex: 0.6 },
+            },
+            bodyHeader1: {
+              idx: "Home",
+              label: "bodyHeader1",
+              colStyle: { borderWidth: 2, height: "8vh", flex: 0.4 },
+            },
+          },
+          "1.2.2.bodyContentRow": {
+            bodyContent: {
+              colSize: 5,
+              idx: "Home",
+              label: "bodyContent",
+              colStyle: { borderWidth: 3, height: "60vh", borderColor: "blue" },
+            },
+            bodyContent1: {
+              colSize: 2,
+              idx: "Home",
+              label: "bodyContent1",
+              colStyle: { borderWidth: 3, borderColor: "red" },
+            },
+            bodyContent2: {
+              colSize: 4,
+              idx: "Home",
+              label: "bodyContent2",
+              colStyle: { borderWidth: 4, borderColor: "black" },
+            },
+          },
+        },
+      },
     },
     "2.container": {
       footer: {
