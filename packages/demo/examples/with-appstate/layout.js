@@ -30,18 +30,6 @@ export const routes = {};
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-  },
   layout: {
     colConfig: {
       colSize: 1,
@@ -70,45 +58,7 @@ export const appConfig = {
           },
         },
       },
-      "1.2.bodyCol": {
-        layout: {
-          colConfig: {
-            colSize: 11,
-          },
-          "1.2.1.bodyHeaderRow": {
-            bodyHeader: {
-              idx: "RandomPic",
-              label: "bodyHeader",
-              colStyle: { borderWidth: 1, height: "40vh", flex: 0.6 },
-            },
-            bodyHeader1: {
-              idx: "Home",
-              label: "bodyHeader1",
-              colStyle: { borderWidth: 2, height: "8vh", flex: 0.4 },
-            },
-          },
-          "1.2.2.bodyContentRow": {
-            bodyContent: {
-              colSize: 5,
-              idx: "Home",
-              label: "bodyContent",
-              colStyle: { borderWidth: 3, height: "60vh", borderColor: "blue" },
-            },
-            bodyContent1: {
-              colSize: 2,
-              idx: "Home",
-              label: "bodyContent1",
-              colStyle: { borderWidth: 3, borderColor: "red" },
-            },
-            bodyContent2: {
-              colSize: 4,
-              idx: "Home",
-              label: "bodyContent2",
-              colStyle: { borderWidth: 4, borderColor: "black" },
-            },
-          },
-        },
-      },
+     c
     },
     "2.container": {
       footer: {

@@ -61,14 +61,14 @@ export const appConfig = {
         layout: {
           colConfig: {
             colSize: 10,
-            colStyle: { borderColor: "cyan", borderWidth: 4 },
+            colStyle: { borderColor: "cyan", borderWidth: 4  },
           },
           "1.2.1.bodyHeaderRow": {
             bodyHeader: {
               colSize: 1,
               idx: "TabComponent",
               label: "tabComponent",
-              colStyle: { borderColor: "blue", borderWidth: 0, height: "30vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "5vh" },
             },
           },
           "1.2.2.bodyContentRow": {
@@ -76,7 +76,7 @@ export const appConfig = {
               idx: "Home",
               colSize: 1,
               label: "bodyContent",
-              colStyle: { borderColor: "blue", borderWidth: 0, height: "70vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "95vh" },
             },
           },
         },
@@ -84,7 +84,7 @@ export const appConfig = {
     },
     "2.container": {
       footer: {
-        colSize: 1,
+        // colSize: 1,
         idx: "Home",
         label: "footer",
         colStyle: { borderWidth: 4 },
