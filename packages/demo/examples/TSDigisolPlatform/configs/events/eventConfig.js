@@ -116,7 +116,8 @@ export const events = {
         // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
-            `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
+            // `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -125,7 +126,8 @@ export const events = {
           // console.log("Screen Layout :::: ", screenLayout);
         } else if (activeTabName === "Product") {
           await getScreenLayout(
-            `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
+            // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -145,27 +147,19 @@ export const events = {
           activeTabName === "BookOrders" ||
           activeTabName === "ReserveOrders"
         ) {
-          if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
-            await getScreenLayout(
-              `https://run.mocky.io/v3/41c26646-4bf0-4f40-96d5-323fca7d640e`,
-              appState.global.tsdApp.activeModule.key,
-              appState.global.tsdApp.activeTab.key,
-              appState.global.tsdApp.activeAction.name,
-              "Submit-button"
-            );
-          } else {
-            await getScreenLayout(
-              `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
-              appState.global.tsdApp.activeModule.key,
-              appState.global.tsdApp.activeTab.key,
-              appState.global.tsdApp.activeAction.name,
-              "Submit-button"
-            );
-          }
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
         } else if (activeTabName === "AllocateOrders") {
           if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
             await getScreenLayout(
-              `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+              // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+              `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
               appState.global.tsdApp.activeModule.key,
               appState.global.tsdApp.activeTab.key,
               appState.global.tsdApp.activeAction.name,
@@ -173,7 +167,8 @@ export const events = {
             );
           } else {
             await getScreenLayout(
-              `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+              // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+              `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
               appState.global.tsdApp.activeModule.key,
               appState.global.tsdApp.activeTab.key,
               appState.global.tsdApp.activeAction.name,
@@ -182,7 +177,8 @@ export const events = {
           }
         } else if (activeTabName === "InventorySupply") {
           await getScreenLayout(
-            `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
+            // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -190,7 +186,8 @@ export const events = {
           );
         } else if (activeTabName === "Attributes") {
           await getScreenLayout(
-            `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
+            // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
+            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,

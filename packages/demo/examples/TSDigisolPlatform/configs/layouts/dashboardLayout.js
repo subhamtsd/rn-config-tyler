@@ -25,6 +25,7 @@ import { ListComponent } from "../../components/ListComponent";
 import { DetailListComponent } from "../../components/DetailListComponent";
 import { EditComponent } from "../../components/EditComponent/index";
 import { ListJsonFormComponent } from "../../../../components/ListJsonFormComponent";
+import { LoginComponent } from "../../components/LoginComponent";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
@@ -47,6 +48,7 @@ export const componentsSet = {
   DetailListComponent,
   EditComponent,
   ListJsonFormComponent,
+  LoginComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
@@ -97,99 +99,133 @@ export const appConfig = {
   layout: {
     "1.container": {
       rowConfig: {
-        rowSize: 1,
+        rowSize: 12,
       },
-      Header: {
+      LoginComponent: {
         colSize: 12,
-        idx: "HeaderBar",
-        label: "headerBar",
-      },
-    },
-    "2.container": {
-      rowConfig: {
-        rowSize: 1,
-      },
-      "2.1.leftNavCol": {
-        layout: {
-          colConfig: {
-            colSize: 2,
-          },
-          "2.1.leftNavBodyRow": {
-            rowConfig: {
-              rowSize: 12,
-            },
-            leftNavBody: {
-              colSize: 2,
-              idx: "NavigationBar",
-              label: "navigationBar",
-              colStyle: {
-                borderWidth: 0,
-                height: "110vh",
-              },
-            },
-          },
-        },
-      },
-      "2.2.bodyCol": {
-        rowConfig: {
-          rowSize: 12,
-        },
-        layout: {
-          colConfig: {
-            colSize: 10,
-          },
-          "2.2.1.bodyHeaderRow": {
-            rowConfig: {
-              rowSize: 1.4,
-            },
-            bodyHeader: {
-              idx: "ActionComponent",
-              label: "actionComponent",
-              colStyle: {
-                borderColor: "blue",
-              },
-            },
-          },
-          "2.2.2.bodyTabRow": {
-            rowConfig: {
-              rowSize: 1.3,
-            },
-            bodyContent: {
-              idx: "TabComponent",
-              colSize: 1,
-              label: "tabComponent",
-              colStyle: {
-                borderColor: "blue",
-              },
-            },
-          },
-          "2.2.3.bodyContentRow": {
-            rowConfig: {
-              rowSize: 10,
-            },
-            "2.2.3.1.bodyContent": {
-              idx: "JsonFormComponent",
-              colSize: 2,
-              label: "bodyHeader",
-              colStyle: {
-                borderColor: "blue",
-              },
-            },
-            "2.2.3.1.bodyContent2": {
-              idx: "DefaultScreen",
-              colSize: 4,
-              label: "",
-              colStyle: {
-                display: "flex",
-                borderColor: "blue",
-              },
-            },
-          },
-        },
+        idx: "LoginComponent",
+        label: "loginComponent",
       },
     },
   },
 };
+
+// export const appConfig = {
+//   /// 1st layout
+//   componentsSet,
+//   links: {
+//     "/": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Home",
+//     },
+//     "/about": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Feed",
+//     },
+//     "/contact": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Messages",
+//     },
+//   },
+//   layout: {
+//     "1.container": {
+//       rowConfig: {
+//         rowSize: 1,
+//       },
+//       Header: {
+//         colSize: 12,
+//         idx: "HeaderBar",
+//         label: "headerBar",
+//       },
+//     },
+//     "2.container": {
+//       rowConfig: {
+//         rowSize: 1,
+//       },
+//       "2.1.leftNavCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 2,
+//           },
+//           "2.1.leftNavBodyRow": {
+//             rowConfig: {
+//               rowSize: 12,
+//             },
+//             leftNavBody: {
+//               colSize: 2,
+//               idx: "NavigationBar",
+//               label: "navigationBar",
+//               colStyle: {
+//                 borderWidth: 0,
+//                 height: "110vh",
+//               },
+//             },
+//           },
+//         },
+//       },
+//       "2.2.bodyCol": {
+//         rowConfig: {
+//           rowSize: 12,
+//         },
+//         layout: {
+//           colConfig: {
+//             colSize: 10,
+//           },
+//           "2.2.1.bodyHeaderRow": {
+//             rowConfig: {
+//               rowSize: 1.4,
+//             },
+//             bodyHeader: {
+//               idx: "ActionComponent",
+//               label: "actionComponent",
+//               colStyle: {
+//                 borderColor: "blue",
+//               },
+//             },
+//           },
+//           "2.2.2.bodyTabRow": {
+//             rowConfig: {
+//               rowSize: 1.3,
+//             },
+//             bodyContent: {
+//               idx: "TabComponent",
+//               colSize: 1,
+//               label: "tabComponent",
+//               colStyle: {
+//                 borderColor: "blue",
+//               },
+//             },
+//           },
+//           "2.2.3.bodyContentRow": {
+//             rowConfig: {
+//               rowSize: 10,
+//             },
+//             "2.2.3.1.bodyContent": {
+//               idx: "JsonFormComponent",
+//               colSize: 2,
+//               label: "bodyHeader",
+//               colStyle: {
+//                 borderColor: "blue",
+//               },
+//             },
+//             "2.2.3.1.bodyContent2": {
+//               idx: "DefaultScreen",
+//               colSize: 4,
+//               label: "",
+//               colStyle: {
+//                 display: "flex",
+//                 borderColor: "blue",
+//               },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
 
 // export const appConfig = apiAppConfig();
 
