@@ -36,18 +36,18 @@ routes.routeOne = {
     },
     "1.2.bodyCol": {
       layout: {
-        // colConfig: {
-        //   colSize: 11,
-        // },
         "1.2.1.bodyHeaderRow": {
           rowConfig: {
             rowSize: 2,
             rowStyle: rowStyle,
           },
           bodyHeader: {
-            colSize: 1,
+            colSize: 11,
             idx: "About",
             label: "bodyHeader-changed at 1st",
+            colStyle: {
+              height: "100vh",
+            },
           },
         },
       },
