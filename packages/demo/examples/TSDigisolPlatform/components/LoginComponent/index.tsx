@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Button, Text, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { events } from "../../configs/events/eventConfig";
 import { LoginBox } from "./LoginBox";

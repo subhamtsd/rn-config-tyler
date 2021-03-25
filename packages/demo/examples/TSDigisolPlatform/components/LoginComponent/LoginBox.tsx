@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { routes } from "../../configs/routes/routesConfig";
 
 export const LoginBox = (props: {
   appState: any;
@@ -32,15 +33,7 @@ export const LoginBox = (props: {
   const [role, setrole] = useState("");
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const [isButtonDisabled, setisButtonDisabled] = useState(true);
-
-  //   if (
-  //     username === "Enter Username" ||
-  //     password === "Enter Password" ||
-  //     role === "Enter Role"
-  //   ) {
-  //     setisButtonDisabled(true);
-  //   } else setisButtonDisabled(false);
+  // const [loginStatus, setloginstatus] = useState();
 
   return (
     <View style={{ backgroundColor: "#efeeec", height: "100%" }}>
@@ -150,6 +143,14 @@ export const LoginBox = (props: {
                     }
                   );
                   const resJSON = await res.json();
+                  const resStatus = await res.status;
+                  console.log("resStatus :::: ---> ", resStatus);
+                  if ((await res.status) === 200) {
+                    console.log("Log in successful");
+                    setLayoutConfig(routes["defaultAppConfig"]);
+                  } else {
+                    console.log("Log in failed");
+                  }
                 };
                 loginUser();
               }}
