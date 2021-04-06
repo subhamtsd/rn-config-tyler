@@ -7,6 +7,7 @@ import { appConfig } from "../../configs/layouts/dashboardLayout";
 import { routes } from "../../configs/routes/routesConfig";
 // import { useSelector, useDispatch } from "react-redux";
 // import { updateTabSelection } from "../../../../src/state-management/actions";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const TabComponent = (props: {
   appState;
@@ -34,39 +35,36 @@ export const TabComponent = (props: {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            // TODO : Conditional for default state undefined
-            moduleName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule != undefined
-                  ? appState.global.tsdApp.activeModule.name
-                  : "Service Orders"
-                : "Service Orders",
-            // tabName:
-            //   appState.global != undefined
-            //     ? appState.global.tsdApp.activeTab != undefined
-            //       ? appState.global.tsdApp.activeTab.name
-            //       : "CreateOrders"
-            //     : "CreateOrders",
-            actionName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeAction != undefined
-                  ? appState.global.tsdApp.activeAction.name
-                  : "Search"
-                : "Search",
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          // TODO : Conditional for default state undefined
+          moduleName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule != undefined
+                ? appState.global.tsdApp.activeModule.name
+                : "ServiceOrders"
+              : "ServiceOrders",
+          // tabName:
+          //   appState.global != undefined
+          //     ? appState.global.tsdApp.activeTab != undefined
+          //       ? appState.global.tsdApp.activeTab.name
+          //       : "CreateOrders"
+          //     : "CreateOrders",
+          actionName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeAction != undefined
+                ? appState.global.tsdApp.activeAction.name
+                : "Search"
+              : "Search",
+        }),
+      });
       const resJSON = await res.json();
       // console.log("active module : : : :", state.activeModuleSelection);
       // console.log(

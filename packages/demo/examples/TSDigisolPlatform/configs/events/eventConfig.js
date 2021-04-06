@@ -1,4 +1,5 @@
 import { routes } from "../routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
@@ -28,18 +29,15 @@ export const events = {
       );
 
       const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-        const res1 = fetch(
-          `http://localhost:8080/transaction-web/${endPoint}`,
-          {
-            method: httpMethod,
-            // method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-          }
-        )
+        const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
+          method: httpMethod,
+          // method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
           .then((res) => res.json())
           .then((_data) => {
             const _formData = args.params.values;
@@ -117,7 +115,7 @@ export const events = {
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -127,7 +125,7 @@ export const events = {
         } else if (activeTabName === "Product") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -136,7 +134,7 @@ export const events = {
         } else if (activeTabName === "User") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -149,7 +147,7 @@ export const events = {
         ) {
           await getScreenLayout(
             // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -159,7 +157,7 @@ export const events = {
           if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
             await getScreenLayout(
               // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
-              `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+              `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
               appState.global.tsdApp.activeModule.key,
               appState.global.tsdApp.activeTab.key,
               appState.global.tsdApp.activeAction.name,
@@ -168,7 +166,7 @@ export const events = {
           } else {
             await getScreenLayout(
               // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
-              `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+              `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
               appState.global.tsdApp.activeModule.key,
               appState.global.tsdApp.activeTab.key,
               appState.global.tsdApp.activeAction.name,
@@ -178,7 +176,7 @@ export const events = {
         } else if (activeTabName === "InventorySupply") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -187,7 +185,7 @@ export const events = {
         } else if (activeTabName === "Attributes") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
-            `http://localhost:8080/transaction-web/v1/layoutdetail/getChildLayoutJson`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -251,7 +249,7 @@ export const events = {
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${
+        `${SERVER_ENDPOINT}${
           appState.global.tsdApp.editComponent.action.endPoint
         }/${
           appState.global.tsdApp.viewComponent[
@@ -284,29 +282,26 @@ export const events = {
   },
   "detailListComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState) => {
-      const res = fetch(
-        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule.name
-                : "Service Orders",
-            tabName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab.name
-                : "CreateOrders",
-            actionName: "Edit",
-          }),
-        }
-      )
+      const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule.name
+              : "Service Orders",
+          tabName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab.name
+              : "CreateOrders",
+          actionName: "Edit",
+        }),
+      })
         .then((res) => res.json())
         .then((_data) => {
           // console.log("_Data : :: ", _data);

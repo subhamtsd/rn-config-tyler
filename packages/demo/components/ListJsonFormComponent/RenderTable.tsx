@@ -15,6 +15,7 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { useState } from "react";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 
 export const RenderTable = (props: {
   appState: any;
@@ -125,7 +126,7 @@ export const RenderTable = (props: {
   }, [finalItem]);
 
   const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-    const res1 = fetch(`http://localhost:8080/transaction-web/${endPoint}`, {
+    const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
       method: httpMethod,
       // method: "POST",
       headers: {

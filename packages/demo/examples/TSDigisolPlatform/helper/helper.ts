@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { SERVER_ENDPOINT } from "../../../../../../../config/endpoint";
 export const getSchema = async (roleKey: string, userId: string) => {
   const res = await fetch(
     // `https://run.mocky.io/v3/c03ca82f-c15f-4bc3-beef-4f64d297654d`,
-    "http://localhost:8080/transaction-web/v1/schema/",
+    `${SERVER_ENDPOINT}v1/schema/`,
     {
       method: "POST",
       headers: {
@@ -73,7 +74,7 @@ export const prepareSchema = async (schemaList: any) => {
           // TODO :: RM HARDCODING BELOW, REMOVE IT
           const dropdownEnum = await getEnum(
             // '/transaction-web/v1/device/list/' || field_obj['dropdownLoadApiURL'],
-            `http://localhost:8080/transaction-web/${field_obj["dropdownLoadApiURL"]}`,
+            `${SERVER_ENDPOINT}${field_obj["dropdownLoadApiURL"]}`,
             field_obj["dropdownLoadApiMethod"]
           );
           const Enum = [],

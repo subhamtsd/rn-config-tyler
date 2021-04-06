@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { routes } from "../../configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const LoginBox = (props: {
   appState: any;
@@ -126,22 +127,19 @@ export const LoginBox = (props: {
                   password
                 );
                 const loginUser = async () => {
-                  const res = await fetch(
-                    `http://localhost:8080/transaction-web/v1/auth/login`,
-                    {
-                      method: "POST",
-                      headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        userName: username,
-                        password: password,
-                        role: role,
-                        deviceId: "",
-                      }),
-                    }
-                  );
+                  const res = await fetch(`${SERVER_ENDPOINT}v1/auth/login`, {
+                    method: "POST",
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      userName: username,
+                      password: password,
+                      role: role,
+                      deviceId: "",
+                    }),
+                  });
                   const resJSON = await res.json();
                   const resStatus = await res.status;
                   console.log("resStatus :::: ---> ", resStatus);

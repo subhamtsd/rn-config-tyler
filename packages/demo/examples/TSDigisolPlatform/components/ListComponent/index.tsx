@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, ScrollView } from "react-native";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { events } from "../../configs/events/eventConfig";
 import { componentGridStyle } from "../../styles/common";
 import { ListRender } from "./ListRender";
@@ -40,7 +41,7 @@ export const ListComponent = (props: {
     const fetchData = async () => {
       const res = await fetch(
         // "https://run.mocky.io/v3/1683d639-a832-4ce5-9173-1dfeff6dd741",
-        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
+        `${SERVER_ENDPOINT}v1/schema/singleformLayout`,
         {
           method: "POST",
           headers: {

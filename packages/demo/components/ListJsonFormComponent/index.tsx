@@ -19,6 +19,7 @@ import { events } from "../../examples/TSDigisolPlatform/configs/events/eventCon
 import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { RenderTable } from "./RenderTable";
+import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 
 export const ListJsonFormComponent = (props: {
   appState: any;
@@ -60,7 +61,7 @@ export const ListJsonFormComponent = (props: {
     const fetchFormLayout = async () => {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/singlechildformLayout`,
+        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
         {
           method: "POST",
           headers: {
