@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/prop-types */
 import { createBrowserHistory } from "history";
-import React from "react";
+import React, { useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
@@ -58,8 +58,37 @@ export const JsonForm = ({
     // }
   };
   const onErrorOk = () => setException(null);
+  const stateAbbreviationRegex = /^[A-Z]{2}$/;
+  // const errorSchema = {};
+  const [errorSchema, setErrorSchema] = useState({});
+
+  const validate = (values) => {
+    const errorSchema = {};
+
+    console.log("Values :::: ", values.stateAbbreviation);
+
+    if (!stateAbbreviationRegex.test(values.stateAbbreviation)) {
+      errorSchema.stateAbbreviation = [];
+      // if (!values.stateAbbreviation) {
+      //   errorSchema.stateAbbreviation.push("State cannot be empty.");
+      // }
+      errorSchema.stateAbbreviation.push(
+        "State must have two uppercase letters."
+      );
+    }
+    console.log("ERROR SCHEMA IN JSON FORM ::::: ", errorSchema);
+    setErrorSchema(errorSchema);
+
+    // In case you have multiple validators.
+    // if (Object.keys(errorSchema).length) {
+    //   throw errorSchema;
+    // }
+  };
   // form data mutator
   const onChange = (event) => {
+    const { values } = event.params;
+    console.log("Hello this is values ib form :::: ", values);
+    validate(values);
     setFormData({
       ...formData,
       [event.params.name]: event.params.value,
@@ -136,6 +165,20 @@ export const JsonForm = ({
           formData={formData}
           schema={schema}
           uiSchema={uiSchema}
+          // schema={{
+          //   type: "object",
+          //   properties: {
+          //     stateAbbreviation: { type: "string", required: true },
+          //   },
+          // }}
+          // uiSchema={{
+          //   stateAbbreviation: {
+          //     "ui:widgetProps": {
+          //       mask: "aa",
+          //     },
+          //   },
+          // }}
+          errorSchema={errorSchema}
           submitButton={_submitButton}
           cancelButton={_cancelButton}
           onChange={onChange}
