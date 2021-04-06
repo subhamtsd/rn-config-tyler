@@ -343,14 +343,29 @@ export const ShowEntity = (props: {
                                             },
                                           },
                                         });
+                                        // console.log(
+                                        //   "DELETE API PART :::: ::",
+                                        //   appState.global.tsdApp.viewComponent[
+                                        //     appState.global.tsdApp.activeTab
+                                        //       .name
+                                        //   ][
+                                        //     _data.businessFunctions[0]
+                                        //       .modules[0].tabs[0].actions[0]
+                                        //       .uriParams
+                                        //   ]
+                                        // );
+
                                         // TODO : Appstate was getting delayed from adding the state for delete action made direct api data to add endpoint and uriparams
                                         const res = fetch(
                                           `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
                                             /{[^}]*}/,
                                             ""
                                           )}${
-                                            appState.global.tsdApp.listComponent
-                                              .selectedRowKey[
+                                            appState.global.tsdApp
+                                              .viewComponent[
+                                              appState.global.tsdApp.activeTab
+                                                .name
+                                            ][
                                               _data.businessFunctions[0]
                                                 .modules[0].tabs[0].actions[0]
                                                 .uriParams
