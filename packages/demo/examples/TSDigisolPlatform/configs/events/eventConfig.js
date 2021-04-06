@@ -22,6 +22,9 @@ export const events = {
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
       console.log("args.params.values : : : : : ", args.params.values);
       const body = args.params.values;
+      body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      body["tabName"] = appState.global.tsdApp.activeTab.name;
+      console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
 
       console.log(
         "appState.global.tsdApp.activeAction.name : : ::  ",
@@ -237,6 +240,9 @@ export const events = {
       // console.log("args.params.values : : : : : ", args.params.values);
 
       // console.log("appState in Edit event1 : : : ", appState);
+      const body = args.params.values;
+      body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      body["tabName"] = appState.global.tsdApp.activeTab.name;
       const keyName = appState.global.tsdApp.editComponent.action.uriParams;
       console.log(
         "Hello world : : : :",
@@ -262,7 +268,7 @@ export const events = {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(args.params.values),
+          body: JSON.stringify(body),
         }
       )
         .then((res) => res.json())
