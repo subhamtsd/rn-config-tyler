@@ -146,7 +146,10 @@ export const events = {
         } else if (
           activeTabName === "CreateOrders" ||
           activeTabName === "BookOrders" ||
-          activeTabName === "ReserveOrders"
+          activeTabName === "ReserveOrders" ||
+          activeTabName === "CREATEORDER" ||
+          activeTabName === "BOOKORDER" ||
+          activeTabName === "RESERVEORDER"
         ) {
           await getScreenLayout(
             // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
