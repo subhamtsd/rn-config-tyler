@@ -120,7 +120,7 @@ export const NavigationBar = (props: {
                     item={item}
                   />
                 ))}
-                <Text>
+                <Text testID="phone_num_verify">
                   {appState?.$global["bodyHeader"]?.form?.formData?.phone
                     ? "Verified Phone No:- " +
                       appState?.$global["bodyHeader"]?.form?.formData?.phone

@@ -17,7 +17,6 @@ export const routes = {};
 
 routes.routeOne = {
   "1.container": {
-    // col no
     "1.1.leftNavCol": {
       layout: {
         colConfig: {
@@ -31,10 +30,6 @@ routes.routeOne = {
           colSize: 1,
         },
         "1.2.1.bodyHeaderRow": {
-          rowConfig: {
-            // rowSize: 1,
-            rowStyle: rowStyle,
-          },
           bodyHeader: {
             colSize: 1,
             idx: "About",
@@ -47,9 +42,9 @@ routes.routeOne = {
 };
 
 routes.routeTwo = {
-  // row no
+
   "1.container": {
-    // col no
+
     "1.1.leftNavCol": {
       layout: {
         colConfig: {
@@ -58,10 +53,6 @@ routes.routeTwo = {
       },
     },
     "1.2.bodyCol": {
-      rowConfig: {
-        // rowSize: 1,
-        // rowStyle: rowStyle,
-      },
       layout: {
         colConfig: {
           colSize: 1,
@@ -122,10 +113,7 @@ routes.routeThree = {
       },
     },
     "1.2.bodyCol": {
-      rowConfig: {
-        // rowSize: 1,
-        // rowStyle: rowStyle,
-      },
+
       layout: {
         colConfig: {
           colSize: 1,
@@ -168,42 +156,15 @@ routes.routeThree = {
 //  Layout config
 // *************************************************
 
-// links row
-const links = {
-  "/": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Home",
-  },
-  "/about": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Feed",
-  },
-};
 
 export const appConfig = {
-  /// 1st layout
   componentsSet,
-  links,
   layout: {
-    // row no
     "1.container": {
-      rowConfig: {
-        // rowSize: 1,
-        // rowStyle: { height: "100%" },
-      },
-      // col no
       "1.1.leftNavCol": {
         layout: {
-          // colConfig: {
-          //   colSize: 1,
-          //   colStyle: { backgroundColor: "grey" },
-          // },
           "1.1.leftNavHeaderRow": {
-            // row no
             leftNavHeader: {
-              // col no
               colSize: 1,
               idx: "Home",
               label: "leftNavHeader",
@@ -218,10 +179,6 @@ export const appConfig = {
         },
       },
       "1.2.bodyCol": {
-        rowConfig: {
-          // rowSize: 1,
-          // rowStyle: { height: "100%" },
-        },
         layout: {
           colConfig: {
             colSize: 2,
@@ -230,12 +187,7 @@ export const appConfig = {
             },
           },
           "1.2.1.bodyHeaderRow": {
-            rowConfig: {
-              // rowSize: 1,
-              // rowStyle: { height: "100%" },
-            },
             bodyHeader: {
-              // col no
               colSize: 2,
               idx: "About",
               label: "bodyHeader",
