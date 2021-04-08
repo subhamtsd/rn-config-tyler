@@ -64,6 +64,7 @@ const TailwindForm = () => {
       <View style={tailwind(" items-center")}>
         <Button
           title="submit"
+          onPress={() => alert('Submit Button pressed')}
           style={tailwind(
             "w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3"
           )}

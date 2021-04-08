@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const rowStyle = {};
 const styles = {};
 
 export const routes = {};
@@ -127,38 +126,6 @@ export const appConfig = {
                 },
               },
             },
-            // layout: {
-            //   colConfig: {
-            //     colSize: 12,
-            //     height: "100vh",
-            //   },
-            //   0: {
-            //     0: {
-            //       // col no
-            //       idx: "Home",
-            //       label: "body-content-1",
-            //       colSize: 2,
-            //       colStyle: {
-            //         borderWidth: 2,
-            //         borderColor: "red",
-            //         width: "90vw",
-            //         height: "100vh",
-            //       },
-            //     },
-            //     1: {
-            //       // col no
-            //       idx: "Home",
-            //       label: "body-content-2",
-            //       colSize: 11,
-            //       colStyle: {
-            //         borderWidth: 2,
-            //         borderColor: "red",
-            //         width: "10vw",
-            //         height: "100vh",
-            //       },
-            //     },
-            //   },
-            // },
           },
           2: {
             0: {
@@ -175,60 +142,3 @@ export const appConfig = {
   },
 };
 
-// *************************************************
-//  "../applications/app-one/screen-one";
-// *************************************************
-// bind events to
-//  logic that binds
-
-export const events = {
-  /// <label>
-  //<label>-<element-id> : <handler>
-  "leftNavHeader-btn-one": {
-    // <event> :: <handler>
-    onPress: (setLayoutConfig, setAppState) => {
-      // setLayoutConfig(routes["routeTwo"]);
-      setAppState({
-        bodyFooter: {
-          ui: "ActionComp",
-          props: { label: "bodyFooter" },
-          children: <Text>Hello from RandomPic</Text>,
-        },
-        bodyContent: {
-          ui: "RandomPic",
-          props: { label: "actioncomp-2" },
-          children: null,
-        },
-      });
-    },
-  },
-  //<label>-<element-id>
-  "leftNavHeader-btn-two": {
-    // <event> :: <handler>
-    onPress: (setLayoutConfig, setAppState) => {
-      setLayoutConfig(routes["routeOne"]);
-    },
-  },
-
-  // <label>
-  "leftNavBody-btn-two": {},
-  "leftNavBody-btn-one": {},
-};
-
-// *************************************************
-//  Helper Util
-// *************************************************
-// bind events based on the layout config
-export const getEvents = (elId, setLayoutConfig, setAppState) => {
-  const elEvents = {};
-  events[elId] &&
-    Object.keys(events[elId]).map((eventName) => {
-      // console.log({ [eventName]: events[elId][eventName] });
-      elEvents[eventName] = () =>
-        events[elId] && events[elId][eventName] && events[elId][eventName]
-          ? events[elId][eventName](setLayoutConfig, setAppState)
-          : {};
-    });
-  // console.log(elEvents);
-  return elEvents;
-};

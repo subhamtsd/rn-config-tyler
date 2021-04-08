@@ -47,7 +47,7 @@ routes.routeOne = {
             colSize: 2,
             idx: "About",
             label: "bodyHeader",
-            children: <Text>Hi user</Text>, //children 
+            children: <Text testID="c2">Hi user</Text>, //children 
 
             colStyle: { borderWidth: 2, height: "100vh" },
           },
@@ -114,7 +114,7 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavHeader",
-              colStyle: { borderWidth: 1, height: "8vh" },
+              colStyle: { borderWidth: 1, height: "14vh" },
             },
           },
           "1.1.leftNavBodyRow": {
@@ -122,9 +122,9 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavBody",
-              children: <Text>Hi</Text>, //children 
+              children: <Text testID="c1">Hi</Text>, //children 
 
-              colStyle: { borderWidth: 1, height: "92vh" },
+              colStyle: { borderWidth: 1, height: "86vh" },
             },
           },
         },
@@ -149,7 +149,7 @@ export const appConfig = {
             bodyHeader1: {
               idx: "Home",
               label: "bodyHeader1",
-              colStyle: { borderWidth: 2, height: "8vh" },
+              colStyle: { borderWidth: 2, height: "15vh" },
             },
           },
           "1.2.2.bodyContentRow": {
@@ -157,7 +157,7 @@ export const appConfig = {
               colSize: 5,
               idx: "Home",
               label: "bodyContent",
-              colStyle: { borderWidth: 3, height: "60vh", borderColor: "blue" },
+              colStyle: { borderWidth: 3, borderColor: "blue" },
             },
             bodyContent1: {
               colSize: 2,

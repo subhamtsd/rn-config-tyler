@@ -68,29 +68,9 @@ routes.routeOne = {
 //  Layout config
 // *************************************************
 
-// links row
-const links = {
-  "/": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Home",
-  },
-  "/about": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Feed",
-  },
-  "/contact": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Messages",
-  },
-};
-
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
   layout: {
     // row no
     "1.container": {
