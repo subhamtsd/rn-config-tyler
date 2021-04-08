@@ -42,7 +42,7 @@ export const JsonForm = ({
     ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
   });
 
-  console.log("AnyRecord : : : : ", _onBeforeSubmit);
+  // console.log("AnyRecord : : : : ", _onBeforeSubmit);
 
   const onError = (event) => {
     console.log("*** onError ***");
@@ -57,8 +57,11 @@ export const JsonForm = ({
     //   setException(exceptionsMessages.join("\n"));
     // }
   };
+
   const onErrorOk = () => setException(null);
+
   const stateAbbreviationRegex = /^[A-Z]{2}$/;
+
   // const errorSchema = {};
   const [errorSchema, setErrorSchema] = useState({});
 
@@ -84,6 +87,7 @@ export const JsonForm = ({
     //   throw errorSchema;
     // }
   };
+
   // form data mutator
   const onChange = (event) => {
     const { values } = event.params;
@@ -94,6 +98,7 @@ export const JsonForm = ({
       [event.params.name]: event.params.value,
     });
   };
+
   const theme = {
     input: {
       focused: StyleSheet.create({
@@ -148,6 +153,9 @@ export const JsonForm = ({
       </UIProvider>
     );
   };
+
+  const languages = ["Java", "Python", "C"]; //data example for checkbox poc
+
   return (
     <View>
       <ThemeWrapper>
@@ -163,8 +171,10 @@ export const JsonForm = ({
         <Form
           // style={{ margin: 30 }}
           formData={formData}
+          // TODO: FOR NORMAL IMPLEMENTATION ---> REMOVE THE COMMENT NEXT 2 lines
           schema={schema}
           uiSchema={uiSchema}
+          // TODO : FOR ERROR SCHEMA POC
           // schema={{
           //   type: "object",
           //   properties: {
@@ -178,10 +188,50 @@ export const JsonForm = ({
           //     },
           //   },
           // }}
+
+          // TODO: FOR CHECKBOX UI POC
+          // schema={{
+          //   type: "object",
+          //   properties: {
+          //     languages: {
+          //       type: "array",
+          //       items: {
+          //         type: "string",
+          //       },
+          //     },
+          //   }
+          // }}
+          // uiSchema={{
+          //   languages: {
+          //     "ui:title": "Languages Known",
+          //     "ui:options": {
+          //       addable: false,
+          //       orderable: false,
+          //       removable: false,
+          //       minimumNumberOfItems: languages.length,
+          //     },
+          //     items: {
+          //       // The `ui:iterate` allows you to define the uiSchema for each item of the array.
+          //       // The default is to have a list of TextInput.
+          //       "ui:iterate": (i, { values }) => ({
+          //         "ui:title": false,
+          //         "ui:widget": "checkbox",
+          //         "ui:widgetProps": {
+          //           text: languages[i],
+          //           value: languages[i],
+          //           checked: (values.languages || [0]).includes(languages[i]),
+          //         },
+          //       }),
+          //     },
+          //   },
+          // }}
           errorSchema={errorSchema}
           submitButton={_submitButton}
           cancelButton={_cancelButton}
           onChange={onChange}
+          // TODO : WHEN TEST CHECKBOX uncomment next 2 line and comment above line
+          // onChange={_onChange}
+          // _onSubmit={onChange}
           buttonPosition="center"
           {...getEvents(
             `${label}-form`,
