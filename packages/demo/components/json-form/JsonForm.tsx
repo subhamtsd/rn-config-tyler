@@ -56,6 +56,8 @@ export const JsonForm = ({
   const onErrorOk = () => setException(null);
   // form data mutator
   const onChange = (event) => {
+    const { values } = event.params;
+    console.log("Hello this is values ib form :::: ", values);
     setFormData({
       ...formData,
       [event.params.name]: event.params.value,

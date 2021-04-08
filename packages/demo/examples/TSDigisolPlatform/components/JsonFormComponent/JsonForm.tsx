@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/prop-types */
 import { createBrowserHistory } from "history";
-import React from "react";
+import React, { useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
@@ -42,7 +42,7 @@ export const JsonForm = ({
     ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
   });
 
-  console.log("AnyRecord : : : : ", _onBeforeSubmit);
+  // console.log("AnyRecord : : : : ", _onBeforeSubmit);
 
   const onError = (event) => {
     console.log("*** onError ***");
@@ -57,14 +57,48 @@ export const JsonForm = ({
     //   setException(exceptionsMessages.join("\n"));
     // }
   };
+
   const onErrorOk = () => setException(null);
+
+  const stateAbbreviationRegex = /^[A-Z]{2}$/;
+
+  // const errorSchema = {};
+  const [errorSchema, setErrorSchema] = useState({});
+
+  const validate = (values) => {
+    const errorSchema = {};
+
+    console.log("Values :::: ", values.stateAbbreviation);
+
+    if (!stateAbbreviationRegex.test(values.stateAbbreviation)) {
+      errorSchema.stateAbbreviation = [];
+      // if (!values.stateAbbreviation) {
+      //   errorSchema.stateAbbreviation.push("State cannot be empty.");
+      // }
+      errorSchema.stateAbbreviation.push(
+        "State must have two uppercase letters."
+      );
+    }
+    console.log("ERROR SCHEMA IN JSON FORM ::::: ", errorSchema);
+    setErrorSchema(errorSchema);
+
+    // In case you have multiple validators.
+    // if (Object.keys(errorSchema).length) {
+    //   throw errorSchema;
+    // }
+  };
+
   // form data mutator
   const onChange = (event) => {
+    const { values } = event.params;
+    // console.log("Hello this is values ib form :::: ", values);
+    // validate(values);
     setFormData({
       ...formData,
       [event.params.name]: event.params.value,
     });
   };
+
   const theme = {
     input: {
       focused: StyleSheet.create({
@@ -119,6 +153,9 @@ export const JsonForm = ({
       </UIProvider>
     );
   };
+
+  const languages = ["Java", "Python", "C"]; //data example for checkbox poc
+
   return (
     <View>
       <ThemeWrapper>
@@ -134,11 +171,67 @@ export const JsonForm = ({
         <Form
           // style={{ margin: 30 }}
           formData={formData}
+          // TODO: FOR NORMAL IMPLEMENTATION ---> REMOVE THE COMMENT NEXT 2 lines
           schema={schema}
           uiSchema={uiSchema}
+          // TODO : FOR ERROR SCHEMA POC
+          // schema={{
+          //   type: "object",
+          //   properties: {
+          //     stateAbbreviation: { type: "string", required: true },
+          //   },
+          // }}
+          // uiSchema={{
+          //   stateAbbreviation: {
+          //     "ui:widgetProps": {
+          //       mask: "aa",
+          //     },
+          //   },
+          // }}
+
+          // TODO: FOR CHECKBOX UI POC
+          // schema={{
+          //   type: "object",
+          //   properties: {
+          //     languages: {
+          //       type: "array",
+          //       items: {
+          //         type: "string",
+          //       },
+          //     },
+          //   }
+          // }}
+          // uiSchema={{
+          //   languages: {
+          //     "ui:title": "Languages Known",
+          //     "ui:options": {
+          //       addable: false,
+          //       orderable: false,
+          //       removable: false,
+          //       minimumNumberOfItems: languages.length,
+          //     },
+          //     items: {
+          //       // The `ui:iterate` allows you to define the uiSchema for each item of the array.
+          //       // The default is to have a list of TextInput.
+          //       "ui:iterate": (i, { values }) => ({
+          //         "ui:title": false,
+          //         "ui:widget": "checkbox",
+          //         "ui:widgetProps": {
+          //           text: languages[i],
+          //           value: languages[i],
+          //           checked: (values.languages || [0]).includes(languages[i]),
+          //         },
+          //       }),
+          //     },
+          //   },
+          // }}
+          errorSchema={errorSchema}
           submitButton={_submitButton}
           cancelButton={_cancelButton}
           onChange={onChange}
+          // TODO : WHEN TEST CHECKBOX uncomment next 2 line and comment above line
+          // onChange={_onChange}
+          // _onSubmit={onChange}
           buttonPosition="center"
           {...getEvents(
             `${label}-form`,

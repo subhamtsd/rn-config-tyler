@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import { routes } from "../../configs/routes/routesConfig";
 import { Col, Grid, Row } from "react-native-easy-grid";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 // import { useHistory } from "react-router-native";
 
 {
@@ -299,7 +300,7 @@ export default function SearchListComponent({
                             console.log("i ==> ", i);
                             console.log("d ==> ", d);
                             const res = fetch(
-                              `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+                              `${SERVER_ENDPOINT}v1/schema/modulelayout`,
                               {
                                 method: "POST",
                                 headers: {
@@ -338,7 +339,7 @@ export default function SearchListComponent({
                                 );
                                 // get data from view action
                                 const res1 = fetch(
-                                  `http://localhost:8080/transaction-web/${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                  `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
                                     /{[^}]*}/,
                                     ""
                                   )}/${

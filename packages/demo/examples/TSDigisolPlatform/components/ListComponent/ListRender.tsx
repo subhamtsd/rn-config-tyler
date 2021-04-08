@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import SearchListComponent from "./SearchListComponent";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -60,18 +61,15 @@ export const ListRender = (props: {
   //   );
 
   const fetchApi = async (endPoint, httpMethod, body) => {
-    const res = await fetch(
-      `http://localhost:8080/transaction-web/${endPoint}`,
-      {
-        method: httpMethod,
-        // method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const res = await fetch(`${SERVER_ENDPOINT}${endPoint}`, {
+      method: httpMethod,
+      // method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
     const resJSON = await res.json();
     // TODO : HERE IT IS USED TO MODIFY THE VALUE OF NEXT AND PREV BUTTON
     console.log("resJson in listRender : : :: : ", resJSON.status);
@@ -205,7 +203,6 @@ export const ListRender = (props: {
       </View>
     );
   }
-
 
   return (
     <View style={{}}>

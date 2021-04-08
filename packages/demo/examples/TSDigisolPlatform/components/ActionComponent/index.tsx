@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 // import { useSelector, useDispatch } from "react-redux";
 import { routes } from "../../configs/routes/routesConfig";
 
@@ -35,29 +36,26 @@ export const ActionComponent = (props: {
   } = props;
 
   const fetchData = async (action: string) => {
-    const res = await fetch(
-      `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: "TsdAdmin",
-          roleKey: 1,
-          moduleName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule.name
-              : "Service Orders",
-          tabName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab.name
-              : "CreateOrders",
-          actionName: action,
-        }),
-      }
-    );
+    const res = await fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: "TsdAdmin",
+        roleKey: 1,
+        moduleName:
+          appState.global != undefined
+            ? appState.global.tsdApp.activeModule.name
+            : "Service Orders",
+        tabName:
+          appState.global != undefined
+            ? appState.global.tsdApp.activeTab.name
+            : "CreateOrders",
+        actionName: action,
+      }),
+    });
     const resJSON = await res.json();
 
     setAppState({

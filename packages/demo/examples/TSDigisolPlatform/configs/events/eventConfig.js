@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { routes } from "../routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
@@ -24,6 +22,9 @@ export const events = {
     onSuccess: (setLayoutConfig, setAppState, appState, args) => {
       console.log("args.params.values : : : : : ", args.params.values);
       const body = args.params.values;
+      body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      body["tabName"] = appState.global.tsdApp.activeTab.name;
+      console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
 
       console.log(
         "appState.global.tsdApp.activeAction.name : : ::  ",
@@ -31,18 +32,15 @@ export const events = {
       );
 
       const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-        const res1 = fetch(
-          `http://localhost:8080/transaction-web/${endPoint}`,
-          {
-            method: httpMethod,
-            // method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-          }
-        )
+        const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
+          method: httpMethod,
+          // method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
           .then((res) => res.json())
           .then((_data) => {
             const _formData = args.params.values;
@@ -53,9 +51,13 @@ export const events = {
                     [appState.global.tsdApp.activeTab.name]: _data,
                     formData: body,
                   },
+                  viewComponent: {
+                    [appState.global.tsdApp.activeTab.name]: _data,
+                  },
                 },
               },
             });
+            setLayoutConfig(routeToRedirect);
           });
       };
 
@@ -71,6 +73,138 @@ export const events = {
           },
         });
         // await saveCreateComponentFormLayout();
+      };
+
+      const getScreenLayout = async (
+        url,
+        moduleKey,
+        tabKey,
+        actionName,
+        buttonName
+      ) => {
+        const body = {
+          moduleKey: moduleKey,
+          tabKey: tabKey,
+          actionName: actionName,
+          // buttonName: buttonName,
+        };
+
+        console.log("BODY in getScreenLayout :::: ", body);
+        const res1 = await fetch(
+          // `https://run.mocky.io/v3/6e15e1eb-d62f-4d7a-a708-eb6fe07d56e7`,
+          // `https://run.mocky.io/v3/d4624439-ce25-47db-96e1-649b2f8d6795`,
+          url,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        )
+          .then((res) => res.json())
+          .then(async (_data) => {
+            console.log("Layout config ::::: ", _data);
+            setLayoutConfig(_data);
+            console.log("LAYOUT CHANGED :::", routes["userChildLayout"]);
+          });
+      };
+
+      const createOperation = async () => {
+        const activeTabName = appState.global.tsdApp.activeTab.name;
+        saveCreateComponentData(activeTabName, body);
+        // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
+        if (activeTabName === "Category" || activeTabName === "Screen") {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+          // console.log("Screen Layout :::: ", screenLayout);
+        } else if (activeTabName === "Product") {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "User") {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (
+          activeTabName === "CreateOrders" ||
+          activeTabName === "BookOrders" ||
+          activeTabName === "ReserveOrders" ||
+          activeTabName === "CREATEORDER" ||
+          activeTabName === "BOOKORDER" ||
+          activeTabName === "RESERVEORDER"
+        ) {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "AllocateOrders") {
+          if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
+            await getScreenLayout(
+              // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+              `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          } else {
+            await getScreenLayout(
+              // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+              `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+              appState.global.tsdApp.activeModule.key,
+              appState.global.tsdApp.activeTab.key,
+              appState.global.tsdApp.activeAction.name,
+              "Submit-button"
+            );
+          }
+        } else if (activeTabName === "InventorySupply") {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else if (activeTabName === "Attributes") {
+          await getScreenLayout(
+            // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
+            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            appState.global.tsdApp.activeModule.key,
+            appState.global.tsdApp.activeTab.key,
+            appState.global.tsdApp.activeAction.name,
+            "Submit-button"
+          );
+        } else {
+          fetchApi(
+            appState.global.tsdApp.activeAction.endPoint,
+            appState.global.tsdApp.activeAction.httpMethod,
+            body,
+            routes["detail"]
+          );
+        }
       };
 
       if (appState.global.tsdApp.activeAction.name === "Search") {
@@ -95,12 +229,8 @@ export const events = {
         //   routes["search"]
         // );
       } else {
-        fetchApi(
-          appState.global.tsdApp.activeAction.endPoint,
-          appState.global.tsdApp.activeAction.httpMethod,
-          body,
-          routes["search"]
-        );
+        createOperation();
+        // setLayoutConfig(routes["userChildLayout"]);
       }
     },
   },
@@ -113,6 +243,9 @@ export const events = {
       // console.log("args.params.values : : : : : ", args.params.values);
 
       // console.log("appState in Edit event1 : : : ", appState);
+      const body = args.params.values;
+      body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      body["tabName"] = appState.global.tsdApp.activeTab.name;
       const keyName = appState.global.tsdApp.editComponent.action.uriParams;
       console.log(
         "Hello world : : : :",
@@ -125,7 +258,7 @@ export const events = {
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${
+        `${SERVER_ENDPOINT}${
           appState.global.tsdApp.editComponent.action.endPoint
         }/${
           appState.global.tsdApp.viewComponent[
@@ -138,7 +271,7 @@ export const events = {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(args.params.values),
+          body: JSON.stringify(body),
         }
       )
         .then((res) => res.json())
@@ -158,29 +291,26 @@ export const events = {
   },
   "detailListComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState) => {
-      const res = fetch(
-        `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule.name
-                : "Service Orders",
-            tabName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab.name
-                : "CreateOrders",
-            actionName: "Edit",
-          }),
-        }
-      )
+      const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule.name
+              : "Service Orders",
+          tabName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab.name
+              : "CreateOrders",
+          actionName: "Edit",
+        }),
+      })
         .then((res) => res.json())
         .then((_data) => {
           // console.log("_Data : :: ", _data);
@@ -267,26 +397,3 @@ export const getInitEvents = (elId, setLayoutConfig, setAppState, appState) => {
     events[elId](setLayoutConfig, setAppState, appState);
   }
 };
-
-// if (appState.global.tsdApp.activeAction.name === "Create") {
-//   if (
-//     appState.global.tsdApp.activeModule.name === "Catalog" &&
-//     appState.global.tsdApp.activeTab.name === "Category"
-//   ) {
-//     console.log(appState.global.tsdApp.activeModule.name);
-//     saveCreateComponentData(
-//       appState.global.tsdApp.activeTab.name,
-//       body
-//     );
-//   }
-//   if (
-//     appState.global.tsdApp.activeModule.name === "Catalog" &&
-//     appState.global.tsdApp.activeTab.name === "Product"
-//   ) {
-//     console.log(appState.global.tsdApp.activeModule.name);
-//     saveCreateComponentData(
-//       appState.global.tsdApp.activeTab.name,
-//       body
-//     );
-//   }
-// }

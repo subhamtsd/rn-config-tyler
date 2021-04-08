@@ -617,3 +617,129 @@ routes.delete = {
     },
   },
 };
+
+routes.userChildLayout = {
+  "1.container": {
+    rowConfig: {
+      rowSize: 1,
+    },
+    Header: {
+      colSize: 12,
+      idx: "HeaderBar",
+      label: "headerBar",
+    },
+  },
+  "2.container": {
+    rowConfig: {
+      rowSize: 1,
+    },
+    "2.1.leftNavCol": {
+      layout: {
+        colConfig: {
+          colSize: 2,
+        },
+        "2.1.leftNavBodyRow": {
+          rowConfig: {
+            rowSize: 12,
+          },
+          leftNavBody: {
+            colSize: 2,
+            idx: "NavigationBar",
+            label: "navigationBar",
+            colStyle: {
+              borderWidth: 0,
+              height: "100vh",
+            },
+          },
+        },
+      },
+    },
+    "2.2.bodyCol": {
+      rowConfig: {
+        rowSize: 12,
+      },
+      layout: {
+        colConfig: {
+          colSize: 10,
+        },
+        "2.2.1.bodyHeaderRow": {
+          rowConfig: {
+            rowSize: 1.4,
+          },
+          bodyHeader: {
+            idx: "ActionComponent",
+            label: "actionComponent",
+            colStyle: {
+              borderColor: "blue",
+            },
+          },
+        },
+        "2.2.2.bodyTabRow": {
+          rowConfig: {
+            rowSize: 1.3,
+          },
+          bodyContent: {
+            idx: "TabComponent",
+            colSize: 1,
+            label: "tabComponent",
+            colStyle: {
+              borderColor: "blue",
+            },
+          },
+        },
+        "2.2.3.bodyContentRow": {
+          rowConfig: {
+            rowSize: 10,
+          },
+          "2.2.3.1.bodyContent": {
+            idx: "JsonFormComponent",
+            colSize: 2,
+            label: "bodyHeader",
+            colStyle: {
+              borderColor: "blue",
+            },
+          },
+          "2.2.3.1.bodyContent2": {
+            idx: "ListJsonFormComponent",
+            colSize: 4,
+            label: "listJsonFormComponent",
+            colStyle: {
+              display: "flex",
+              borderColor: "blue",
+            },
+            passProps: {
+              _childDependeny: {
+                ListJsonFormComponentDependency: {
+                  moduleKey: 2007,
+                  tabKey: 3005,
+                  actionName: "Create",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+// routes.userChildLayout = {
+//   "2.2.3.1.bodyContent2": {
+//     idx: "ListJsonFormComponent",
+//     colSize: 4,
+//     label: "listJsonFormComponent",
+//     colStyle: {
+//       display: "flex",
+//       borderColor: "blue",
+//     },
+//     passProps: {
+//       _childDependeny: {
+//         ListJsonFormComponentDependency: {
+//           moduleKey: 2007,
+//           tabKey: 3005,
+//           actionName: "Create",
+//         },
+//       },
+//     },
+//   },
+// };

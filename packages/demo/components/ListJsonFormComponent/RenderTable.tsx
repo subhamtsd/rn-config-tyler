@@ -14,6 +14,8 @@ import {
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { useState } from "react";
+import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 
 export const RenderTable = (props: {
   appState: any;
@@ -43,13 +45,30 @@ export const RenderTable = (props: {
 
   const [arrObj, setArrObj] = useState([]);
 
+  console.log("Props in ---> ", props);
+
   // TODO : REMOVE THE HARDCODING FOR PROPERTY
   // const tableHeaderObj =
   //   dataToRender.orderLines.properties.orderLine.items.properties;
   // const tableHeaderObj =
   //   dataToRender.parentCategories.properties.parentCategory.items.properties;
+  const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
+  // console.log(
+  //   "First parent :: ",
+  //   firstParent,
+  //   " \n Rest Part :::",
+  //   dataToRender,
+  //   "\n props ---> ",
+  //   props
+  // );
+
+  const secondParent = Object.getOwnPropertyNames(
+    dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
+  );
+  // secondParent[2];
+  console.log("Second Parents :: ", secondParent[0]);
   const tableHeaderObj =
-    dataToRender.Addresses.properties.address.items.properties;
+    dataToRender[firstParent].properties[secondParent[0]].items.properties;
 
   // console.log(
   //   "Properties : : :: ",
@@ -68,34 +87,21 @@ export const RenderTable = (props: {
     pattern: "[]",
   };
 
-  // TODO : REMOVE THE HARDCODING FOR REQUIRED FIELD
-  // const requiredField =
-  //   dataToRender.orderLines.properties.orderLine.items.required;
   const requiredField =
-    dataToRender.Addresses.properties.address.items.required;
-  // const requiredField =
-  //   dataToRender.parentCategories.properties.parentCategory.items.required;
+    dataToRender[firstParent].properties[secondParent[0]].items.required;
 
   const keyIdPrefix = () => {
-    // TODO : Remove hardcoding
-    // const keyArray = Object.getOwnPropertyNames(
-    //   dataToRender.orderLines.properties
-    // );
     const keyArray = Object.getOwnPropertyNames(
       // dataToRender.Orderlines.properties
-      dataToRender.Addresses.properties
+      dataToRender[firstParent].properties
       // dataToRender.parentCategories.properties
     );
     return keyArray[0];
   };
 
-  const keyId = keyIdPrefix();
+  // const keyId = keyIdPrefix();
 
-  console.log("KeyIdPrefix, ", keyIdPrefix());
-
-  // console.log(`label is ${label}`);
-  //   console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  // console.log(props.appState);
+  // console.log("KeyIdPrefix, ", keyIdPrefix());
 
   const intialJson = {};
   const [item, setItem] = useState(intialJson); // Submit one row
@@ -119,13 +125,40 @@ export const RenderTable = (props: {
     }
   }, [finalItem]);
 
+  const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
+    const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
+      method: httpMethod,
+      // method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((_data) => {
+        setAppState({
+          global: {
+            tsdApp: {
+              createComponent: {
+                [appState.global.tsdApp.activeTab.name]: _data,
+                formData: body,
+              },
+              viewComponent: {
+                [appState.global.tsdApp.activeTab.name]: _data,
+              },
+            },
+          },
+        });
+        console.log("DATA UPDATED .......");
+        setLayoutConfig(routeToRedirect);
+      });
+  };
+
   const deleteHandler = (arrKey: any) => {
-    // console.log("arrKey in delete Handler", arrKey);
-    // remove arrKey index of listOfItems
-    // remove the arrKey index of arrObj
     console.log("array item : : ", listOfItems[arrKey]);
-    // setListItems(listOfItems.slice(listOfItems[arrKey], 1));
-    // setArrObj(arrObj.slice(arrObj[arrKey], 1));
+    setListItems(listOfItems.slice(listOfItems[arrKey], 1));
+    setArrObj(arrObj.slice(arrObj[arrKey], 1));
   };
 
   const rowSection = arrObj.map((arrKey) => {
@@ -309,6 +342,50 @@ export const RenderTable = (props: {
       >
         <Grid>
           {/* TABLE HEADER DATA */}
+          <Row>
+            {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
+              return (
+                <Row
+                  style={{
+                    borderBottomWidth: 2,
+                    borderBottomColor: "grey",
+                    width: 140,
+                    padding: 5,
+                    alignContent: "center",
+                    alignSelf: "center",
+                  }}
+                >
+                  <Col
+                    size={7.1}
+                    style={
+                      {
+                        //   borderWidth: 3,
+                        //   borderRightWidth: 2,
+                        //   width: 220,
+                        //   // padding: 5,
+                        //   marginTop: 5,
+                        //   alignContent: "center",
+                        //   alignSelf: "center",
+                      }
+                    }
+                  >
+                    <Text
+                      style={{
+                        alignContent: "center",
+                        alignSelf: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                        fontSize: "15",
+                      }}
+                    >
+                      {tableHeaderObj[keyName].title}
+                    </Text>
+                  </Col>
+                </Row>
+              );
+            })}
+          </Row>
+          {/* TABLE DATA ROW */}
           <ScrollView
             style={{
               // borderWidth: 2,
@@ -316,53 +393,9 @@ export const RenderTable = (props: {
               height: 250,
             }}
           >
-            <Row>
-              {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
-                return (
-                  <Row
-                    style={{
-                      borderBottomWidth: 2,
-                      borderBottomColor: "grey",
-                      width: 140,
-                      padding: 5,
-                      alignContent: "center",
-                      alignSelf: "center",
-                    }}
-                  >
-                    <Col
-                      size={7.1}
-                      style={
-                        {
-                          //   borderWidth: 3,
-                          //   borderRightWidth: 2,
-                          //   width: 220,
-                          //   // padding: 5,
-                          //   marginTop: 5,
-                          //   alignContent: "center",
-                          //   alignSelf: "center",
-                        }
-                      }
-                    >
-                      <Text
-                        style={{
-                          alignContent: "center",
-                          alignSelf: "center",
-                          justifyContent: "center",
-                          fontWeight: "bold",
-                          fontSize: "15",
-                        }}
-                      >
-                        {tableHeaderObj[keyName].title}
-                      </Text>
-                    </Col>
-                  </Row>
-                );
-              })}
-            </Row>
-            {/* TABLE DATA ROW */}
-            {rowSection}
-            {/* TODO : This iteration should be done with the help of loop */}
+          {rowSection}
           </ScrollView>
+          {/* TODO : This iteration should be done with the help of loop */}
         </Grid>
       </ScrollView>
       <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>
@@ -371,7 +404,17 @@ export const RenderTable = (props: {
           color="#0e73ca"
           onPress={() => {
             console.log("Final submit");
-            console.log("Final listOfItems : : : ", listOfItems);
+            const finalData = appState.global.tsdApp.createComponent.User;
+            finalData[firstParent] = {
+              [secondParent[0]]: listOfItems,
+            };
+            console.log("final Data in the body Parameter ::: ", finalData);
+            fetchApi(
+              appState.global.tsdApp.activeAction.endPoint,
+              "POST",
+              finalData,
+              routes["detail"]
+            );
           }}
         ></Button>
       </View>

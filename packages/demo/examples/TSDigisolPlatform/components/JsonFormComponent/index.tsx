@@ -8,6 +8,7 @@ import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { prepareSchema } from "../../helper/helper";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const JsonFormComponent = (props: {
   appState: any;
@@ -143,38 +144,35 @@ export const JsonFormComponent = (props: {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule != undefined
-                  ? appState.global.tsdApp.activeModule.key
-                  : "23751"
-                : "23751",
-            tabKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab != undefined
-                  ? appState.global.tsdApp.activeTab.key
-                  : "34601"
-                : "34601",
-            actionName:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeAction != undefined
-                  ? appState.global.tsdApp.activeAction.name
-                  : "Search"
-                : "Search",
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleKey:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule != undefined
+                ? appState.global.tsdApp.activeModule.key
+                : "23751"
+              : "23751",
+          tabKey:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab != undefined
+                ? appState.global.tsdApp.activeTab.key
+                : "34601"
+              : "34601",
+          actionName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeAction != undefined
+                ? appState.global.tsdApp.activeAction.name
+                : "Search"
+              : "Search",
+        }),
+      });
       const resJSON = await res.json();
       const status = res.status;
       console.log("status : :: : ", status);

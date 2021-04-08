@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import ExpandableComponent from "../../../../components/NavigationBarComponent/ExpandableComponent";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const NavigationBar = (props: {
   appState;
@@ -49,7 +50,7 @@ export const NavigationBar = (props: {
     const fetchData = async () => {
       const res = await fetch(
         // `https://run.mocky.io/v3/1f38d881-eaae-4fcd-b6fe-05fdc83f5554`,
-        `http://localhost:8080/transaction-web/v1/schema/`,
+        `${SERVER_ENDPOINT}v1/schema/`,
         {
           method: "POST",
           headers: {

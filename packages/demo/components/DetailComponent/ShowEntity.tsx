@@ -6,6 +6,7 @@
 import { match } from "assert";
 import React, { useEffect, useState } from "react";
 import Modal from "modal-react-native-web";
+import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 import {
   Button,
   Text,
@@ -277,7 +278,7 @@ export const ShowEntity = (props: {
                                     // TODO : Add API for the Deleting the Selected row Data
                                     setModalVisible(!modalVisible);
                                     const res = fetch(
-                                      `http://localhost:8080/transaction-web/v1/schema/modulelayout`,
+                                      `${SERVER_ENDPOINT}v1/schema/modulelayout`,
                                       {
                                         method: "POST",
                                         headers: {
@@ -342,14 +343,29 @@ export const ShowEntity = (props: {
                                             },
                                           },
                                         });
+                                        // console.log(
+                                        //   "DELETE API PART :::: ::",
+                                        //   appState.global.tsdApp.viewComponent[
+                                        //     appState.global.tsdApp.activeTab
+                                        //       .name
+                                        //   ][
+                                        //     _data.businessFunctions[0]
+                                        //       .modules[0].tabs[0].actions[0]
+                                        //       .uriParams
+                                        //   ]
+                                        // );
+
                                         // TODO : Appstate was getting delayed from adding the state for delete action made direct api data to add endpoint and uriparams
                                         const res = fetch(
-                                          `http://localhost:8080/transaction-web/${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                          `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
                                             /{[^}]*}/,
                                             ""
                                           )}${
-                                            appState.global.tsdApp.listComponent
-                                              .selectedRowKey[
+                                            appState.global.tsdApp
+                                              .viewComponent[
+                                              appState.global.tsdApp.activeTab
+                                                .name
+                                            ][
                                               _data.businessFunctions[0]
                                                 .modules[0].tabs[0].actions[0]
                                                 .uriParams

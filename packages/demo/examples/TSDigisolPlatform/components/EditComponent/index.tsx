@@ -6,16 +6,10 @@ import { Dimensions, ScrollView, Text, View } from "react-native";
 // import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../helper/useSafeState";
-// import {
-//   updateActionSelection,
-//   updateModuleSelection,
-//   updateState,
-//   updateTabSelection,
-// } from "../../../../src/state-management/actions";
-// import { DEV_END_POINT } from "../../../../src/state-management/config/constant";
 import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const EditComponent = (props: {
   appState: any;
@@ -162,38 +156,35 @@ export const EditComponent = (props: {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/schema/singleformLayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule != undefined
-                  ? appState.global.tsdApp.activeModule.key
-                  : "23751"
-                : "23751",
-            tabKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab != undefined
-                  ? appState.global.tsdApp.activeTab.key
-                  : "34601"
-                : "34601",
-            actionName:
-              appState.global != undefined
-                ? appState.global.tsdApp.editComponent.action != undefined
-                  ? appState.global.tsdApp.editComponent.action.name
-                  : "Edit"
-                : "Edit",
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleKey:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule != undefined
+                ? appState.global.tsdApp.activeModule.key
+                : "23751"
+              : "23751",
+          tabKey:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab != undefined
+                ? appState.global.tsdApp.activeTab.key
+                : "34601"
+              : "34601",
+          actionName:
+            appState.global != undefined
+              ? appState.global.tsdApp.editComponent.action != undefined
+                ? appState.global.tsdApp.editComponent.action.name
+                : "Edit"
+              : "Edit",
+        }),
+      });
       const resJSON = await res.json();
       console.log("resJson ::::: ---> ", resJSON);
 
