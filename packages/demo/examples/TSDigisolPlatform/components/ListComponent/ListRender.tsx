@@ -196,6 +196,8 @@ export const ListRender = (props: {
     } else return <View />;
   };
 
+  console.log("FINAL DATA  ::: ", finalData);
+  
   if (finalData.length === 0) {
     return (
       <View>

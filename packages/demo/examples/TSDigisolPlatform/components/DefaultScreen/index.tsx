@@ -28,10 +28,8 @@ export const DefaultScreen = (props: {
 
   return (
     <View>
-      <Text style={{}}>Default Screen *** {label}</Text>
-      <Text>
-        <h1>{label}</h1>
-      </Text>
+      {/* <Text style={{}}>Default Screen *** {label}</Text> */}
+      {/* <Text><h1>{label}</h1></Text> */}
       {/* <Button
         testID={`${label}-btn-one`}
         title="TODO APP DEMO"

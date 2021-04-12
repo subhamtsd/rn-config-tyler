@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
-// import { useSelector, useDispatch } from "react-redux";
 import { routes } from "../../configs/routes/routesConfig";
 import { appConfig } from "../../configs/layouts/dashboardLayout";
 
