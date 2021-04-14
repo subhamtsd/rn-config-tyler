@@ -10,12 +10,16 @@ import {
   ScrollView,
   TextInput,
   CheckBox,
+  // Picker,
 } from "react-native";
+
+import { Picker } from "@react-native-picker/picker";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { useState } from "react";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 
 export const RenderTable = (props: {
   appState: any;
@@ -45,14 +49,23 @@ export const RenderTable = (props: {
 
   const [arrObj, setArrObj] = useState([]);
 
-  console.log("Props in ---> ", props);
-
   // TODO : REMOVE THE HARDCODING FOR PROPERTY
   // const tableHeaderObj =
   //   dataToRender.orderLines.properties.orderLine.items.properties;
   // const tableHeaderObj =
   //   dataToRender.parentCategories.properties.parentCategory.items.properties;
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
+
+  console.log("Props in ---> ", props.dataToRender[firstParent]);
+
+  const secondParent = Object.getOwnPropertyNames(
+    dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
+  );
+  prepareSchema(
+    props.dataToRender[firstParent].properties[secondParent[0]]
+  ).then((schemaJson) => {
+    console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+  });
   // console.log(
   //   "First parent :: ",
   //   firstParent,
@@ -62,11 +75,8 @@ export const RenderTable = (props: {
   //   props
   // );
 
-  const secondParent = Object.getOwnPropertyNames(
-    dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
-  );
   // secondParent[2];
-  console.log("Second Parents :: ", secondParent[0]);
+  // console.log("Second Parents :: ", secondParent[0]);
   const tableHeaderObj =
     dataToRender[firstParent].properties[secondParent[0]].items.properties;
 
@@ -111,10 +121,10 @@ export const RenderTable = (props: {
   const [noOfRows, setNoOfRows] = useState(-1);
   const [noOfAddItemClick, setnoOfAddItemClick] = useState(-1);
 
-  console.log("items : ::: ", item);
+  // console.log("items : ::: ", item);
   console.log("finalItem : : : ", finalItem);
-  console.log("listOfItem : : :: ", listOfItems);
-  console.log("noOfRows : : : ", noOfRows);
+  // console.log("listOfItem : : :: ", listOfItems);
+  // console.log("noOfRows : : : ", noOfRows);
 
   useEffect(() => {
     if (finalItem !== intialJson) {
@@ -183,6 +193,51 @@ export const RenderTable = (props: {
               [keyName]: tableHeaderObj[keyName],
             },
           };
+
+          // console.log("SCHEMA ::: ::: : ", schema);
+          if (schema?.properties?.[keyName]?.displayType === "dropdown") {
+            return (
+              <Row
+                style={{
+                  borderBottomWidth: 2,
+                  borderBottomColor: "grey",
+                  width: 140,
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  paddingBottom: 5,
+                  alignContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Col>
+                  <Picker
+                    selectedValue={item[keyName]}
+                    style={{
+                      borderWidth: 1,
+                      width: `100%`,
+                      height: 36,
+                      borderColor: "grey",
+                      marginTop: 5,
+                      // padding: 17,
+                    }}
+                    onValueChange={(itemValue, itemIndex) => {
+                      // setSelectedLanguage(itemValue);
+                      setItem({
+                        ...item,
+                        [keyName]: itemValue,
+                      });
+                    }}
+                  >
+                    {/* <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" /> */}
+                    {schema?.properties?.[keyName]?.enum.map((ele, i) => {
+                      return <Picker.Item label={ele} value={ele} />;
+                    })}
+                  </Picker>
+                </Col>
+              </Row>
+            );
+          }
           // TODO : schema element with Action button
           if (schema?.properties?.[keyName]?.type === "button") {
             return (
@@ -230,6 +285,7 @@ export const RenderTable = (props: {
                           if (finalItem == {} || finalItem !== item) {
                             setFinalItem(item);
                           }
+                          setItem({});
                         }}
                       ></Button>
                     </View>
@@ -303,6 +359,7 @@ export const RenderTable = (props: {
             marginBottom: 20,
           }}
         >
+          {/* ******************** Add Rows Button ******************** */}
           <Button
             title={`Add Row`}
             color="#0e73ca"
@@ -311,6 +368,7 @@ export const RenderTable = (props: {
               // create new row
               // setNoOfRows(noOfRows + 1);
               setArrObj([...arrObj, noOfRows + 1]);
+              setItem({});
               setNoOfRows(noOfRows + 1);
             }}
           ></Button>
@@ -322,6 +380,7 @@ export const RenderTable = (props: {
             marginBottom: 20,
           }}
         >
+          {/* ******************** COPY ROWS BUTTON ********************************* */}
           <Button
             title={`Copy Row`}
             color="#0e73ca"
@@ -393,7 +452,7 @@ export const RenderTable = (props: {
               height: 250,
             }}
           >
-          {rowSection}
+            {rowSection}
           </ScrollView>
           {/* TODO : This iteration should be done with the help of loop */}
         </Grid>

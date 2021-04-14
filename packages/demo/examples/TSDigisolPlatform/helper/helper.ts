@@ -55,8 +55,10 @@ export const getEnum = async (dropdownURL: any, method: any) => {
 };
 
 export const prepareSchema = async (schemaList: any) => {
+  console.log("SchemaLIST in prepareSchema ::: ", schemaList);
+
   const transformProperties = async (schema: { properties: any }) => {
-    console.log("schema : : : ", schema);
+    console.log("schema Hello ONE: : : ", schema);
 
     for (const field in schema.properties) {
       if (schema.properties[field].type === "object") {
