@@ -463,11 +463,15 @@ export const RenderTable = (props: {
           color="#0e73ca"
           onPress={() => {
             console.log("Final submit");
-            const finalData = appState.global.tsdApp.createComponent.User;
+            const finalData =
+              appState.global.tsdApp.createComponent[
+                appState.global.tsdApp.activeTab.name
+              ];
+            console.log("final Data in the body Parameter 1st ::: ", finalData);
             finalData[firstParent] = {
               [secondParent[0]]: listOfItems,
             };
-            console.log("final Data in the body Parameter ::: ", finalData);
+            console.log("final Data in the body Parameter 2nd ::: ", finalData);
             fetchApi(
               appState.global.tsdApp.activeAction.endPoint,
               "POST",
