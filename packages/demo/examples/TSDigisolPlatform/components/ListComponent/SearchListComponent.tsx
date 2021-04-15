@@ -386,7 +386,20 @@ export default function SearchListComponent({
                                     });
                                   })
                                   .then(() => {
+                                    console.log(
+                                      "APPSTATE IN LIST VIEW : :::: ",
+                                      props.appState
+                                    );
+                                    // TODO : REMOVE HARDCODING
+                                    // if (
+                                    //   props.appState.global.tsdApp.activeModule
+                                    //     .key === 23751 ||
+                                    //   156051
+                                    // ) {
+                                    //   props.setLayoutConfig(routes.orderDetail);
+                                    // } else {
                                     props.setLayoutConfig(routes.detail);
+                                    // }
                                   });
                                 // console.log("GET API IN SEARCH :::: ", res1);
                               });

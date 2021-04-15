@@ -134,11 +134,26 @@ export const ShowEntity = (props: {
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  // console.log("Props : : : : in ShowEntity : : : : ", appState);
+  console.log("appState : : : : in ShowEntity : : : : ", appState);
 
   console.log("viewData : : : : ", getEvents);
 
   const [selectedId, setSelectedId] = useState(null);
+  const [qrcodeVisible, setqrcodeVisible] = useState(false);
+  const [isOrderScreen, setIsOrderScreen] = useState(false);
+
+  useEffect(() => {
+    if (appState.global.tsdApp.activeModule.key === 23751) {
+      // TODO : REMOVE HARDCODING for service order
+      setIsOrderScreen(true);
+    } else if (appState.global.tsdApp.activeModule.key === 156051) {
+      // TODO : REMOVE HARDCODING for sales order
+      setIsOrderScreen(true);
+    } else {
+      setIsOrderScreen(false);
+    }
+  }, [appState.global.tsdApp.activeModule.key]);
+
   const renderItem = ({ item }: any) => {
     const backgroundColor = item.id === selectedId ? "#e0e0e0" : "#fff";
 
@@ -201,6 +216,59 @@ export const ShowEntity = (props: {
                   alignSelf: "center",
                 }}
               >
+                {isOrderScreen ? (
+                  <Row>
+                    <Col
+                      style={{
+                        flex: 1,
+                        flexDirection: "column",
+                        // minHeight: Dimensions.get("window").height - 85,
+                        padding: 10,
+                        margin: 15,
+                        maxHeight: 550,
+                        borderWidth: 1,
+                        borderColor: "#c5c5c5",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        // shadowColor: "#000",
+                        // shadowOffset: { width: 0, height: 2 },
+                        // shadowOpacity: 0.5,
+                        // shadowRadius: 2,
+                        // elevation: 5,
+                      }}
+                    >
+                      <View>
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                          {qrcodeVisible
+                            ? `Here is your QR Code`
+                            : `QR code is Hidden`}
+                        </Text>
+                      </View>
+                      {qrcodeVisible ? (
+                        <Image
+                          source={require("../../../../assets/images/qr_code_PNG24.png")}
+                          style={{
+                            width: 200,
+                            height: 200,
+                          }}
+                        />
+                      ) : (
+                        <View
+                          style={{
+                            // borderWidth: 1,
+                            width: 160,
+                            height: 160,
+                            marginTop: 20,
+                            marginBottom: 20,
+                          }}
+                        ></View>
+                      )}
+                    </Col>
+                  </Row>
+                ) : (
+                  <View></View>
+                )}
+
                 <Row
                   style={{
                     flex: 1,
@@ -233,6 +301,35 @@ export const ShowEntity = (props: {
                       </TouchableOpacity>
                     </View>
                   </Col>
+                  {isOrderScreen ? (
+                    <Col style={{}}>
+                      <View style={detailViewStyles.buttonView}>
+                        <TouchableOpacity
+                          // testID={`${label}-edit-btn`}
+                          // {...getEvents(
+                          //   `${label}-edit-btn`,
+                          //   setLayoutConfig,
+                          //   setAppState,
+                          //   appState
+                          // )}
+                          onPress={() => {
+                            console.log("QR CODE SHOW");
+                            setqrcodeVisible(!qrcodeVisible);
+                          }}
+                          style={detailViewStyles.button}
+                        >
+                          <Text style={detailViewStyles.textStyle}>QRCODE</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </Col>
+                  ) : (
+                    <View
+                      style={{
+                        marginLeft: 30,
+                        marginRight: 30,
+                      }}
+                    ></View>
+                  )}
                   <Col>
                     {
                       // <View style={detailViewStyles.centeredView}>
@@ -520,9 +617,9 @@ const detailViewStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonView: {
-    marginLeft: 50,
-    marginRight: 150,
-    marginTop: 10,
+    marginLeft: 1,
+    marginRight: 1,
+    marginTop: 5,
     alignItems: "center",
     justifyContent: "center",
     // borderWidth: 2,
@@ -549,6 +646,7 @@ const detailViewStyles = StyleSheet.create({
     // marginRight: 10,
     color: "white",
     fontWeight: "bold",
+    fontSize: 15,
   },
   centeredView: {
     flex: 1,

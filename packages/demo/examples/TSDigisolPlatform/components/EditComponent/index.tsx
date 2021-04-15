@@ -197,13 +197,18 @@ export const EditComponent = (props: {
 
       // console.log("objectName : : : : ", objectName);
 
-      console.log("FormLayout Json : : : : : ---> ", resJSON[objectName]);
+      console.log(
+        "FormLayout Json in Edit Json : : : : : ---> ",
+        resJSON[objectName]
+      );
       setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);
 
   // console.log("formData  : : :  in edit component : : : ", _formData);
+
+  console.log("FormLayout Json in Edit Component : : : ", formLayout.uischema);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
@@ -212,7 +217,7 @@ export const EditComponent = (props: {
         appState={appState}
         schema={formLayout}
         // schema={_schema}
-        uiSchema={_uiSchema}
+        uiSchema={formLayout.uischema}
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}

@@ -26,6 +26,11 @@ import { DetailListComponent } from "../../components/DetailListComponent";
 import { EditComponent } from "../../components/EditComponent/index";
 import { ListJsonFormComponent } from "../../../../components/ListJsonFormComponent";
 import { LoginComponent } from "../../components/LoginComponent";
+import { BillToAddressDetailViewComponent } from "../../components/domainSpecific/BillToAddressDetailViewComponent";
+import { OrderLineAddressDetailViewComponent } from "../../components/domainSpecific/OrderLineAddressDetailViewComponent";
+import { OrderLineDetailViewComponent } from "../../components/domainSpecific/OrderLineDetailViewComponent";
+import { OrderLineListViewComponent } from "../../components/domainSpecific/OrderLineListViewComponent";
+
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
@@ -49,6 +54,10 @@ export const componentsSet = {
   EditComponent,
   ListJsonFormComponent,
   LoginComponent,
+  BillToAddressDetailViewComponent,
+  OrderLineAddressDetailViewComponent,
+  OrderLineDetailViewComponent,
+  OrderLineListViewComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
