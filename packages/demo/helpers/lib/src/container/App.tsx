@@ -33,8 +33,8 @@ export const App = (props: AppProps) => {
   };
 
   // logic to update app state
-  const setAppState = (newAppState, isPartial = true) => {
-    sa(_setAppState, appState, newAppState, isPartial);
+  const setAppState = (newAppState, format = "none") => {
+    sa(_setAppState, appState, newAppState, format);
   };
 
   // pick from pre-loaded components and render properly, renders each component at column level

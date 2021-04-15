@@ -36,7 +36,7 @@ export const JsonFormDashboard = (props: {
     username: "raj@1234",
     password: "Raj@123",
     "Confirm password": "Raj@123",
-    languages: ["Java", "C"],
+    // languages: ["Java", "C"],
     recievemsgs: true,
   };
 
@@ -112,6 +112,7 @@ export const JsonFormDashboard = (props: {
         }),
       },
     },
+
     recievemsgs: {
       "ui:title": "Are you okay if you recieve emails from our side?",
       "ui:widget": "radio",

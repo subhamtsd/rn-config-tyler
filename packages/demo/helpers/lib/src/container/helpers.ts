@@ -46,10 +46,40 @@ export const setLayoutConfig = (
   }
 };
 
-export const setAppState = (_setAppState, appState, newAppState, isPartial = true) => {
-  if (isPartial) {
-    _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge }));
-  } else {
-    _setAppState(newAppState);
+// export const setAppState = (_setAppState, appState, newAppState, format="none") => {
+//   if (format === "isPartial") {
+//     _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge })); ///ui,children,props
+//   }
+//   }else {
+//     _setAppState(newAppState);
+//   }
+// };
+
+export const setAppState = (
+_setAppState,
+  appState,
+  newAppState,
+  format = "none"
+) => {
+  
+  if (format === "isPartial") {
+    _setAppState({
+      ui: appState.ui,
+      children: appState.children,
+      props: appState.props,
+      $global: merge(appState, newAppState, { arrayMerge: overwriteMerge }),
+    }); 
+  }else if(format === "copy"){
+    _setAppState(
+      merge(appState,{$global: newAppState}));
+  }
+  else {
+    _setAppState({
+      ui: appState.ui,
+      children: appState.children,
+      props: appState.props,
+      $global: newAppState,
+    });
   }
 };
+

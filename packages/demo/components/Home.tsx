@@ -25,7 +25,7 @@ export const Home = (props: {
 
   console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log(props.appState);
+  console.log(appState);
 
   return (
     <View>

@@ -8,7 +8,10 @@ const Entry = ({ modules }) => {
   console.log(selectedValue);
 
   const pickerOptionsSection = Object.keys(modules).map((id) => {
-    return <Picker.Item label={modules[id]} value={modules[id]} />;
+    // console.log(modules[id].id)
+    console.log(modules[id].desc)
+
+    return <Picker.Item label={modules[id].id} value={modules[id].id} />;
   });
 
   return (
@@ -56,6 +59,7 @@ function load(selectedValue) {
         routes={moduleConfig.routes}
         debug={false}
         getEvents={moduleConfig.getEvents}
+        // children={<Text>{modules[selectedValue]}</Text>}
       />
     );
   } else {

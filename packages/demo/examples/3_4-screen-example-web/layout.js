@@ -279,7 +279,7 @@ export const appConfig = {
               colStyle: {
                 borderColor: "cyan",
                 backgroundColor: "skyblue",
-                height: "20vh",
+                height: "30vh",
               },
               passProps: {
                 _formData: { ..._formData },

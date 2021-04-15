@@ -39,7 +39,7 @@ export const appConfig = {
               colSize: 1,
               idx: "About",
               label: "leftNavHeader",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
+              colStyle: { borderColor: "red", borderWidth: 2, height: "20vh" },
             },
           },
           "112leftNavBodyRow": {
@@ -57,7 +57,7 @@ export const appConfig = {
           //     colSize: 1,
           //     idx: "About",
           //     label: "leftNavFooter",
-          //     colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
+          //     colStyle: { borderColor: "red", borderWidth: 2, height: "40vh" },
           //   },
           // },
         },
@@ -74,7 +74,7 @@ export const appConfig = {
               colSize: 1,
               idx: "About",
               label: "bodyHeader",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
+              colStyle: { borderColor: "red", borderWidth: 2, height: "40vh" },
             },
           },
           "122bodyContentRow": {
@@ -83,18 +83,18 @@ export const appConfig = {
               idx: "Home",
               colSize: 1,
               label: "bodyContent",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "80vh" },
+              colStyle: { borderColor: "red", borderWidth: 2, height: "60vh" },
             },
           },
-          "123bodyFooterRow": {
-            bodyFooter: {
-              // col no
-              idx: "Home",
-              colSize: 1,
-              label: "bodyFooter",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
-            },
-          },
+          // "123bodyFooterRow": {
+          //   bodyFooter: {
+          //     // col no
+          //     idx: "Home",
+          //     colSize: 1,
+          //     label: "bodyFooter",
+          //     colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
+          //   },
+          // },
         },
       },
     },
