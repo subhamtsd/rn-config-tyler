@@ -231,7 +231,7 @@ export const RenderTable = (props: {
                     {/* <Picker.Item label="Java" value="java" />
                     <Picker.Item label="JavaScript" value="js" /> */}
                     {schema?.properties?.[keyName]?.enum.map((ele, i) => {
-                      return <Picker.Item label={ele} value={ele} />;
+                      return <Picker.Item label={ele} value={ele} key={i} />;
                     })}
                   </Picker>
                 </Col>

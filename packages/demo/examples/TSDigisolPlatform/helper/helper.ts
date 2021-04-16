@@ -110,3 +110,19 @@ export const prepareSchema = async (schemaList: any) => {
 
   return schemaList;
 };
+
+// TODO: Move the data to Helper File
+export const parseFormData = (data) => {
+  Object.keys(data).map((key, index) => {
+    if (data[key] === "true") {
+      data[key] = true;
+    } else if (data[key] === "false") {
+      data[key] = false;
+    }
+    // if (key === "languageKey") {
+    //   data["languageKey"] = 1;
+    // }
+  });
+  console.log("data after formating :::::: ", data);
+  return data;
+};

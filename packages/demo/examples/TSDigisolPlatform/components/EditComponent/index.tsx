@@ -10,6 +10,7 @@ import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { parseFormData } from "../../helper/helper";
 
 export const EditComponent = (props: {
   appState: any;
@@ -33,12 +34,9 @@ export const EditComponent = (props: {
     getEvents,
   } = props;
 
-  // console.log(`label is ${label}`);
-  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-
-  // console.log("DISPATCH : : : : ", dispatch);
-  const _formData =
-    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name];
+  const _formData = parseFormData(
+    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
+  );
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",

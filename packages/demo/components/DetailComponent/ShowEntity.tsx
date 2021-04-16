@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prop-types */
-import { match } from "assert";
 import React, { useEffect, useState } from "react";
 import Modal from "modal-react-native-web";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
@@ -139,7 +138,7 @@ export const ShowEntity = (props: {
   console.log("viewData : : : : ", getEvents);
 
   const [selectedId, setSelectedId] = useState(null);
-  const [qrcodeVisible, setqrcodeVisible] = useState(false);
+  const [qrcodeVisible, setqrcodeVisible] = useState(true);
   const [isOrderScreen, setIsOrderScreen] = useState(false);
 
   useEffect(() => {
@@ -301,7 +300,7 @@ export const ShowEntity = (props: {
                       </TouchableOpacity>
                     </View>
                   </Col>
-                  {isOrderScreen ? (
+                  {/* {isOrderScreen ? (
                     <Col style={{}}>
                       <View style={detailViewStyles.buttonView}>
                         <TouchableOpacity
@@ -312,9 +311,10 @@ export const ShowEntity = (props: {
                           //   setAppState,
                           //   appState
                           // )}
+                          disabled
                           onPress={() => {
                             console.log("QR CODE SHOW");
-                            setqrcodeVisible(!qrcodeVisible);
+                            // setqrcodeVisible(!qrcodeVisible);
                           }}
                           style={detailViewStyles.button}
                         >
@@ -329,7 +329,7 @@ export const ShowEntity = (props: {
                         marginRight: 30,
                       }}
                     ></View>
-                  )}
+                  )} */}
                   <Col>
                     {
                       // <View style={detailViewStyles.centeredView}>
