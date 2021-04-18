@@ -43,7 +43,7 @@ export const TodoApp1 = (props: {
         // },
         "a": ["d"],  
       },
-      "copy"
+      // "copy"
       // "isPartial"
       );
     }

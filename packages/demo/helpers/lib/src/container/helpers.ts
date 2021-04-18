@@ -61,18 +61,28 @@ _setAppState,
   newAppState,
   format = "none"
 ) => {
-  
+  // let clonedAppState =newAppState
+  // delete newAppState.ui
   if (format === "isPartial") {
     _setAppState({
       ui: appState.ui,
       children: appState.children,
       props: appState.props,
-      $global: merge(appState, newAppState, { arrayMerge: overwriteMerge }),
+      $global: merge(appState, {$global: newAppState}, { arrayMerge: overwriteMerge }),
     }); 
   }else if(format === "copy"){
     _setAppState(
+    //   {
+    //   ui: appState.ui,
+    //   children: appState.children,
+    //   props: appState.props,
+    //   $global: merge(appState, {$global: newAppState}),
+    //   // $global: merge(appState, newAppState)
+
+    // })
       merge(appState,{$global: newAppState}));
   }
+  //whatever will be pass new that will stay 
   else {
     _setAppState({
       ui: appState.ui,
