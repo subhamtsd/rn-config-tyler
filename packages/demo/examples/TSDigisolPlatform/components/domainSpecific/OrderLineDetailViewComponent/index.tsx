@@ -4,6 +4,7 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
 import { componentGridStyle } from "../../../styles/common";
+import { ShowEntity } from "../../../../../components/DetailComponent/ShowEntity";
 
 export const OrderLineDetailViewComponent = (props: {
   appState: any;
@@ -32,14 +33,19 @@ export const OrderLineDetailViewComponent = (props: {
   console.log(props.appState);
 
   return (
-    <View style={componentGridStyle}>
-      <Text style={{}}>OrderLineDetailViewComponent *** {label}</Text>
+    <View>
+      {/* <Text style={{}}>OrderLineDetailViewComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
         title="ACT1"
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
       ></Button>
-      <Text> AA {appState?.$appState?.loginValues}</Text>
+      <Text> AA {appState?.$appState?.loginValues}</Text> */}
+      <ShowEntity
+        props={props}
+        viewData={appState.global.tsdApp?.orderLineDetail}
+      />
+
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

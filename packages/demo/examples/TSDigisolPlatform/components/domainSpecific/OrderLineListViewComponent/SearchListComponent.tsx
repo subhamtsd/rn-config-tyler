@@ -14,10 +14,10 @@ import {
 // import { CheckBox } from "@react-native-community/checkbox";
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
-import { routes } from "../../configs/routes/routesConfig";
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
-import { getEvents } from "../../configs/events/eventConfig";
+import { routes } from "../../../configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { getEvents } from "../../../configs/events/eventConfig";
 // import { useHistory } from "react-router-native";
 
 {
@@ -307,135 +307,17 @@ export default function SearchListComponent({
                           onPress={() => {
                             console.log("i ==> ", i);
                             console.log("d ==> ", d);
-                            const res = fetch(
-                              `${SERVER_ENDPOINT}v1/schema/modulelayout`,
-                              {
-                                method: "POST",
-                                headers: {
-                                  Accept: "application/json",
-                                  "Content-Type": "application/json",
+                            props.setAppState({
+                              global: {
+                                tsdApp: {
+                                  orderLineDetail: d,
                                 },
-                                body: JSON.stringify({
-                                  userId: "TsdAdmin",
-                                  roleKey: 1,
-                                  // TODO : Conditional for default state undefined
-                                  tabName:
-                                    props.appState.global != undefined
-                                      ? props.appState.global.tsdApp
-                                          .activeTab != undefined
-                                        ? props.appState.global.tsdApp.activeTab
-                                            .name
-                                        : "Create Order"
-                                      : "Create Order",
-                                  moduleName:
-                                    props.appState.global != undefined
-                                      ? props.appState.global.tsdApp
-                                          .activeModule != undefined
-                                        ? props.appState.global.tsdApp
-                                            .activeModule.name
-                                        : "Service Orders"
-                                      : "Service Orders",
-                                  actionName: "View",
-                                }),
-                              }
-                            )
-                              .then((res) => res.json())
-                              .then((_data) => {
-                                console.log(
-                                  "_Data in searchList ::::::",
-                                  _data
-                                );
-                                // get data from view action
-                                const res1 = fetch(
-                                  `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                                    /{[^}]*}/,
-                                    ""
-                                  )}/${
-                                    d[
-                                      _data.businessFunctions[0].modules[0]
-                                        .tabs[0].actions[0].uriParams
-                                    ]
-                                  }`,
-                                  {
-                                    method:
-                                      _data.businessFunctions[0].modules[0]
-                                        .tabs[0].actions[0].httpMethod,
-                                    headers: {
-                                      Accept: "application/json",
-                                      "Content-Type": "application/json",
-                                      languageKey: 1,
-                                    },
-                                    // body: JSON.stringify(args.params.values),
-                                  }
-                                )
-                                  .then((res1) => res1.json())
-                                  .then((data) => {
-                                    // console.log(
-                                    //   "GET API IN SEARCH : ::::",
-                                    //   data
-                                    // );
-                                    return data;
-                                  })
-                                  .then((finalData) => {
-                                    console.log(
-                                      "appState in Search List :::",
-                                      props.appState
-                                    );
-
-                                    props.setAppState({
-                                      global: {
-                                        tsdApp: {
-                                          viewComponent: {
-                                            [props.appState.global.tsdApp
-                                              .activeTab.name]: finalData,
-                                          },
-                                        },
-                                      },
-                                    });
-                                  })
-                                  .then(() => {
-                                    console.log(
-                                      "APPSTATE IN LIST VIEW : :::: ",
-                                      props.appState
-                                    );
-                                    // props.setLayoutConfig(
-                                    //   routes.detail,
-                                    //   "copy"
-                                    // );
-                                    // TODO : REMOVE HARDCODING
-                                    if (
-                                      props.appState.global.tsdApp.activeModule
-                                        .key === 23751 ||
-                                      props.appState.global.tsdApp.activeModule
-                                        .key === 156051
-                                    ) {
-                                      props.setLayoutConfig(
-                                        routes.orderDetail,
-                                        "copy"
-                                      );
-                                    } else {
-                                      props.setLayoutConfig(
-                                        routes.detail,
-                                        "copy"
-                                      );
-                                    }
-                                  });
-                                // console.log("GET API IN SEARCH :::: ", res1);
-                              });
-                            // props.setAppState({
-                            //   global: {
-                            //     tsdApp: {
-                            //       listComponent: {
-                            //         selectedRowKey: d,
-                            //       },
-                            //     },
-                            //   },
-                            // });
-                            // TODO :Search List component is missing open ticket
-                            // console.log(
-                            //   "appState in searchListComponent ",
-                            //   props.appState
-                            // );
+                              },
+                            });
+                            props.setLayoutConfig(
+                              routes.orderLineDetail,
+                              "copy"
+                            );
                           }}
                         />
                       }

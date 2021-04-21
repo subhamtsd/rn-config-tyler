@@ -95,11 +95,11 @@ routes.orderLineDetail = {
           "2.2.3.1.bodyContent": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "JsonFormComponent",
-            colSize: 3,
-            label: "jsonFormComponent",
+            idx: "DetailListComponent",
+            colSize: 2,
+            label: "detailListComponent",
             colStyle: {
-              display: "none",
+              display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
@@ -108,9 +108,9 @@ routes.orderLineDetail = {
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "DetailListComponent",
+            idx: "ShowQRCodeComponent",
             colSize: 2,
-            label: "detailListComponent",
+            label: "showQRCodeComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
@@ -161,9 +161,9 @@ routes.orderLineDetail = {
           "2.2.5.1.bodyContent": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "OrderLineListViewComponent",
+            idx: "OrderLineDetailViewComponent",
             colSize: 2,
-            label: "orderLineListViewComponent",
+            label: "orderLineDetailViewComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
@@ -174,9 +174,9 @@ routes.orderLineDetail = {
           "2.2.5.2.bodyContent": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "BillToAddressDetailViewComponent",
+            idx: "OrderLineAddressDetailViewComponent",
             colSize: 2,
-            label: "billToAddressDetailViewComponent",
+            label: "orderLineAddressDetailViewComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
@@ -285,11 +285,11 @@ routes.orderDetail = {
           "2.2.3.1.bodyContent": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "JsonFormComponent",
-            colSize: 3,
-            label: "jsonFormComponent",
+            idx: "DetailListComponent",
+            colSize: 2,
+            label: "detailListComponent",
             colStyle: {
-              display: "none",
+              display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
@@ -298,9 +298,9 @@ routes.orderDetail = {
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "DetailListComponent",
+            idx: "ShowQRCodeComponent",
             colSize: 2,
-            label: "detailListComponent",
+            label: "showQRCodeComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
@@ -689,11 +689,11 @@ routes.detail = {
           "2.2.3.1.bodyContent": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "JsonFormComponent",
+            idx: "DetailListComponent",
             colSize: 3,
-            label: "jsonFormComponent",
+            label: "detailListComponent",
             colStyle: {
-              display: "none",
+              display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
@@ -702,9 +702,9 @@ routes.detail = {
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "DetailListComponent",
+            idx: "ShowQRCodeComponent",
             colSize: 2,
-            label: "detailListComponent",
+            label: "showQRCodeComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",

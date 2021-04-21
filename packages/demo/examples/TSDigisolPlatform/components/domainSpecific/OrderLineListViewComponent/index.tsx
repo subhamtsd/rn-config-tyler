@@ -1,10 +1,14 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import { Button, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, ScrollView, Text, View } from "react-native";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { events } from "../../../configs/events/eventConfig";
 import { routes } from "../../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../../styles/common";
+import { ListRender } from "./ListRender";
 
 export const OrderLineListViewComponent = (props: {
   appState: any;
@@ -32,16 +36,64 @@ export const OrderLineListViewComponent = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log(props.appState);
 
+  const [listFormLayout, setlistFormLayout] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        // "https://run.mocky.io/v3/1683d639-a832-4ce5-9173-1dfeff6dd741",
+        `${SERVER_ENDPOINT}v1/schema/singleformLayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            moduleKey: 156051,
+            roleKey: 1,
+            tabKey: 171505,
+            userId: "TsdAdmin",
+            actionName: "List",
+          }),
+        }
+      );
+      // console.log("Res : : : : : : ", res);
+      const resJSON = await res.json();
+      // TODO : HARDCODING remove
+      // const property =
+      //   appState.global != undefined
+      //     ? `List` + `${appState.global.tsdApp.activeTab.name}` + `Schema`
+      //     : `ListCreateOrdersSchema`;
+
+      // console.log("Property : : : ", property);
+
+      setlistFormLayout(resJSON[`ListORDERLINESchema`]);
+    };
+    fetchData();
+  }, []);
+
   return (
     <View style={componentGridStyle}>
-      <Text style={{}}>OrderLineListViewComponent *** {label}</Text>
-      <Button
-        testID={`${label}-btn-one`}
-        title="ACT1"
-        {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
-        // onPress={setLayoutConfig(routes.orderLineDetail)}
-      ></Button>
-      <Text> AA {appState?.$appState?.loginValues}</Text>
+      <Text>
+        {/* {appState.global != undefined
+          ? JSON.stringify(appState.global.tsdApp.listComponent)
+          : ""} */}
+      </Text>
+      <ScrollView horizontal>
+        <ListRender
+          listFormLayout={listFormLayout}
+          appState={appState}
+          label={label}
+          styles={styles}
+          children={children}
+          setAppState={setAppState}
+          layoutConfig={layoutConfig}
+          setLayoutConfig={setLayoutConfig}
+          getEvents={getEvents}
+          events={events}
+        />
+      </ScrollView>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

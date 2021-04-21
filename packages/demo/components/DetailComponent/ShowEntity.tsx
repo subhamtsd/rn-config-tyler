@@ -133,7 +133,7 @@ export const ShowEntity = (props: {
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log("appState : : : : in ShowEntity : : : : ", appState);
+  console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
   console.log("viewData : : : : ", getEvents);
 
@@ -158,39 +158,16 @@ export const ShowEntity = (props: {
 
     return (
       <View>
-        <ScrollView
-          style={{
-            minHeight: 450,
-            flex: 1,
-            borderWidth: 0,
-            // minHeight: Dimensions.get("window").height - 85,
-            padding: 10,
-            margin: 15,
-            maxHeight: 500,
-            borderTopWidth: 1,
-            borderTopColor: "#c5c5c5",
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.5,
-            shadowRadius: 2,
-            elevation: 5,
-          }}
-        >
+        <ScrollView style={componentGridStyle}>
           <Grid
             style={{
               flex: 1,
-              borderWidth: 0,
-              // minHeight: Dimensions.get("window").height - 85,
-              padding: 10,
               margin: 15,
-              maxHeight: 550,
               borderTopWidth: 1,
               borderTopColor: "#c5c5c5",
               shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.5,
               shadowRadius: 2,
-              elevation: 5,
             }}
           >
             <Row>
@@ -202,352 +179,287 @@ export const ShowEntity = (props: {
                     style={{
                       backgroundColor,
                       shadowColor: "#000",
-                      // shadowOffset: { width: 0, height: 2 },
-                      // shadowOpacity: 0.5,
-                      // shadowRadius: 2,
-                      // elevation: 5,
                     }}
                   />
                 </ScrollView>
               </Col>
-              <Col
-                style={{
-                  alignSelf: "center",
-                }}
-              >
-                {isOrderScreen ? (
-                  <Row>
-                    <Col
-                      style={{
-                        flex: 1,
-                        flexDirection: "column",
-                        // minHeight: Dimensions.get("window").height - 85,
-                        padding: 10,
-                        margin: 15,
-                        maxHeight: 550,
-                        borderWidth: 1,
-                        borderColor: "#c5c5c5",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        // shadowColor: "#000",
-                        // shadowOffset: { width: 0, height: 2 },
-                        // shadowOpacity: 0.5,
-                        // shadowRadius: 2,
-                        // elevation: 5,
-                      }}
-                    >
-                      <View>
-                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                          {qrcodeVisible
-                            ? `Here is your QR Code`
-                            : `QR code is Hidden`}
+            </Row>
+            <Row
+              style={{
+                flex: 1,
+                padding: 10,
+                margin: 15,
+                maxHeight: 550,
+                borderWidth: 1,
+                borderColor: "#c5c5c5",
+              }}
+            >
+              <Col style={{}}>
+                <View style={detailViewStyles.buttonView}>
+                  <TouchableOpacity
+                    testID={`${label}-edit-btn`}
+                    {...getEvents(
+                      `${label}-edit-btn`,
+                      setLayoutConfig,
+                      setAppState,
+                      appState
+                    )}
+                    onPress={() => {
+                      console.log("ViewData :::: ", viewData);
+                    }}
+                    style={detailViewStyles.button}
+                  >
+                    <Text style={detailViewStyles.textStyle}>EDIT</Text>
+                  </TouchableOpacity>
+                </View>
+              </Col>
+
+              <Col style={{}}>
+                <View style={detailViewStyles.buttonView}>
+                  <TouchableOpacity
+                    // testID={`${label}-edit-btn`}
+                    // {...getEvents(
+                    //   `${label}-edit-btn`,
+                    //   setLayoutConfig,
+                    //   setAppState,
+                    //   appState
+                    // )}
+                    onPress={() => {
+                      console.log("QR CODE SHOW");
+                      const qrcodeStatus = !qrcodeVisible;
+                      setqrcodeVisible(!qrcodeVisible);
+                      setAppState({
+                        global: {
+                          tsdApp: {
+                            ShowQRCodeComponent: {
+                              isQrcodeVisible: qrcodeVisible,
+                              // TODO: Should be dynamic for the component to show QR code
+                              qrcodeImage: "qr_code_PNG24.png",
+                              // TODO: Should be dynamic for the component for show Message after QR code is rendered
+                              message: "QR code for Order",
+                            },
+                          },
+                        },
+                      });
+                    }}
+                    style={detailViewStyles.button}
+                  >
+                    <Text style={detailViewStyles.textStyle}>QRCODE</Text>
+                  </TouchableOpacity>
+                </View>
+              </Col>
+
+              <Col>
+                {
+                  // <View style={detailViewStyles.centeredView}>
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                      Alert.alert("Modal has been closed.");
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <View style={detailViewStyles.centeredView}>
+                      <View style={detailViewStyles.modalView}>
+                        <Text style={detailViewStyles.modalText}>
+                          Are you sure you want to delete ??
                         </Text>
-                      </View>
-                      {qrcodeVisible ? (
-                        <Image
-                          source={require("../../../../assets/images/qr_code_PNG24.png")}
-                          style={{
-                            width: 200,
-                            height: 200,
-                          }}
-                        />
-                      ) : (
                         <View
                           style={{
-                            // borderWidth: 1,
-                            width: 160,
-                            height: 160,
-                            marginTop: 20,
-                            marginBottom: 20,
+                            // borderWidth: 2,
+                            flexDirection: "row",
                           }}
-                        ></View>
-                      )}
-                    </Col>
-                  </Row>
-                ) : (
-                  <View></View>
-                )}
-
-                <Row
-                  style={{
-                    flex: 1,
-                    // minHeight: Dimensions.get("window").height - 85,
-                    padding: 10,
-                    margin: 15,
-                    maxHeight: 550,
-                    borderWidth: 1,
-                    borderColor: "#c5c5c5",
-                    // shadowColor: "#000",
-                    // shadowOffset: { width: 0, height: 2 },
-                    // shadowOpacity: 0.5,
-                    // shadowRadius: 2,
-                    // elevation: 5,
-                  }}
-                >
-                  <Col style={{}}>
-                    <View style={detailViewStyles.buttonView}>
-                      <TouchableOpacity
-                        testID={`${label}-edit-btn`}
-                        {...getEvents(
-                          `${label}-edit-btn`,
-                          setLayoutConfig,
-                          setAppState,
-                          appState
-                        )}
-                        style={detailViewStyles.button}
-                      >
-                        <Text style={detailViewStyles.textStyle}>EDIT</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </Col>
-                  {/* {isOrderScreen ? (
-                    <Col style={{}}>
-                      <View style={detailViewStyles.buttonView}>
-                        <TouchableOpacity
-                          // testID={`${label}-edit-btn`}
-                          // {...getEvents(
-                          //   `${label}-edit-btn`,
-                          //   setLayoutConfig,
-                          //   setAppState,
-                          //   appState
-                          // )}
-                          disabled
-                          onPress={() => {
-                            console.log("QR CODE SHOW");
-                            // setqrcodeVisible(!qrcodeVisible);
-                          }}
-                          style={detailViewStyles.button}
                         >
-                          <Text style={detailViewStyles.textStyle}>QRCODE</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </Col>
-                  ) : (
-                    <View
-                      style={{
-                        marginLeft: 30,
-                        marginRight: 30,
-                      }}
-                    ></View>
-                  )} */}
-                  <Col>
-                    {
-                      // <View style={detailViewStyles.centeredView}>
-                      <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                          Alert.alert("Modal has been closed.");
-                          setModalVisible(!modalVisible);
-                        }}
-                      >
-                        <View style={detailViewStyles.centeredView}>
-                          <View style={detailViewStyles.modalView}>
-                            <Text style={detailViewStyles.modalText}>
-                              Are you sure you want to delete ??
-                            </Text>
-                            <View
-                              style={{
-                                // borderWidth: 2,
-                                flexDirection: "row",
-                              }}
-                            >
-                              <View
-                                style={{
-                                  margin: 10,
-                                }}
-                              >
-                                <Pressable
-                                  testID={`${label}-delete-btn`}
-                                  {...getEvents(
-                                    `${label}-delete-btn`,
-                                    setLayoutConfig,
-                                    setAppState,
-                                    appState
-                                  )}
-                                  style={[
-                                    detailViewStyles.button,
-                                    detailViewStyles.buttonClose,
-                                    { backgroundColor: "red" },
-                                  ]}
-                                  onPress={() => {
-                                    // TODO : Add API for the Deleting the Selected row Data
-                                    setModalVisible(!modalVisible);
+                          <View
+                            style={{
+                              margin: 10,
+                            }}
+                          >
+                            <Pressable
+                              testID={`${label}-delete-btn`}
+                              {...getEvents(
+                                `${label}-delete-btn`,
+                                setLayoutConfig,
+                                setAppState,
+                                appState
+                              )}
+                              style={[
+                                detailViewStyles.button,
+                                detailViewStyles.buttonClose,
+                                { backgroundColor: "red" },
+                              ]}
+                              onPress={() => {
+                                // TODO : Add API for the Deleting the Selected row Data
+                                setModalVisible(!modalVisible);
+                                const res = fetch(
+                                  `${SERVER_ENDPOINT}v1/schema/modulelayout`,
+                                  {
+                                    method: "POST",
+                                    headers: {
+                                      Accept: "application/json",
+                                      "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                      userId: "TsdAdmin",
+                                      roleKey: 1,
+                                      moduleName:
+                                        appState.global != undefined
+                                          ? appState.global.tsdApp.activeModule
+                                              .name
+                                          : "Service Orders",
+                                      tabName:
+                                        appState.global != undefined
+                                          ? appState.global.tsdApp.activeTab
+                                              .name
+                                          : "CreateOrders",
+                                      actionName: "Delete",
+                                    }),
+                                  }
+                                )
+                                  .then((res) => res.json())
+                                  .then((_data) => {
+                                    console.log(
+                                      "_Data  in showEntity : :: ",
+                                      _data
+                                    );
+
+                                    setAppState({
+                                      global: {
+                                        tsdApp: {
+                                          deleteComponent: {
+                                            action: {
+                                              name:
+                                                _data.businessFunctions[0]
+                                                  .modules[0].tabs[0].actions[0]
+                                                  .actionName,
+                                              key:
+                                                _data.businessFunctions[0]
+                                                  .modules[0].tabs[0].actions[0]
+                                                  .actionKey,
+                                              endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                                /{[^}]*}/,
+                                                ""
+                                              ),
+                                              uriParams:
+                                                _data.businessFunctions[0]
+                                                  .modules[0].tabs[0].actions[0]
+                                                  .uriParams,
+                                              httpMethod:
+                                                _data.businessFunctions[0]
+                                                  .modules[0].tabs[0].actions[0]
+                                                  .httpMethod,
+                                              showButton:
+                                                _data.businessFunctions[0]
+                                                  .modules[0].tabs[0].actions[0]
+                                                  .showButton,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    });
+                                    // console.log(
+                                    //   "DELETE API PART :::: ::",
+                                    //   appState.global.tsdApp.viewComponent[
+                                    //     appState.global.tsdApp.activeTab
+                                    //       .name
+                                    //   ][
+                                    //     _data.businessFunctions[0]
+                                    //       .modules[0].tabs[0].actions[0]
+                                    //       .uriParams
+                                    //   ]
+                                    // );
+
+                                    // TODO : Appstate was getting delayed from adding the state for delete action made direct api data to add endpoint and uriparams
                                     const res = fetch(
-                                      `${SERVER_ENDPOINT}v1/schema/modulelayout`,
+                                      `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                        /{[^}]*}/,
+                                        ""
+                                      )}${
+                                        appState.global.tsdApp.viewComponent[
+                                          appState.global.tsdApp.activeTab.name
+                                        ][
+                                          _data.businessFunctions[0].modules[0]
+                                            .tabs[0].actions[0].uriParams
+                                        ]
+                                      }`,
                                       {
-                                        method: "POST",
+                                        method:
+                                          _data.businessFunctions[0].modules[0]
+                                            .tabs[0].actions[0].httpMethod,
                                         headers: {
                                           Accept: "application/json",
                                           "Content-Type": "application/json",
                                         },
                                         body: JSON.stringify({
-                                          userId: "TsdAdmin",
-                                          roleKey: 1,
-                                          moduleName:
-                                            appState.global != undefined
-                                              ? appState.global.tsdApp
-                                                  .activeModule.name
-                                              : "Service Orders",
-                                          tabName:
-                                            appState.global != undefined
-                                              ? appState.global.tsdApp.activeTab
-                                                  .name
-                                              : "CreateOrders",
-                                          actionName: "Delete",
+                                          isHardDelete: "true",
                                         }),
                                       }
-                                    )
-                                      .then((res) => res.json())
-                                      .then((_data) => {
-                                        console.log(
-                                          "_Data  in showEntity : :: ",
-                                          _data
-                                        );
-
-                                        setAppState({
-                                          global: {
-                                            tsdApp: {
-                                              deleteComponent: {
-                                                action: {
-                                                  name:
-                                                    _data.businessFunctions[0]
-                                                      .modules[0].tabs[0]
-                                                      .actions[0].actionName,
-                                                  key:
-                                                    _data.businessFunctions[0]
-                                                      .modules[0].tabs[0]
-                                                      .actions[0].actionKey,
-                                                  endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                                                    /{[^}]*}/,
-                                                    ""
-                                                  ),
-                                                  uriParams:
-                                                    _data.businessFunctions[0]
-                                                      .modules[0].tabs[0]
-                                                      .actions[0].uriParams,
-                                                  httpMethod:
-                                                    _data.businessFunctions[0]
-                                                      .modules[0].tabs[0]
-                                                      .actions[0].httpMethod,
-                                                  showButton:
-                                                    _data.businessFunctions[0]
-                                                      .modules[0].tabs[0]
-                                                      .actions[0].showButton,
-                                                },
-                                              },
-                                            },
-                                          },
-                                        });
-                                        // console.log(
-                                        //   "DELETE API PART :::: ::",
-                                        //   appState.global.tsdApp.viewComponent[
-                                        //     appState.global.tsdApp.activeTab
-                                        //       .name
-                                        //   ][
-                                        //     _data.businessFunctions[0]
-                                        //       .modules[0].tabs[0].actions[0]
-                                        //       .uriParams
-                                        //   ]
-                                        // );
-
-                                        // TODO : Appstate was getting delayed from adding the state for delete action made direct api data to add endpoint and uriparams
-                                        const res = fetch(
-                                          `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                                            /{[^}]*}/,
-                                            ""
-                                          )}${
-                                            appState.global.tsdApp
-                                              .viewComponent[
-                                              appState.global.tsdApp.activeTab
-                                                .name
-                                            ][
-                                              _data.businessFunctions[0]
-                                                .modules[0].tabs[0].actions[0]
-                                                .uriParams
-                                            ]
-                                          }`,
-                                          {
-                                            method:
-                                              _data.businessFunctions[0]
-                                                .modules[0].tabs[0].actions[0]
-                                                .httpMethod,
-                                            headers: {
-                                              Accept: "application/json",
-                                              "Content-Type":
-                                                "application/json",
-                                            },
-                                            body: JSON.stringify({
-                                              isHardDelete: "true",
-                                            }),
-                                          }
-                                        );
-                                      })
-                                      .then((result) => {
-                                        // const keyName =
-                                        //   appState.global.tsdApp.deleteComponent
-                                        //     .action.uriParams;
-                                        console.log(
-                                          "result : : : : in showEntity : :: : ",
-                                          result
-                                        );
-                                      });
-                                    setLayoutConfig(routes["search"]);
-                                  }}
-                                >
-                                  <Text style={detailViewStyles.textStyle2}>
-                                    Delete
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              <View
-                                style={{
-                                  margin: 10,
-                                }}
-                              >
-                                <Pressable
-                                  style={[
-                                    detailViewStyles.button,
-                                    detailViewStyles.buttonClose,
-                                  ]}
-                                  onPress={async () => {
-                                    // remove the delete action from delete component in action
-                                    setModalVisible(!modalVisible);
-                                    await setAppState({
-                                      global: {
-                                        tsdApp: {
-                                          deleteComponent: {
-                                            action: {},
-                                          },
-                                        },
+                                    );
+                                  })
+                                  .then((result) => {
+                                    // const keyName =
+                                    //   appState.global.tsdApp.deleteComponent
+                                    //     .action.uriParams;
+                                    console.log(
+                                      "result : : : : in showEntity : :: : ",
+                                      result
+                                    );
+                                  });
+                                setLayoutConfig(routes["search"]);
+                              }}
+                            >
+                              <Text style={detailViewStyles.textStyle2}>
+                                Delete
+                              </Text>
+                            </Pressable>
+                          </View>
+                          <View
+                            style={{
+                              margin: 10,
+                            }}
+                          >
+                            <Pressable
+                              style={[
+                                detailViewStyles.button,
+                                detailViewStyles.buttonClose,
+                              ]}
+                              onPress={async () => {
+                                // remove the delete action from delete component in action
+                                setModalVisible(!modalVisible);
+                                await setAppState({
+                                  global: {
+                                    tsdApp: {
+                                      deleteComponent: {
+                                        action: {},
                                       },
-                                    });
-                                  }}
-                                >
-                                  <Text style={detailViewStyles.textStyle2}>
-                                    Cancel
-                                  </Text>
-                                </Pressable>
-                              </View>
-                            </View>
+                                    },
+                                  },
+                                });
+                              }}
+                            >
+                              <Text style={detailViewStyles.textStyle2}>
+                                Cancel
+                              </Text>
+                            </Pressable>
                           </View>
                         </View>
-                      </Modal>
-                      // </View>
-                    }
-                    <View style={detailViewStyles.buttonView}>
-                      <TouchableOpacity
-                        style={detailViewStyles.button}
-                        onPress={() => {
-                          setModalVisible(true);
-                        }}
-                      >
-                        <Text style={detailViewStyles.textStyle}>DELETE</Text>
-                      </TouchableOpacity>
+                      </View>
                     </View>
-                  </Col>
-                </Row>
+                  </Modal>
+                  // </View>
+                }
+                <View style={detailViewStyles.buttonView}>
+                  <TouchableOpacity
+                    style={detailViewStyles.button}
+                    onPress={() => {
+                      setModalVisible(true);
+                    }}
+                  >
+                    <Text style={detailViewStyles.textStyle}>DELETE</Text>
+                  </TouchableOpacity>
+                </View>
               </Col>
             </Row>
           </Grid>

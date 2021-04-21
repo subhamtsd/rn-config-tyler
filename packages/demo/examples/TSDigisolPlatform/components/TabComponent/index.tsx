@@ -123,6 +123,13 @@ export const TabComponent = (props: {
                           response: [],
                         },
                       },
+                      ShowQRCodeComponent: {
+                        isQrcodeVisible: false,
+                        // TODO: Add Some Dummy Image here
+                        qrcodeImage: "qr_code_PNG24.png",
+                        // TODO: Reset of message for any tab
+                        message: "",
+                      }
                     },
                   },
                 });

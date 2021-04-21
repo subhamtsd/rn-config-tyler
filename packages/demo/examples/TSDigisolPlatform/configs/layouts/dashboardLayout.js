@@ -30,7 +30,7 @@ import { BillToAddressDetailViewComponent } from "../../components/domainSpecifi
 import { OrderLineAddressDetailViewComponent } from "../../components/domainSpecific/OrderLineAddressDetailViewComponent";
 import { OrderLineDetailViewComponent } from "../../components/domainSpecific/OrderLineDetailViewComponent";
 import { OrderLineListViewComponent } from "../../components/domainSpecific/OrderLineListViewComponent";
-
+import { ShowQRCodeComponent } from "../../components/ShowQRCodeComponent";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
@@ -58,6 +58,7 @@ export const componentsSet = {
   OrderLineAddressDetailViewComponent,
   OrderLineDetailViewComponent,
   OrderLineListViewComponent,
+  ShowQRCodeComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
