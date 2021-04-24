@@ -462,7 +462,15 @@ export const events = {
         //   props: { label: "actioncomp-2" },
         //   children: null,
         // },
-        "a": ["b", "c"]
+        // "a": ["b", "c"] //1
+        // "a":"b" //2
+      //   "a": {
+      //     "b" :  "c"
+      // } //3
+    //   "a": {
+    //     "b" :  "c",
+    //     "e" :  "f"
+    // } //4
 
       });
     },
@@ -492,15 +500,15 @@ export const events = {
       setLayoutConfig(routes["routeFour"]);
       // onPress: (setLayoutConfig, setAppState,appState,task) => {
       //   setLayoutConfig(routes["routeFour"]);
-      // if (!task) {
-      //   return alert("Please add your task ...");
-      // } else {
-      //   setAppState({
-      //     $global: {
-      //       setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
-      //     },
-      //   });
-      // }
+      if (!task) {
+        return alert("Please add your task ...");
+      } else {
+        setAppState({
+          $global: {
+            setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
+          },
+        });
+      }
     },
   },
   "leftNavHeader-btn-one": {

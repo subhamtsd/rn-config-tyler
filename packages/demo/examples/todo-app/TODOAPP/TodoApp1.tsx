@@ -38,13 +38,21 @@ export const TodoApp1 = (props: {
       return alert("Please add your task ...");
     } else {
       setAppState({
-        // $global: {
-        //   setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
-        // },
-        "a": ["d"],  
+        $global: {
+          setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
+        },
+        // "a": ["d"], //1
+        //  "c": "d", //2
+      //   "a": {
+      //     "e" :  "f"
+      // } //3
+    //   "a": {
+    //     "e" :  "h"
+    // } //4
       },
       // "copy"
       // "isPartial"
+      // "mo"
       );
     }
   };

@@ -46,44 +46,34 @@ export const setLayoutConfig = (
   }
 };
 
-// export const setAppState = (_setAppState, appState, newAppState, format="none") => {
-//   if (format === "isPartial") {
-//     _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge })); ///ui,children,props
-//   }
-//   }else {
-//     _setAppState(newAppState);
-//   }
-// };
+export const setAppState = (_setAppState, appState, newAppState, format="none") => {
+  if (format === "isPartial") {
+    _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge })); ///ui,children,props
+  }
+  else {
+    _setAppState(newAppState);
+  }
+};
 
-export const setAppState = (
-_setAppState,
+export const setGlobalState = (
+  _setAppState,
   appState,
   newAppState,
   format = "none"
 ) => {
-  // let clonedAppState =newAppState
-  // delete newAppState.ui
   if (format === "isPartial") {
-    _setAppState({
-      ui: appState.ui,
-      children: appState.children,
-      props: appState.props,
-      $global: merge(appState, {$global: newAppState}, { arrayMerge: overwriteMerge }),
-    }); 
-  }else if(format === "copy"){
+    //newAppState will be overWrite by initial
     _setAppState(
-    //   {
-    //   ui: appState.ui,
-    //   children: appState.children,
-    //   props: appState.props,
-    //   $global: merge(appState, {$global: newAppState}),
-    //   // $global: merge(appState, newAppState)
-
-    // })
-      merge(appState,{$global: newAppState}));
-  }
-  //whatever will be pass new that will stay 
-  else {
+      merge(appState, { $global: newAppState }, { arrayMerge: overwriteMerge })
+    );
+  } else if (format == "mo") {
+    //newAppState(not in global) will merge with appState
+    _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge }));
+  } else if (format === "copy") {
+    //newAppState will be merge with initial
+    _setAppState(merge(appState, { $global: newAppState }));
+  } else {
+    //whatever will be pass new that will stay
     _setAppState({
       ui: appState.ui,
       children: appState.children,
@@ -93,3 +83,40 @@ _setAppState,
   }
 };
 
+// export const setGlobalState = (
+//   _setGlobalState,
+//     globalState,
+//     newAppState,
+//     format = "none"
+//   ) => {
+//     // let clonedAppState =newAppState
+//     // delete newAppState.ui
+//     if (format === "isPartial") {
+//       _setGlobalState({
+//         ui: globalState.ui,
+//         children: globalState.children,
+//         props: globalState.props,
+//         $global: merge(globalState, {$global: newAppState}, { arrayMerge: overwriteMerge }),
+//       });
+//     }else if(format === "copy"){
+//       _setGlobalState(
+//       //   {
+//       //   ui: appState.ui,
+//       //   children: appState.children,
+//       //   props: appState.props,
+//       //   $global: merge(appState, {$global: newAppState}),
+//       //   // $global: merge(appState, newAppState)
+
+//       // })
+//         merge(globalState,{$global: newAppState}));
+//     }
+//     //whatever will be pass new that will stay
+//     else {
+//       _setGlobalState({
+//         ui: globalState.ui,
+//         children: globalState.children,
+//         props: globalState.props,
+//         $global: newAppState,
+//       });
+//     }
+//   };
