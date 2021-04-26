@@ -32,7 +32,7 @@
     "lerna": "^3.22.1"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "./node_modules/jest-expo/jest-preset.js"
   },
   "scripts": {
     "start": "lerna run web --stream",
