@@ -7,6 +7,13 @@ module.exports = {
     "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|native-base|@storybook)",
   ],
   reporters: ["default"],
+  modulePathIgnorePatterns: [
+    // "(/__tests__/.*|(\\.|/)(preset))\\.[jt]sx?$",
+    "react-native-paper",
+    "@expo/vector-icons",
+    "react-native-vector-icons",
+  ],
+  // setupFiles: ["./tests/jestSetupFile.js"],
   transform: {
     "^.+\\.js$": "babel-jest",
   },
