@@ -22,13 +22,16 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "jest": "^26.6.3",
     "jest-expo": "^40.0.0",
-
+    "babel-jest": "^26.1.0",
+    "babel-preset-expo": "^8.3.0",
+    "@types/jest": "^26.0.4",
+    "@types/jest-json-schema": "^2.1.2",
+    "jest-json-schema": "^2.1.0",
     "lerna": "^3.22.1"
   },
   "scripts": {
     "start": "lerna run web --stream",
-    "logic-test":"jest ./tests"
-
+    "logic-test": "jest ./tests"
   },
   "browserslist": [
     ">0.2%",

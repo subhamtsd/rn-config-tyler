@@ -1,11 +1,11 @@
-name: Cypress Tests
+name: Jest Tests
 on: 
   push:
     branches:
       - "jest-testing"
       - "develop"
 jobs:
-  cypress-run:
+  jest-run:
       runs-on: ubuntu-latest
       strategy:
         matrix:
