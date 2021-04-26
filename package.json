@@ -28,7 +28,11 @@
     "@types/jest": "^26.0.4",
     "@types/jest-json-schema": "^2.1.2",
     "jest-json-schema": "^2.1.0",
-    "lerna": "^3.22.1"
+    "@testing-library/jest-native": "^3.3.0",
+    "@testing-library/react-native": "^7.0.2",
+    "lerna": "^3.22.1",
+    "react-native-testing-library": "^6.0.0"
+
   },
   "scripts": {
     "start": "lerna run web --stream",
