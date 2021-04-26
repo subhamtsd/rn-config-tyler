@@ -31,8 +31,12 @@
     "jest-json-schema": "^2.1.0",
     "lerna": "^3.22.1"
   },
+  "jest": {
+    "preset": "jest-expo"
+  },
   "scripts": {
     "start": "lerna run web --stream",
+    "test": "jest" ,
     "logic-test": "jest ./tests"
   },
   "browserslist": [
