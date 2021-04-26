@@ -25,18 +25,14 @@
     "jest-expo": "^40.0.0",
     "babel-jest": "^26.1.0",
     "babel-preset-expo": "^8.3.0",
-    "babel-preset-react": "latest",
     "@types/jest": "^26.0.4",
     "@types/jest-json-schema": "^2.1.2",
     "jest-json-schema": "^2.1.0",
     "lerna": "^3.22.1"
   },
-  "jest": {
-    "preset": "./node_modules/jest-expo/jest-preset.js"
-  },
   "scripts": {
     "start": "lerna run web --stream",
-    "test": "jest" ,
+    "test": "jest",
     "logic-test": "jest ./tests"
   },
   "browserslist": [
