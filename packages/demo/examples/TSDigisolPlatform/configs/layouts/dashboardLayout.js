@@ -145,6 +145,7 @@ export const appConfig = {
       rowConfig: {
         rowSize: 1,
       },
+      // col
       Header: {
         colSize: 12,
         idx: "HeaderBar",
@@ -189,6 +190,7 @@ export const appConfig = {
               rowSize: 1.4,
             },
             bodyHeader: {
+              colSize: 12,
               idx: "ActionComponent",
               label: "actionComponent",
               colStyle: {
@@ -202,7 +204,7 @@ export const appConfig = {
             },
             bodyContent: {
               idx: "TabComponent",
-              colSize: 1,
+              colSize: 12,
               label: "tabComponent",
               colStyle: {
                 borderColor: "blue",
@@ -224,7 +226,7 @@ export const appConfig = {
             "2.2.3.1.bodyContent2": {
               idx: "DefaultScreen",
               colSize: 4,
-              label: "",
+              label: "helloWorld",
               colStyle: {
                 display: "flex",
                 borderColor: "blue",

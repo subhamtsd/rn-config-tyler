@@ -216,7 +216,7 @@ export const ListRender = (props: {
           marginBottom: 10,
         }}
       >
-        <Text style={listRenderstyles.heading}>Search Here</Text>
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
       </View>
       {/* <View>

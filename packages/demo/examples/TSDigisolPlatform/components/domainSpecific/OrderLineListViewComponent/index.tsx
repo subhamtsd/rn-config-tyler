@@ -20,6 +20,7 @@ export const OrderLineListViewComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -30,6 +31,7 @@ export const OrderLineListViewComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
@@ -75,10 +77,18 @@ export const OrderLineListViewComponent = (props: {
 
   return (
     <View style={componentGridStyle}>
-      <Text>
+      <Text
+        style={{
+          fontSize: 20,
+          color: "#0d47a1",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
         {/* {appState.global != undefined
           ? JSON.stringify(appState.global.tsdApp.listComponent)
           : ""} */}
+        {UItitle}
       </Text>
       <ScrollView horizontal>
         <ListRender

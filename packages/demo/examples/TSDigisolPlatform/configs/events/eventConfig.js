@@ -366,12 +366,9 @@ export const events = {
     },
   },
   "billToAddressDetailViewComponent-edit-btn": {
-    onPress: (setLayoutConfig, setAppState, appState) => {
-      console.log(
-        "From billToAddressDetailViewComponent ::: ",
-        JSON.stringify(viewData)
-      );
-      // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
+    // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
+    onPress: (setLayoutConfig, setAppState, appState, args) => {
+      console.log("From billToAddressDetailViewComponent ::: ", args);
     },
   },
   "listComponent-show-btn-one": {
@@ -485,6 +482,15 @@ export const events = {
       // );
     },
   },
+
+  // "helloWorld-btn-one": {
+  //   onPress: (setLayoutConfig, setAppState, appState) => {
+  //     setAppState({
+  //       hello: 78,
+  //     });
+  //     console.log("Hello from Default component", appState);
+  //   },
+  // },
 };
 
 // *************************************************
@@ -492,7 +498,7 @@ export const events = {
 // *************************************************
 // bind events based on the layout config
 export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
-  // console.log(`elId is ${elId}`);
+  console.log(`elId is ${elId}`);
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {

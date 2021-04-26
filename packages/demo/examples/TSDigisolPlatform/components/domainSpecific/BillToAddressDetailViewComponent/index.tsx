@@ -17,6 +17,7 @@ export const BillToAddressDetailViewComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -27,6 +28,7 @@ export const BillToAddressDetailViewComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);

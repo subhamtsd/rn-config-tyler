@@ -81,7 +81,7 @@ export const ActionComponent = (props: {
         },
       },
     });
-    setLayoutConfig(appConfig);
+    setLayoutConfig(routes["defaultAppConfig"], "copy");
   };
 
   // console.log("appState in action : : : : ", props);

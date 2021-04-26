@@ -55,7 +55,7 @@ const TextRender = ({ textFeild, value }: any) => {
   );
 };
 
-const Item = ({ item, onPress, style }: any) => (
+const Item = ({ item, onPress, style, UItitle }: any) => (
   <ScrollView
     style={{
       height: 300,
@@ -71,7 +71,7 @@ const Item = ({ item, onPress, style }: any) => (
       >
         <Row>
           <Col>
-            <Text style={detailViewStyles.title}>{item.displayName}</Text>
+            <Text style={detailViewStyles.title}>{UItitle}</Text>
           </Col>
         </Row>
         <Row
@@ -114,6 +114,7 @@ export const ShowEntity = (props: {
     setLayoutConfig: any;
     getEvents: any;
     events: any;
+    UItitle: any;
   };
   viewData: any;
 }) => {
@@ -126,7 +127,10 @@ export const ShowEntity = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props.props;
+
+  console.log("Layout Config in showEntity :::: ", props);
 
   const viewData = props.viewData;
   const [modalVisible, setModalVisible] = useState(false);
@@ -180,6 +184,7 @@ export const ShowEntity = (props: {
                       backgroundColor,
                       shadowColor: "#000",
                     }}
+                    UItitle={UItitle}
                   />
                 </ScrollView>
               </Col>
@@ -202,11 +207,12 @@ export const ShowEntity = (props: {
                       `${label}-edit-btn`,
                       setLayoutConfig,
                       setAppState,
-                      appState
+                      appState,
+                      { key: "edit" }
                     )}
-                    onPress={() => {
-                      console.log("ViewData :::: ", viewData);
-                    }}
+                    // onPress={() => {
+                    //   console.log("ViewData :::: ", viewData);
+                    // }}
                     style={detailViewStyles.button}
                   >
                     <Text style={detailViewStyles.textStyle}>EDIT</Text>
@@ -407,7 +413,7 @@ export const ShowEntity = (props: {
                                       result
                                     );
                                   });
-                                setLayoutConfig(routes["search"]);
+                                setLayoutConfig(routes["search"], "copy");
                               }}
                             >
                               <Text style={detailViewStyles.textStyle2}>

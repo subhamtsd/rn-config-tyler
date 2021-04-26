@@ -104,6 +104,9 @@ routes.orderLineDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Order Details",
+            },
           },
           "2.2.3.1.bodyContent2": {
             // col no
@@ -137,6 +140,9 @@ routes.orderLineDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "OrderLines of Order",
+            },
           },
           "2.2.4.2.bodyContent": {
             // col no
@@ -149,6 +155,9 @@ routes.orderLineDetail = {
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+            passProps: {
+              UItitle: "Bill To Address Details",
             },
           },
         },
@@ -170,6 +179,9 @@ routes.orderLineDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "OrderLine Detail",
+            },
           },
           "2.2.5.2.bodyContent": {
             // col no
@@ -182,6 +194,9 @@ routes.orderLineDetail = {
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+            passProps: {
+              UItitle: "Orderline Address Detail",
             },
           },
         },
@@ -294,6 +309,9 @@ routes.orderDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Order Details",
+            },
           },
           "2.2.3.1.bodyContent2": {
             // col no
@@ -327,6 +345,9 @@ routes.orderDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "OrderLines of Order",
+            },
           },
           "2.2.4.2.bodyContent": {
             // col no
@@ -340,6 +361,9 @@ routes.orderDetail = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Bill To Address Details",
+            },
           },
         },
       },
@@ -351,22 +375,18 @@ routes.defaultAppConfig = {
   "1.container": {
     rowConfig: {
       rowSize: 1,
-      // rowStyle: rowStyle,
     },
+    // col
     Header: {
-      // col no
-      colSize: 1,
+      colSize: 12,
       idx: "HeaderBar",
       label: "headerBar",
-      // colStyle: { borderWidth: 4 },
     },
   },
   "2.container": {
     rowConfig: {
       rowSize: 1,
-      // rowStyle: rowStyle,
     },
-    // col no
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
@@ -375,14 +395,15 @@ routes.defaultAppConfig = {
         "2.1.leftNavBodyRow": {
           rowConfig: {
             rowSize: 12,
-            // rowStyle: rowStyle,
           },
           leftNavBody: {
-            // col no
-            colSize: 1,
+            colSize: 2,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "100vh" },
+            colStyle: {
+              borderWidth: 0,
+              height: "110vh",
+            },
           },
         },
       },
@@ -390,79 +411,56 @@ routes.defaultAppConfig = {
     "2.2.bodyCol": {
       rowConfig: {
         rowSize: 12,
-        // rowStyle: rowStyle,
       },
       layout: {
         colConfig: {
-          colSize: 11,
-          // colStyle: { borderColor: "cyan", borderWidth: 4 },
+          colSize: 10,
         },
         "2.2.1.bodyHeaderRow": {
           rowConfig: {
-            rowSize: 1.4, // TODO : Adjusted Height with Upper component using calculation of Row Config
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
+            rowSize: 1.4,
           },
           bodyHeader: {
-            // col no
-            colSize: 1,
+            colSize: 12,
             idx: "ActionComponent",
             label: "actionComponent",
             colStyle: {
               borderColor: "blue",
-              // borderWidth: 2,
-              // height: "20vh",
             },
           },
         },
         "2.2.2.bodyTabRow": {
           rowConfig: {
             rowSize: 1.3,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
           },
           bodyContent: {
-            // col no
             idx: "TabComponent",
-            colSize: 1,
+            colSize: 12,
             label: "tabComponent",
             colStyle: {
               borderColor: "blue",
-              // borderWidth: 1,
-              // height: "89.2vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
         },
         "2.2.3.bodyContentRow": {
           rowConfig: {
             rowSize: 10,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
           },
           "2.2.3.1.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
             idx: "JsonFormComponent",
-            colSize: 3,
-            label: "jsonFormComponent",
+            colSize: 2,
+            label: "bodyHeader",
             colStyle: {
-              display: "flex",
               borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
           "2.2.3.1.bodyContent2": {
-            // col no
-            // idx: "JsonFormComponent",
             idx: "DefaultScreen",
-            colSize: 2,
-            label: "defaultScreen",
+            colSize: 4,
+            label: "",
             colStyle: {
               display: "flex",
               borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
         },
@@ -814,7 +812,7 @@ routes.edit = {
             // col no
             // idx: "JsonFormComponent",
             idx: "EditComponent",
-            colSize: 4,
+            colSize: 2,
             label: "editComponent",
             colStyle: {
               borderColor: "blue",
@@ -826,7 +824,7 @@ routes.edit = {
             // col no
             // idx: "JsonFormComponent",
             idx: "DefaultScreen",
-            colSize: 2,
+            colSize: 4,
             label: "defaultScreen",
             colStyle: {
               display: "flex",
