@@ -19,11 +19,13 @@
     "react-native-web-jsonschema-form": "^3.1.4"
   },
   "devDependencies": {
+    "@babel/preset-env": "latest",
     "@rollup/plugin-commonjs": "^17.1.0",
     "jest": "^26.6.3",
     "jest-expo": "^40.0.0",
     "babel-jest": "^26.1.0",
     "babel-preset-expo": "^8.3.0",
+    "babel-preset-react": "latest",
     "@types/jest": "^26.0.4",
     "@types/jest-json-schema": "^2.1.2",
     "jest-json-schema": "^2.1.0",
