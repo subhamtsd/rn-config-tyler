@@ -204,9 +204,9 @@ export const ShowEntity = (props: {
                       setAppState,
                       appState
                     )}
-                    onPress={() => {
-                      console.log("ViewData :::: ", viewData);
-                    }}
+                    // onPress={() => {
+                    //   console.log("ViewData :::: ", viewData);
+                    // }}
                     style={detailViewStyles.button}
                   >
                     <Text style={detailViewStyles.textStyle}>EDIT</Text>

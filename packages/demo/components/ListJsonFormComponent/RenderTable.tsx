@@ -114,8 +114,8 @@ export const RenderTable = (props: {
   // console.log("KeyIdPrefix, ", keyIdPrefix());
 
   const intialJson = {};
-  const [item, setItem] = useState(intialJson); // Submit one row
-  const [finalItem, setFinalItem] = useState(intialJson);
+  const [item, setItem] = useState({}); // Submit one row
+  const [finalItem, setFinalItem] = useState({});
   const [listOfItems, setListItems] = useState([]); // Store all array of row data
   const [isSelected, setSelected] = useState(false);
   const [noOfRows, setNoOfRows] = useState(-1);
@@ -127,7 +127,7 @@ export const RenderTable = (props: {
   // console.log("noOfRows : : : ", noOfRows);
 
   useEffect(() => {
-    if (finalItem !== intialJson) {
+    if (finalItem !== {}) {
       // If clicked on same row to add and finalItem is not equal to item
       if (finalItem[keyIdPrefix()] === noOfAddItemClick || finalItem !== item) {
         setListItems(() => [...listOfItems, finalItem]);
@@ -211,7 +211,7 @@ export const RenderTable = (props: {
               >
                 <Col>
                   <Picker
-                    selectedValue={item[keyName]}
+                    //selectedValue={item[keyName]}
                     style={{
                       borderWidth: 1,
                       width: `100%`,
