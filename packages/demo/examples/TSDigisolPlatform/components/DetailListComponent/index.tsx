@@ -15,15 +15,21 @@ export const DetailListComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
     label,
     children,
+    layoutConfig,
     setAppState,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
+
+  console.log("Layout config in Detail COmponent ::: ", props);
+  
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));

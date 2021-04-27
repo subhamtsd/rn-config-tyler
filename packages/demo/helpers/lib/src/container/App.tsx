@@ -26,7 +26,7 @@ export const App = (props: AppProps) => {
   const setLayoutConfig = (
     // config,
     _config,
-    format = "none",
+    format = "none"
     // isDottedFormat = false
   ) => {
     if (format === "dotted") {
@@ -43,18 +43,21 @@ export const App = (props: AppProps) => {
     } else if (format === "copy") {
       // copy into current, no merge
 
-      const _NewConfig = {
-        componentsSet: props?.config?.componentsSet,
-        links: props?.config?.links,
-        layout: _config,
-      };
-      // console.log("Config with copy :::: ", _config);
-      // console.log("Config with props :::: ", props?.config);
+      // const _NewConfig = {
+      //   componentsSet: props?.config?.componentsSet,
+      //   links: props?.config?.links,
+      //   layout: _config,
+      // };
+      console.log("Config with copy :::: ", _config);
+      console.log("Config with props :::: ", props?.config);
       // setConfig({ _config });
+      console.log("Config.layout ::: ", config.layout);
 
-      // setConfig({ ...config, layout: _config });
+      setConfig({ ...config, layout: _config }, () => {
+        console.log("Config.layout new ::: ", config.layout);
+      });
 
-      setConfig(_NewConfig);
+      // setConfig(_NewConfig);
     } else if (format === "sustain") {
       // copy from current
       _config = config;

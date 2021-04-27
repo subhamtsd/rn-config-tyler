@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { appConfig } from "../../examples/TSDigisolPlatform/configs/layouts/dashboardLayout";
+import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 
 const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
   const {
@@ -87,7 +88,7 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                   },
                 },
               });
-              setLayoutConfig(appConfig);
+              setLayoutConfig(routes["defaultAppConfig"], "copy");
             }}
           >
             <Text

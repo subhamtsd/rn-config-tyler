@@ -49,47 +49,24 @@ export const RenderTable = (props: {
 
   const [arrObj, setArrObj] = useState([]);
 
-  // TODO : REMOVE THE HARDCODING FOR PROPERTY
-  // const tableHeaderObj =
-  //   dataToRender.orderLines.properties.orderLine.items.properties;
-  // const tableHeaderObj =
-  //   dataToRender.parentCategories.properties.parentCategory.items.properties;
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
+  console.log("First Parent ::: " + firstParent);
 
   console.log("Props in ---> ", props.dataToRender[firstParent]);
 
   const secondParent = Object.getOwnPropertyNames(
     dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
   );
+  console.log("Second Parent: " + secondParent);
   prepareSchema(
     props.dataToRender[firstParent].properties[secondParent[0]]
   ).then((schemaJson) => {
     console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
   });
-  // console.log(
-  //   "First parent :: ",
-  //   firstParent,
-  //   " \n Rest Part :::",
-  //   dataToRender,
-  //   "\n props ---> ",
-  //   props
-  // );
 
-  // secondParent[2];
-  // console.log("Second Parents :: ", secondParent[0]);
   const tableHeaderObj =
     dataToRender[firstParent].properties[secondParent[0]].items.properties;
 
-  // console.log(
-  //   "Properties : : :: ",
-  //   dataToRender.orderLines.properties.orderLine.items.properties
-  // );
-  // tableHeaderObj["checkbox"] = {
-  //   title: " ",
-  //   type: "checkbox",
-  //   uid: "action",
-  //   pattern: "[]",
-  // };
   tableHeaderObj["actionDisplay"] = {
     title: "Action",
     type: "button",
@@ -102,16 +79,10 @@ export const RenderTable = (props: {
 
   const keyIdPrefix = () => {
     const keyArray = Object.getOwnPropertyNames(
-      // dataToRender.Orderlines.properties
       dataToRender[firstParent].properties
-      // dataToRender.parentCategories.properties
     );
     return keyArray[0];
   };
-
-  // const keyId = keyIdPrefix();
-
-  // console.log("KeyIdPrefix, ", keyIdPrefix());
 
   const intialJson = {};
   const [item, setItem] = useState({}); // Submit one row
@@ -121,10 +92,7 @@ export const RenderTable = (props: {
   const [noOfRows, setNoOfRows] = useState(-1);
   const [noOfAddItemClick, setnoOfAddItemClick] = useState(-1);
 
-  // console.log("items : ::: ", item);
   console.log("finalItem : : : ", finalItem);
-  // console.log("listOfItem : : :: ", listOfItems);
-  // console.log("noOfRows : : : ", noOfRows);
 
   useEffect(() => {
     if (finalItem !== {}) {
@@ -161,7 +129,7 @@ export const RenderTable = (props: {
           },
         });
         console.log("DATA UPDATED .......");
-        setLayoutConfig(routeToRedirect);
+        setLayoutConfig(routeToRedirect, "copy");
       });
   };
 
@@ -176,13 +144,6 @@ export const RenderTable = (props: {
 
     return (
       <Row>
-        {/* <View>
-        <CheckBox
-          color="#0e73ca"
-          value={isSelected}
-          onValueChange={setSelected}
-        />
-        </View> */}
         {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
           const schema = {
             type: "object",
@@ -194,7 +155,6 @@ export const RenderTable = (props: {
             },
           };
 
-          // console.log("SCHEMA ::: ::: : ", schema);
           if (schema?.properties?.[keyName]?.displayType === "dropdown") {
             return (
               <Row
@@ -218,7 +178,6 @@ export const RenderTable = (props: {
                       height: 36,
                       borderColor: "grey",
                       marginTop: 5,
-                      // padding: 17,
                     }}
                     onValueChange={(itemValue, itemIndex) => {
                       // setSelectedLanguage(itemValue);
