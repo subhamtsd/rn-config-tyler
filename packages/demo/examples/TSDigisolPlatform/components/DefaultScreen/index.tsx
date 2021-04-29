@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
+import { routes } from "../../configs/routes/routesConfig";
 
 export const DefaultScreen = (props: {
   appState: any;
@@ -24,18 +25,24 @@ export const DefaultScreen = (props: {
   } = props;
 
   console.log(`label is ${label}`);
-  console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
+  console.log(getEvents(`${label}-btn-one`, setLayoutConfig));
 
   return (
     <View>
-      <Text style={{}}>Default Screen *** {label}</Text>
-      <Text>
-        <h1>{label}</h1>
-      </Text>
-      {/* <Button
+      {/* <Text style={{}}>Default Screen *** {label}</Text>
+      <Button
         testID={`${label}-btn-one`}
-        title="TODO APP DEMO"
-        {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
+        title="HELLO DEMO"
+        {...getEvents(
+          `${label}-btn-one`,
+          setLayoutConfig,
+          setAppState,
+          appState
+        )}
+        // onPress={() => {
+        //   // setLayoutConfig(routes["edit"], "copy");
+        //   console.log("Hello World from Default Component");
+        // }}
       ></Button> */}
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>

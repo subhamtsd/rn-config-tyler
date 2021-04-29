@@ -10,6 +10,7 @@ import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { parseFormData } from "../../helper/helper";
 
 export const EditComponent = (props: {
   appState: any;
@@ -33,12 +34,12 @@ export const EditComponent = (props: {
     getEvents,
   } = props;
 
-  // console.log(`label is ${label}`);
-  // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
+  const _formData = parseFormData(
+    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
+  );
 
-  // console.log("DISPATCH : : : : ", dispatch);
-  const _formData =
-    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name];
+  console.log("Hello World!");
+  
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -197,13 +198,18 @@ export const EditComponent = (props: {
 
       // console.log("objectName : : : : ", objectName);
 
-      console.log("FormLayout Json : : : : : ---> ", resJSON[objectName]);
+      console.log(
+        "FormLayout Json in Edit Json : : : : : ---> ",
+        resJSON[objectName]
+      );
       setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);
 
   // console.log("formData  : : :  in edit component : : : ", _formData);
+
+  console.log("FormLayout Json in Edit Component : : : ", formLayout.uischema);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
@@ -212,7 +218,7 @@ export const EditComponent = (props: {
         appState={appState}
         schema={formLayout}
         // schema={_schema}
-        uiSchema={_uiSchema}
+        uiSchema={formLayout.uischema}
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}

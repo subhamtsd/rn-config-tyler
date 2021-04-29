@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import SearchListComponent from "./SearchListComponent";
-import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -93,11 +93,12 @@ export const ListRender = (props: {
   };
 
   useEffect(() => {
-    fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
-      props.appState.global.tsdApp.searchComponent.searchPayload
-    );
+    fetchApi(`/v1/listOrderLines/list`, `POST`, {
+      orderHeaderKey:
+        props.appState.global.tsdApp.viewComponent[
+          props.appState.global.tsdApp.activeTab.name
+        ][`orderKey`],
+    });
   }, []);
   // if (props.appState.global != undefined) {
   //   if (props.appState.global.tsdApp.listComponent != undefined) {
@@ -215,7 +216,7 @@ export const ListRender = (props: {
           marginBottom: 10,
         }}
       >
-        <Text style={listRenderstyles.heading}>Search Here</Text>
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
       </View>
       {/* <View>

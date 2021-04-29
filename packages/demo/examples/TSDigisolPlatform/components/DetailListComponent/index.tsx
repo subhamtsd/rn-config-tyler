@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import { Col, Row } from "react-native-easy-grid";
+import { View, StyleSheet } from "react-native";
 import { ShowEntity } from "../../../../components/DetailComponent/ShowEntity";
 
 export const DetailListComponent = (props: {
@@ -16,15 +15,21 @@ export const DetailListComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
     label,
     children,
+    layoutConfig,
     setAppState,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
+
+  console.log("Layout config in Detail COmponent ::: ", props);
+  
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));

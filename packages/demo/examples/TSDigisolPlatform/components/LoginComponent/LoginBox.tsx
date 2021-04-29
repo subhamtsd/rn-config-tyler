@@ -145,7 +145,7 @@ export const LoginBox = (props: {
                   console.log("resStatus :::: ---> ", resStatus);
                   if ((await res.status) === 200) {
                     console.log("Log in successful");
-                    setLayoutConfig(routes["defaultAppConfig"]);
+                    setLayoutConfig(routes["defaultAppConfig"], "copy");
                   } else {
                     console.log("Log in failed");
                   }

@@ -10,12 +10,16 @@ import {
   ScrollView,
   TextInput,
   CheckBox,
+  // Picker,
 } from "react-native";
+
+import { Picker } from "@react-native-picker/picker";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { useState } from "react";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 
 export const RenderTable = (props: {
   appState: any;
@@ -45,41 +49,24 @@ export const RenderTable = (props: {
 
   const [arrObj, setArrObj] = useState([]);
 
-  console.log("Props in ---> ", props);
-
-  // TODO : REMOVE THE HARDCODING FOR PROPERTY
-  // const tableHeaderObj =
-  //   dataToRender.orderLines.properties.orderLine.items.properties;
-  // const tableHeaderObj =
-  //   dataToRender.parentCategories.properties.parentCategory.items.properties;
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
-  // console.log(
-  //   "First parent :: ",
-  //   firstParent,
-  //   " \n Rest Part :::",
-  //   dataToRender,
-  //   "\n props ---> ",
-  //   props
-  // );
+  console.log("First Parent ::: " + firstParent);
+
+  console.log("Props in ---> ", props.dataToRender[firstParent]);
 
   const secondParent = Object.getOwnPropertyNames(
     dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
   );
-  // secondParent[2];
-  console.log("Second Parents :: ", secondParent[0]);
+  console.log("Second Parent: " + secondParent);
+  prepareSchema(
+    props.dataToRender[firstParent].properties[secondParent[0]]
+  ).then((schemaJson) => {
+    console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+  });
+
   const tableHeaderObj =
     dataToRender[firstParent].properties[secondParent[0]].items.properties;
 
-  // console.log(
-  //   "Properties : : :: ",
-  //   dataToRender.orderLines.properties.orderLine.items.properties
-  // );
-  // tableHeaderObj["checkbox"] = {
-  //   title: " ",
-  //   type: "checkbox",
-  //   uid: "action",
-  //   pattern: "[]",
-  // };
   tableHeaderObj["actionDisplay"] = {
     title: "Action",
     type: "button",
@@ -92,16 +79,10 @@ export const RenderTable = (props: {
 
   const keyIdPrefix = () => {
     const keyArray = Object.getOwnPropertyNames(
-      // dataToRender.Orderlines.properties
       dataToRender[firstParent].properties
-      // dataToRender.parentCategories.properties
     );
     return keyArray[0];
   };
-
-  // const keyId = keyIdPrefix();
-
-  // console.log("KeyIdPrefix, ", keyIdPrefix());
 
   const intialJson = {};
   const [item, setItem] = useState(intialJson); // Submit one row
@@ -111,10 +92,7 @@ export const RenderTable = (props: {
   const [noOfRows, setNoOfRows] = useState(-1);
   const [noOfAddItemClick, setnoOfAddItemClick] = useState(-1);
 
-  console.log("items : ::: ", item);
   console.log("finalItem : : : ", finalItem);
-  console.log("listOfItem : : :: ", listOfItems);
-  console.log("noOfRows : : : ", noOfRows);
 
   useEffect(() => {
     if (finalItem !== intialJson) {
@@ -151,7 +129,7 @@ export const RenderTable = (props: {
           },
         });
         console.log("DATA UPDATED .......");
-        setLayoutConfig(routeToRedirect);
+        setLayoutConfig(routeToRedirect, "copy");
       });
   };
 
@@ -166,13 +144,6 @@ export const RenderTable = (props: {
 
     return (
       <Row>
-        {/* <View>
-        <CheckBox
-          color="#0e73ca"
-          value={isSelected}
-          onValueChange={setSelected}
-        />
-        </View> */}
         {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
           const schema = {
             type: "object",
@@ -183,6 +154,49 @@ export const RenderTable = (props: {
               [keyName]: tableHeaderObj[keyName],
             },
           };
+
+          if (schema?.properties?.[keyName]?.displayType === "dropdown") {
+            return (
+              <Row
+                style={{
+                  borderBottomWidth: 2,
+                  borderBottomColor: "grey",
+                  width: 140,
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  paddingBottom: 5,
+                  alignContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Col>
+                  <Picker
+                    selectedValue={item[keyName]}
+                    style={{
+                      borderWidth: 1,
+                      width: `100%`,
+                      height: 36,
+                      borderColor: "grey",
+                      marginTop: 5,
+                    }}
+                    onValueChange={(itemValue, itemIndex) => {
+                      // setSelectedLanguage(itemValue);
+                      setItem({
+                        ...item,
+                        [keyName]: itemValue,
+                      });
+                    }}
+                  >
+                    {/* <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" /> */}
+                    {schema?.properties?.[keyName]?.enum.map((ele, i) => {
+                      return <Picker.Item label={ele} value={ele} key={i} />;
+                    })}
+                  </Picker>
+                </Col>
+              </Row>
+            );
+          }
           // TODO : schema element with Action button
           if (schema?.properties?.[keyName]?.type === "button") {
             return (
@@ -230,6 +244,7 @@ export const RenderTable = (props: {
                           if (finalItem == {} || finalItem !== item) {
                             setFinalItem(item);
                           }
+                          setItem({});
                         }}
                       ></Button>
                     </View>
@@ -303,6 +318,7 @@ export const RenderTable = (props: {
             marginBottom: 20,
           }}
         >
+          {/* ******************** Add Rows Button ******************** */}
           <Button
             title={`Add Row`}
             color="#0e73ca"
@@ -311,6 +327,7 @@ export const RenderTable = (props: {
               // create new row
               // setNoOfRows(noOfRows + 1);
               setArrObj([...arrObj, noOfRows + 1]);
+              setItem({});
               setNoOfRows(noOfRows + 1);
             }}
           ></Button>
@@ -322,6 +339,7 @@ export const RenderTable = (props: {
             marginBottom: 20,
           }}
         >
+          {/* ******************** COPY ROWS BUTTON ********************************* */}
           <Button
             title={`Copy Row`}
             color="#0e73ca"
@@ -393,7 +411,7 @@ export const RenderTable = (props: {
               height: 250,
             }}
           >
-          {rowSection}
+            {rowSection}
           </ScrollView>
           {/* TODO : This iteration should be done with the help of loop */}
         </Grid>
@@ -404,11 +422,15 @@ export const RenderTable = (props: {
           color="#0e73ca"
           onPress={() => {
             console.log("Final submit");
-            const finalData = appState.global.tsdApp.createComponent.User;
+            const finalData =
+              appState.global.tsdApp.createComponent[
+                appState.global.tsdApp.activeTab.name
+              ];
+            console.log("final Data in the body Parameter 1st ::: ", finalData);
             finalData[firstParent] = {
               [secondParent[0]]: listOfItems,
             };
-            console.log("final Data in the body Parameter ::: ", finalData);
+            console.log("final Data in the body Parameter 2nd ::: ", finalData);
             fetchApi(
               appState.global.tsdApp.activeAction.endPoint,
               "POST",

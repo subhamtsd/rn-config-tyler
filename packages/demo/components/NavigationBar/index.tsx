@@ -93,7 +93,7 @@ export const NavigationBar = (props: {
 
   if (loading)
     return (
-      <View style={NavStyles.container}>
+      <View style={(NavStyles.container, { display: "none" })}>
         <ActivityIndicator />
       </View>
     );

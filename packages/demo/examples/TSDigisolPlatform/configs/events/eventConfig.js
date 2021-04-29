@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { routes } from "../routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
@@ -31,6 +33,13 @@ export const events = {
         appState.global.tsdApp.activeAction.name
       );
 
+      /**
+       *
+       * @param {String} endPoint
+       * @param {String} httpMethod
+       * @param {Object} body
+       * @param {Object} routeToRedirect
+       */
       const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
         const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
           method: httpMethod,
@@ -57,7 +66,7 @@ export const events = {
                 },
               },
             });
-            setLayoutConfig(routeToRedirect);
+            setLayoutConfig(routeToRedirect, "copy");
           });
       };
 
@@ -221,7 +230,7 @@ export const events = {
             },
           },
         });
-        setLayoutConfig(routes["search"]);
+        setLayoutConfig(routes["search"], "copy");
         // fetchApi(
         //   appState.global.tsdApp.activeAction.endPoint,
         //   appState.global.tsdApp.activeAction.httpMethod,
@@ -233,6 +242,10 @@ export const events = {
         // setLayoutConfig(routes["userChildLayout"]);
       }
     },
+
+    // onSuccess: (setLayoutConfig, setAppState, appState, args) => {
+    //   console.log("args.params.values : : : : :", args);
+    // },
   },
   "editComponent-form": {
     // form data mutator
@@ -363,6 +376,132 @@ export const events = {
       setLayoutConfig(routes["routeThree"]);
     },
   },
+  "billToAddressDetailViewComponent-edit-btn": {
+    // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
+    onPress: (setLayoutConfig, setAppState, appState, args) => {
+      console.log("From billToAddressDetailViewComponent ::: ", args);
+    },
+  },
+  "listComponent-show-btn-one": {
+    // TODO: Configuration won't work as it need `d` as data for the specific row
+    onPress: (setLayoutConfig, setAppState, appState) => {
+      // console.log("i ==> ", i);
+      // console.log("d ==> ", d);
+      const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          // TODO : Conditional for default state undefined
+          tabName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeTab != undefined
+                ? appState.global.tsdApp.activeTab.name
+                : "Create Order"
+              : "Create Order",
+          moduleName:
+            appState.global != undefined
+              ? appState.global.tsdApp.activeModule != undefined
+                ? appState.global.tsdApp.activeModule.name
+                : "Service Orders"
+              : "Service Orders",
+          actionName: "View",
+        }),
+      })
+        .then((res) => res.json())
+        .then((_data) => {
+          console.log("_Data in searchList ::::::", _data);
+          // get data from view action
+          const res1 = fetch(
+            `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+              /{[^}]*}/,
+              ""
+            )}/${
+              d[
+                _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .uriParams
+              ]
+            }`,
+            {
+              method:
+                _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .httpMethod,
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                languageKey: 1,
+              },
+              // body: JSON.stringify(args.params.values),
+            }
+          )
+            .then((res1) => res1.json())
+            .then((data) => {
+              // console.log(
+              //   "GET API IN SEARCH : ::::",
+              //   data
+              // );
+              return data;
+            })
+            .then((finalData) => {
+              console.log("appState in Search List :::", appState);
+
+              setAppState({
+                global: {
+                  tsdApp: {
+                    viewComponent: {
+                      [appState.global.tsdApp.activeTab.name]: finalData,
+                    },
+                  },
+                },
+              });
+            })
+            .then(() => {
+              console.log("APPSTATE IN LIST VIEW : :::: ", appState);
+              // props.setLayoutConfig(
+              //   routes.detail,
+              //   "copy"
+              // );
+              // TODO : REMOVE HARDCODING
+              if (
+                appState.global.tsdApp.activeModule.key === 23751 ||
+                appState.global.tsdApp.activeModule.key === 156051
+              ) {
+                setLayoutConfig(routes.orderDetail, "copy");
+              } else {
+                setLayoutConfig(routes.detail, "copy");
+              }
+            });
+          // console.log("GET API IN SEARCH :::: ", res1);
+        });
+      // props.setAppState({
+      //   global: {
+      //     tsdApp: {
+      //       listComponent: {
+      //         selectedRowKey: d,
+      //       },
+      //     },
+      //   },
+      // });
+      // TODO :Search List component is missing open ticket
+      // console.log(
+      //   "appState in searchListComponent ",
+      //   props.appState
+      // );
+    },
+  },
+
+  // "helloWorld-btn-one": {
+  //   onPress: (setLayoutConfig, setAppState, appState) => {
+  //     setAppState({
+  //       hello: 78,
+  //     });
+  //     console.log("Hello from Default component", appState);
+  //   },
+  // },
 };
 
 // *************************************************
@@ -370,7 +509,7 @@ export const events = {
 // *************************************************
 // bind events based on the layout config
 export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
-  // console.log(`elId is ${elId}`);
+  console.log(`elId is ${elId}`);
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {

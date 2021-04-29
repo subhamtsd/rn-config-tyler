@@ -18,6 +18,7 @@ import { routes } from "./configs/routes/routesConfig";
 
 // TSD COMPONENT
 import { NavigationBar } from "./components/NavigationBar/index";
+// import { NavigationBar } from "../../components/NavigationBar/index";
 import { HeaderBar } from "./components/HeaderBar";
 import { TabComponent } from "./components/TabComponent";
 import { ActionComponent } from "./components/ActionComponent/index";
@@ -27,6 +28,12 @@ import { ListComponent } from "./components/ListComponent";
 import { DetailListComponent } from "./components/DetailListComponent";
 import { EditComponent } from "./components/EditComponent/index";
 import { ListJsonFormComponent } from "../../components/ListJsonFormComponent";
+import { LoginComponent } from "./components/LoginComponent";
+import { BillToAddressDetailViewComponent } from "./components/domainSpecific/BillToAddressDetailViewComponent";
+import { OrderLineAddressDetailViewComponent } from "./components/domainSpecific/OrderLineAddressDetailViewComponent";
+import { OrderLineDetailViewComponent } from "./components/domainSpecific/OrderLineDetailViewComponent";
+import { OrderLineListViewComponent } from "./components/domainSpecific/OrderLineListViewComponent";
+import { ShowQRCodeComponent } from "./components/ShowQRCodeComponent";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../components/AddEditEntity";
@@ -49,6 +56,12 @@ export const componentsSet = {
   DetailListComponent,
   EditComponent,
   ListJsonFormComponent,
+  LoginComponent,
+  BillToAddressDetailViewComponent,
+  OrderLineAddressDetailViewComponent,
+  OrderLineDetailViewComponent,
+  OrderLineListViewComponent,
+  ShowQRCodeComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
@@ -103,26 +116,108 @@ export const getComponents = () => {
 // *************************************************
 //  Layout config
 // *************************************************
+
+// export const appConfig = {
+//   /// 1st layout
+//   componentsSet,
+//   layout: {
+//     // row no
+//     "1.container": {
+//       Header: {
+//         // col no
+//         colSize: 1,
+//         idx: "HeaderBar",
+//         label: "headerBar",
+//         colStyle: { borderWidth: 0, height: "10vh" },
+//       },
+//     },
+//     "2.container": {
+//       "2.1.leftNavCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 2,
+//             colStyle: { borderColor: "cyan", borderWidth: 0 },
+//           },
+//           "2.1.leftNavBodyRow": {
+//             leftNavBody1: {
+//               // col no
+//               colSize: 1,
+//               idx: "NavigationBar",
+//               label: "navigationBar",
+//               colStyle: { borderColor: "red", borderWidth: 0, height: "98vh" },
+//             },
+//           },
+//           "112leftNavBodyRow": {
+//             leftNavBody2: {
+//               // col no
+//               idx: "DefaultScreen",
+//               colSize: 1,
+//               label: "leftNavBody",
+//               colStyle: { height: "1vh", backgroundColor: "blue" },
+//             },
+//           },
+//           "113leftNavBodyRow": {
+//             leftNavBody3: {
+//               // col no
+//               idx: "DefaultScreen",
+//               colSize: 1,
+//               label: "leftNavBody",
+//               colStyle: { height: "1vh", backgroundColor: "red" },
+//             },
+//           },
+//         },
+//       },
+//       "2.2.bodyCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 11,
+//             colStyle: { borderColor: "cyan", borderWidth: 0 },
+//           },
+//           "2.2.1.bodyHeaderRow": {
+//             bodyHeader: {
+//               // col no
+//               colSize: 1,
+//               idx: "ActionComponent",
+//               label: "actionComponent",
+//               colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+//             },
+//           },
+//           "2.2.2.bodyTabRow": {
+//             bodyContent: {
+//               // col no
+//               idx: "TabComponent",
+//               colSize: 1,
+//               label: "tabComponent",
+//               colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+//             },
+//           },
+//           "2.2.3.bodyContentRow": {
+//             "2.2.3.1.bodyContent": {
+//               // col no
+//               idx: "JsonFormComponent",
+//               colSize: 2,
+//               label: "bodyHeader",
+//               colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+//             },
+//             "2.2.3.1.bodyContent2": {
+//               // col no
+//               idx: "DefaultScreen",
+//               colSize: 4,
+//               label: "helloWorld",
+//               colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
+
+
+// SAGAR's config
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-    "/contact": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Messages",
-    },
-  },
   layout: {
     colConfig: {
       colSize: 1,
@@ -151,7 +246,30 @@ export const appConfig = {
             leftNavBody: {
               idx: "NavigationBar",
               label: "navigationBar",
-              colStyle: { borderWidth: 0, height: "100vh" },
+              colStyle: { borderWidth: 1, height: "98vh" },
+              // colStyle: { borderWidth:1, height: "100vh" },
+            },
+          },
+          "2.2.leftNavBodyRow": {
+            leftNavBody2: {
+              idx: "DefaultScreen",
+              // label: "1",
+              colStyle: {
+                backgroundColor: "skyblue",
+                borderWidth: 1,
+                height: "1vh",
+              },
+            },
+          },
+          "2.3.leftNavBodyRow": {
+            leftNavBody3: {
+              idx: "DefaultScreen",
+              // label: "2",
+              colStyle: {
+                backgroundColor: "skyblue",
+                borderWidth: 1,
+                height: "1vh",
+              },
             },
           },
         },
@@ -162,30 +280,30 @@ export const appConfig = {
             colSize: 10,
           },
           "2.2.1.BodyRow": {
-            actionView: {
+            bodyHeader: {
               idx: "ActionComponent",
               label: "actionComponent",
               colStyle: { borderWidth: 1, height: "10vh" },
             },
           },
           "2.2.2.BodyRow": {
-            tabView: {
+            bodyContent: {
               idx: "TabComponent",
               label: "tabComponent",
               colStyle: { borderWidth: 1, height: "10vh" },
             },
           },
           "2.2.3.BodyRow": {
-            jsonFormComponent: {
+            "2.2.3.1.bodyContent": {
               colSize: 2,
               idx: "JsonFormComponent",
               label: "bodyHeader",
               colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
             },
-            emptyComponent: {
-              colSize: 4,
+            "2.2.3.1.bodyContent2": {
+              colSize: 1,
               idx: "DefaultScreen",
-              label: "DefaultScreenComponent",
+              label: "helloWorld",
               colStyle: { borderWidth: 1 },
             },
           },
@@ -195,9 +313,239 @@ export const appConfig = {
   },
 };
 
+// export const appConfig = {
+//   /// 1st layout
+//   componentsSet,
+//   links: {
+//     "/": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Home",
+//     },
+//     "/about": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Feed",
+//     },
+//     "/contact": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Messages",
+//     },
+//   },
+//   layout: {
+//     "1.container": {
+//       rowConfig: {
+//         rowSize: 1,
+//       },
+//       // col
+//       Header: {
+//         colSize: 12,
+//         idx: "HeaderBar",
+//         label: "headerBar",
+//       },
+//     },
+//     "2.container": {
+//       rowConfig: {
+//         rowSize: 1,
+//       },
+//       "2.1.leftNavCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 2,
+//           },
+//           "2.1.leftNavBodyRow": {
+//             leftNavBody: {
+//               colSize: 2,
+//               idx: "NavigationBar",
+//               label: "navigationBar",
+//               colStyle: {
+//                 borderWidth: 0,
+//                 height: "110vh",
+//               },
+//             },
+//           },
+//           "2.2.leftNavBodyRow": {
+//             leftNavBody: {
+//               colSize: 2,
+//               idx: "DefaultScreen",
+//               label: "defaultScreen",
+//               colStyle: {
+//                 borderWidth: 1,
+//                 height: "2vh",
+//                 // display: "none",
+//               },
+//             },
+//           },
+//           "2.3.leftNavBodyRow": {
+//             leftNavBody: {
+//               colSize: 2,
+//               idx: "DefaultScreen",
+//               label: "defaultScreen",
+//               colStyle: {
+//                 borderWidth: 1,
+//                 height: "2vh",
+//                 // display: "none",
+//               },
+//             },
+//           },
+//         },
+//       },
+//       "2.2.bodyCol": {
+//         // rowConfig: {
+//         //   rowSize: 12,
+//         // },
+//         layout: {
+//           colConfig: {
+//             colSize: 12,
+//           },
+//           "2.2.1.bodyHeaderRow": {
+//             bodyHeader: {
+//               colSize: 12,
+//               idx: "ActionComponent",
+//               label: "actionComponent",
+//               colStyle: {
+//                 borderColor: "blue",
+//                 borderWidth: 2,
+//                 height: "10vh",
+//               },
+//             },
+//           },
+//           "2.2.2.bodyTabRow": {
+//             bodyContent: {
+//               colSize: 10,
+//               idx: "TabComponent",
+//               label: "tabComponent",
+//               colStyle: {
+//                 borderColor: "red",
+//                 borderWidth: 2,
+//                 height: "10vh",
+//               },
+//             },
+//           },
+//           "2.2.3.bodyContentRow": {
+//             "2.2.3.1.bodyContent": {
+//               idx: "JsonFormComponent",
+//               colSize: 2,
+//               label: "bodyHeader",
+//               colStyle: {
+//                 borderColor: "blue",
+//                 // borderWidth: 2,
+//                 height: "50vh",
+//               },
+//             },
+//             "2.2.3.1.bodyContent2": {
+//               idx: "DefaultScreen",
+//               colSize: 4,
+//               label: "helloWorld",
+//               colStyle: {
+//                 // display: "flex",
+//                 borderColor: "blue",
+//                 height: "70vh",
+//               },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
+
+// export const appConfig = {
+//   /// 1st layout
+//   componentsSet,
+//   links: {
+//     "/": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Home",
+//     },
+//     "/about": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Feed",
+//     },
+//     "/contact": {
+//       style: styles.navItem,
+//       linkStyle: styles.tabName,
+//       linkText: "Messages",
+//     },
+//   },
+//   layout: {
+//     colConfig: {
+//       colSize: 1,
+//     },
+//     "1.container": {
+//       "1.1.leftNavCol": {
+//         layout: {
+//           "1.1.leftNavBodyRow": {
+//             Header: {
+//               colSize: 1,
+//               idx: "HeaderBar",
+//               label: "headerBar",
+//               colStyle: { borderWidth: 1, height: "10vh" },
+//             },
+//           },
+//         },
+//       },
+//     },
+//     "2.container": {
+//       "2.1.leftNavCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 2,
+//           },
+//           "2.1.leftNavBodyRow": {
+//             leftNavBody: {
+//               idx: "NavigationBar",
+//               label: "navigationBar",
+//               colStyle: { borderWidth: 0, height: "100vh" },
+//             },
+//           },
+//         },
+//       },
+//       "2.2.bodyCol": {
+//         layout: {
+//           colConfig: {
+//             colSize: 10,
+//           },
+//           "2.2.1.BodyRow": {
+//             actionView: {
+//               idx: "ActionComponent",
+//               label: "actionComponent",
+//               colStyle: { borderWidth: 1, height: "10vh" },
+//             },
+//           },
+//           "2.2.2.BodyRow": {
+//             tabView: {
+//               idx: "TabComponent",
+//               label: "tabComponent",
+//               colStyle: { borderWidth: 1, height: "10vh" },
+//             },
+//           },
+//           "2.2.3.BodyRow": {
+//             jsonFormComponent: {
+//               colSize: 2,
+//               idx: "JsonFormComponent",
+//               label: "bodyHeader",
+//               colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+//             },
+//             emptyComponent: {
+//               colSize: 4,
+//               idx: "DefaultScreen",
+//               label: "DefaultScreenComponent",
+//               colStyle: { borderWidth: 1 },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
+
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
-  $appInit: (setLayoutConfig, setAppState) => { },
+  $appInit: (setLayoutConfig, setAppState) => {},
 
   // the below logic to be run in component load phase for each mounting like componentDidMount
   "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {
@@ -309,7 +657,7 @@ export const events = {
       console.log(
         "Hello world : : : :",
         appState.global.tsdApp.viewComponent[
-        appState.global.tsdApp.activeTab.name
+          appState.global.tsdApp.activeTab.name
         ][keyName],
         "\n name of the key ::::",
         keyName,
@@ -317,10 +665,12 @@ export const events = {
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `http://localhost:8080/transaction-web/${appState.global.tsdApp.editComponent.action.endPoint
-        }/${appState.global.tsdApp.viewComponent[
-        appState.global.tsdApp.activeTab.name
-        ][keyName]
+        `http://localhost:8080/transaction-web/${
+          appState.global.tsdApp.editComponent.action.endPoint
+        }/${
+          appState.global.tsdApp.viewComponent[
+            appState.global.tsdApp.activeTab.name
+          ][keyName]
         }`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
@@ -439,11 +789,11 @@ export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
           events[elId][eventName] &&
           events[elId][eventName]
           ? events[elId][eventName](
-            setLayoutConfig,
-            setAppState,
-            appState,
-            args
-          )
+              setLayoutConfig,
+              setAppState,
+              appState,
+              args
+            )
           : {};
       };
     });

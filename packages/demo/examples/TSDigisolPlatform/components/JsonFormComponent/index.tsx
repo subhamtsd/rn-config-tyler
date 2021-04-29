@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
 import useSafeSetState from "../../helper/useSafeState";
 import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
@@ -40,6 +40,8 @@ export const JsonFormComponent = (props: {
     appState?.global?.tsdApp?.activeTab?.name || "CreateOrder";
   const _formData =
     appState?.global?.tsdApp?.createComponent[activeTabName] || {};
+
+  const [loading, setloading] = useState(true);
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -144,6 +146,7 @@ export const JsonFormComponent = (props: {
 
   useEffect(() => {
     const fetchData = async () => {
+      setloading(true);
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
         method: "POST",
         headers: {
@@ -198,11 +201,21 @@ export const JsonFormComponent = (props: {
             console.log("objectName : : : : ", objectName);
             setformLayout(formLayout[objectName]);
             setUISchema(formLayout[objectName]);
+            // setloading(false);
           });
       }
     };
     fetchData();
+    // setloading(false);
   }, []);
+
+  // if (loading) {
+  //   return (
+  //     <View style={componentGridStyle}>
+  //      <ActivityIndicator />
+  //     </View>
+  //   );
+  // }
 
   if (formLayout === initialFormSchema) {
     return (

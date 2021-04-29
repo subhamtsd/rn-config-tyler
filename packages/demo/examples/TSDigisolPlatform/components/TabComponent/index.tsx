@@ -123,10 +123,17 @@ export const TabComponent = (props: {
                           response: [],
                         },
                       },
+                      ShowQRCodeComponent: {
+                        isQrcodeVisible: false,
+                        // TODO: Add Some Dummy Image here
+                        qrcodeImage: "qr_code_PNG24.png",
+                        // TODO: Reset of message for any tab
+                        message: "",
+                      },
                     },
                   },
                 });
-                setLayoutConfig(appConfig);
+                setLayoutConfig(routes["defaultAppConfig"], "copy");
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}
               // TODO : Title of button should come from API

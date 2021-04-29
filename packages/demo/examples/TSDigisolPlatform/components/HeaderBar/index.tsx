@@ -2,8 +2,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { getInitEvents } from "../../configs/events/eventConfig";
 // import { useSelector, useDispatch } from "react-redux";
@@ -80,7 +87,11 @@ export const HeaderBar = (props: {
       <Row>
         <Col>
           <View style={HeaderStyles.logoViewStyle}>
-            <Text style={HeaderStyles.logoTextStyle}>TSD LOGO</Text>
+            {/* <Text style={HeaderStyles.logoTextStyle}>TSD LOGO</Text> */}
+            <Image
+              source={require("../../../../../../assets/images/tsdLogo.png")}
+              style={HeaderStyles.logoTextStyle}
+            />
           </View>
         </Col>
         <Col>
@@ -91,9 +102,23 @@ export const HeaderBar = (props: {
         <Col>
           <View style={HeaderStyles.logoutViewStyle}>
             {/* <Text style={HeaderStyles.logoutTextStyle}>Logout</Text> */}
-            <Button
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderRadius: 2,
+                borderColor: "grey",
+                width: 55,
+                height: 55,
+                alignItems: "center",
+                // paddingRight: 10,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.5,
+                shadowRadius: 2,
+                elevation: 5,
+              }}
               testID={`${label}-btn-one`}
-              title="Update Default State"
+              // TODO: Remove this hardcoding
               onPress={() => {
                 setAppState({
                   global: {
@@ -125,7 +150,16 @@ export const HeaderBar = (props: {
                 });
               }}
               {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
-            ></Button>
+            >
+              {/* <Text>Default State</Text> */}
+              <Image
+                source={require("../../../../../../assets/images/icons8-update-file-96.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </Col>
       </Row>
@@ -148,10 +182,12 @@ const HeaderStyles = StyleSheet.create({
     margin: 1,
   },
   logoTextStyle: {
-    marginLeft: 150,
-    marginRight: 100,
-    marginTop: 10,
-    marginBottom: 26,
+    marginLeft: 30,
+    marginTop: 5,
+    // marginBottom: 10,
+    width: 150,
+    height: 50,
+    // borderWidth: 1,
   },
   userNameViewStyle: {
     // borderWidth: 1,
@@ -165,7 +201,10 @@ const HeaderStyles = StyleSheet.create({
   },
   logoutViewStyle: {
     // borderWidth: 1,
-    margin: 1,
+    marginTop: 5,
+    marginBottom: 5,
+    marginRight: 50,
+    alignItems: "flex-end",
   },
   logoutTextStyle: {
     marginLeft: 150,

@@ -36,12 +36,12 @@ export const NavigationBar = (props: {
     getEvents,
   } = props;
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [listDataSource, setListDataSource] = useState([]);
   const [multiSelect, setMultiSelect] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
 
     /**
      * @DOC : SCHEMA API to fetch buisness Function Data

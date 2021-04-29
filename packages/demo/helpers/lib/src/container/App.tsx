@@ -195,7 +195,7 @@ export const App = (props: AppProps) => {
     );
   };
 
-  // console.log(layoutConfig);
+  console.log("LAYOUT CONFIG ACTIVE :::: ", config);
   if (
     !config?.layout ||
     !(componentsSet && Object.keys(componentsSet).length > 0)

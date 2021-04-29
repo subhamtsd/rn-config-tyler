@@ -55,8 +55,10 @@ export const getEnum = async (dropdownURL: any, method: any) => {
 };
 
 export const prepareSchema = async (schemaList: any) => {
+  console.log("SchemaLIST in prepareSchema ::: ", schemaList);
+
   const transformProperties = async (schema: { properties: any }) => {
-    console.log("schema : : : ", schema);
+    console.log("schema Hello ONE: : : ", schema);
 
     for (const field in schema.properties) {
       if (schema.properties[field].type === "object") {
@@ -107,4 +109,20 @@ export const prepareSchema = async (schemaList: any) => {
   console.log("schemmaList : : :: : ", schemaList);
 
   return schemaList;
+};
+
+// TODO: Move the data to Helper File
+export const parseFormData = (data) => {
+  Object.keys(data).map((key, index) => {
+    if (data[key] === "true") {
+      data[key] = true;
+    } else if (data[key] === "false") {
+      data[key] = false;
+    }
+    // if (key === "languageKey") {
+    //   data["languageKey"] = 1;
+    // }
+  });
+  console.log("data after formating :::::: ", data);
+  return data;
 };
