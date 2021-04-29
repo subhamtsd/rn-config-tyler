@@ -301,7 +301,7 @@ export const appConfig = {
               colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
             },
             "2.2.3.1.bodyContent2": {
-              colSize: 1,
+              colSize: 4,
               idx: "DefaultScreen",
               label: "helloWorld",
               colStyle: { borderWidth: 1 },

@@ -372,14 +372,21 @@ routes.orderDetail = {
 };
 
 routes.defaultAppConfig = {
-  // row no
+  colConfig: {
+    colSize: 1,
+  },
   "1.container": {
-    Header: {
-      // col no
-      colSize: 1,
-      idx: "HeaderBar",
-      label: "headerBar",
-      colStyle: { borderWidth: 0, height: "10vh" },
+    "1.1.leftNavCol": {
+      layout: {
+        "1.1.leftNavBodyRow": {
+          Header: {
+            colSize: 1,
+            idx: "HeaderBar",
+            label: "headerBar",
+            colStyle: { borderWidth: 1, height: "10vh" },
+          },
+        },
+      },
     },
   },
   "2.container": {
@@ -387,33 +394,35 @@ routes.defaultAppConfig = {
       layout: {
         colConfig: {
           colSize: 2,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
         },
         "2.1.leftNavBodyRow": {
-          leftNavBody1: {
-            // col no
-            colSize: 1,
+          leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "98vh" },
+            colStyle: { borderWidth: 1, height: "98vh" },
+            // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
-        "112leftNavBodyRow": {
+        "2.2.leftNavBodyRow": {
           leftNavBody2: {
-            // col no
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "blue" },
+            // label: "1",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
-        "113leftNavBodyRow": {
+        "2.3.leftNavBodyRow": {
           leftNavBody3: {
-            // col no
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "red" },
+            // label: "2",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
       },
@@ -421,41 +430,34 @@ routes.defaultAppConfig = {
     "2.2.bodyCol": {
       layout: {
         colConfig: {
-          colSize: 11,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
+          colSize: 10,
         },
-        "2.2.1.bodyHeaderRow": {
+        "2.2.1.BodyRow": {
           bodyHeader: {
-            // col no
-            colSize: 1,
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.2.bodyTabRow": {
+        "2.2.2.BodyRow": {
           bodyContent: {
-            // col no
             idx: "TabComponent",
-            colSize: 1,
             label: "tabComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.3.bodyContentRow": {
+        "2.2.3.BodyRow": {
           "2.2.3.1.bodyContent": {
-            // col no
-            idx: "JsonFormComponent",
             colSize: 2,
+            idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
           },
           "2.2.3.1.bodyContent2": {
-            // col no
-            idx: "DefaultScreen",
             colSize: 4,
+            idx: "DefaultScreen",
             label: "helloWorld",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1 },
           },
         },
       },
@@ -464,14 +466,21 @@ routes.defaultAppConfig = {
 };
 
 routes.search = {
-  // row no
+  colConfig: {
+    colSize: 1,
+  },
   "1.container": {
-    Header: {
-      // col no
-      colSize: 1,
-      idx: "HeaderBar",
-      label: "headerBar",
-      colStyle: { borderWidth: 0, height: "10vh" },
+    "1.1.leftNavCol": {
+      layout: {
+        "1.1.leftNavBodyRow": {
+          Header: {
+            colSize: 1,
+            idx: "HeaderBar",
+            label: "headerBar",
+            colStyle: { borderWidth: 1, height: "10vh" },
+          },
+        },
+      },
     },
   },
   "2.container": {
@@ -479,33 +488,35 @@ routes.search = {
       layout: {
         colConfig: {
           colSize: 2,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
         },
         "2.1.leftNavBodyRow": {
           leftNavBody: {
-            // col no
-            colSize: 1,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderColor: "red", borderWidth: 2, height: "88vh" },
+            colStyle: { borderWidth: 1, height: "98vh" },
+            // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
-        "112leftNavBodyRow": {
-          leftNavBody: {
-            // col no
+        "2.2.leftNavBodyRow": {
+          leftNavBody2: {
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "blue" },
+            // label: "1",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
-        "113leftNavBodyRow": {
-          leftNavBody: {
-            // col no
+        "2.3.leftNavBodyRow": {
+          leftNavBody3: {
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "red" },
+            // label: "2",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
       },
@@ -513,41 +524,34 @@ routes.search = {
     "2.2.bodyCol": {
       layout: {
         colConfig: {
-          colSize: 11,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
+          colSize: 10,
         },
-        "2.2.1.bodyHeaderRow": {
+        "2.2.1.BodyRow": {
           bodyHeader: {
-            // col no
-            colSize: 1,
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.2.bodyTabRow": {
+        "2.2.2.BodyRow": {
           bodyContent: {
-            // col no
             idx: "TabComponent",
-            colSize: 1,
             label: "tabComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.3.bodyContentRow": {
+        "2.2.3.BodyRow": {
           "2.2.3.1.bodyContent": {
-            // col no
-            idx: "JsonFormComponent",
             colSize: 2,
+            idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
           },
           "2.2.3.1.bodyContent2": {
-            // col no
-            idx: "ListComponent",
             colSize: 4,
+            idx: "ListComponent",
             label: "listComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1 },
           },
         },
       },
@@ -556,14 +560,21 @@ routes.search = {
 };
 
 routes.detail = {
-  // row no
+  colConfig: {
+    colSize: 1,
+  },
   "1.container": {
-    Header: {
-      // col no
-      colSize: 1,
-      idx: "HeaderBar",
-      label: "headerBar",
-      colStyle: { borderWidth: 0, height: "10vh" },
+    "1.1.leftNavCol": {
+      layout: {
+        "1.1.leftNavBodyRow": {
+          Header: {
+            colSize: 1,
+            idx: "HeaderBar",
+            label: "headerBar",
+            colStyle: { borderWidth: 1, height: "10vh" },
+          },
+        },
+      },
     },
   },
   "2.container": {
@@ -571,33 +582,35 @@ routes.detail = {
       layout: {
         colConfig: {
           colSize: 2,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
         },
         "2.1.leftNavBodyRow": {
           leftNavBody: {
-            // col no
-            colSize: 1,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "88vh" },
+            colStyle: { borderWidth: 1, height: "98vh" },
+            // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
-        "112leftNavBodyRow": {
-          leftNavBody: {
-            // col no
+        "2.2.leftNavBodyRow": {
+          leftNavBody2: {
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "blue" },
+            // label: "1",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
-        "113leftNavBodyRow": {
-          leftNavBody: {
-            // col no
+        "2.3.leftNavBodyRow": {
+          leftNavBody3: {
             idx: "DefaultScreen",
-            colSize: 1,
-            label: "leftNavBody",
-            colStyle: { height: "1vh", backgroundColor: "red" },
+            // label: "2",
+            colStyle: {
+              backgroundColor: "skyblue",
+              borderWidth: 1,
+              height: "1vh",
+            },
           },
         },
       },
@@ -605,41 +618,34 @@ routes.detail = {
     "2.2.bodyCol": {
       layout: {
         colConfig: {
-          colSize: 11,
-          colStyle: { borderColor: "cyan", borderWidth: 0 },
+          colSize: 10,
         },
-        "2.2.1.bodyHeaderRow": {
+        "2.2.1.BodyRow": {
           bodyHeader: {
-            // col no
-            colSize: 1,
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.2.bodyTabRow": {
+        "2.2.2.BodyRow": {
           bodyContent: {
-            // col no
             idx: "TabComponent",
-            colSize: 1,
             label: "tabComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "10vh" },
+            colStyle: { borderWidth: 1, height: "10vh" },
           },
         },
-        "2.2.3.bodyContentRow": {
+        "2.2.3.BodyRow": {
           "2.2.3.1.bodyContent": {
-            // col no
-            idx: "DetailListComponent",
             colSize: 2,
+            idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
           },
           "2.2.3.1.bodyContent2": {
-            // col no
-            idx: "ShowQRCodeComponent",
             colSize: 2,
+            idx: "ShowQRCodeComponent",
             label: "showQRCodeComponent",
-            colStyle: { borderColor: "red", borderWidth: 0, height: "80vh" },
+            colStyle: { borderWidth: 1 },
           },
         },
       },
