@@ -1,4 +1,3 @@
-
 import React, { createElement, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
@@ -6,6 +5,7 @@ import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
 import { setAppState as sa, setLayoutConfig as sl } from "./helpers";
+
 // All component which will be rendered
 
 // ******************************************************************** //
@@ -26,6 +26,14 @@ export const App = (props: AppProps) => {
     props: {},
     $global: {},
   });
+
+  let tailwind = (s) => {
+    return {};
+  };
+  if (props?.config?.tw) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    tailwind = require("tailwind-rn");
+  }
 
   // logic to update layout config (which is stored in config state var)
   const setLayoutConfig = (_config, format = "none") => {
@@ -48,6 +56,7 @@ export const App = (props: AppProps) => {
       appState,
       setAppState,
       setLayoutConfig,
+      colClass,
     } = colProps;
     console.log(`label is ${label}`);
     const colSection = createElement(
@@ -60,6 +69,7 @@ export const App = (props: AppProps) => {
       {
         ...passProps,
         appState,
+        colClass,
         routes,
         key,
         setAppState,
@@ -74,12 +84,12 @@ export const App = (props: AppProps) => {
     return colSection;
   };
   const linksSection = Object.keys(config?.links || {}).map((path, id) => {
-    const { containerStyle, linkText, linkStyle } = config?.links[path];
+    const { containerStyle, linkText, linkStyle, colClass } = config?.links[path];
     return (
       <Col
         to={path}
         underlayColor="#f0f4f7"
-        style={containerStyle}
+        style={{ ...containerStyle, ...tailwind(colClass) }}
         key={`${id}-${path}`}
       >
         <Text style={linkStyle}>{linkText}</Text>
@@ -101,9 +111,15 @@ export const App = (props: AppProps) => {
           if (cId === "rowConfig") {
             return null;
           } else if (cols[cId].idx) {
-            const { idx, label, colSize, props, children, colStyle } = cols[
-              cId
-            ];
+            const {
+              idx,
+              label,
+              colSize,
+              props,
+              children,
+              colStyle,
+              colClass,
+            } = cols[cId];
 
             const passProps = {
               ...props,
@@ -112,21 +128,22 @@ export const App = (props: AppProps) => {
               label,
               children,
               colSize,
-              colStyle,
+              colClass,
+              colStyle: { ...colStyle, ...colClass },
               appState,
               setAppState,
               setLayoutConfig,
               getEvents,
             };
 
-            // console.log(`colSize is ${colSize}`);
+            console.log(`colClass is `, colClass);
             return (
               <Col
                 size={colSize}
-                style={{ ...colStyle }}
+                style={{ ...colStyle, ...tailwind(colClass) }}
                 key={`${rId}-${colNo}`}
               >
-                <UXColumn {...passProps} />
+                <UXColumn colClass={colClass} {...passProps} />
               </Col>
             );
           }
@@ -141,9 +158,12 @@ export const App = (props: AppProps) => {
                   ...(cols[cId].layout?.colConfig?.colStyle || {}),
                   borderWidth: 0,
                   borderColor: "blue",
+                  ...tailwind(cols[cId].layout?.colClass),
                 }}
               >
-                <Grid style={{}}>{UX(cols[cId].layout)}</Grid>
+                <Grid style={tailwind(cols[cId]?.colClass)}>
+                  {UX(cols[cId].layout)}
+                </Grid>
               </Col>
             );
           }
@@ -164,9 +184,10 @@ export const App = (props: AppProps) => {
                 // size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
                 style={{
-                  borderWidth: 6,
-                  borderColor: "gray",
+                  // borderWidth: 6,
+                  // borderColor: "gray",
                   ...rows[rId]?.rowConfig?.rowStyle,
+                  ...tailwind(rows[rId]?.colClass),
                 }}
               >
                 {colsSection(rId, rows[rId])}
@@ -189,6 +210,7 @@ export const App = (props: AppProps) => {
         size={layoutConfig?.colConfig?.colSize || 1}
         style={{
           ...layoutConfig?.colConfig?.colStyle,
+          ...tailwind(layoutConfig?.colClass),
         }}
       >
         {gridSection(layoutConfig, setLayoutConfig)}

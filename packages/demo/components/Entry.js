@@ -63,6 +63,7 @@ function load(selectedValue) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { render } = require("react-dom");
 
 export default Entry;
