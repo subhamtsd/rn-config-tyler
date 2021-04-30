@@ -1,31 +1,22 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { About } from "../../components/About";
+import { ActionComp } from "../../components/ActionComp";
+import { Comp5 } from "../../components/Comp5";
+import { Home } from "../../components/Home";
+import { RandomPic } from "../../components/RandomPic";
+import { rowStyle, styles } from "../common";
 
-const rowStyle = {};
-const styles = {};
-
-export const routes = {};
-
-const Home = ({ label }) => {
-  return (
-    <View>
-      <Text style={{}}>Home *** {label}</Text>
-    </View>
-  );
-};
-
-const About = ({ label }) => {
-  return (
-    <View>
-      <Text style={{}}>About *** {label}</Text>
-    </View>
-  );
-};
-
+// All component which will be rendered
 export const componentsSet = {
+  Comp5,
+  ActionComp,
   Home,
   About,
+  RandomPic,
 };
+
+export const routes = {};
 
 export const appConfig = {
   tw: true,
@@ -47,40 +38,35 @@ export const appConfig = {
       linkText: "Messages",
     },
   },
-  colClass: "bg-gray-700 border text-2xl h-150 w-100",
   layout: {
+    layoutConfig: {
+      layoutClass: "py-1 rounded bg-grey-light p-2 mr-3 ",
+    },
     // row no
     0: {
-      colClass: "h-150",
       // col no
       0: {
-        colClass: "p-1 h-144 w-80",
         layout: {
+          layoutConfig: {
+            layoutClass: "py-1 rounded bg-grey-light p-2 mr-3 ",
+            size: 10,
+          },
           0: {
-            colClass: "p-1 h-14 mb-14 w-80",
             0: {
               // col no
               idx: "Home",
               label: "left-nav",
-              colClass: "bg-red-500 border p-2 text-2xl h-14",
+              colClass: "bg-blue-500 border p-2 text-2xl",
+              size: 9,
             },
           },
           1: {
-            colClass: "p-1 h-84 mb-84",
             0: {
               // col no
               idx: "Home",
               label: "body",
-              colClass: "bg-red-300 border p-2 text-2xl h-84",
-            },
-          },
-          2: {
-            colClass: "p-1 h-14 mb-14",
-            0: {
-              // col no
-              idx: "About",
-              label: "footer-1",
-              colClass: "bg-red-400 border p-2 text-2xl h-14",
+              colClass: "bg-blue-300 border p-2 text-2xl",
+              size: 65,
             },
           },
         },
@@ -88,33 +74,113 @@ export const appConfig = {
 
       // col no
       1: {
-        colClass: "p-1 h-144 w-420",
         layout: {
-          0: {  
-            colClass: "p-1 h-14 mb-14 w-420",
+          layoutConfig: {
+            layoutClass: "py-1 bg-gray-light p-2 ",
+            size: 40,
+          },
+          0: {
             0: {
               // col no
-              idx: "Home",
-              label: "left-nav",
-              colClass: "bg-red-500 border p-2 text-2xl h-14",
+              layout: {
+                layoutConfig: {
+                  layoutClass: "py-1 bg-gray-light p-2 ",
+                  size: 15,
+                },
+                0: {
+                  0: {
+                    // col no
+                    idx: "Home",
+                    label: "left-nav",
+                    size: 2,
+                    colClass: "bg-blue-300 border p-2 text-2xl",
+                  },
+                },
+                1: {
+                  0: {
+                    // col no
+                    idx: "About",
+                    label: "left-nav",
+                    size: 10,
+                    colClass: "bg-blue-500 border p-2 text-2xl",
+                  },
+                  1: {
+                    // col no
+                    idx: "Home",
+                    label: "body",
+                    size: 60,
+                    colClass: "bg-gray-300 border p-2 text-2xl",
+                  },
+                },
+              },
             },
           },
           1: {
-            colClass: "p-1 h-84 mb-84",
             0: {
-              // col no
-              idx: "Home",
-              label: "body",
-              colClass: "bg-red-300 border p-2 text-2xl h-84",
+              layout: {
+                layoutConfig: {
+                  layoutClass: "py-1 bg-gray-light p-2 ",
+                  size: 15,
+                },
+                0: {
+                  0: {
+                    // col no
+                    idx: "Home",
+                    label: "body",
+                    size: 8,
+                    colClass: "bg-green-300 border p-2 text-2xl",
+                  },
+                  1: {
+                    // col no
+                    idx: "Home",
+                    label: "left-nav",
+                    size: 2,
+                    colClass: "bg-blue-500 border p-2 text-2xl",
+                  },
+                },
+                1: {
+                  0: {
+                    // col no
+                    idx: "Home",
+                    label: "left-nav",
+                    size: 35,
+                    colClass: "bg-brown-500 border p-2 text-2xl",
+                  },
+                },
+              },
             },
-          },
-          2: {
-            colClass: "p-1 h-14 mb-14",
-            0: {
-              // col no
-              idx: "About",
-              label: "footer-1",
-              colClass: "bg-red-400 border p-2 text-2xl h-14",
+            1: {
+              layout: {
+                layoutConfig: {
+                  layoutClass: "py-1 bg-gray-light p-2 ",
+                  size: 45,
+                },
+                0: {
+                  0: {
+                    // col no
+                    idx: "Home",
+                    label: "body",
+                    size: 8,
+                    colClass: "bg-green-300 border p-2 text-2xl",
+                  },
+                  1: {
+                    // col no
+                    idx: "Home",
+                    label: "left-nav",
+                    size: 2,
+                    colClass: "bg-pink-500 border p-2 text-2xl",
+                  },
+                },
+                1: {
+                  0: {
+                    // col no
+                    idx: "Home",
+                    label: "left-nav",
+                    size: 35,
+                    colClass: "bg-yellow-500 border p-2 text-2xl",
+                  },
+                },
+              },
             },
           },
         },

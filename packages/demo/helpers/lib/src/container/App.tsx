@@ -83,21 +83,6 @@ export const App = (props: AppProps) => {
     );
     return colSection;
   };
-  const linksSection = Object.keys(config?.links || {}).map((path, id) => {
-    const { containerStyle, linkText, linkStyle, colClass } = config?.links[path];
-    return (
-      <Col
-        to={path}
-        underlayColor="#f0f4f7"
-        style={{ ...containerStyle, ...tailwind(colClass) }}
-        key={`${id}-${path}`}
-      >
-        <Text style={linkStyle}>{linkText}</Text>
-      </Col>
-    );
-  });
-
-  const headerSection = <Col style={{ ...styles.nav }}>{linksSection}</Col>;
 
   //  overall routing engine
   const UX = (layoutConfig) => {
@@ -153,9 +138,8 @@ export const App = (props: AppProps) => {
             return (
               <Col
                 key={`${rId}-${colNo}`}
-                size={cols[cId].layout?.colConfig?.colSize || 1}
+                size={cols[cId].layout?.layoutConfig?.size}
                 style={{
-                  ...(cols[cId].layout?.colConfig?.colStyle || {}),
                   borderWidth: 0,
                   borderColor: "blue",
                   ...tailwind(cols[cId].layout?.colClass),
@@ -175,19 +159,19 @@ export const App = (props: AppProps) => {
       let gridJsx = [];
       if (rows && Object.keys(rows)) {
         gridJsx = Object.keys(rows).map((rId) => {
-          if (rId === "colConfig") {
+          if (rId === "layoutConfig") {
             return null;
           } else {
-            // console.log(rows[rId]?.rowConfig?.rowSize);
+            console.log(rows[rId]);
+
             return (
               <Row
-                // size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
+                size={rows[rId] && rows[rId][0]?.size}
                 style={{
-                  // borderWidth: 6,
-                  // borderColor: "gray",
-                  ...rows[rId]?.rowConfig?.rowStyle,
-                  ...tailwind(rows[rId]?.colClass),
+                  borderColor: "gray",
+                  ...rows[rId]?.colStyle,
+                  ...tailwind(rows?.layoutConfig?.layoutClass),
                 }}
               >
                 {colsSection(rId, rows[rId])}
@@ -207,9 +191,7 @@ export const App = (props: AppProps) => {
 
     return (
       <Col
-        size={layoutConfig?.colConfig?.colSize || 1}
         style={{
-          ...layoutConfig?.colConfig?.colStyle,
           ...tailwind(layoutConfig?.colClass),
         }}
       >
@@ -241,9 +223,6 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <TouchableOpacity>
-        <Row style={{ maxHeight: 35, marginTop: "0%" }}>{headerSection}</Row>
-      </TouchableOpacity>
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );
