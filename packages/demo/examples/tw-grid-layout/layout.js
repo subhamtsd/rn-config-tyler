@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { About } from "../../components/About";
 import { ActionComp } from "../../components/ActionComp";
 import { Comp5 } from "../../components/Comp5";
 import { Home } from "../../components/Home";
 import { RandomPic } from "../../components/RandomPic";
-import { rowStyle, styles } from "../common";
+import { styles } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {

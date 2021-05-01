@@ -4,7 +4,11 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
-import { setAppState as sa, setLayoutConfig as sl, setGlobalState as sg  } from "./helpers";
+import {
+  setAppState as sa,
+  setLayoutConfig as sl,
+  setGlobalState as sg,
+} from "./helpers";
 // All component which will be rendered
 
 // ******************************************************************** //
@@ -33,7 +37,6 @@ export const App = (props: AppProps) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     tailwind = require("tailwind-rn");
   }
-
 
   // logic to update layout config (which is stored in config state var)
   const setLayoutConfig = (_config, format = "none") => {
@@ -143,7 +146,10 @@ export const App = (props: AppProps) => {
             return (
               <Col
                 key={`${rId}-${colNo}`}
-                size={cols[cId].layout?.layoutConfig?.size}
+                size={
+                  cols[cId].layout?.layoutConfig?.size ||
+                  cols[cId]?.layout.colConfig?.colSize
+                }
                 style={{
                   borderWidth: 0,
                   borderColor: "blue",
