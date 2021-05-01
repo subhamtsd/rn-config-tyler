@@ -5,7 +5,10 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
 import { styles } from "../styles";
-import { setAppState as sa, setLayoutConfig as sl } from "./helpers";
+import { setAppState as sa,
+   setLayoutConfig as sl,
+  //  setGlobalState as sg 
+  } from "./helpers";
 // All component which will be rendered
 
 // ******************************************************************** //
@@ -27,15 +30,28 @@ export const App = (props: AppProps) => {
     $global: {},
   });
 
+  // //globalstate initialize
+  // const [globalState, _setGlobalState] = useState({
+  //   ui: {},
+  //   children: {},
+  //   props: {},
+  //   $global: {},
+  // });
+
   // logic to update layout config (which is stored in config state var)
   const setLayoutConfig = (_config, format = "none") => {
     sl(setConfig, config, _config, format);
   };
 
   // logic to update app state
-  const setAppState = (newAppState, isPartial = true) => {
-    sa(_setAppState, appState, newAppState, isPartial);
+  const setAppState = (newAppState, format = "none") => {
+    sa(_setAppState, appState, newAppState, format);
   };
+
+  // // logic to update global state
+  // const setGlobalState = (newAppState, format = "none") => {
+  //   sg(_setGlobalState, globalState, newAppState, format);
+  // };
 
   // pick from pre-loaded components and render properly, renders each component at column level
   const UXColumn = (colProps: UXColumnProps) => {
