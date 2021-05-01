@@ -153,6 +153,7 @@ export const App = (props: AppProps) => {
                 style={{
                   borderWidth: 0,
                   borderColor: "blue",
+                  ...cols[cId].layout?.colConfig?.colStyle,
                   ...tailwind(cols[cId].layout?.colClass),
                 }}
               >
@@ -203,6 +204,7 @@ export const App = (props: AppProps) => {
     return (
       <Col
         style={{
+          ...layoutConfig?.colConfig?.colStyle,
           ...tailwind(layoutConfig?.colClass),
         }}
       >
