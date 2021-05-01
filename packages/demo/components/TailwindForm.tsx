@@ -3,11 +3,15 @@ import { View, Text, TextInput, Button } from "react-native";
 
 import tailwind from "tailwind-rn";
 
-const TailwindForm = () => {
+const TailwindForm = (props) => {
   const [hasFocus, setHasFocus] = useState(false);
 
+
+  console.log(props);
+  
+
   return (
-    <View style={tailwind(" bg-white my-5 ")}>
+    <View style={tailwind("bg-white my-5 ")}>
       <View style={tailwind("pt-12 items-center")}>
         <View style={tailwind("bg-blue-200 px-3 py-1 rounded-full")}>
           <Text style={tailwind("text-blue-800 font-bold")}>
@@ -16,7 +20,7 @@ const TailwindForm = () => {
         </View>
       </View>
       <View style={tailwind("px-4 py-5 bg-white ")}>
-        <View style={tailwind(" flex-row mt-1 ")}>
+        <View style={tailwind("flex-row mt-1 ")}>
           <View style={tailwind("m-1 w-1/2")}>
             <TextInput
               onFocus={() => {

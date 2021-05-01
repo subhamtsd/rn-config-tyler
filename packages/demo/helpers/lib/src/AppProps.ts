@@ -28,4 +28,5 @@ export interface UXColumnProps {
   appState: JSON;
   setAppState: Function;
   setLayoutConfig: Function;
+  colClass: JSON;
 }

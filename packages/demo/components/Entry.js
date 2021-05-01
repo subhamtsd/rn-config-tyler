@@ -5,22 +5,23 @@ import { StyleSheet, Text, View } from "react-native";
 const Empty = () => <Text>Sorry type not match</Text>;
 const Entry = ({ modules }) => {
   const [selectedValue, setSelectedValue] = useState("");
+  const [demoDesc, setDemoDesc] = useState("");
   console.log(selectedValue);
 
   const pickerOptionsSection = Object.keys(modules).map((id) => {
-    // console.log(modules[id].id)
-    console.log(modules[id].desc)
-
     return <Picker.Item label={modules[id].id} value={modules[id].id} />;
   });
 
   return (
     <View style={styles.container}>
       <Text>Examples</Text>
+      <Text>{demoDesc}</Text>
       <Picker
         style={{ height: 20, width: 300 }}
         selectedValue={selectedValue}
         onValueChange={(selectedValue) => {
+
+          setDemoDesc(modules[selectedValue]?.desc || " A simple demo");
           setSelectedValue(selectedValue);
           render(
             load(selectedValue),
@@ -67,6 +68,7 @@ function load(selectedValue) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { render } = require("react-dom");
 
 export default Entry;
