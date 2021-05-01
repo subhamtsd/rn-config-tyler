@@ -452,16 +452,26 @@ export const events = {
     onPress: (setLayoutConfig, setAppState) => {
       setLayoutConfig(routes["routeThree"]);
       setAppState({
-        bodyFooter: {
-          ui: "ActionComp",
-          props: { label: "bodyFooter" },
-          children: <Text>Hello from RandomPic</Text>,
-        },
-        bodyContent: {
-          ui: "RandomPic",
-          props: { label: "actioncomp-2" },
-          children: null,
-        },
+        // bodyFooter: {
+        //   ui: "ActionComp",
+        //   props: { label: "bodyFooter" },
+        //   children: <Text>Hello from RandomPic</Text>,
+        // },
+        // bodyContent: {
+        //   ui: "RandomPic",
+        //   props: { label: "actioncomp-2" },
+        //   children: null,
+        // },
+        // "a": ["b", "c"] //1
+        // "a":"b" //2
+      //   "a": {
+      //     "b" :  "c"
+      // } //3
+    //   "a": {
+    //     "b" :  "c",
+    //     "e" :  "f"
+    // } //4
+
       });
     },
   },
@@ -486,20 +496,19 @@ export const events = {
   },
   "todoAppComponent1-btn-one": {
     // <event> :: <handler>
-    onPress: (setLayoutConfig, setAppState) => {
+    onPress: (setLayoutConfig, setAppState, appState) => {
       setLayoutConfig(routes["routeFour"]);
-      // setAppState({
-      //   bodyFooter: {
-      //     ui: "ActionComp",
-      //     props: { label: "bodyFooter" },
-      //     children: <Text>Hello from RandomPic</Text>,
-      //   },
-      //   bodyContent: {
-      //     ui: "RandomPic",
-      //     props: { label: "actioncomp-2" },
-      //     children: null,
-      //   },
-      // });
+      // onPress: (setLayoutConfig, setAppState,appState,task) => {
+      //   setLayoutConfig(routes["routeFour"]);
+      if (!task) {
+        return alert("Please add your task ...");
+      } else {
+        setAppState({
+          $global: {
+            setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
+          },
+        });
+      }
     },
   },
   "leftNavHeader-btn-one": {
@@ -537,16 +546,18 @@ export const events = {
 //  Helper Util
 // *************************************************
 // bind events based on the layout config
-export const getEvents = (elId, setLayoutConfig, setAppState) => {
+export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
+  console.log(`elId is ${elId}`);
   const elEvents = {};
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {
-      // console.log({ [eventName]: events[elId][eventName] });
-      elEvents[eventName] = () =>
-        events[elId] && events[elId][eventName] && events[elId][eventName]
-          ? events[elId][eventName](setLayoutConfig, setAppState)
+      elEvents[eventName] = () => {
+        return events[elId] &&
+          events[elId][eventName] &&
+          events[elId][eventName]
+          ? events[elId][eventName](setLayoutConfig, setAppState, appState)
           : {};
+      };
     });
-  // console.log(elEvents);
   return elEvents;
 };

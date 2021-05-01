@@ -6,10 +6,11 @@ import axios from "axios";
 
 export default function AgendaScroll({ route, navigation }: any) {
   const [items, setItems] = useState();
+  const today = new Date();
 
   useEffect(() => {
     axios
-      .get("https://run.mocky.io/v3/9e6ea260-665c-4bc3-ac12-aebaf3b022aa")
+      .get("https://run.mocky.io/v3/8940358d-4ccd-4b66-9459-9cc347c0ab89")
       .then((res) => {
         // console.log(res)
         setItems(res.data);
@@ -39,9 +40,11 @@ export default function AgendaScroll({ route, navigation }: any) {
     <View style={{ flex: 1 }}>
       <Agenda
         items={items}
-        selected={"2020-11-02"}
         renderItem={renderItem}
-        pastScrollRange={1}
+        selected={today}
+        minDate={'2021-03-01'}
+        maxDate={'2021-04-30'}
+        pastScrollRange={0}
         futureScrollRange={1}
       />
     </View>

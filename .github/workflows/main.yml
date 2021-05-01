@@ -1,0 +1,29 @@
+name: Jest Tests
+on: 
+  push:
+    branches:
+      - "jest-testing"
+      - "develop"
+jobs:
+  jest-run:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node: [14]
+      steps:
+        - uses: actions/checkout@v1
+        - name: Setup Node
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node }}
+        - name: Yarn Install
+          run: |
+            yarn install
+        - name: Run Jest Logic tests
+          run: |
+            yarn logic-test
+
+
+
+        
+        

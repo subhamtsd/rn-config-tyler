@@ -8,7 +8,6 @@ import {
   // JsonForm,
 } from "../../components";
 
-import { styles } from "../common";
 
 // All component which will be rendered
 export const componentsSet = {
@@ -20,13 +19,9 @@ export const componentsSet = {
 };
 
 export const getInitEvents = () => {
-  /** */
 };
 
 export const routes = {};
-
-// has to be added as of now if removed then app is not rendering "Loading" screen is getting displayed
-routes.routeOne = {}; 
 
 // *************************************************
 //  Layout config
@@ -34,18 +29,6 @@ routes.routeOne = {};
 export const appConfig = {
   /// 1st layout
   componentsSet,
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-  },
   layout: {
     colConfig: {
       colSize: 1,
@@ -100,13 +83,13 @@ export const appConfig = {
             },
             bodyContent1: {
               colSize: 2,
-              idx: "About",
+              idx: "Home",
               label: "bodyContent1",
               colStyle: { borderWidth: 3, borderColor: "red" },
             },
             bodyContent2: {
               colSize: 4,
-              idx: "About",
+              idx: "Home",
               label: "bodyContent2",
               colStyle: { borderWidth: 4, borderColor: "black" },
             },
@@ -139,7 +122,9 @@ export const events = {
           ui: "RandomPic",
           props: { label: "bodyContent" },
         },
-      });
+      },
+      "isPartial"
+      );
     },
   },
 };
