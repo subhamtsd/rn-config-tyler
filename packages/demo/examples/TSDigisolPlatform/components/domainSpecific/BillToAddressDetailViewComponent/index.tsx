@@ -55,10 +55,10 @@ export const BillToAddressDetailViewComponent = (props: {
       });
       const resJSON = await res.json();
       setData(resJSON);
-      console.log(
-        "response Json : : : : : BillToAddressDetailViewComponent  ---> ",
-        resJSON
-      );
+      // console.log(
+      //   "response Json : : : : : BillToAddressDetailViewComponent  ---> ",
+      //   resJSON
+      // );
     };
     fetchData();
     setLoading(false);

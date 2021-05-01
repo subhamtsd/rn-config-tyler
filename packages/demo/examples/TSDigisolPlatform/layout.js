@@ -86,32 +86,6 @@ const links = {
   },
 };
 
-export const getComponents = () => {
-  return {
-    Comp5,
-    ActionComp,
-    Home,
-    About,
-    RandomPic,
-    // TodoApp1,
-    // TodoApp2,
-    // SideNavBar,
-    DefaultScreen,
-    NavigationBar,
-    HeaderBar,
-    TabComponent,
-    ActionComponent,
-    JsonFormComponent,
-    ListComponent,
-    DetailListComponent,
-    EditComponent,
-    ListJsonFormComponent,
-    // JsonForm
-
-    // TEST FOR JSON FORM
-    AddEditEntity,
-  };
-};
 
 // *************************************************
 //  Layout config

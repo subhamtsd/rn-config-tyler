@@ -33,7 +33,7 @@ export const ListComponent = (props: {
 
   console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log("Props in ListComponent : :: : ",props);
+  console.log("Props in ListComponent : :: : ", props);
 
   const [listFormLayout, setlistFormLayout] = useState([]);
 
@@ -94,11 +94,7 @@ export const ListComponent = (props: {
 
   return (
     <View style={componentGridStyle}>
-      <Text>
-        {/* {appState.global != undefined
-          ? JSON.stringify(appState.global.tsdApp.listComponent)
-          : ""} */}
-      </Text>
+      {/* <Text>Hello List</Text> */}
       <ScrollView horizontal>
         <ListRender
           listFormLayout={listFormLayout}

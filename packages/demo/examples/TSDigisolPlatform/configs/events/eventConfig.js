@@ -298,7 +298,7 @@ export const events = {
               },
             },
           });
-          setLayoutConfig(routes["detail"]);
+          setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
@@ -356,8 +356,8 @@ export const events = {
               },
             },
           });
-          console.log("appState in Edit event : : : ", appState);
-          setLayoutConfig(routes["edit"]);
+          // console.log("appState in Edit event : : : ", appState);
+          setLayoutConfig(routes["edit"], "copy");
         });
     },
   },
@@ -379,6 +379,8 @@ export const events = {
   "billToAddressDetailViewComponent-edit-btn": {
     // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
     onPress: (setLayoutConfig, setAppState, appState, args) => {
+      // Save that view data into appState
+      //
       console.log("From billToAddressDetailViewComponent ::: ", args);
     },
   },

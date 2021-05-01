@@ -57,33 +57,25 @@ export default function SearchListComponent({
   const [searchItem, setSearchItem] = useState("");
   const [isSelected, setSelected] = useState(false);
 
-  console.log("Props in SearchListComponent :: : ", {
-    data,
-    searchFields,
-    visibleKeys,
-    flexWidth,
-    titleStyle,
-    dataStyle,
-    inputPlaceholder,
-    numberOfLines,
-    searchBarWrapperStyle,
-    searchBarStyle,
-    buttonTitle,
-    buttonColor,
-    buttonPress,
-    ...props,
-  });
-  // const initalCheckboxState = () => {
-  //   var initialStateArray = [];
-  //   for (var i = 0; i < numberOfLines; i++) {
-  //     initialStateArray.push(false);
-  //   }
-  //   return initialStateArray;
-  // };
+  // console.log("Props in SearchListComponent :: : ", {
+  //   data,
+  //   searchFields,
+  //   visibleKeys,
+  //   flexWidth,
+  //   titleStyle,
+  //   dataStyle,
+  //   inputPlaceholder,
+  //   numberOfLines,
+  //   searchBarWrapperStyle,
+  //   searchBarStyle,
+  //   buttonTitle,
+  //   buttonColor,
+  //   buttonPress,
+  //   ...props,
+  // });
+
   const [checked, setChecked] = useState([]); // [false, false]
   const filterData = data.filter(createFilter(searchItem, searchFields));
-
-  // visibleKeys.push("Action");
 
   const keys = visibleKeys || Object.keys(data[0] || []);
 
@@ -95,50 +87,6 @@ export default function SearchListComponent({
     isSelected ? setChecked(tempArray) : setChecked([]);
   }, [isSelected]);
 
-  // const toggleCheck = (i) => {
-  //   setChecked((prevState) => {
-  //     const newState = { ...prevState };
-  //     newState[i] = !prevState[i];
-  //     return newState;
-  //   });
-  // };
-
-  // const selectAll = (value) => {
-  //   setSelected(value);
-  //   setChecked((prevState) => {
-  //     const newState = { ...prevState };
-  //     for (const i in newState) {
-  //       newState[i] = value;
-  //     }
-  //     return newState;
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   let allChecked = true;
-  //   for (const i in checked) {
-  //     if (checked[i] === false) {
-  //       allChecked = false;
-  //     }
-  //   }
-  //   if (allChecked) {
-  //     setSelected(true);
-  //   } else {
-  //     setSelected(false);
-  //   }
-  // }, [isSelected]);
-
-  // const selectAll = (value) => {
-  //   setSelected(value);
-  //   setSelected((prevState) => {
-  //     const newState = { ...prevState };
-  //     for (const i in newState) {
-  //       newState[i] = value;
-  //     }
-  //     return newState;
-  //   });
-  // };t
-
   const checkboxHanlder = (index) => (e) => {
     const newArr = [...checked]; // copying the old datas array
     newArr[index] = !newArr[index];
@@ -149,7 +97,14 @@ export default function SearchListComponent({
   console.log("Checked Array : : : ", checked);
 
   return (
-    <View style={{ flex: 1, width: "100%" }}>
+    <ScrollView
+      style={{
+        flex: 1,
+        width: "100%",
+        borderWidth: 0,
+        borderColor: "red",
+      }}
+    >
       <View
         style={[
           {
@@ -447,7 +402,7 @@ export default function SearchListComponent({
           })}
         </ScrollView>
       </Grid>
-    </View>
+    </ScrollView>
   );
 }
 

@@ -208,11 +208,17 @@ export const ListRender = (props: {
   }
 
   return (
-    <View style={{}}>
+    <View
+      style={{
+        // borderWidth: 3,
+        height: "65vh", // can only be used in WEB
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
           marginBottom: 10,
+          // borderWidth: 3,
         }}
       >
         <Text style={listRenderstyles.heading}>Search Here</Text>
@@ -259,35 +265,6 @@ export const ListRender = (props: {
         setLayoutConfig={props.setLayoutConfig}
         styles={props.styles}
       />
-      {/* COmponent Satyam Rendered */}
-      {/* <SearchList 
-        data={data} 
-        searchFields={["name", "description", "category", "subCategory"]} 
-        visibleKeys={["name", "category", "description"]}
-        flexWidth={[1,1,3]} // Column-span (length of array should be equal to that of visibleKeys)
-        numberOfLines={3} // Row-span
-        searchBarWrapperStyle={null}
-        searchBarStyle={null}
-        titleStyle={null}
-        dataStyle={{color: 'darkblue'}}
-        inputPlaceholder="Search Here"
-    />  */}
-      {/* <View
-        style={{
-          marginLeft: 100,
-          marginRight: 100,
-          marginBottom: 10,
-          marginTop: 10,
-        }}
-      >
-        <Button
-          accessibilityLabel="link"
-          onPress={() => {
-            goBack();
-          }}
-          title="Go Back"
-        />
-      </View> */}
     </View>
   );
 };
