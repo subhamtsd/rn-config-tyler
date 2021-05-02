@@ -1,6 +1,6 @@
 import ace from "brace";
-import "brace/mode/json";
-import "brace/theme/github";
+// import "brace/mode/json";
+// import "brace/theme/github";
 import React, { Component } from "react";
 import { Platform } from "react-native";
 

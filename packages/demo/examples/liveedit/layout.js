@@ -56,8 +56,8 @@ export const appConfig = {
               // col no
               idx: "Home",
               label: "left-nav",
-              colClass: "bg-blue-500 p-1 text-2xl",
-              size: 9,
+              colClass: "bg-blue-500 p-1 text-sm text-red",
+              size: 20,
             },
           },
           1: {
@@ -65,7 +65,8 @@ export const appConfig = {
               // col no
               idx: "Home",
               label: "body",
-              colClass: "bg-blue-300 p-1 text-2xl",
+              colClass:
+                "bg-red-300 p-3 text-3xl y-10 bg-blue-light rounded font-bold text-red text-sm mr-2 flex",
               size: 65,
             },
           },

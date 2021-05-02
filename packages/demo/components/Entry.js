@@ -49,8 +49,10 @@ const styles = StyleSheet.create({
 });
 
 function load(selectedValue) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const moduleConfig = require(`../examples/${selectedValue}/layout`);
   if (moduleConfig) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { App } = require("../helpers/lib/src/");
     console.log(moduleConfig);
     return (
