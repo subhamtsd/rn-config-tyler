@@ -1,6 +1,5 @@
 import ace from "brace";
-// import "brace/mode/json";
-// import "brace/theme/github";
+import "brace/mode/json";
 import React, { Component } from "react";
 import { Platform } from "react-native";
 
@@ -16,17 +15,15 @@ export class JSONEditor extends Component {
       const { json, onError, onChangeJSON } = this.props;
       // TODO: add toggle between JSON tree and code mode
       // TODO: add code mode changes getting reflected to actual config
-
       return [
         <Editor
           ace={ace}
           key={1}
           value={json}
-          mode={"tree"}
-          modes={["text", "code", "tree", "form", "view"]}
+          allowedModes={["text", "code", "tree", "form", "view"]}
           onChange={onChangeJSON}
           onError={onError}
-          theme={"ace/theme/github"}
+          // theme={"ace/theme/github"}
         />,
       ];
     }
