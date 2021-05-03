@@ -58,7 +58,7 @@ export const JsonForm = ({
   };
   const onErrorOk = () => setException(null);
   // form data mutator
-  console.log("formData in jsonForm of Edit : : : ", formData);
+  // console.log("formData in jsonForm of Edit : : : ", formData);
 
   const onChange = (event) => {
     setFormData({

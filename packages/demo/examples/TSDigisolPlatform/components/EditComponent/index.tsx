@@ -185,18 +185,18 @@ export const EditComponent = (props: {
         }),
       });
       const resJSON = await res.json();
-      console.log("resJson ::::: edit component---> ", resJSON);
+      // console.log("resJson ::::: edit component---> ", resJSON);
 
       // const resJSON = await res.json();
-      console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+      // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
       prepareSchema(resJSON)
         .then((schemaJson) => {
-          console.log("SchemaJson edit updated : : :: ", schemaJson);
+          // console.log("SchemaJson edit updated : : :: ", schemaJson);
           return schemaJson;
         })
         .then((formLayout) => {
-          console.log("Schema edit returned : : : ", formLayout);
-          console.log("edit component appstate:", appState.global);
+          // console.log("Schema edit returned : : : ", formLayout);
+          // console.log("edit component appstate:", appState.global);
           const objectName =
             appState.global != undefined
               ? appState.global.tsdApp.editComponent.action.name +
@@ -204,7 +204,7 @@ export const EditComponent = (props: {
                 "Schema"
               : "EditCreateOrdersSchema";
 
-          console.log("objectName : : : : ", objectName);
+          // console.log("objectName : : : : ", objectName);
           setformLayout(formLayout[objectName]);
           // setloading(false);
         });
@@ -214,9 +214,9 @@ export const EditComponent = (props: {
     fetchData();
   }, []);
 
-  console.log("formData  : : :  in edit component : : : ", _formData);
+  // console.log("formData  : : :  in edit component : : : ", _formData);
 
-  console.log("FormLayout Json in Edit Component : : : ", formLayout);
+  // console.log("FormLayout Json in Edit Component : : : ", formLayout);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
