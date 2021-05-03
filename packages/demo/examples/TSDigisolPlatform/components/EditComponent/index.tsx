@@ -11,6 +11,7 @@ import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { parseFormData } from "../../helper/helper";
+import { prepareSchema } from "../../helper/helper";
 
 export const EditComponent = (props: {
   appState: any;
@@ -184,29 +185,38 @@ export const EditComponent = (props: {
         }),
       });
       const resJSON = await res.json();
-      console.log("resJson ::::: ---> ", resJSON);
+      // console.log("resJson ::::: edit component---> ", resJSON);
 
-      const objectName =
-        appState.global != undefined
-          ? appState.global.tsdApp.editComponent.action.name +
-            appState.global.tsdApp.activeTab.name +
-            "Schema"
-          : "EditCreateOrdersSchema";
+      // const resJSON = await res.json();
+      // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+      prepareSchema(resJSON)
+        .then((schemaJson) => {
+          // console.log("SchemaJson edit updated : : :: ", schemaJson);
+          return schemaJson;
+        })
+        .then((formLayout) => {
+          // console.log("Schema edit returned : : : ", formLayout);
+          // console.log("edit component appstate:", appState.global);
+          const objectName =
+            appState.global != undefined
+              ? appState.global.tsdApp.editComponent.action.name +
+                appState.global.tsdApp.activeTab.name +
+                "Schema"
+              : "EditCreateOrdersSchema";
+
+          // console.log("objectName : : : : ", objectName);
+          setformLayout(formLayout[objectName]);
+          // setloading(false);
+        });
 
       // console.log("objectName : : : : ", objectName);
-
-      console.log(
-        "FormLayout Json in Edit Json : : : : : ---> ",
-        resJSON[objectName]
-      );
-      setformLayout(resJSON[objectName]);
     };
     fetchData();
   }, []);
 
   // console.log("formData  : : :  in edit component : : : ", _formData);
 
-  console.log("FormLayout Json in Edit Component : : : ", formLayout.uischema);
+  // console.log("FormLayout Json in Edit Component : : : ", formLayout);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
