@@ -16,6 +16,9 @@
     "history": "^5.0.0",
     "jsoneditor": "^9.1.9",
     "jsoneditor-react": "^3.1.0",
+    "lodash": "^4.17.21",
+    "react-native-elements": "^3.4.1",
+    "react-native-uuid": "^2.0.1",
     "react-native-web-jsonschema-form": "^3.1.4"
   },
   "devDependencies": {

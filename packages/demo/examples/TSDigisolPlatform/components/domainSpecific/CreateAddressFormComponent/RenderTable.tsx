@@ -9,17 +9,18 @@ import {
   View,
   ScrollView,
   TextInput,
-  CheckBox,
   // Picker,
 } from "react-native";
+import { cloneDeep } from "lodash";
+import uuid from "react-native-uuid";
 
 import { Picker } from "@react-native-picker/picker";
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
+import { componentGridStyle } from "../../../styles/common";
 import { useState } from "react";
-import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
+import { routes } from "../../../configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { prepareSchema } from "../../../helper/helper";
 
 export const RenderTable = (props: {
   appState: any;
@@ -50,26 +51,12 @@ export const RenderTable = (props: {
   } = props;
 
   const [arrObj, setArrObj] = useState([]);
+  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
+  const [addRowButtonStatus, setAddRowButtonStatus] = useState(false);
 
   // console.log("data to render", dataToRender);
 
-  const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
-  // console.log("First Parent ::: " + firstParent);
-
-  // console.log("Props in ---> ", props.dataToRender[firstParent]);
-
-  const secondParent = Object.getOwnPropertyNames(
-    dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
-  );
-  // console.log("Second Parent: " + secondParent);
-  prepareSchema(
-    props.dataToRender[firstParent].properties[secondParent[0]]
-  ).then((schemaJson) => {
-    // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
-  });
-
-  const tableHeaderObj =
-    dataToRender[firstParent].properties[secondParent[0]].items.properties;
+  const tableHeaderObj = dataToRender.properties;
 
   tableHeaderObj["actionDisplay"] = {
     title: "Action",
@@ -77,9 +64,8 @@ export const RenderTable = (props: {
     uid: "action",
     pattern: "[]",
   };
-  console.log("tableHeader", tableHeaderObj);
-  const requiredField =
-    dataToRender[firstParent].properties[secondParent[0]].items.required;
+  // console.log("tableHeader", tableHeaderObj);
+  const requiredField = dataToRender.required;
 
   // const keyIdPrefix = () => {
   //   const keyArray = Object.getOwnPropertyNames(
@@ -89,66 +75,98 @@ export const RenderTable = (props: {
   //   return keyArray[0];
   // };
   // keyIdPrefix();
-  const intialJson = {};
-  const [item, setItem] = useState({}); // Submit one row
-  const [finalItem, setFinalItem] = useState({});
-  const [listOfItems, setListItems] = useState([]); // Store all array of row data
-  const [isSelected, setSelected] = useState(false);
-  const [noOfRows, setNoOfRows] = useState(-1);
-  const [noOfAddItemClick, setnoOfAddItemClick] = useState(-1);
-
-  // console.log("finalItem : : : ", finalItem);
-
-  useEffect(() => {
-    if (finalItem !== {}) {
-      // If clicked on same row to add and finalItem is not equal to item
-      if (
-        finalItem[secondParent[0]] === noOfAddItemClick ||
-        finalItem !== item
-      ) {
-        setListItems(() => [...listOfItems, finalItem]);
-      }
-    }
-  }, [finalItem]);
-
-  const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-    const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
-      method: httpMethod,
-      // method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((_data) => {
-        console.log("data create", _data);
-        setAppState({
-          global: {
-            tsdApp: {
-              createComponent: {
-                [appState.global.tsdApp.activeTab.name]: _data,
-                formData: body,
-              },
-              viewComponent: {
-                [appState.global.tsdApp.activeTab.name]: _data,
-              },
-            },
-          },
-        });
-        console.log("DATA UPDATED .......");
-        setLayoutConfig(routeToRedirect, "copy");
+  const valueChangeHandler = (value, keyname, key) => {
+    setArrObj((oldArrObj) => {
+      const newArrObj = cloneDeep(oldArrObj);
+      newArrObj.forEach((obj) => {
+        if (obj.key === key) {
+          obj.item[keyname] = value;
+        }
       });
+      return newArrObj;
+    });
   };
 
-  const deleteHandler = (arrKey: any) => {
-    console.log("array item : : ", listOfItems[arrKey]);
-    setListItems(listOfItems.slice(listOfItems[arrKey], 1));
-    setArrObj(arrObj.slice(arrObj[arrKey], 1));
+  const addRowHandler = () => {
+    setAddRowButtonStatus(true);
+
+    setArrObj((oldArrObj) => {
+      const newArrObj = cloneDeep(oldArrObj);
+      const newObj = {
+        key: uuid.v4(),
+        item: {},
+        isChecked: false,
+        addStatus: false,
+      };
+      console.log(newObj);
+      newArrObj.push(newObj);
+      return newArrObj;
+    });
   };
+  const addActionHandler = (key) => {
+    setAddRowButtonStatus(false);
+    setArrObj((oldArrObj) => {
+      const newArrObj = cloneDeep(oldArrObj);
+      newArrObj.forEach((obj) => {
+        if (obj.key === key) {
+          obj.addStatus = true;
+        }
+      });
+      return newArrObj;
+    });
+  };
+
+  const deleteActionHandler = (key) => {
+    setArrObj((oldArrObj) => {
+      const tempArrObj = cloneDeep(oldArrObj);
+      const newArrObj = tempArrObj.filter((obj) => obj.key !== key);
+      return newArrObj;
+    });
+    setAddRowButtonStatus(false);
+  };
+
+  if (!addRowButtonStatus) {
+    if (
+      arrObj.length >= 2 ||
+      arrObj.filter((obj) => obj.addStatus === false).length > 0
+    ) {
+      setAddRowButtonStatus(true);
+    }
+  }
+
+  // const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
+  //   const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
+  //     method: httpMethod,
+  //     // method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((_data) => {
+  //       console.log("data create", _data);
+  //       setAppState({
+  //         global: {
+  //           tsdApp: {
+  //             createComponent: {
+  //               [appState.global.tsdApp.activeTab.name]: _data,
+  //               formData: body,
+  //             },
+  //             viewComponent: {
+  //               [appState.global.tsdApp.activeTab.name]: _data,
+  //             },
+  //           },
+  //         },
+  //       });
+  //       console.log("DATA UPDATED .......");
+  //       setLayoutConfig(routeToRedirect, "copy");
+  //     });
+  // };
+
   // console.log("arrobj", arrObj);
-  const rowSection = arrObj.map((arrKey) => {
+  const rowSection = arrObj.map((obj) => {
     // console.log("arrKey : : : ", arrKey);
 
     return (
@@ -180,7 +198,7 @@ export const RenderTable = (props: {
               >
                 <Col>
                   <Picker
-                    selectedValue={item[keyName]}
+                    selectedValue={obj.item[keyName]}
                     style={{
                       borderWidth: 1,
                       width: `100%`,
@@ -188,12 +206,9 @@ export const RenderTable = (props: {
                       borderColor: "grey",
                       marginTop: 5,
                     }}
-                    onValueChange={(itemValue, itemIndex) => {
+                    onValueChange={(itemValue) => {
                       // setSelectedLanguage(itemValue);
-                      setItem({
-                        ...item,
-                        [keyName]: itemValue,
-                      });
+                      valueChangeHandler(itemValue, keyName, obj.key);
                     }}
                   >
                     {/* <Picker.Item label="Java" value="java" />
@@ -237,24 +252,8 @@ export const RenderTable = (props: {
                       <Button
                         title={`+`}
                         color={"green"}
-                        disabled={false}
-                        onPress={() => {
-                          console.log("Add Item");
-                          // Submit the current row
-                          // setItem --> push item into listOfItem
-                          // IF data changed in row pushed --> push item into listOfItem
-                          // If data not changed in the row --> Donot push into listOfItem
-                          // TODO : BUG on double click it add same item every time
-                          // TODO : wRITE A CALL BACK
-                          setnoOfAddItemClick(noOfAddItemClick + 1);
-                          item[secondParent[0]] = noOfRows;
-                          // console.log("finalItem : : : ", finalItem);
-                          console.log("Item : : : : ", item);
-                          if (finalItem == {} || finalItem !== item) {
-                            setFinalItem(item);
-                          }
-                          setItem({});
-                        }}
+                        disabled={obj.addStatus}
+                        onPress={() => addActionHandler(obj.key)}
                       ></Button>
                     </View>
                     <View
@@ -265,8 +264,7 @@ export const RenderTable = (props: {
                       <Button
                         title={`x`}
                         color={"red"}
-                        disabled
-                        onPress={() => deleteHandler(arrKey)}
+                        onPress={() => deleteActionHandler(obj.key)}
                       ></Button>
                     </View>
                   </View>
@@ -298,15 +296,9 @@ export const RenderTable = (props: {
                     marginTop: 5,
                     padding: 17,
                   }}
+                  value={obj.item[keyName]}
                   onChangeText={(text) => {
-                    setItem({
-                      ...item,
-                      [keyName]: text,
-                    });
-                    // setFinalItem({
-                    //   ...item,
-                    //   [keyName]: text,
-                    // });
+                    valueChangeHandler(text, keyName, obj.key);
                   }}
                 ></TextInput>
               </Col>
@@ -331,15 +323,8 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
-            disabled={noOfRows >= maxNoOfRows}
-            onPress={() => {
-              console.log("Add Row Clicked");
-              // create new row
-              // setNoOfRows(noOfRows + 1);
-              setArrObj([...arrObj, noOfRows + 1]);
-              setItem({});
-              setNoOfRows(noOfRows + 1);
-            }}
+            disabled={addRowButtonStatus}
+            onPress={addRowHandler}
           ></Button>
         </Col>
         <Col
@@ -432,21 +417,21 @@ export const RenderTable = (props: {
           color="#0e73ca"
           onPress={() => {
             console.log("Final submit");
-            const finalData =
-              appState.global.tsdApp.createComponent[
-                appState.global.tsdApp.activeTab.name
-              ];
-            console.log("final Data in the body Parameter 1st ::: ", finalData);
-            finalData[firstParent] = {
-              [secondParent[0]]: listOfItems,
-            };
-            console.log("final Data in the body Parameter 2nd ::: ", finalData);
-            fetchApi(
-              appState.global.tsdApp.activeAction.endPoint,
-              "POST",
-              finalData,
-              routes["detail"]
-            );
+            // const finalData =
+            //   appState.global.tsdApp.createComponent[
+            //     appState.global.tsdApp.activeTab.name
+            //   ];
+            // console.log("final Data in the body Parameter 1st ::: ", finalData);
+            // finalData[firstParent] = {
+            //   [secondParent[0]]: listOfItems,
+            // };
+            // console.log("final Data in the body Parameter 2nd ::: ", finalData);
+            // fetchApi(
+            //   appState.global.tsdApp.activeAction.endPoint,
+            //   "POST",
+            //   finalData,
+            //   routes["detail"]
+            // );
           }}
         ></Button>
       </View>

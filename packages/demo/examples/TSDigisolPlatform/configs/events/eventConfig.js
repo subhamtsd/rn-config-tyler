@@ -15,15 +15,15 @@ export const events = {
   //<label>-<element-id> : <handler>
   "leftNavHeader-button-one": {
     // <event> :: <handler>
-    onPress: (setLayoutConfig, setAppState, appState) => {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       // components section
     },
   },
   "bodyHeader-form": {
     // form data mutator
-    onSuccess: (setLayoutConfig, setAppState, appState, args) => {
-      console.log("args.params.values : : : : : ", args.params.values);
-      const body = args.params.values;
+    onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
+      // console.log("args.params.values : : : : : ", args);
+      const body = args[0].params.values;
       body["moduleName"] = appState.global.tsdApp.activeModule.name;
       body["tabName"] = appState.global.tsdApp.activeTab.name;
       console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
@@ -153,24 +153,40 @@ export const events = {
           activeTabName === "BOOKORDER" ||
           activeTabName === "RESERVEORDER"
         ) {
-          await getScreenLayout(
-            // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
-            "Submit-button"
-          );
+          console.log("from create order form");
+          // await fetch(
+          //   `https://run.mocky.io/v3/cab08992-ae61-4382-bb58-c9a26ac6881e`
+          // )
+          //   .then((res) => {
+          //     res.json();
+          //   })
+          //   .then((data) => {
+          //     console.log("from create order ", data);
+          //   });
+          setLayoutConfig(routes.createOrder);
+          // await getScreenLayout(
+          //   // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
+          //   `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+
+          //   // `https://run.mocky.io/v3/503199c1-9448-45ce-8506-2d5c616751da`,
+          //   appState.global.tsdApp.activeModule.key,
+          //   appState.global.tsdApp.activeTab.key,
+          //   appState.global.tsdApp.activeAction.name,
+          //   "Submit-button"
+          // );
         } else if (activeTabName === "AllocateOrders") {
           if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
-            await getScreenLayout(
-              // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
-              `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-              appState.global.tsdApp.activeModule.key,
-              appState.global.tsdApp.activeTab.key,
-              appState.global.tsdApp.activeAction.name,
-              "Submit-button"
-            );
+            setLayoutConfig(routes.createOrder);
+            // await getScreenLayout(
+            //   // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
+            //   // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+
+            //   `https://run.mocky.io/v3/503199c1-9448-45ce-8506-2d5c616751da`,
+            //   appState.global.tsdApp.activeModule.key,
+            //   appState.global.tsdApp.activeTab.key,
+            //   appState.global.tsdApp.activeAction.name,
+            //   "Submit-button"
+            // );
           } else {
             await getScreenLayout(
               // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
@@ -235,17 +251,36 @@ export const events = {
         // setLayoutConfig(routes["userChildLayout"]);
       }
     },
+    onCancel: (setLayoutConfig, setAppState, appState, ...args) => {
+      const activeTabName = appState.global.tsdApp.activeTab.name;
+      // saveCreateComponentData(activeTabName, body);
+      // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
+      if (
+        activeTabName === "CreateOrders" ||
+        activeTabName === "BookOrders" ||
+        activeTabName === "ReserveOrders" ||
+        activeTabName === "CREATEORDER" ||
+        activeTabName === "BOOKORDER" ||
+        activeTabName === "RESERVEORDER" ||
+        activeTabName === "AllocateOrders"
+      ) {
+        console.log("from create orderline form");
+        setLayoutConfig(routes.createOrderline);
+      } else {
+        console.log("onCancel button");
+      }
+    },
   },
   "editComponent-form": {
     // form data mutator
     // call edit api from formData as body
     // console the response
     // redirect to detail component
-    onSuccess: (setLayoutConfig, setAppState, appState, args) => {
+    onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
       // console.log("args.params.values : : : : : ", args.params.values);
 
       // console.log("appState in Edit event1 : : : ", appState);
-      const body = args.params.values;
+      const body = args[0].params.values;
       body["moduleName"] = appState.global.tsdApp.activeModule.name;
       body["tabName"] = appState.global.tsdApp.activeTab.name;
       const keyName = appState.global.tsdApp.editComponent.action.uriParams;
@@ -292,7 +327,7 @@ export const events = {
     },
   },
   "detailListComponent-edit-btn": {
-    onPress: (setLayoutConfig, setAppState, appState) => {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
         method: "POST",
         headers: {
@@ -349,31 +384,270 @@ export const events = {
           setLayoutConfig(routes["edit"]);
         });
     },
+    // onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+    //   // console.log("From dtail list editbutton ::: ", appState);
+    //   console.log("From dtail list editbutton ::: ", args);
+    // },
+  },
+
+  "editOrderLineDetailComponent-form": {
+    // form data mutator
+    // call edit api from formData as body
+    // console the response
+    // redirect to detail component
+    onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("args.params.values : : : : : ", args);
+
+      // console.log("appState in Edit event1 : : : ", appState);
+      // const body = args.params.values;
+      // body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      // body["tabName"] = appState.global.tsdApp.activeTab.name;
+      // const keyName = appState.global.tsdApp.editComponent.action.uriParams;
+      // console.log(
+      //   "Hello world : : : :",
+      //   appState.global.tsdApp.viewComponent[
+      //     appState.global.tsdApp.activeTab.name
+      //   ][keyName],
+      //   "\n name of the key ::::",
+      //   keyName,
+      //   "\n appState ::: ",
+      //   appState
+      // ); // Organisation --> organisation
+      // const res1 = fetch(
+      //   `${SERVER_ENDPOINT}${
+      //     appState.global.tsdApp.editComponent.action.endPoint
+      //   }/${
+      //     appState.global.tsdApp.viewComponent[
+      //       appState.global.tsdApp.activeTab.name
+      //     ][keyName]
+      //   }`,
+      //   {
+      //     method: appState.global.tsdApp.editComponent.action.httpMethod,
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(body),
+      //   }
+      // )
+      //   .then((res) => res.json())
+      //   .then((_data) => {
+      //     setAppState({
+      //       global: {
+      //         tsdApp: {
+      //           viewComponent: {
+      //             [appState.global.tsdApp.activeTab.name]: _data,
+      //           },
+      //         },
+      //       },
+      //     });
+      //     setLayoutConfig(routes["detail"]);
+      // });
+    },
+  },
+
+  "orderLineDetailViewComponent-edit-btn": {
+    // onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+    //   const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userId: "TsdAdmin",
+    //       roleKey: 1,
+    //       moduleName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeModule.name
+    //           : "Service Orders",
+    //       tabName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeTab.name
+    //           : "CreateOrders",
+    //       actionName: "Edit",
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((_data) => {
+    //       // console.log("_Data : :: ", _data);
+    //       setAppState({
+    //         global: {
+    //           tsdApp: {
+    //             editComponent: {
+    //               action: {
+    //                 name:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionName,
+    //                 key:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionKey,
+    //                 endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+    //                   /{[^}]*}/,
+    //                   ""
+    //                 ),
+    //                 uriParams:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .uriParams,
+    //                 httpMethod:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .httpMethod,
+    //                 showButton:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .showButton,
+    //               },
+    //             },
+    //           },
+    //         },
+    //       });
+    //       console.log("appState in Edit event : : : ", appState);
+    //       setLayoutConfig(routes["editOrderLineDetail"]);
+    //     });
+    // },
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      // console.log("From dtail list editbutton ::: ", appState);
+      console.log("From dtail list editbutton ::: ", args);
+      // setLayoutConfig(routes["editOrderLineDetail"]);
+    },
+  },
+
+  "editBillToAddressDetailComponent-form": {
+    // form data mutator
+    // call edit api from formData as body
+    // console the response
+    // redirect to detail component
+    // onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
+    //   // console.log("args.params.values : : : : : ", args.params.values);
+    //   // console.log("appState in Edit event1 : : : ", appState);
+    //   const body = args.params.values;
+    //   body["moduleName"] = appState.global.tsdApp.activeModule.name;
+    //   body["tabName"] = appState.global.tsdApp.activeTab.name;
+    //   const keyName = appState.global.tsdApp.editComponent.action.uriParams;
+    //   console.log(
+    //     "Hello world : : : :",
+    //     appState.global.tsdApp.viewComponent[
+    //       appState.global.tsdApp.activeTab.name
+    //     ][keyName],
+    //     "\n name of the key ::::",
+    //     keyName,
+    //     "\n appState ::: ",
+    //     appState
+    //   ); // Organisation --> organisation
+    //   const res1 = fetch(
+    //     `${SERVER_ENDPOINT}${
+    //       appState.global.tsdApp.editComponent.action.endPoint
+    //     }/${
+    //       appState.global.tsdApp.viewComponent[
+    //         appState.global.tsdApp.activeTab.name
+    //       ][keyName]
+    //     }`,
+    //     {
+    //       method: appState.global.tsdApp.editComponent.action.httpMethod,
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(body),
+    //     }
+    //   )
+    //     .then((res) => res.json())
+    //     .then((_data) => {
+    //       setAppState({
+    //         global: {
+    //           tsdApp: {
+    //             viewComponent: {
+    //               [appState.global.tsdApp.activeTab.name]: _data,
+    //             },
+    //           },
+    //         },
+    //       });
+    //       setLayoutConfig(routes["detail"]);
+    //     });
+    // },
+  },
+  "billToAddressDetailViewComponent-edit-btn": {
+    // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
+    // onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+    //   const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userId: "TsdAdmin",
+    //       roleKey: 1,
+    //       moduleName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeModule.name
+    //           : "Service Orders",
+    //       tabName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeTab.name
+    //           : "CreateOrders",
+    //       actionName: "Edit",
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((_data) => {
+    //       // console.log("_Data : :: ", _data);
+    //       setAppState({
+    //         global: {
+    //           tsdApp: {
+    //             editComponent: {
+    //               action: {
+    //                 name:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionName,
+    //                 key:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionKey,
+    //                 endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+    //                   /{[^}]*}/,
+    //                   ""
+    //                 ),
+    //                 uriParams:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .uriParams,
+    //                 httpMethod:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .httpMethod,
+    //                 showButton:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .showButton,
+    //               },
+    //             },
+    //           },
+    //         },
+    //       });
+    //       console.log("appState in Edit event : : : ", appState);
+    //       setLayoutConfig(routes["editOrderLineDetail"]);
+    //     });
+    // },
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("From billToAddressDetailViewComponent ::: ", ...args);
+      setLayoutConfig(routes["editBillToAddressDetail"]);
+    },
   },
   "detailListComponent-delete-btn": {
-    onPress: (setLayoutConfig, setAppState, appState) => {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       console.log("Delete button clicked");
     },
   },
   "bodyHeader-changed at 1st-btn-one": {
-    onPress: (setLayoutConfig) => {
+    onPress: (setLayoutConfig, ...args) => {
       setLayoutConfig(routes["routeTwo"]);
     },
   },
   "bodyHeader1-btn-one": {
-    onPress: (setLayoutConfig) => {
+    onPress: (setLayoutConfig, ...args) => {
       setLayoutConfig(routes["routeThree"]);
     },
   },
-  "billToAddressDetailViewComponent-edit-btn": {
-    // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
-    onPress: (setLayoutConfig, setAppState, appState, args) => {
-      console.log("From billToAddressDetailViewComponent ::: ", args);
-    },
-  },
+
   "listComponent-show-btn-one": {
     // TODO: Configuration won't work as it need `d` as data for the specific row
-    onPress: (setLayoutConfig, setAppState, appState) => {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       // console.log("i ==> ", i);
       // console.log("d ==> ", d);
       const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
@@ -497,9 +771,16 @@ export const events = {
 //  Helper Util
 // *************************************************
 // bind events based on the layout config
-export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
+export const getEvents = (
+  elId,
+  setLayoutConfig,
+  setAppState,
+  appState,
+  ...args
+) => {
   console.log(`elId is ${elId}`);
   const elEvents = {};
+  const p = args;
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {
       elEvents[eventName] = (args) => {
@@ -510,11 +791,13 @@ export const getEvents = (elId, setLayoutConfig, setAppState, appState) => {
               setLayoutConfig,
               setAppState,
               appState,
-              args
+              args,
+              ...p
             )
           : {};
       };
     });
+  console.log(`elId is ${elId}`, elEvents);
   return elEvents;
 };
 

@@ -9,14 +9,15 @@ import {
   Text,
   View,
 } from "react-native";
-import useSafeSetState from "../../helper/useSafeState";
-import { routes } from "../../configs/routes/routesConfig";
-import { componentGridStyle } from "../../styles/common";
-import { JsonForm } from "./JsonForm";
-import { prepareSchema } from "../../helper/helper";
-import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import useSafeSetState from "../../../helper/useSafeState";
+import { routes } from "../../../configs/routes/routesConfig";
+import { componentGridStyle } from "../../../styles/common";
+import { JsonForm } from "../../JsonFormComponent/JsonForm";
+import { prepareSchema } from "../../../helper/helper";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { CreateOrderlineListComponent } from "./../CreateOrderlineListComponent/index";
 
-export const JsonFormComponent = (props: {
+export const CreateOrderlineAddressComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -162,24 +163,9 @@ export const JsonFormComponent = (props: {
         body: JSON.stringify({
           userId: "TsdAdmin",
           roleKey: 1,
-          moduleKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.key
-                : "23751"
-              : "23751",
-          tabKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab != undefined
-                ? appState.global.tsdApp.activeTab.key
-                : "34601"
-              : "34601",
-          actionName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeAction != undefined
-                ? appState.global.tsdApp.activeAction.name
-                : "Search"
-              : "Search",
+          moduleKey: 2007,
+          tabKey: 2001,
+          actionName: "Create",
         }),
       });
       const resJSON = await res.json();
@@ -189,26 +175,24 @@ export const JsonFormComponent = (props: {
         setResponseStatus(status);
       } else {
         // const resJSON = await res.json();
-        console.log("response Json : : : : : formLayout ---> ", resJSON);
-        prepareSchema(resJSON)
-          .then((schemaJson) => {
-            console.log("SchemaJson updated : : :: ", schemaJson);
-            return schemaJson;
-          })
-          .then((formLayout) => {
-            console.log("Schema returened : : : ", formLayout);
-            const objectName =
-              appState.global != undefined
-                ? appState.global.tsdApp.activeAction.name +
-                  appState.global.tsdApp.activeTab.name +
-                  "Schema"
-                : "SearchCreateOrdersSchema";
-
-            console.log("objectName : : : : ", objectName);
-            setformLayout(formLayout[objectName]);
-            setUISchema(formLayout[objectName]);
-            // setloading(false);
-          });
+        console.log(
+          "response Json : : : : : orderLineAddressformLayout ---> ",
+          resJSON
+        );
+        // prepareSchema(resJSON.properties.address.items)
+        //   .then((schemaJson) => {
+        //     console.log("SchemaJson updated : : :: ", schemaJson);
+        //     return schemaJson;
+        //   })
+        //   .then((formLayout) => {
+        //     console.log("Schema returened : : : ", formLayout);
+        const objectName = "CreateAddressesSchema";
+        resJSON[objectName].type = "object";
+        console.log("addressform", resJSON[objectName]);
+        setformLayout(resJSON[objectName]);
+        setUISchema(resJSON[objectName]);
+        //     // setloading(false);
+        //   });
       }
     };
     fetchData();
@@ -231,21 +215,7 @@ export const JsonFormComponent = (props: {
     );
   }
 
-  console.log("formLayout setFormLayout : :: : ", formLayout.uischema);
-
-  const submitButtonView =
-    appState.global === undefined ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751)
-      ? "Add Address"
-      : true;
-
-  const cancelButtonView =
-    appState.global === undefined ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751)
-      ? "Add OrderLine"
-      : true;
+  console.log("formLayout orderlineaddressFormLayout : :: : ", formLayout);
 
   // console.log("from json:", buttonView);
 
@@ -260,8 +230,8 @@ export const JsonFormComponent = (props: {
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
-        _submitButton={submitButtonView}
-        _cancelButton={cancelButtonView}
+        _submitButton={true}
+        _cancelButton={true}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

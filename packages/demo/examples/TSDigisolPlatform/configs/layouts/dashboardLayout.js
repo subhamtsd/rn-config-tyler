@@ -31,6 +31,11 @@ import { OrderLineAddressDetailViewComponent } from "../../components/domainSpec
 import { OrderLineDetailViewComponent } from "../../components/domainSpecific/OrderLineDetailViewComponent";
 import { OrderLineListViewComponent } from "../../components/domainSpecific/OrderLineListViewComponent";
 import { ShowQRCodeComponent } from "../../components/ShowQRCodeComponent";
+import { EditOrderLineDetailComponent } from "../../components/domainSpecific/EditOrderLineDetailComponent/index";
+import { EditBillToAddressDetailComponent } from "../../components/domainSpecific/EditBillToAddressDetailComponent/index";
+import { CreateAddressFormComponent } from "../../components/domainSpecific/CreateAddressFormComponent";
+import { CreateOrderlineListComponent } from "../../components/domainSpecific/CreateOrderlineListComponent";
+import { CreateOrderlineAddressComponent } from "../../components/domainSpecific/CreateOrderlineAddressComponent";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
@@ -59,6 +64,11 @@ export const componentsSet = {
   OrderLineDetailViewComponent,
   OrderLineListViewComponent,
   ShowQRCodeComponent,
+  EditOrderLineDetailComponent,
+  EditBillToAddressDetailComponent,
+  CreateAddressFormComponent,
+  CreateOrderlineListComponent,
+  CreateOrderlineAddressComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
