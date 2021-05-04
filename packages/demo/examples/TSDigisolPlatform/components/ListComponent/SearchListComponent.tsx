@@ -173,7 +173,19 @@ export default function SearchListComponent({
         <ScrollView style={{ margin: 10 }}>
           {data.length && keys.length ? (
             <Row style={styles.headerRow}>
-              <Col style={[styles.tableVal, dataStyle]}>
+              <Col
+                size={1}
+                style={[
+                  styles.tableVal,
+                  dataStyle,
+                  {
+                    borderWidth: 0,
+                    borderColor: "red",
+                    alignItems: "center",
+                    marginTop: "5px",
+                  },
+                ]}
+              >
                 <Text adjustsFontSizeToFit allowFontScaling>
                   {
                     <CheckBox
@@ -187,10 +199,12 @@ export default function SearchListComponent({
 
               {keys.map((key, i) => (
                 <Col
+                  size={3}
                   style={[
                     styles.tableVal,
                     // { flex: flexWidth ? flexWidth[i] : 1 },
                     { flex: 2 },
+                    { borderWidth: 0, borderColor: "red" },
                     titleStyle,
                   ]}
                   key={i}
@@ -199,14 +213,17 @@ export default function SearchListComponent({
                     adjustsFontSizeToFit
                     allowFontScaling
                     style={{
-                      alignContent: "center",
-                      alignSelf: "center",
-                      textAlign: "center",
-                      textAlignVertical: "center",
-                      marginLeft: 20,
-                      marginRight: 20,
+                      // alignContent: "center",
+                      // alignSelf: "center",
+                      // textAlign: "center",
+                      // textAlignVertical: "center",
+                      maxWidth: "150px",
+                      marginLeft: 5,
+                      marginRight: 5,
+                      // borderWidth: 1,
                       fontWeight: "bold",
                       fontSize: 15,
+                      flexWrap: "wrap",
                     }}
                     key={i}
                   >
@@ -215,9 +232,11 @@ export default function SearchListComponent({
                 </Col>
               ))}
               <Col
+                size={3}
                 style={[
                   styles.tableVal,
                   // { flex: flexWidth ? flexWidth[i] : 1 },
+                  { borderWidth: 0 },
                   { flex: 2 },
                   titleStyle,
                 ]}
@@ -230,8 +249,9 @@ export default function SearchListComponent({
                     alignSelf: "center",
                     textAlign: "center",
                     textAlignVertical: "center",
-                    marginLeft: 20,
-                    marginRight: 20,
+                    maxWidth: "150px",
+                    marginLeft: 5,
+                    marginRight: 5,
                     fontWeight: "bold",
                   }}
                 >
@@ -245,8 +265,16 @@ export default function SearchListComponent({
             return (
               <TouchableOpacity key={d.id}>
                 <View style={{ flexDirection: "row" }}>
-                  <Col style={[styles.tableVal, dataStyle]}>
-                    <Text>
+                  <Col
+                    size={1.5}
+                    style={[
+                      styles.tableVal,
+                      dataStyle,
+                      { borderColor: "blue" },
+                      { alignItems: "center", marginTop: "5px" },
+                    ]}
+                  >
+                    <Text adjustsFontSizeToFit allowFontScaling>
                       {
                         <CheckBox
                           color="#0e73ca"
@@ -260,38 +288,56 @@ export default function SearchListComponent({
                     ? keys.map((key, i) => (
                         // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
                         // Doesn't seem too polished for web
-                        <Col key={i} style={[styles.tableVal, dataStyle]}>
-                          <ScrollView horizontal style={{ maxWidth: 350 }}>
-                            <Text
-                              adjustsFontSizeToFit
-                              allowFontScaling
-                              key={i}
-                              {...props}
-                              // style={[
-                              //   styles.tableVal,
-                              //   // { flex: flexWidth ? flexWidth[i] : 1 },
-                              //   { flex: 3 },
-                              //   dataStyle,
-                              // ]}
-                              style={{
-                                alignContent: "center",
-                                alignSelf: "center",
-                                textAlign: "center",
-                                textAlignVertical: "center",
-                                // marginLeft: 20,
-                                // marginRight: 20,
-                                // fontWeight: "bold",
-                              }}
-                            >
-                              {d[key]}
-                            </Text>
-                          </ScrollView>
+                        <Col
+                          size={3}
+                          key={i}
+                          style={[
+                            styles.tableVal,
+                            dataStyle,
+                            { borderColor: "blue" },
+                          ]}
+                        >
+                          {/* <ScrollView horizontal style={{ maxWidth: 350 }}> */}
+                          <Text
+                            adjustsFontSizeToFit
+                            allowFontScaling
+                            key={i}
+                            {...props}
+                            // style={[
+                            //   styles.tableVal,
+                            //   // { flex: flexWidth ? flexWidth[i] : 1 },
+                            //   { flex: 3 },
+                            //   dataStyle,
+                            // ]}
+                            style={{
+                              // alignContent: "center",
+                              // alignSelf: "center",
+                              // textAlign: "center",
+                              // textAlignVertical: "center",
+                              borderWidth: 0,
+                              maxWidth: "150px",
+                              marginLeft: 20,
+                              marginRight: 20,
+                              padding: 5,
+                              // marginLeft: 20,
+                              // marginRight: 20,
+                              // fontWeight: "bold",
+                            }}
+                          >
+                            {d[key]}
+                          </Text>
+                          {/* </ScrollView> */}
                         </Col>
                       ))
                     : null}
 
-                  <Col key={i} style={[styles.tableVal, dataStyle]}>
-                    <View style={{ alignItems: "center" }}>
+                  <Col size={3} key={i} style={[styles.tableVal, dataStyle]}>
+                    <View
+                      style={{
+                        alignItems: "center",
+                        margin: "5px",
+                      }}
+                    >
                       {
                         <Button
                           testID={`${props.label}-show-btn-one`}
@@ -478,7 +524,7 @@ const styles = StyleSheet.create({
   },
   tableVal: {
     // flex: 1,
-    padding: 5,
+    // padding: 5,
     // borderWidth: 2,
     borderBottomWidth: 2,
     borderBottomColor: "grey",

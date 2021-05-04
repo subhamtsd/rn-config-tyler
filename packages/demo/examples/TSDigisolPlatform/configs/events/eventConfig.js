@@ -223,7 +223,7 @@ export const events = {
             },
           },
         });
-        setLayoutConfig(routes["search"]);
+        setLayoutConfig(routes["search"], "copy");
         // fetchApi(
         //   appState.global.tsdApp.activeAction.endPoint,
         //   appState.global.tsdApp.activeAction.httpMethod,

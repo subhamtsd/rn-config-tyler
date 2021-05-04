@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import useSafeSetState from "../../helper/useSafeState";
 import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
@@ -43,27 +49,6 @@ export const JsonFormComponent = (props: {
 
   const [loading, setloading] = useState(true);
 
-  const [_schema, setSchema] = useSafeSetState({
-    type: "object",
-    required: [
-      "firstName",
-      "lastName",
-      "stype",
-      "date",
-      "username",
-      "password",
-      "Confirm password",
-      "languages",
-      "recievemsgs",
-    ],
-    properties: {
-      firstName: { type: "string" },
-      lastName: { type: "string" },
-    },
-  });
-
-  // const languages = ["Java", "Python", "C"];
-
   const _uiSchema = {
     roleName: {
       "ui:title": "Role Name",
@@ -73,76 +58,18 @@ export const JsonFormComponent = (props: {
     // submitButton: false,
   };
 
-  // // form schema
-  // const _uiSchema = {
-  //   languages: {
-  //     "ui:title": "Languages Known",
-  //     "ui:options": {
-  //       addable: false,
-  //       orderable: false,
-  //       removable: false,
-  //       minimumNumberOfItems: languages.length,
-  //     },
-  //     items: {
-  //       // The `ui:iterate` allows you to define the uiSchema for each item of the array.
-  //       // The default is to have a list of TextInput.
-  //       "ui:iterate": (i: React.ReactText, { values }: any) => ({
-  //         "ui:title": false,
-  //         "ui:widget": "checkbox",
-  //         "ui:widgetProps": {
-  //           text: languages[i],
-  //           value: languages[i],
-  //           checked: (values.languages || []).includes(languages[i]),
-  //         },
-  //       }),
-  //     },
-  //   },
-  //   recievemsgs: {
-  //     "ui:title": "Are you okay if you recieve emails from our side?",
-  //     "ui:widget": "radio",
-  //     "ui:widgetProps": {
-  //       style: { backgroundColor: "lightgrey" },
-  //     },
-  //     "ui:containerProps": {
-  //       style: { paddingTop: 10 },
-  //     },
-  //   },
-  //   stype: {
-  //     "ui:title": "Gender",
-  //     "ui:placeholder": "Please select your gender",
-  //     "ui:widget": "select",
-  //   },
-  //   date: {
-  //     "ui:widget": "date",
-  //     "ui:title": "Select your Birthdate ",
-  //   },
-  //   upload: {
-  //     "ui:widget": "file",
-  //     "ui:title": "Upload your documents",
-  //   },
-  //   submitButton: false,
-  //   age: {
-  //     "ui:widget": "range",
-  //   },
-  //   //   "background-color":{
-  //   //     'ui:widget':"ColorPicker"
-  //   // },
-  // };
-
-  // const initialFormSchema = {
-  //   type: "object",
-  //   required: ["keyName"],
-  //   properties: {
-  //     keyName: { type: "string" },
-  //   },
-  //   uischema: {},
-  // };
-
   const initialFormSchema = {};
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
   const [uiSchema, setUISchema] = useState(_uiSchema);
   const [responseStatus, setResponseStatus] = useState(200);
+
+  const actionStatus =
+    appState.global != undefined
+      ? appState.global.tsdApp.activeAction != undefined
+        ? appState.global.tsdApp.activeAction.name
+        : "Search"
+      : "Search";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -209,14 +136,6 @@ export const JsonFormComponent = (props: {
     // setloading(false);
   }, []);
 
-  // if (loading) {
-  //   return (
-  //     <View style={componentGridStyle}>
-  //      <ActivityIndicator />
-  //     </View>
-  //   );
-  // }
-
   if (formLayout === initialFormSchema) {
     return (
       <View style={componentGridStyle}>
@@ -238,7 +157,7 @@ export const JsonFormComponent = (props: {
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
-        _submitButton={true}
+        _submitButton={actionStatus === "Search" ? "Search" : true}
         _cancelButton={true}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");

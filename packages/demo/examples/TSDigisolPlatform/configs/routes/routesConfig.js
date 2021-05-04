@@ -561,18 +561,18 @@ routes.search = {
             // rowStyle: rowStyle,
             // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
           },
-          "2.2.3.1.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
-            idx: "JsonFormComponent",
-            colSize: 2,
-            label: "bodyHeader",
-            colStyle: {
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
-          },
+          // "2.2.3.1.bodyContent": {
+          //   // col no
+          //   // idx: "JsonFormComponent",
+          //   idx: "JsonFormComponent",
+          //   colSize: 2,
+          //   label: "bodyHeader",
+          //   colStyle: {
+          //     borderColor: "blue",
+          //     // borderWidth: 1,
+          //     height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+          //   },
+          // },
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",

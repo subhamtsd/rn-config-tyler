@@ -147,6 +147,9 @@ export const ListRender = (props: {
 
   console.log("pageArray : : :: : ", pageArray);
 
+  const prev = "<<";
+  const next = ">>";
+
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
       return (
@@ -170,9 +173,14 @@ export const ListRender = (props: {
             <Text
               style={{
                 color: "white",
+                justifyContent: "center",
+                alignSelf: "center",
+                marginBottom: "3px",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
-              Prev
+              {prev}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -187,9 +195,14 @@ export const ListRender = (props: {
             <Text
               style={{
                 color: "white",
+                justifyContent: "center",
+                alignSelf: "center",
+                marginBottom: "3px",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
-              Next
+              {next}
             </Text>
           </TouchableOpacity>
         </View>
@@ -215,7 +228,7 @@ export const ListRender = (props: {
           marginBottom: 10,
         }}
       >
-        <Text style={listRenderstyles.heading}>Search Here</Text>
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
       </View>
       {/* <View>
@@ -243,7 +256,7 @@ export const ListRender = (props: {
         searchBarStyle={null}
         titleStyle={null}
         dataStyle={{ color: "darkblue" }}
-        inputPlaceholder="Search Here"
+        inputPlaceholder="Search this List ..."
         buttonColor="#0e73ca"
         buttonTitle="Show"
         buttonPress={() => {

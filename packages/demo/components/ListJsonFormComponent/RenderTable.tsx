@@ -171,7 +171,7 @@ export const RenderTable = (props: {
               >
                 <Col>
                   <Picker
-                    selectedValue={item[keyName]}
+                    // selectedValue={item[keyName]}
                     style={{
                       borderWidth: 1,
                       width: `100%`,
