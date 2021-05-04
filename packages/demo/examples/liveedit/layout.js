@@ -21,23 +21,6 @@ export const routes = {};
 export const appConfig = {
   tw: true,
   componentsSet,
-  links: {
-    "/": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Home",
-    },
-    "/about": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Feed",
-    },
-    "/contact": {
-      style: styles.navItem,
-      linkStyle: styles.tabName,
-      linkText: "Messages",
-    },
-  },
   layout: {
     layoutConfig: {
       layoutClass: "py-1 rounded bg-red-100 p-1 mr-3 ",
