@@ -140,7 +140,7 @@ export const RenderTable = (props: {
   };
 
   const rowSection = arrObj.map((arrKey) => {
-    // console.log("arrKey : : : ", arrKey);
+    console.log("arrKey : : : ", arrKey);
 
     return (
       <Row>
@@ -155,48 +155,48 @@ export const RenderTable = (props: {
             },
           };
 
-          if (schema?.properties?.[keyName]?.displayType === "dropdown") {
-            return (
-              <Row
-                style={{
-                  borderBottomWidth: 2,
-                  borderBottomColor: "grey",
-                  width: 140,
-                  paddingLeft: 5,
-                  paddingRight: 5,
-                  paddingBottom: 5,
-                  alignContent: "center",
-                  alignSelf: "center",
-                }}
-              >
-                <Col>
-                  <Picker
-                    selectedValue={item[keyName]}
-                    style={{
-                      borderWidth: 1,
-                      width: `100%`,
-                      height: 36,
-                      borderColor: "grey",
-                      marginTop: 5,
-                    }}
-                    onValueChange={(itemValue, itemIndex) => {
-                      // setSelectedLanguage(itemValue);
-                      setItem({
-                        ...item,
-                        [keyName]: itemValue,
-                      });
-                    }}
-                  >
-                    {/* <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" /> */}
-                    {schema?.properties?.[keyName]?.enum.map((ele, i) => {
-                      return <Picker.Item label={ele} value={ele} key={i} />;
-                    })}
-                  </Picker>
-                </Col>
-              </Row>
-            );
-          }
+          // if (schema?.properties?.[keyName]?.displayType === "dropdown") {
+          //   return (
+          //     <Row
+          //       style={{
+          //         borderBottomWidth: 2,
+          //         borderBottomColor: "grey",
+          //         width: 140,
+          //         paddingLeft: 5,
+          //         paddingRight: 5,
+          //         paddingBottom: 5,
+          //         alignContent: "center",
+          //         alignSelf: "center",
+          //       }}
+          //     >
+          //       <Col>
+          //         <Picker
+          //           selectedValue={item[keyName]}
+          //           style={{
+          //             borderWidth: 1,
+          //             width: `100%`,
+          //             height: 36,
+          //             borderColor: "grey",
+          //             marginTop: 5,
+          //           }}
+          //           onValueChange={(itemValue, itemIndex) => {
+          //             // setSelectedLanguage(itemValue);
+          //             setItem({
+          //               ...item,
+          //               [keyName]: itemValue,
+          //             });
+          //           }}
+          //         >
+          //           {/* <Picker.Item label="Java" value="java" />
+          //           <Picker.Item label="JavaScript" value="js" /> */}
+          //           {schema?.properties?.[keyName]?.enum.map((ele, i) => {
+          //             return <Picker.Item label={ele} value={ele} key={i} />;
+          //           })}
+          //         </Picker>
+          //       </Col>
+          //     </Row>
+          //   );
+          // }
           // TODO : schema element with Action button
           if (schema?.properties?.[keyName]?.type === "button") {
             return (

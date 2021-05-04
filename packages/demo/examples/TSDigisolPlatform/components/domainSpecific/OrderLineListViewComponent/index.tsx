@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, Text, View } from "react-native";
+import { Button, Dimensions, ScrollView, Text, View } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { events } from "../../../configs/events/eventConfig";
 import { routes } from "../../../configs/routes/routesConfig";
@@ -76,7 +76,24 @@ export const OrderLineListViewComponent = (props: {
   }, []);
 
   return (
-    <View style={componentGridStyle}>
+    <View
+      style={{
+        flex: 1,
+        borderWidth: 0,
+        // minHeight: Dimensions.get("window").height - 85,
+        padding: 10,
+        margin: 15,
+        minWidth: Dimensions.get("window").width / 4,
+        maxHeight: 445,
+        borderTopWidth: 1,
+        borderTopColor: "#c5c5c5",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 5,
+      }}
+    >
       <Text
         style={{
           fontSize: 20,
