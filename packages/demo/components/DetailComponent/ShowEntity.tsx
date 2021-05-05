@@ -25,7 +25,7 @@ import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesCo
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 
 const TextRender = ({ textFeild, value }: any) => {
-  console.log("Error value : : : ", value);
+  // console.log("Error value : : : ", value);
   return (
     <Row
       style={{

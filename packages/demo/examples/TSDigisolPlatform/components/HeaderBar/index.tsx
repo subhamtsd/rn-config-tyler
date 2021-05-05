@@ -145,6 +145,9 @@ export const HeaderBar = (props: {
                       createComponent: {
                         layout: {},
                       },
+                      searchComponent: {
+                        Organisation: {},
+                      },
                     },
                   },
                 });

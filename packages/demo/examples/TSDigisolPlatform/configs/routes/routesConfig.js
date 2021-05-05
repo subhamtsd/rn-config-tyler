@@ -585,6 +585,9 @@ routes.search = {
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Order List",
+            }
           },
         },
       },
@@ -1513,7 +1516,7 @@ routes.createOrderline = {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
           "2.2.3.1.bodyContent2": {
@@ -1526,7 +1529,7 @@ routes.createOrderline = {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
         },
@@ -1546,7 +1549,7 @@ routes.createOrderline = {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
           "2.2.4.2.bodyContent": {
@@ -1559,7 +1562,7 @@ routes.createOrderline = {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
         },
