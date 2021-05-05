@@ -220,6 +220,8 @@ export const ListRender = (props: {
     );
   }
 
+  console.log("props.listFormLayout :::: ", props.listFormLayout);
+
   return (
     <View style={{}}>
       <View
@@ -249,6 +251,9 @@ export const ListRender = (props: {
         })}
         visibleKeys={props.listFormLayout.map((data: { field: any }) => {
           return data.field;
+        })}
+        showTitleKey={props.listFormLayout.map((data: { title: any }) => {
+          return data.title;
         })}
         flexWidth={[]} // Column-span (length of array should be equal to that of visibleKeys)
         numberOfLines={finalData.length} // Row-span

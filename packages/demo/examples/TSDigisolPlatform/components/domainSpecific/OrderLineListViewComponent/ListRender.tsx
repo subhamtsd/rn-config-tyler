@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import SearchListComponent from "./SearchListComponent";
+// import SearchListComponent from "../../ListComponent/SearchListComponent";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -148,6 +149,9 @@ export const ListRender = (props: {
 
   console.log("pageArray : : :: : ", pageArray);
 
+  const prev = "<<";
+  const next = ">>";
+
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
       return (
@@ -173,7 +177,7 @@ export const ListRender = (props: {
                 color: "white",
               }}
             >
-              Prev
+              {prev}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -190,7 +194,7 @@ export const ListRender = (props: {
                 color: "white",
               }}
             >
-              Next
+              {next}
             </Text>
           </TouchableOpacity>
         </View>

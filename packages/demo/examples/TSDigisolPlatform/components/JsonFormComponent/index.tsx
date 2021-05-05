@@ -9,6 +9,8 @@ import {
   Text,
   View,
 } from "react-native";
+import useSafeSetState from "../../helper/useSafeState";
+import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { prepareSchema } from "../../helper/helper";
@@ -147,16 +149,20 @@ export const JsonFormComponent = (props: {
   const submitButtonView =
     appState.global === undefined ||
     (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751)
+      appState.global.tsdApp.activeModule.key === 23751) ||
+    (appState.global.tsdApp.activeAction.name === "Create" &&
+      appState.global.tsdApp.activeModule.key === 156051)
       ? "Add Address"
-      : true;
+      : "Search";
 
   const cancelButtonView =
     appState.global === undefined ||
     (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751)
+      appState.global.tsdApp.activeModule.key === 23751) ||
+    (appState.global.tsdApp.activeAction.name === "Create" &&
+      appState.global.tsdApp.activeModule.key === 156051)
       ? "Add OrderLine"
-      : true;
+      : "Cancel";
 
   // console.log("from json:", buttonView);
 
@@ -171,8 +177,10 @@ export const JsonFormComponent = (props: {
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
-        _submitButton={actionStatus === "Search" ? "Search" : true}
-        _cancelButton={true}
+        // _submitButton={actionStatus === "Search" ? "Search" : submitButtonView}
+        // _cancelButton={true}
+        _submitButton={submitButtonView}
+        _cancelButton={cancelButtonView}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

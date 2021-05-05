@@ -41,6 +41,7 @@ export default function SearchListComponent({
   data,
   searchFields,
   visibleKeys,
+  showTitleKey,
   flexWidth,
   titleStyle,
   dataStyle,
@@ -61,6 +62,7 @@ export default function SearchListComponent({
     data,
     searchFields,
     visibleKeys,
+    showTitleKey,
     flexWidth,
     titleStyle,
     dataStyle,
@@ -86,6 +88,9 @@ export default function SearchListComponent({
   // visibleKeys.push("Action");
 
   const keys = visibleKeys || Object.keys(data[0] || []);
+
+  console.log("keys ::: --- ", keys, " \n : showTitleKey ::: ", showTitleKey);
+  
 
   useEffect(() => {
     const tempArray = [];
@@ -170,7 +175,7 @@ export default function SearchListComponent({
         />
       </View>
       <Grid>
-        <ScrollView style={{ margin: 10 }}>
+        <ScrollView style={{ margin: 10, borderWidth: 0, width: "100%" }}>
           {data.length && keys.length ? (
             <Row style={styles.headerRow}>
               <Col
@@ -197,7 +202,7 @@ export default function SearchListComponent({
                 </Text>
               </Col>
 
-              {keys.map((key, i) => (
+              {showTitleKey.map((key, i) => (
                 <Col
                   size={3}
                   style={[
@@ -217,7 +222,7 @@ export default function SearchListComponent({
                       // alignSelf: "center",
                       // textAlign: "center",
                       // textAlignVertical: "center",
-                      maxWidth: "150px",
+                      width: "150px",
                       marginLeft: 5,
                       marginRight: 5,
                       // borderWidth: 1,
@@ -319,9 +324,7 @@ export default function SearchListComponent({
                               marginLeft: 20,
                               marginRight: 20,
                               padding: 5,
-                              // marginLeft: 20,
-                              // marginRight: 20,
-                              // fontWeight: "bold",
+                              fontSize: 12,
                             }}
                           >
                             {d[key]}
