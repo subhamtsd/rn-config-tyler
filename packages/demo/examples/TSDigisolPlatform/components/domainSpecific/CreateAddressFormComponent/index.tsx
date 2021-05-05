@@ -13,13 +13,14 @@ import {
 } from "react-native";
 import { Grid } from "react-native-easy-grid";
 import { isPropertyAssignment } from "typescript";
-import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
+import { events } from "../../../configs/events/eventConfig";
+import { prepareSchema } from "../../../helper/helper";
+import { componentGridStyle } from "../../../styles/common";
 import { RenderTable } from "./RenderTable";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
 
-export const ListJsonFormComponent = (props: {
+export const CreateAddressFormComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -49,7 +50,46 @@ export const ListJsonFormComponent = (props: {
   console.log("listJsonFormComponent :::: ---> ", props);
 
   const initialVal = {
-    key: "values",
+    type: "object",
+    required: ["orderType"],
+    properties: {
+      orderName: {
+        title: "Order Name",
+        type: "string",
+        format: "",
+        uid: "orderName",
+        pattern: "[a-zA-Z0-9]",
+      },
+      orderKey: {
+        title: "Order Key",
+        type: "string",
+        format: "",
+        uid: "orderKey",
+        pattern: "[0-9]",
+      },
+      orderStatus: {
+        title: "Order Status",
+        type: "string",
+        format: "",
+        uid: "orderStatus",
+        pattern: "[a-zA-Z]",
+      },
+      orderType: {
+        title: "Order Type",
+        type: "string",
+        format: "",
+        uid: "orderType",
+        pattern: "[a-zA-Z]",
+      },
+      extOrderNo: {
+        title: "External Order No",
+        type: "string",
+        format: "",
+        uid: "extOrderNo",
+        pattern: "",
+      },
+    },
+    uischema: {},
   };
   // const [data, setdata] = useState(initialVal);
   const [formLayout, setformLayout] = useState(initialVal);
@@ -69,19 +109,30 @@ export const ListJsonFormComponent = (props: {
           body: JSON.stringify({
             userId: "TsdAdmin",
             roleKey: 1,
-            moduleKey:
-              props._childDependeny.listJsonFormComponentDependency.moduleKey,
-            tabKey:
-              props._childDependeny.listJsonFormComponentDependency.tabKey,
-            actionName:
-              props._childDependeny.listJsonFormComponentDependency.actionName,
+            moduleKey: 2007,
+            tabKey: 2001,
+            actionName: "Create",
           }),
         }
       );
       const resJSON = await res.json();
-      setformLayout(resJSON);
-      console.log("response Json : : : : : listformLayout ---> ", resJSON);
-      setLoading(false);
+      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
+      // console.log("First Parent ::: " + firstParent);
+
+      // console.log("Props in ---> ", props.dataToRender[firstParent]);
+
+      const secondParent = Object.getOwnPropertyNames(
+        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
+      );
+      // console.log("Second Parent: " + secondParent);
+      prepareSchema(resJSON[firstParent].properties[secondParent[0]]).then(
+        (schemaJson) => {
+          console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+          setformLayout(schemaJson.items);
+          console.log("response Json : : : : : formLayout ---> ", resJSON);
+          setLoading(false);
+        }
+      );
     };
     fetchFormLayout();
   }, []);
@@ -114,7 +165,7 @@ export const ListJsonFormComponent = (props: {
               getEvents={getEvents}
               events={events}
               noOfColumns={7}
-              maxNoOfRows={100}
+              maxNoOfRows={2}
               dataToRender={formLayout}
             />
           </Grid>

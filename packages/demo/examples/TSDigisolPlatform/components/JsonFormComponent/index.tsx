@@ -9,8 +9,6 @@ import {
   Text,
   View,
 } from "react-native";
-import useSafeSetState from "../../helper/useSafeState";
-import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { prepareSchema } from "../../helper/helper";
@@ -145,6 +143,22 @@ export const JsonFormComponent = (props: {
   }
 
   console.log("formLayout setFormLayout : :: : ", formLayout.uischema);
+
+  const submitButtonView =
+    appState.global === undefined ||
+    (appState.global.tsdApp.activeAction.name === "Create" &&
+      appState.global.tsdApp.activeModule.key === 23751)
+      ? "Add Address"
+      : true;
+
+  const cancelButtonView =
+    appState.global === undefined ||
+    (appState.global.tsdApp.activeAction.name === "Create" &&
+      appState.global.tsdApp.activeModule.key === 23751)
+      ? "Add OrderLine"
+      : true;
+
+  // console.log("from json:", buttonView);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
