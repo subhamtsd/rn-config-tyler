@@ -45,7 +45,6 @@ export const events = {
         })
           .then((res) => res.json())
           .then((_data) => {
-            const _formData = args.params.values;
             setAppState({
               global: {
                 tsdApp: {
@@ -153,7 +152,7 @@ export const events = {
           activeTabName === "BOOKORDER" ||
           activeTabName === "RESERVEORDER"
         ) {
-          console.log("from create order form");
+          // console.log("from create order form");
           // await fetch(
           //   `https://run.mocky.io/v3/cab08992-ae61-4382-bb58-c9a26ac6881e`
           // )
@@ -163,6 +162,17 @@ export const events = {
           //   .then((data) => {
           //     console.log("from create order ", data);
           //   });
+          setAppState({
+            global: {
+              tsdApp: {
+                formData: {
+                  ...appState?.global?.tsdApp?.formData,
+                  [args[1]]: body,
+                },
+              },
+            },
+          });
+
           setLayoutConfig(routes.createOrder);
           // await getScreenLayout(
           //   // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
@@ -176,6 +186,16 @@ export const events = {
           // );
         } else if (activeTabName === "AllocateOrders") {
           if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
+            setAppState({
+              global: {
+                tsdApp: {
+                  formData: {
+                    ...appState?.global?.tsdApp?.formData,
+                    [args[1]]: body,
+                  },
+                },
+              },
+            });
             setLayoutConfig(routes.createOrder);
             // await getScreenLayout(
             //   // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
@@ -253,6 +273,10 @@ export const events = {
     },
     onCancel: (setLayoutConfig, setAppState, appState, ...args) => {
       const activeTabName = appState.global.tsdApp.activeTab.name;
+      const body = args[0].params.values;
+      body["moduleName"] = appState.global.tsdApp.activeModule.name;
+      body["tabName"] = appState.global.tsdApp.activeTab.name;
+      console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
       // saveCreateComponentData(activeTabName, body);
       // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
       if (
@@ -264,7 +288,18 @@ export const events = {
         activeTabName === "RESERVEORDER" ||
         activeTabName === "AllocateOrders"
       ) {
-        console.log("from create orderline form");
+        // console.log("from create orderline form");
+
+        setAppState({
+          global: {
+            tsdApp: {
+              formData: {
+                ...appState?.global?.tsdApp?.formData,
+                [args[1]]: body,
+              },
+            },
+          },
+        });
         setLayoutConfig(routes.createOrderline);
       } else {
         console.log("onCancel button");

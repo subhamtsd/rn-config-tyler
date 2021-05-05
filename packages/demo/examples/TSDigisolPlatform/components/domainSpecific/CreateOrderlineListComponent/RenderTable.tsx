@@ -55,10 +55,27 @@ export const RenderTable = (props: {
     maxNoOfRows,
   } = props;
 
-  const [arrObj, setArrObj] = useState([]);
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
-  const [addRowButtonStatus, setAddRowButtonStatus] = useState(false);
+  const [arrObj, setArrObj] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty(label)
+      ? appState.global.tsdApp.formData[label]
+      : []
+  );
+  const [isChecked, setIsChecked] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty("isChecked")
+      ? appState.global.tsdApp.formData["isChecked"]
+      : { status: false, key: -1 }
+  );
+  const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
+  const [addAddressButtonStatus, setAddAddressButtonStatus] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty("isChecked")
+      ? appState.global.tsdApp.formData["isChecked"].status
+      : false
+  );
+
+  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
 
   //   console.log("hii from createorderlinelist");
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
@@ -79,6 +96,7 @@ export const RenderTable = (props: {
       newArrObj.forEach((obj) => {
         if (obj.key === key) {
           obj.item[keyname] = value;
+          obj.addStatus = false;
         }
       });
       return newArrObj;
@@ -86,7 +104,6 @@ export const RenderTable = (props: {
   };
 
   const addRowHandler = () => {
-    setAddRowButtonStatus(true);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       const newObj = {
@@ -99,21 +116,8 @@ export const RenderTable = (props: {
       newArrObj.push(newObj);
       return newArrObj;
     });
+    setAddRowButtonStatus(false);
   };
-
-  const checkboxChangeHanlder = (value) => {
-    setIsAllChecked(value);
-  };
-
-  useEffect(() => {
-    setArrObj((oldArrObj) => {
-      const newArrObj = cloneDeep(oldArrObj);
-      newArrObj.forEach((obj) => {
-        obj.isChecked = isAllChecked;
-      });
-      return newArrObj;
-    });
-  }, [isAllChecked]);
 
   const singleCheckboxHandler = (key, value) => {
     setArrObj((oldArrObj) => {
@@ -126,10 +130,12 @@ export const RenderTable = (props: {
       });
       return newArrObj;
     });
+
+    setIsChecked({ status: value, key: value ? key : -1 });
+    setAddAddressButtonStatus(value);
   };
 
   const addActionHandler = (key) => {
-    setAddRowButtonStatus(false);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       newArrObj.forEach((obj) => {
@@ -139,6 +145,7 @@ export const RenderTable = (props: {
       });
       return newArrObj;
     });
+    setAddRowButtonStatus(true);
   };
 
   const deleteActionHandler = (key) => {
@@ -147,15 +154,16 @@ export const RenderTable = (props: {
       const newArrObj = tempArrObj.filter((obj) => obj.key !== key);
       return newArrObj;
     });
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
   };
 
-  if (!addRowButtonStatus) {
+  if (addRowButtonStatus) {
     const arr = arrObj.filter((obj) => obj.addStatus === false);
     if (arr.length > 0) {
-      setAddRowButtonStatus(true);
+      setAddRowButtonStatus(false);
     }
   }
+
   //   const keyIdPrefix = () => {
   //     const keyArray = Object.getOwnPropertyNames(
   //       dataToRender[firstParent].properties
@@ -217,6 +225,7 @@ export const RenderTable = (props: {
             <CheckBox
               color="#0e73ca"
               value={obj.isChecked}
+              disabled={!(obj.addStatus && obj.isChecked === isChecked.status)}
               onValueChange={(value) => {
                 console.log(value);
                 singleCheckboxHandler(obj.key, value);
@@ -389,7 +398,7 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
-            disabled={addRowButtonStatus}
+            disabled={!addRowButtonStatus}
             onPress={addRowHandler}
           ></Button>
         </Col>
@@ -404,9 +413,33 @@ export const RenderTable = (props: {
           <Button
             title={`Add Address`}
             color="#0e73ca"
-            disabled
+            disabled={!(addAddressButtonStatus && isChecked.status)}
             onPress={() => {
-              console.log("Copy Row Clicked");
+              if (appState.global.tsdApp.hasOwnProperty("formData")) {
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      formData: {
+                        ...appState.global.tsdApp.formData,
+                        [label]: arrObj,
+                        ["isChecked"]: isChecked,
+                      },
+                    },
+                  },
+                });
+              } else {
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      formData: {
+                        [label]: arrObj,
+                        ["isChecked"]: isChecked,
+                      },
+                    },
+                  },
+                });
+              }
+              setLayoutConfig(routes.createOrderlineAddress);
               // copy the last row
             }}
           ></Button>
@@ -422,22 +455,6 @@ export const RenderTable = (props: {
         <Grid>
           {/* TABLE HEADER DATA */}
           <Row>
-            <Text
-              style={{
-                // flex: 1,
-                padding: 8,
-                paddingBottom: 0,
-                // borderWidth: 2,
-              }}
-            >
-              {
-                <CheckBox
-                  color="#0e73ca"
-                  value={isAllChecked}
-                  onValueChange={(value) => checkboxChangeHanlder(value)}
-                />
-              }
-            </Text>
             {Object.keys(tableHeaderObj).map(function (keyName, _keyIndex) {
               return (
                 <Row
@@ -497,8 +514,22 @@ export const RenderTable = (props: {
         <Button
           title={`Save`}
           color="#0e73ca"
+          disabled={
+            !(saveButtonStatus && arrObj.length > 0 && addRowButtonStatus)
+          }
           onPress={() => {
-            console.log("pressed save");
+            console.log("Final submit");
+            setAppState({
+              global: {
+                tsdApp: {
+                  formData: {
+                    ...appState?.global?.tsdApp?.formData,
+                    [label]: arrObj,
+                  },
+                },
+              },
+            });
+            setSaveButtonStatus(false);
           }}
         />
       </View>

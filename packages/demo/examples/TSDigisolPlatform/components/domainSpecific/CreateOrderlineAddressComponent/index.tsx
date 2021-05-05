@@ -215,6 +215,22 @@ export const CreateOrderlineAddressComponent = (props: {
     );
   }
 
+  const onSuccessHandler = (body, label) => {
+    console.log("label of orderline address   ", body, "v dhgvd", label);
+    setAppState({
+      global: {
+        tsdApp: {
+          formData: {
+            ...appState?.global?.tsdApp?.formData,
+            [label]: body.params.values,
+          },
+        },
+      },
+    });
+
+    setLayoutConfig(routes.createOrderline);
+  };
+
   console.log("formLayout orderlineaddressFormLayout : :: : ", formLayout);
 
   // console.log("from json:", buttonView);
@@ -228,10 +244,12 @@ export const CreateOrderlineAddressComponent = (props: {
         // schema={_schema}
         uiSchema={formLayout.uischema}
         _formData={_formData}
-        label={label}
+        label={appState.global.tsdApp.formData.isChecked.key}
         setLayoutConfig={setLayoutConfig}
         _submitButton={true}
         _cancelButton={true}
+        _onSuccess={onSuccessHandler}
+
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

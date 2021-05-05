@@ -1563,6 +1563,19 @@ routes.createOrderline = {
             },
           },
         },
+        "2.2.5.bodyFooterRow": {
+          rowConfig: {
+            rowSize: 1.3, // TODO : Adjusted Height with Upper component using calculation of Row Config
+            // rowStyle: rowStyle,
+            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
+          },
+          bodyHeader: {
+            // col no
+            colSize: 1,
+            idx: "CreateOrderFooterComponent",
+            label: "createOrderFooterComponent",
+          },
+        },
       },
     },
   },
@@ -1720,28 +1733,20 @@ routes.createOrderlineAddress = {
             },
           },
         },
+        "2.2.5.bodyFooterRow": {
+          rowConfig: {
+            rowSize: 1.3, // TODO : Adjusted Height with Upper component using calculation of Row Config
+            // rowStyle: rowStyle,
+            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
+          },
+          bodyHeader: {
+            // col no
+            colSize: 1,
+            idx: "CreateOrderFooterComponent",
+            label: "createOrderFooterComponent",
+          },
+        },
       },
     },
   },
 };
-
-// routes.userChildLayout = {
-//   "2.2.3.1.bodyContent2": {
-//     idx: "ListJsonFormComponent",
-//     colSize: 4,
-//     label: "listJsonFormComponent",
-//     colStyle: {
-//       display: "flex",
-//       borderColor: "blue",
-//     },
-//     passProps: {
-//       _childDependeny: {
-//         ListJsonFormComponentDependency: {
-//           moduleKey: 2007,
-//           tabKey: 3005,
-//           actionName: "Create",
-//         },
-//       },
-//     },
-//   },
-// };

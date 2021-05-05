@@ -50,9 +50,14 @@ export const RenderTable = (props: {
     maxNoOfRows,
   } = props;
 
-  const [arrObj, setArrObj] = useState([]);
-  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
-  const [addRowButtonStatus, setAddRowButtonStatus] = useState(false);
+  const [arrObj, setArrObj] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty(label)
+      ? appState.global.tsdApp.formData[label]
+      : []
+  );
+  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+  const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
 
   // console.log("data to render", dataToRender);
 
@@ -81,6 +86,7 @@ export const RenderTable = (props: {
       newArrObj.forEach((obj) => {
         if (obj.key === key) {
           obj.item[keyname] = value;
+          obj.addStatus = false;
         }
       });
       return newArrObj;
@@ -88,8 +94,7 @@ export const RenderTable = (props: {
   };
 
   const addRowHandler = () => {
-    setAddRowButtonStatus(true);
-
+    setAddRowButtonStatus(false);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       const newObj = {
@@ -104,7 +109,8 @@ export const RenderTable = (props: {
     });
   };
   const addActionHandler = (key) => {
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
+    setSaveButtonStatus(true);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       newArrObj.forEach((obj) => {
@@ -122,15 +128,24 @@ export const RenderTable = (props: {
       const newArrObj = tempArrObj.filter((obj) => obj.key !== key);
       return newArrObj;
     });
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
   };
 
-  if (!addRowButtonStatus) {
+  if (addRowButtonStatus) {
     if (
       arrObj.length >= 2 ||
       arrObj.filter((obj) => obj.addStatus === false).length > 0
     ) {
-      setAddRowButtonStatus(true);
+      setAddRowButtonStatus(false);
+    }
+  }
+
+  if (saveButtonStatus) {
+    if (
+      arrObj.length === 0 ||
+      arrObj.filter((obj) => obj.addStatus === false).length > 0
+    ) {
+      setSaveButtonStatus(false);
     }
   }
 
@@ -323,7 +338,7 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
-            disabled={addRowButtonStatus}
+            disabled={!addRowButtonStatus}
             onPress={addRowHandler}
           ></Button>
         </Col>
@@ -413,25 +428,22 @@ export const RenderTable = (props: {
       </ScrollView>
       <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>
         <Button
-          title={`Submit`}
+          title={`Save`}
           color="#0e73ca"
+          disabled={!saveButtonStatus}
           onPress={() => {
             console.log("Final submit");
-            // const finalData =
-            //   appState.global.tsdApp.createComponent[
-            //     appState.global.tsdApp.activeTab.name
-            //   ];
-            // console.log("final Data in the body Parameter 1st ::: ", finalData);
-            // finalData[firstParent] = {
-            //   [secondParent[0]]: listOfItems,
-            // };
-            // console.log("final Data in the body Parameter 2nd ::: ", finalData);
-            // fetchApi(
-            //   appState.global.tsdApp.activeAction.endPoint,
-            //   "POST",
-            //   finalData,
-            //   routes["detail"]
-            // );
+            setAppState({
+              global: {
+                tsdApp: {
+                  formData: {
+                    ...appState?.global?.tsdApp?.formData,
+                    [label]: arrObj,
+                  },
+                },
+              },
+            });
+            setSaveButtonStatus(false);
           }}
         ></Button>
       </View>

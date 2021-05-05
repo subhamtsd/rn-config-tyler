@@ -38,10 +38,10 @@ export const JsonForm = ({
   const [message, setMessage] = useSafeSetState(null);
   // TODO: submit formData to ideal connected endpoint
   const [formData, setFormData] = useSafeSetState({
-    ..._formData,
-    ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
+    ...appState?.global?.tsdApp?.formData?.[label], // FIXME: get this based on component property
   });
-  // console.log("jsonformcomponent", schema);
+
+  console.log("jsonformcomponent create", label);
   // console.log("AnyRecord : : : : ", _onBeforeSubmit);
 
   const onError = (event) => {
@@ -93,10 +93,12 @@ export const JsonForm = ({
     const { values } = event.params;
     // console.log("Hello this is values ib form :::: ", values);
     // validate(values);
-    setFormData({
+    const newFormData = {
       ...formData,
       [event.params.name]: event.params.value,
-    });
+    };
+
+    setFormData(newFormData);
   };
 
   const theme = {
@@ -229,15 +231,16 @@ export const JsonForm = ({
           submitButton={_submitButton}
           cancelButton={_cancelButton}
           onChange={onChange}
+          onSuccess={(body) => _onSuccess(body, label)}
           // TODO : WHEN TEST CHECKBOX uncomment next 2 line and comment above line
           // onChange={_onChange}
-          // _onSubmit={onChange}
           buttonPosition="center"
           {...getEvents(
             `${label}-form`,
             setLayoutConfig,
             setAppState,
-            appState
+            appState,
+            label
           )}
         />
         {/* </MainContainer> */}
