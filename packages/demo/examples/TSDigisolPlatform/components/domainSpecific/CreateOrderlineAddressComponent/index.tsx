@@ -246,7 +246,7 @@ export const CreateOrderlineAddressComponent = (props: {
         _formData={_formData}
         label={appState.global.tsdApp.formData.isChecked.key}
         setLayoutConfig={setLayoutConfig}
-        _submitButton={true}
+        _submitButton={"Save"}
         _cancelButton={true}
         _onSuccess={onSuccessHandler}
 

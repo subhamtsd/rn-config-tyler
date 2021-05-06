@@ -77,6 +77,11 @@ export const CreateOrderFooterComponent = (props: {
         orderLine: orderLine,
       },
     };
+    const newAppState = cloneDeep(appState);
+    delete newAppState.global.tsdApp.formData;
+
+    setAppState(newAppState, false);
+
     console.log("final submit body   ", body);
   };
 
