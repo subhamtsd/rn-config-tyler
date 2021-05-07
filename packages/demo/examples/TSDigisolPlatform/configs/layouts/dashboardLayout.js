@@ -20,7 +20,8 @@ import { HeaderBar } from "../../components/HeaderBar";
 import { TabComponent } from "../../components/TabComponent";
 import { ActionComponent } from "../../components/ActionComponent/index";
 import { JsonFormComponent } from "../../components/JsonFormComponent/index";
-import { DefaultScreen } from "../../components/DefaultScreen";
+import { DefaultScreen } from "../../components/DefaultScreen/index";
+import { ScreenJsonEditor } from "../../components/ScreenJsonEditor";
 import { ListComponent } from "../../components/ListComponent";
 import { DetailListComponent } from "../../components/DetailListComponent";
 import { EditComponent } from "../../components/EditComponent/index";
@@ -44,6 +45,7 @@ export const componentsSet = {
   // TodoApp2,
   // SideNavBar,
   DefaultScreen,
+  ScreenJsonEditor,
   NavigationBar,
   HeaderBar,
   TabComponent,
@@ -147,14 +149,14 @@ export const appConfig = {
       },
       // col
       Header: {
-        colSize: 12,
+        colSize: 3,
         idx: "HeaderBar",
         label: "headerBar",
       },
     },
     "2.container": {
       rowConfig: {
-        rowSize: 1,
+        rowSize: 12,
       },
       "2.1.leftNavCol": {
         layout: {
@@ -224,12 +226,14 @@ export const appConfig = {
               },
             },
             "2.2.3.1.bodyContent2": {
-              idx: "DefaultScreen",
+              // idx: "DefaultScreen",
+              idx: "ScreenJsonEditor",
               colSize: 4,
               label: "helloWorld",
               colStyle: {
-                display: "flex",
+                // display: "flex",
                 borderColor: "blue",
+                // borderWidth: 1,
               },
             },
           },

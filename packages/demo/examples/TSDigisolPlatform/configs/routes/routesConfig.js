@@ -16,7 +16,7 @@ routes.orderLineDetail = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -221,7 +221,7 @@ routes.orderDetail = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -385,7 +385,7 @@ routes.defaultAppConfig = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
     },
     "2.1.leftNavCol": {
       layout: {
@@ -485,7 +485,7 @@ routes.search = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -608,7 +608,7 @@ routes.detail = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -732,7 +732,7 @@ routes.edit = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -855,7 +855,7 @@ routes.delete = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
       // rowStyle: rowStyle,
     },
     // col no
@@ -976,7 +976,7 @@ routes.userChildLayout = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 1,
+      rowSize: 12,
     },
     "2.1.leftNavCol": {
       layout: {
