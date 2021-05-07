@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -249,7 +250,7 @@ export const ListRender = (props: {
               textAlign: "center",
             }}
           >
-            {props.appState.global.tsdApp.activeTab.name} List
+            {props.appState.global.tsdApp.activeTab.name} LIST
           </Text>
         </View>
       </View>
