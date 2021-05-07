@@ -16,7 +16,6 @@ import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { routes } from "../../../configs/routes/routesConfig";
-import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { getEvents } from "../../../configs/events/eventConfig";
 // import { useHistory } from "react-router-native";
 
@@ -173,7 +172,7 @@ export default function SearchListComponent({
         <ScrollView style={{ margin: 10 }}>
           {data.length && keys.length ? (
             <Row style={styles.headerRow}>
-              <Col style={[styles.tableVal, dataStyle]}>
+              <Col size={1} style={[styles.tableVal, dataStyle]}>
                 <Text adjustsFontSizeToFit allowFontScaling>
                   {
                     <CheckBox
@@ -187,6 +186,7 @@ export default function SearchListComponent({
 
               {keys.map((key, i) => (
                 <Col
+                  size={3}
                   style={[
                     styles.tableVal,
                     // { flex: flexWidth ? flexWidth[i] : 1 },
@@ -215,6 +215,7 @@ export default function SearchListComponent({
                 </Col>
               ))}
               <Col
+                size={3}
                 style={[
                   styles.tableVal,
                   // { flex: flexWidth ? flexWidth[i] : 1 },
@@ -245,7 +246,7 @@ export default function SearchListComponent({
             return (
               <TouchableOpacity key={d.id}>
                 <View style={{ flexDirection: "row" }}>
-                  <Col style={[styles.tableVal, dataStyle]}>
+                  <Col size={1} style={[styles.tableVal, dataStyle]}>
                     <Text>
                       {
                         <CheckBox
@@ -260,37 +261,32 @@ export default function SearchListComponent({
                     ? keys.map((key, i) => (
                         // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
                         // Doesn't seem too polished for web
-                        <Col key={i} style={[styles.tableVal, dataStyle]}>
-                          <ScrollView horizontal style={{ maxWidth: 350 }}>
-                            <Text
-                              adjustsFontSizeToFit
-                              allowFontScaling
-                              key={i}
-                              {...props}
-                              // style={[
-                              //   styles.tableVal,
-                              //   // { flex: flexWidth ? flexWidth[i] : 1 },
-                              //   { flex: 3 },
-                              //   dataStyle,
-                              // ]}
-                              style={{
-                                alignContent: "center",
-                                alignSelf: "center",
-                                textAlign: "center",
-                                textAlignVertical: "center",
-                                // marginLeft: 20,
-                                // marginRight: 20,
-                                // fontWeight: "bold",
-                              }}
-                            >
-                              {d[key]}
-                            </Text>
-                          </ScrollView>
+                        <Col
+                          size={3}
+                          key={i}
+                          style={[styles.tableVal, dataStyle]}
+                        >
+                          {/* <ScrollView horizontal style={{ maxWidth: 350 }}> */}
+                          <Text
+                            adjustsFontSizeToFit
+                            allowFontScaling
+                            key={i}
+                            {...props}
+                            style={{
+                              alignContent: "center",
+                              alignSelf: "center",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                            }}
+                          >
+                            {d[key]}
+                          </Text>
+                          {/* </ScrollView> */}
                         </Col>
                       ))
                     : null}
 
-                  <Col key={i} style={[styles.tableVal, dataStyle]}>
+                  <Col size={3} key={i} style={[styles.tableVal, dataStyle]}>
                     <View style={{ alignItems: "center" }}>
                       {
                         <Button

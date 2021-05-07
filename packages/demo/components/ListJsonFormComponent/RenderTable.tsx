@@ -39,6 +39,7 @@ export const RenderTable = (props: {
   getEvents: any;
   events: any;
   noOfColumns: any;
+  maxNoOfRows: any;
   dataToRender: any;
 }) => {
   const {
@@ -52,23 +53,26 @@ export const RenderTable = (props: {
     getEvents,
     noOfColumns,
     dataToRender,
+    maxNoOfRows,
   } = props;
 
   const [arrObj, setArrObj] = useState([]);
 
-  const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
-  console.log("First Parent ::: " + firstParent);
+  // console.log("data to render", dataToRender);
 
-  console.log("Props in ---> ", props.dataToRender[firstParent]);
+  const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
+  // console.log("First Parent ::: " + firstParent);
+
+  // console.log("Props in ---> ", props.dataToRender[firstParent]);
 
   const secondParent = Object.getOwnPropertyNames(
     dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
   );
-  console.log("Second Parent: " + secondParent);
+  // console.log("Second Parent: " + secondParent);
   prepareSchema(
     props.dataToRender[firstParent].properties[secondParent[0]]
   ).then((schemaJson) => {
-    console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+    // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
   });
 
   const tableHeaderObj =
@@ -80,17 +84,18 @@ export const RenderTable = (props: {
     uid: "action",
     pattern: "[]",
   };
-
+  console.log("tableHeader", tableHeaderObj);
   const requiredField =
     dataToRender[firstParent].properties[secondParent[0]].items.required;
 
-  const keyIdPrefix = () => {
-    const keyArray = Object.getOwnPropertyNames(
-      dataToRender[firstParent].properties
-    );
-    return keyArray[0];
-  };
-
+  // const keyIdPrefix = () => {
+  //   const keyArray = Object.getOwnPropertyNames(
+  //     dataToRender[firstParent].properties
+  //   );
+  //   console.log("keyArray", keyArray);
+  //   return keyArray[0];
+  // };
+  // keyIdPrefix();
   const intialJson = {};
   const [item, setItem] = useState({}); // Submit one row
   const [finalItem, setFinalItem] = useState({});
@@ -106,14 +111,15 @@ export const RenderTable = (props: {
   //     setModalVisible(!modalVisible)
   //   });
 
-  console.log("finalItem : : : ", finalItem);
-  console.log("ITEM :::",item);
-  
+  // console.log("finalItem : : : ", finalItem);
 
   useEffect(() => {
     if (finalItem !== {}) {
       // If clicked on same row to add and finalItem is not equal to item
-      if (finalItem[keyIdPrefix()] === noOfAddItemClick || finalItem !== item) {
+      if (
+        finalItem[secondParent[0]] === noOfAddItemClick ||
+        finalItem !== item
+      ) {
         setListItems(() => [...listOfItems, finalItem]);
       }
     }
@@ -131,6 +137,7 @@ export const RenderTable = (props: {
     })
       .then((res) => res.json())
       .then((_data) => {
+        console.log("data create", _data);
         setAppState({
           global: {
             tsdApp: {
@@ -314,7 +321,7 @@ export const RenderTable = (props: {
               >
                 <Col>
                   <Picker
-                    //selectedValue={item[keyName]}
+                    // selectedValue={item[keyName]}
                     style={{
                       borderWidth: 1,
                       width: `100%`,
@@ -381,7 +388,7 @@ export const RenderTable = (props: {
                           // TODO : BUG on double click it add same item every time
                           // TODO : wRITE A CALL BACK
                           setnoOfAddItemClick(noOfAddItemClick + 1);
-                          item[keyIdPrefix()] = noOfRows;
+                          item[secondParent[0]] = noOfRows;
                           // console.log("finalItem : : : ", finalItem);
                           console.log("Item : : : : ", item);
                           if (finalItem == {} || finalItem !== item) {
@@ -465,6 +472,7 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
+            disabled={noOfRows >= maxNoOfRows}
             onPress={() => {
               console.log("Add Row Clicked");
               // create new row

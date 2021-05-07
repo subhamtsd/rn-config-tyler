@@ -41,7 +41,7 @@ export const JsonForm = ({
     ..._formData,
     ...appState?.$global[label]?.form?.formData, // FIXME: get this based on component property
   });
-
+  // console.log("jsonformcomponent", schema);
   // console.log("AnyRecord : : : : ", _onBeforeSubmit);
 
   const onError = (event) => {

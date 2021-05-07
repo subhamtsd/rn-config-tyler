@@ -7,15 +7,12 @@ import React, { useEffect, useState } from "react";
 import Modal from "modal-react-native-web";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 import {
-  Button,
   Text,
   TouchableOpacity,
   View,
   StyleSheet,
-  ActivityIndicator,
   FlatList,
   ScrollView,
-  Image,
   Alert,
   Pressable,
 } from "react-native";
@@ -25,7 +22,7 @@ import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesCo
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 
 const TextRender = ({ textFeild, value }: any) => {
-  console.log("Error value : : : ", value);
+  // console.log("Error value : : : ", value);
   return (
     <Row
       style={{
@@ -139,7 +136,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
-  console.log("viewData : : : : ", getEvents);
+  console.log("viewData in showEntity : :: : : ", viewData);
 
   const [selectedId, setSelectedId] = useState(null);
   const [qrcodeVisible, setqrcodeVisible] = useState(true);
@@ -208,11 +205,8 @@ export const ShowEntity = (props: {
                       setLayoutConfig,
                       setAppState,
                       appState,
-                      { key: "edit" }
+                      viewData
                     )}
-                    // onPress={() => {
-                    //   console.log("ViewData :::: ", viewData);
-                    // }}
                     style={detailViewStyles.button}
                   >
                     <Text style={detailViewStyles.textStyle}>EDIT</Text>
@@ -231,7 +225,7 @@ export const ShowEntity = (props: {
                     //   appState
                     // )}
                     onPress={() => {
-                      console.log("QR CODE SHOW");
+                      console.log("Button Clicked ::: --> ", viewData?.qrLink);
                       const qrcodeStatus = !qrcodeVisible;
                       setqrcodeVisible(!qrcodeVisible);
                       setAppState({
@@ -240,7 +234,7 @@ export const ShowEntity = (props: {
                             ShowQRCodeComponent: {
                               isQrcodeVisible: qrcodeVisible,
                               // TODO: Should be dynamic for the component to show QR code
-                              qrcodeImage: "qr_code_PNG24.png",
+                              qrcodeImage: `default`,
                               // TODO: Should be dynamic for the component for show Message after QR code is rendered
                               message: "QR code for Order",
                             },

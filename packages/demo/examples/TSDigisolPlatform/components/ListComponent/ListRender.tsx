@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,6 +25,7 @@ export const ListRender = (props: {
   setAppState: any;
   setLayoutConfig: any;
   styles: any;
+  UItitle: any;
 }) => {
   // const {
   //   appState,
@@ -147,6 +149,9 @@ export const ListRender = (props: {
 
   console.log("pageArray : : :: : ", pageArray);
 
+  const prev = "<<";
+  const next = ">>";
+
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
       return (
@@ -170,9 +175,14 @@ export const ListRender = (props: {
             <Text
               style={{
                 color: "white",
+                justifyContent: "center",
+                alignSelf: "center",
+                marginBottom: "3px",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
-              Prev
+              {prev}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -187,9 +197,14 @@ export const ListRender = (props: {
             <Text
               style={{
                 color: "white",
+                justifyContent: "center",
+                alignSelf: "center",
+                marginBottom: "3px",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
-              Next
+              {next}
             </Text>
           </TouchableOpacity>
         </View>
@@ -207,16 +222,37 @@ export const ListRender = (props: {
     );
   }
 
+  console.log("props.listFormLayout :::: ", props.listFormLayout);
+
   return (
     <View style={{}}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "row-reverse",
           marginBottom: 10,
         }}
       >
-        <Text style={listRenderstyles.heading}>Search Here</Text>
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
+        <View
+          style={{
+            // borderWidth: 1,
+            width: 900,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#0d47a1",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {props.appState.global.tsdApp.activeTab.name} LIST
+          </Text>
+        </View>
       </View>
       {/* <View>
         <Text>{JSON.stringify(finalData)}</Text>
@@ -237,13 +273,16 @@ export const ListRender = (props: {
         visibleKeys={props.listFormLayout.map((data: { field: any }) => {
           return data.field;
         })}
+        showTitleKey={props.listFormLayout.map((data: { title: any }) => {
+          return data.title;
+        })}
         flexWidth={[]} // Column-span (length of array should be equal to that of visibleKeys)
         numberOfLines={finalData.length} // Row-span
         searchBarWrapperStyle={null}
         searchBarStyle={null}
         titleStyle={null}
         dataStyle={{ color: "darkblue" }}
-        inputPlaceholder="Search Here"
+        inputPlaceholder="Search this List ..."
         buttonColor="#0e73ca"
         buttonTitle="Show"
         buttonPress={() => {
