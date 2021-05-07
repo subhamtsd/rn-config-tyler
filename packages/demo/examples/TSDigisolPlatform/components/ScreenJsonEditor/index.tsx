@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Text, View, TouchableOpacity,StyleSheet } from "react-native";
+import { Button, Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { componentGridStyle } from "../../styles/common";
 // import { JSONEditor } from "../../../../components/JSONEditor";
 
@@ -13,6 +14,7 @@ import { JsonEditor as Editor } from "jsoneditor-react";
 import "./ScreenJsonEditor.css";
 import { routes } from "../../configs/routes/routesConfig";
 import { Bold } from "react-native-web-ui-components";
+import { useEffect } from "react";
 
 export const ScreenJsonEditor = (props: {
     appState: any;
@@ -36,22 +38,42 @@ export const ScreenJsonEditor = (props: {
         getEvents,
     } = props;
 
-    const [showJSON,setShowJSON] = useState({})
+    const [showJSON, setShowJSON] = useState({});
+    const [finalJSON, setFinalJSON] = useState({});
 
     console.log(`label is ${label}`);
     console.log(getEvents(`${label}-btn-one`, setLayoutConfig));
     const handleChange = (event) => {
-        return setShowJSON(event); 
+        return setShowJSON(event);
     }
     const onError = () => {
         console.log("error found");
-        
     }
+    const sendJSON = () => {
+        setFinalJSON(showJSON);
+        fetchData();
+    }
+
     const json = {};
 
-    return (
-        <View style={componentGridStyle}>
-            {/*<Button
+    const fetchData = async () => {
+        const res = await fetch(`${SERVER_ENDPOINT}v1/screen/`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalJSON)
+        });
+        const resJSON = await res.json();
+
+        // console.log("objectName : : : : ", objectName);
+    };
+
+
+return (
+    <View style={componentGridStyle}>
+        {/*<Button
         testID={`${label}-btn-one`}
         title="HELLO DEMO"
         {...getEvents(
@@ -65,35 +87,30 @@ export const ScreenJsonEditor = (props: {
         //   console.log("Hello World from Default Component");
         // }}
       ></Button> */}
-            <Editor
-                ace={ace}
-                key={1}
-                value={{}}
-                mode={"tree"}
-                modes={["text", "code", "tree", "form", "view"]}
-                onChange={handleChange}
-                onError={onError}
-                theme={"ace/theme/github"}
-            />
-            {/* <JSONEditor
+        <Editor
+            ace={ace}
+            key={1}
+            value={{}}
+            mode={"tree"}
+            modes={["text", "code", "tree", "form", "view"]}
+            onChange={handleChange}
+            onError={onError}
+            theme={"ace/theme/github"}
+        />
+        {/* <JSONEditor
                 json={json}
                 onChangeJSON={handleChange}
                 onError={onError}
             /> */}
-            <TouchableOpacity
-                style={buttonStyle.button}
-                onPress={() => {
-                  // setCurrentRow({arrIndex},()=>console.log()
-                      // );
-                      // setCurrentRow(arrIndex)
-                  console.log("required json",showJSON);
-                }}
-            >
-                <Text style={buttonStyle.text}>Show JSON</Text>
-            </TouchableOpacity>
-             {children || (appState && appState[label] && appState[label]?.children)} 
-        </View>
-    );
+        <TouchableOpacity
+            style={buttonStyle.button}
+            onPress={sendJSON}
+        >
+            <Text style={buttonStyle.text}>Show JSON</Text>
+        </TouchableOpacity>
+        {children || (appState && appState[label] && appState[label]?.children)}
+    </View>
+);
 };
 
 // JSONEditor.propTypes = {
