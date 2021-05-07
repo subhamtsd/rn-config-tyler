@@ -43,6 +43,8 @@ export const ScreenJsonEditor = (props: {
 
     console.log(`label is ${label}`);
     console.log(getEvents(`${label}-btn-one`, setLayoutConfig));
+
+
     const handleChange = (event) => {
         return setShowJSON(event);
     }
@@ -50,9 +52,12 @@ export const ScreenJsonEditor = (props: {
         console.log("error found");
     }
     const sendJSON = () => {
-        setFinalJSON(showJSON);
         fetchData();
     }
+    const handleReset = () => {
+        setShowJSON({ key: "value" });
+    }
+
 
     const json = {};
 
@@ -63,7 +68,7 @@ export const ScreenJsonEditor = (props: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(finalJSON)
+            body: JSON.stringify(showJSON)
         });
         const resJSON = await res.json();
 
@@ -71,9 +76,9 @@ export const ScreenJsonEditor = (props: {
     };
 
 
-return (
-    <View style={componentGridStyle}>
-        {/*<Button
+    return (
+        <View style={componentGridStyle}>
+            {/*<Button
         testID={`${label}-btn-one`}
         title="HELLO DEMO"
         {...getEvents(
@@ -87,30 +92,44 @@ return (
         //   console.log("Hello World from Default Component");
         // }}
       ></Button> */}
-        <Editor
-            ace={ace}
-            key={1}
-            value={{}}
-            mode={"tree"}
-            modes={["text", "code", "tree", "form", "view"]}
-            onChange={handleChange}
-            onError={onError}
-            theme={"ace/theme/github"}
-        />
-        {/* <JSONEditor
+            <Editor
+                ace={ace}
+                key={1}
+                value={showJSON}
+                mode={"tree"}
+                modes={["text", "code", "tree", "form", "view"]}
+                onChange={handleChange}
+                onError={onError}
+                theme={"ace/theme/github"}
+            />
+            {/* <JSONEditor
                 json={json}
                 onChangeJSON={handleChange}
                 onError={onError}
             /> */}
-        <TouchableOpacity
-            style={buttonStyle.button}
-            onPress={sendJSON}
-        >
-            <Text style={buttonStyle.text}>Show JSON</Text>
-        </TouchableOpacity>
-        {children || (appState && appState[label] && appState[label]?.children)}
-    </View>
-);
+            <TouchableOpacity
+                style={buttonStyle.button}
+                onPress={() => {
+                    console.log("requiredJSON", showJSON);
+
+                    sendJSON();
+                }}
+            >
+                <Text style={buttonStyle.text}>Show JSON</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={buttonStyle.button}
+                onPress={() => {
+                    console.log("reset done", showJSON);
+
+                    setShowJSON({ key: "value" })
+                }}
+            >
+                <Text style={buttonStyle.text}>RESET</Text>
+            </TouchableOpacity>
+            {children || (appState && appState[label] && appState[label]?.children)}
+        </View>
+    );
 };
 
 // JSONEditor.propTypes = {
