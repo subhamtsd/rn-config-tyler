@@ -37,6 +37,7 @@ import { CreateAddressFormComponent } from "../../components/domainSpecific/Crea
 import { CreateOrderlineListComponent } from "../../components/domainSpecific/CreateOrderlineListComponent";
 import { CreateOrderlineAddressComponent } from "../../components/domainSpecific/CreateOrderlineAddressComponent";
 import { CreateOrderFooterComponent } from "./../../components/domainSpecific/CreateOrderFooterComponent/index";
+import { EditOrderLineAddressDetailComponent } from "../../components/domainSpecific/EditOrderLineAddressDetailComponent/index";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
@@ -72,6 +73,7 @@ export const componentsSet = {
   CreateOrderlineListComponent,
   CreateOrderlineAddressComponent,
   CreateOrderFooterComponent,
+  EditOrderLineAddressDetailComponent,
   // JsonForm
 
   // TEST FOR JSON FORM

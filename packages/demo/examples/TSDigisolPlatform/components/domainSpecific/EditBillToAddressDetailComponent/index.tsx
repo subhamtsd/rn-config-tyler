@@ -153,70 +153,49 @@ export const EditBillToAddressDetailComponent = (props: {
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
   // retrieve formLayout via api
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
-  //         method: "POST",
-  //         headers: {
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           userId: "TsdAdmin",
-  //           roleKey: 1,
-  //           moduleKey:
-  //             appState.global != undefined
-  //               ? appState.global.tsdApp.activeModule != undefined
-  //                 ? appState.global.tsdApp.activeModule.key
-  //                 : "23751"
-  //               : "23751",
-  //           tabKey:
-  //             appState.global != undefined
-  //               ? appState.global.tsdApp.activeTab != undefined
-  //                 ? appState.global.tsdApp.activeTab.key
-  //                 : "34601"
-  //               : "34601",
-  //           actionName:
-  //             appState.global != undefined
-  //               ? appState.global.tsdApp.editComponent.action != undefined
-  //                 ? appState.global.tsdApp.editComponent.action.name
-  //                 : "Edit"
-  //               : "Edit",
-  //         }),
-  //       });
-  //       const resJSON = await res.json();
-  //       console.log("resJson ::::: edit component---> ", resJSON);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleKey: "2007",
+          tabKey: "3006",
+          actionName: "Edit",
+        }),
+      });
+      const resJSON = await res.json();
+      // console.log("resJson ::::: edit component---> ", resJSON);
 
-  //       // const resJSON = await res.json();
-  //       console.log("response Json : : : : : EditformLayout ---> ", resJSON);
-  //       prepareSchema(resJSON)
-  //         .then((schemaJson) => {
-  //           console.log("SchemaJson edit updated : : :: ", schemaJson);
-  //           return schemaJson;
-  //         })
-  //         .then((formLayout) => {
-  //           console.log("Schema edit returned : : : ", formLayout);
-  //           console.log("edit component appstate:", appState.global);
-  //           const objectName =
-  //             appState.global != undefined
-  //               ? appState.global.tsdApp.editComponent.action.name +
-  //                 appState.global.tsdApp.activeTab.name +
-  //                 "Schema"
-  //               : "EditCreateOrdersSchema";
+      // const resJSON = await res.json();
+      // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+      prepareSchema(resJSON)
+        .then((schemaJson) => {
+          console.log("SchemaJson edit updated : : :: ", schemaJson);
+          return schemaJson;
+        })
+        .then((formLayout) => {
+          // console.log("Schema edit returned : : : ", formLayout);
+          // console.log("edit component appstate:", appState.global);
+          const firstParent = Object.getOwnPropertyNames(formLayout)[0];
 
-  //           console.log("objectName : : : : ", objectName);
-  //           setformLayout(formLayout[objectName]);
-  //           // setloading(false);
-  //         });
+          // console.log("objectName : : : : ", objectNam);
+          setformLayout(formLayout[firstParent]);
+          // setloading(false);
+        });
 
-  //       // console.log("objectName : : : : ", objectName);
-  //     };
-  //     fetchData();
-  //   }, []);
+      // console.log("objectName : : : : ", objectName);
+    };
+    fetchData();
+  }, []);
 
-  console.log("formData  : : :  in editaddress component : : : ", _formData);
-
-  console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
+  // console.log("formData  : : :  in editaddress component : : : ", _formData);
+  // console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
@@ -226,7 +205,7 @@ export const EditBillToAddressDetailComponent = (props: {
         schema={formLayout}
         // schema={_schema}
         uiSchema={formLayout.uischema}
-        _formData={_formData}
+        _formData={appState?.global?.tsdApp?.formData?.viewData}
         label={label}
         setLayoutConfig={setLayoutConfig}
         // _onBeforeSubmit={(e) => {

@@ -98,41 +98,33 @@ export const CreateAddressFormComponent = (props: {
   useEffect(() => {
     const fetchFormLayout = async () => {
       setLoading(true);
-      const res = await fetch(
-        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleKey: 2007,
-            tabKey: 2001,
-            actionName: "Create",
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          moduleKey: 2007,
+          roleKey: 1,
+          tabKey: 3006,
+          userId: "TsdAdmin",
+          actionName: "Create",
+        }),
+      });
       const resJSON = await res.json();
-      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
+
       // console.log("First Parent ::: " + firstParent);
 
       // console.log("Props in ---> ", props.dataToRender[firstParent]);
-
-      const secondParent = Object.getOwnPropertyNames(
-        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
-      );
       // console.log("Second Parent: " + secondParent);
-      prepareSchema(resJSON[firstParent].properties[secondParent[0]]).then(
-        (schemaJson) => {
-          console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
-          setformLayout(schemaJson.items);
-          console.log("response Json : : : : : formLayout ---> ", resJSON);
-          setLoading(false);
-        }
-      );
+      prepareSchema(resJSON).then((schemaJson) => {
+        const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
+        // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+        setformLayout(schemaJson[firstParent]);
+        // console.log("response Json : : : : : formLayout ---> ", resJSON);
+        setLoading(false);
+      });
     };
     fetchFormLayout();
   }, []);

@@ -5,7 +5,6 @@ import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
-  $appInit: (setLayoutConfig, setAppState) => {},
 
   // the below logic to be run in component load phase for each mounting like componentDidMount
   "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {
@@ -542,7 +541,17 @@ export const events = {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       // console.log("From dtail list editbutton ::: ", appState);
       console.log("From dtail list editbutton ::: ", args);
-      // setLayoutConfig(routes["editOrderLineDetail"]);
+      setAppState({
+        global: {
+          tsdApp: {
+            formData: {
+              ...appState?.global?.tsdApp?.formData,
+              viewData: args[0],
+            },
+          },
+        },
+      });
+      setLayoutConfig(routes["editOrderLineDetail"]);
     },
   },
 
@@ -661,7 +670,91 @@ export const events = {
     // },
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       console.log("From billToAddressDetailViewComponent ::: ", ...args);
+      setAppState({
+        global: {
+          tsdApp: {
+            formData: {
+              ...appState?.global?.tsdApp?.formData,
+              viewData: args[0],
+            },
+          },
+        },
+      });
       setLayoutConfig(routes["editBillToAddressDetail"]);
+    },
+  },
+  "orderLineAddressDetailViewComponent-edit-btn": {
+    // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
+    // onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+    //   const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userId: "TsdAdmin",
+    //       roleKey: 1,
+    //       moduleName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeModule.name
+    //           : "Service Orders",
+    //       tabName:
+    //         appState.global != undefined
+    //           ? appState.global.tsdApp.activeTab.name
+    //           : "CreateOrders",
+    //       actionName: "Edit",
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((_data) => {
+    //       // console.log("_Data : :: ", _data);
+    //       setAppState({
+    //         global: {
+    //           tsdApp: {
+    //             editComponent: {
+    //               action: {
+    //                 name:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionName,
+    //                 key:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .actionKey,
+    //                 endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+    //                   /{[^}]*}/,
+    //                   ""
+    //                 ),
+    //                 uriParams:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .uriParams,
+    //                 httpMethod:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .httpMethod,
+    //                 showButton:
+    //                   _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+    //                     .showButton,
+    //               },
+    //             },
+    //           },
+    //         },
+    //       });
+    //       console.log("appState in Edit event : : : ", appState);
+    //       setLayoutConfig(routes["editOrderLineDetail"]);
+    //     });
+    // },
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      // console.log("From billToAddressDetailViewComponent ::: ", ...args);
+      setAppState({
+        global: {
+          tsdApp: {
+            formData: {
+              ...appState?.global?.tsdApp?.formData,
+              viewData: args[0],
+            },
+          },
+        },
+      });
+      setLayoutConfig(routes["editOrderLineAddressDetail"]);
     },
   },
   "detailListComponent-delete-btn": {
