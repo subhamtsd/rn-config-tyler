@@ -235,7 +235,7 @@ export const appConfig = {
             },
             "2.2.3.1.bodyContent2": {
               idx: "DefaultScreen",
-              colSize: 4,
+              colSize: 2,
               label: "helloWorld",
               colStyle: {
                 display: "flex",

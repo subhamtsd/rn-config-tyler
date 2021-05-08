@@ -456,7 +456,7 @@ routes.defaultAppConfig = {
           },
           "2.2.3.1.bodyContent2": {
             idx: "DefaultScreen",
-            colSize: 4,
+            colSize: 2,
             label: "",
             colStyle: {
               display: "flex",

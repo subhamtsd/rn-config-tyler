@@ -154,6 +154,8 @@ export const JsonFormComponent = (props: {
     (appState.global.tsdApp.activeAction.name === "Create" &&
       appState.global.tsdApp.activeModule.key === 156051)
       ? "Add Address"
+      : appState.global.tsdApp.activeAction.name === "Create"
+      ? "Create"
       : "Search";
 
   const cancelButtonView =
