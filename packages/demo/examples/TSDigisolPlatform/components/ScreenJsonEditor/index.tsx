@@ -107,26 +107,28 @@ export const ScreenJsonEditor = (props: {
                 onChangeJSON={handleChange}
                 onError={onError}
             /> */}
-            <TouchableOpacity
-                style={buttonStyle.button}
-                onPress={() => {
-                    console.log("requiredJSON", showJSON);
+            <View style={{display: 'flex',flexDirection: 'row',alignSelf:'center',marginTop: 10}}>
+                <TouchableOpacity
+                    style={buttonStyle.button1}
+                    onPress={() => {
+                        console.log("requiredJSON", showJSON);
 
-                    sendJSON();
-                }}
-            >
-                <Text style={buttonStyle.text}>Show JSON</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={buttonStyle.button}
-                onPress={() => {
-                    console.log("reset done", showJSON);
+                        sendJSON();
+                    }}
+                >
+                    <Text style={buttonStyle.text1}>Create</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={buttonStyle.button2}
+                    onPress={() => {
+                        console.log("reset done", showJSON);
 
-                    setShowJSON({ key: "value" })
-                }}
-            >
-                <Text style={buttonStyle.text}>RESET</Text>
-            </TouchableOpacity>
+                        setShowJSON({ key: "value" })
+                    }}
+                >
+                    <Text style={buttonStyle.text2}>Reset</Text>
+                </TouchableOpacity>
+            </View>
             {children || (appState && appState[label] && appState[label]?.children)}
         </View>
     );
@@ -139,12 +141,31 @@ export const ScreenJsonEditor = (props: {
 // };
 
 const buttonStyle = StyleSheet.create({
-    button: {
+    button1: {
+        alignItems: "center",
+        alignSelf: "center",
+        backgroundColor: "#fff",
+        height: 35,
+        width: "140px",
+        marginTop: 7,
+        marginBottom: 0,
+        marginRight: 10,
+        paddingTop: 7,
+        paddingBottom: 5,
+        paddingLeft: 50,
+        paddingRight: 30,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    button2: {
         alignItems: "center",
         alignSelf: "center",
         backgroundColor: "#0e73ca",
         height: 35,
-        width: "180px",
+        width: "140px",
         marginTop: 7,
         marginBottom: 0,
         paddingTop: 7,
@@ -157,9 +178,16 @@ const buttonStyle = StyleSheet.create({
         shadowRadius: 2,
         elevation: 5,
     },
-    text: {
+    text1: {
+        color: '#545454',
+        paddingRight: 20,
+        fontSize: 14,
+        fontWeight: 'normal'
+    },
+    text2: {
         color: '#fff',
-        fontSize: 15,
-        fontWeight: 'bold'
-    }
+        paddingRight: 20,
+        fontSize: 14,
+        fontWeight: 'normal'
+    },
 })

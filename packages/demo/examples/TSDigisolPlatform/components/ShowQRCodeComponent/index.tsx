@@ -55,7 +55,7 @@ export const ShowQRCodeComponent = (props: {
                 //   : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage +
                 //       `.png`)}
                 // source={require(`C:/QRCODE/default.png`)}
-                source={require(`C:/QRCODE/${appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage}.png`)}
+                source={require(`D:/QRCODE/${appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage}.png`)}
                 style={{
                   width: 200,
                   height: 200,
