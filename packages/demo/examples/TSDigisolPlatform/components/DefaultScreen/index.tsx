@@ -1,6 +1,10 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
+import { events } from "../../configs/events/eventConfig";
 import { routes } from "../../configs/routes/routesConfig";
+import { ScreenJsonEditor } from "../ScreenJsonEditor";
+import { componentGridStyle } from "../../styles/common";
+import { ScrollView } from "react-native";
 
 export const DefaultScreen = (props: {
   appState: any;
@@ -29,6 +33,19 @@ export const DefaultScreen = (props: {
 
   return (
     <View>
+      {/* <ScrollView style={{borderWidth: 2}}>
+      <ScreenJsonEditor
+        appState={appState}
+        label={label}
+        styles={styles}
+        children={children}
+        setAppState={setAppState}
+        layoutConfig={layoutConfig}
+        setLayoutConfig={setLayoutConfig}
+        events={events}
+        getEvents={getEvents}
+      /> */}
+      {/* </ScrollView> */}
       {/* <Text style={{}}>Default Screen *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
