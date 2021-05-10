@@ -44,6 +44,7 @@ export const events = {
         })
           .then((res) => res.json())
           .then((_data) => {
+            // const _formData = args.params.values;
             setAppState({
               global: {
                 tsdApp: {
@@ -115,6 +116,7 @@ export const events = {
         const activeTabName = appState.global.tsdApp.activeTab.name;
         saveCreateComponentData(activeTabName, body);
         // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
+        // TODO: Removed Screen as tab name from here in order to fit a JSON editor
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
@@ -258,7 +260,7 @@ export const events = {
             },
           },
         });
-        setLayoutConfig(routes["search"]);
+        setLayoutConfig(routes["search"], "copy");
         // fetchApi(
         //   appState.global.tsdApp.activeAction.endPoint,
         //   appState.global.tsdApp.activeAction.httpMethod,

@@ -81,7 +81,24 @@ export const ActionComponent = (props: {
         },
       },
     });
-    setLayoutConfig(routes["defaultAppConfig"], "copy");
+
+    console.log(
+      "ACTION COMPONENTS APPSTATE ::::: ---> ",
+      appState.global.tsdApp,
+      "------",
+      action
+    );
+
+    if (action === "Create") {
+      // TODO : Remove hardcoding for Screen in UI module jsonEditorScreen from route
+      if (appState.global.tsdApp.activeModule.key === 2008) {
+        setLayoutConfig(routes["jsonEditorScreen"], "copy");
+      } else {
+        setLayoutConfig(routes["defaultAppConfig"], "copy");
+      }
+    } else {
+      setLayoutConfig(routes["defaultAppConfig"], "copy");
+    }
   };
 
   // console.log("appState in action : : : : ", props);

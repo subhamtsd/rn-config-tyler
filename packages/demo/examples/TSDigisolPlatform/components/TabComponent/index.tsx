@@ -101,10 +101,10 @@ export const TabComponent = (props: {
             }}
           >
             <TouchableOpacity
-              onPress={() => {
+              onPress={async () => {
                 // console.log("Button with Tab item : ", item);
                 // TODO : Should come from event management
-                setAppState({
+                await setAppState({
                   global: {
                     tsdApp: {
                       activeTab: {

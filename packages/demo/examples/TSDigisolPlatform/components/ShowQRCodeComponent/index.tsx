@@ -28,8 +28,9 @@ export const ShowQRCodeComponent = (props: {
   } = props;
 
   const qrCodeImage =
-    appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage ||
-    `qr_code_PNG24.png`;
+    appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage === undefined
+      ? `C:\\QRCODE\\default`
+      : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage;
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
@@ -48,7 +49,13 @@ export const ShowQRCodeComponent = (props: {
           {qrcodeVisible ? (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Image
-                source={require(`../../../../../../assets/images/${qrCodeImage}`)}
+                // source={require(appState.global.tsdApp?.ShowQRCodeComponent
+                //   ?.qrcodeImage === undefined
+                //   ? `C:\\QRCODE\\default.png`
+                //   : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage +
+                //       `.png`)}
+                // source={require(`C:/QRCODE/default.png`)}
+                source={require(`C:/QRCODE/${appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage}.png`)}
                 style={{
                   width: 200,
                   height: 200,

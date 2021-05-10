@@ -154,6 +154,8 @@ export const EditComponent = (props: {
   const [formLayout, setformLayout] = useState(initialFormSchema);
 
   useEffect(() => {
+    let resJson;
+    let preparedSchema;
     const fetchData = async () => {
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
         method: "POST",

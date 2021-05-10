@@ -19,6 +19,7 @@ export const ListComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -29,11 +30,12 @@ export const ListComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log("Props in ListComponent : :: : ",props);
+  console.log("Props in ListComponent : :: : ", props);
 
   const [listFormLayout, setlistFormLayout] = useState([]);
 
@@ -92,13 +94,9 @@ export const ListComponent = (props: {
 
   // console.log("List Form layout : : : ", listFormLayout);
 
+
   return (
-    <View style={componentGridStyle}>
-      <Text>
-        {/* {appState.global != undefined
-          ? JSON.stringify(appState.global.tsdApp.listComponent)
-          : ""} */}
-      </Text>
+    <View style={[componentGridStyle]}>
       <ScrollView horizontal>
         <ListRender
           listFormLayout={listFormLayout}
@@ -111,6 +109,7 @@ export const ListComponent = (props: {
           setLayoutConfig={setLayoutConfig}
           getEvents={getEvents}
           events={events}
+          UItitle={UItitle}
         />
       </ScrollView>
       {children || (appState && appState[label] && appState[label]?.children)}

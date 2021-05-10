@@ -20,7 +20,8 @@ import { HeaderBar } from "../../components/HeaderBar";
 import { TabComponent } from "../../components/TabComponent";
 import { ActionComponent } from "../../components/ActionComponent/index";
 import { JsonFormComponent } from "../../components/JsonFormComponent/index";
-import { DefaultScreen } from "../../components/DefaultScreen";
+import { DefaultScreen } from "../../components/DefaultScreen/index";
+import { ScreenJsonEditor } from "../../components/ScreenJsonEditor";
 import { ListComponent } from "../../components/ListComponent";
 import { DetailListComponent } from "../../components/DetailListComponent";
 import { EditComponent } from "../../components/EditComponent/index";
@@ -52,6 +53,7 @@ export const componentsSet = {
   // TodoApp2,
   // SideNavBar,
   DefaultScreen,
+  ScreenJsonEditor,
   NavigationBar,
   HeaderBar,
   TabComponent,
@@ -80,23 +82,6 @@ export const componentsSet = {
   AddEditEntity,
 };
 
-const links = {
-  "/": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Home",
-  },
-  "/about": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Feed",
-  },
-  "/contact": {
-    style: styles.navItem,
-    linkStyle: styles.tabName,
-    linkText: "Messages",
-  },
-};
 
 // *************************************************
 //  Layout config
@@ -162,14 +147,14 @@ export const appConfig = {
       },
       // col
       Header: {
-        colSize: 12,
+        colSize: 3,
         idx: "HeaderBar",
         label: "headerBar",
       },
     },
     "2.container": {
       rowConfig: {
-        rowSize: 1,
+        rowSize: 12,
       },
       "2.1.leftNavCol": {
         layout: {
@@ -243,8 +228,9 @@ export const appConfig = {
               colSize: 4,
               label: "helloWorld",
               colStyle: {
-                display: "flex",
+                // display: "flex",
                 borderColor: "blue",
+                // borderWidth: 1,
               },
             },
           },
@@ -253,366 +239,3 @@ export const appConfig = {
     },
   },
 };
-
-// export const appConfig = apiAppConfig();
-
-async function apiAppConfig() {
-  const res = await fetch(
-    "https://run.mocky.io/v3/df352bf5-122b-4030-9f9d-6f882e171c7b"
-  )
-    .then((_config) => {
-      return _config.json();
-    })
-    .then((data) => {
-      const appConfig = {
-        componentsSet,
-        links: {
-          "/": {
-            style: styles.navItem,
-            linkStyle: styles.tabName,
-            linkText: "Home",
-          },
-          "/about": {
-            style: styles.navItem,
-            linkStyle: styles.tabName,
-            linkText: "Feed",
-          },
-          "/contact": {
-            style: styles.navItem,
-            linkStyle: styles.tabName,
-            linkText: "Messages",
-          },
-        },
-        layout: data,
-      };
-      // setConfig(appConfig);
-      console.log("appConfigg ::::: ---> ", data);
-      return appConfig;
-    })
-    .then((_appConfigData) => {
-      return _appConfigData;
-    });
-}
-
-// export const appConfig4 = {
-//   /// 1st layout
-//   componentsSet,
-//   links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
-//   layout: {
-//     // row no
-//     "1container": {
-//       rowConfig: {
-//         rowSize: 1,
-//         rowStyle: rowStyle,
-//       },
-//       "12bodyCol": {
-//         layout: {
-//           colConfig: {
-//             colSize: 11,
-//           },
-//           "121bodyHeaderRow": {
-//             rowConfig: {
-//               rowSize: 4,
-//             },
-//             bodyHeader: {
-//               // col no
-//               idx: "About",
-//               label: "bodyHeader",
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-// };
-
-// export const appConfig2 = {
-//   componentsSet,
-//   links: {
-//     "/": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Home",
-//     },
-//     "/about": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Feed",
-//     },
-//     "/contact": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Messages",
-//     },
-//   },
-//   layout: {
-//     "1.container": {
-//       rowConfig: {
-//         rowSize: 1,
-//       },
-//       Header: {
-//         // col no
-//         colSize: 1,
-//         idx: "HeaderBar",
-//         label: "headerBar",
-//       },
-//     },
-//     "2.container": {
-//       rowConfig: {
-//         rowSize: 1,
-//       },
-//       // col no
-//       "2.1.leftNavCol": {
-//         layout: {
-//           colConfig: {
-//             colSize: 2,
-//           },
-//           "2.1.leftNavBodyRow": {
-//             rowConfig: {
-//               rowSize: 12,
-//             },
-//             leftNavBody: {
-//               // col no
-//               colSize: 1,
-//               idx: "NavigationBar",
-//               label: "navigationBar",
-//               colStyle: { borderWidth: 0, height: "100vh" },
-//             },
-//           },
-//         },
-//       },
-//       "2.2.bodyCol": {
-//         rowConfig: {
-//           rowSize: 12,
-//         },
-//         layout: {
-//           colConfig: {
-//             colSize: 11,
-//             colStyle: {
-//               borderColor: "cyan",
-//               borderWidth: 0,
-//             },
-//           },
-//           "2.2.1.bodyHeaderRow": {
-//             rowConfig: {
-//               rowSize: 1.2,
-//             },
-//             bodyHeader: {
-//               // col no
-//               colSize: 1,
-//               idx: "ActionComponent",
-//               label: "actionComponent",
-//               // colStyle: {
-//               //   borderColor: "blue",
-//               //   borderWidth: 0,
-//               //   height: "20vh",
-//               // },
-//             },
-//           },
-//           "2.2.2.bodyTabRow": {
-//             rowConfig: {
-//               rowSize: 1.3,
-//               // rowStyle: rowStyle,
-//               // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-//             },
-//             bodyContent: {
-//               // col no
-//               idx: "TabComponent",
-//               colSize: 1,
-//               label: "tabComponent",
-//               colStyle: {
-//                 borderColor: "blue",
-//               },
-//             },
-//           },
-//           "2.2.3.bodyContentRow": {
-//             rowConfig: {
-//               rowSize: 10,
-//             },
-//             bodyContent1: {
-//               // col no
-//               // idx: "JsonFormComponent",
-//               idx: "JsonFormComponent",
-//               colSize: 2,
-//               label: "jsonFormComponent",
-//               colStyle: {
-//                 borderColor: "blue",
-//                 // borderWidth: 1,
-//                 height: "80vh",
-//               },
-//             },
-//             bodyContent2: {
-//               // col no
-//               // idx: "JsonFormComponent",
-//               idx: "DefaultScreen",
-//               colSize: 3,
-//               label: "defaultScreen",
-//               colStyle: {
-//                 borderColor: "blue",
-//                 borderWidth: 0,
-//                 height: "80vh",
-//               },
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-// };
-
-// // Order Screen
-// export const appConfig3 = {
-//   componentsSet,
-//   links: {
-//     "/": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Home",
-//     },
-//     "/about": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Feed",
-//     },
-//     "/contact": {
-//       style: styles.navItem,
-//       linkStyle: styles.tabName,
-//       linkText: "Messages",
-//     },
-//   },
-//   layout: {
-//     "1.container": {
-//       rowConfig: {
-//         rowSize: 1,
-//       },
-//       Header: {
-//         // col no
-//         colSize: 1,
-//         idx: "HeaderBar", // component name
-//         label: "headerBar",
-//       },
-//     },
-//     "2.container": {
-//       rowConfig: {
-//         rowSize: 1,
-//       },
-//       // col no
-//       "2.1.leftNavCol": {
-//         layout: {
-//           colConfig: {
-//             colSize: 2,
-//           },
-//           "2.1.leftNavBodyRow": {
-//             rowConfig: {
-//               rowSize: 12,
-//             },
-//             leftNavBody: {
-//               // col no
-//               colSize: 1,
-//               idx: "NavigationBar",
-//               label: "navigationBar",
-//               colStyle: { borderWidth: 0, height: "100vh" },
-//             },
-//           },
-//         },
-//       },
-//       "2.2.bodyCol": {
-//         rowConfig: {
-//           rowSize: 12,
-//         },
-//         layout: {
-//           colConfig: {
-//             colSize: 11,
-//             colStyle: {
-//               borderColor: "cyan",
-//               borderWidth: 0,
-//             },
-//           },
-//           "2.2.1.bodyHeaderRow": {
-//             rowConfig: {
-//               rowSize: 1.2,
-//             },
-//             bodyHeader: {
-//               // col no
-//               colSize: 1,
-//               idx: "ActionComponent",
-//               label: "actionComponent",
-//               // colStyle: {
-//               //   borderColor: "blue",
-//               //   borderWidth: 0,
-//               //   height: "20vh",
-//               // },
-//             },
-//           },
-//           "2.2.2.bodyTabRow": {
-//             rowConfig: {
-//               rowSize: 1.3,
-//               // rowStyle: rowStyle,
-//               // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-//             },
-//             bodyContent: {
-//               // col no
-//               idx: "TabComponent",
-//               colSize: 1,
-//               label: "tabComponent",
-//               colStyle: {
-//                 borderColor: "blue",
-//               },
-//             },
-//           },
-//           // Add this row
-//           "2.2.2.bodyContentRow": {
-//             rowConfig: {
-//               rowSize: 5,
-//               // rowStyle: rowStyle,
-//               rowStyle: { borderColor: "red", borderWidth: 1, height: "30vh" },
-//             },
-//             bodyContent: {
-//               // col no
-//               idx: "JsonFormComponent",
-//               colSize: 1,
-//               label: "tabComponent",
-//               colStyle: {
-//                 borderColor: "blue",
-//                 borderWidth: 1,
-//                 // height: "30vh",
-//               },
-//             },
-//           },
-//           // Add this row
-//           "2.2.3.bodyContentRow": {
-//             rowConfig: {
-//               rowSize: 5,
-//             },
-//             // col 1
-//             bodyContent1: {
-//               // col no
-//               // idx: "JsonFormComponent",
-//               idx: "DefaultScreen",
-//               colSize: 2,
-//               label: "listView",
-//               colStyle: {
-//                 borderColor: "blue",
-//                 borderWidth: 1,
-//                 height: "40vh",
-//               },
-//             },
-//             // col 2
-//             bodyContent2: {
-//               // col no
-//               // idx: "JsonFormComponent",
-//               idx: "DefaultScreen",
-//               colSize: 3,
-//               label: "detailView",
-//               colStyle: {
-//                 borderColor: "blue",
-//                 borderWidth: 0,
-//                 height: "40vh",
-//               },
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-// };
