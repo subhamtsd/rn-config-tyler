@@ -48,6 +48,8 @@ export const JsonFormComponent = (props: {
     appState?.global?.tsdApp?.createComponent[activeTabName] ||
     appState?.global?.tsdApp?.searchComponent?.searchPayload;
 
+  console.log("FORM DATA : :::: --- Create Form ::: ", _formData);
+
   const [loading, setloading] = useState(true);
 
   const _uiSchema = {

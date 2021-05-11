@@ -15,7 +15,7 @@ import { componentGridStyle } from "../../../styles/common";
 import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { prepareSchema } from "../../../helper/helper";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { CreateOrderlineListComponent } from "./../CreateOrderlineListComponent/index";
+import { CreateOrderlineListComponent } from "../CreateOrderlineListComponent/index";
 
 export const CreateOrderlineAddressComponent = (props: {
   appState: any;
@@ -161,10 +161,10 @@ export const CreateOrderlineAddressComponent = (props: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: "TsdAdmin",
-          roleKey: 1,
           moduleKey: 2007,
-          tabKey: 2001,
+          roleKey: 1,
+          tabKey: 3006,
+          userId: "TsdAdmin",
           actionName: "Create",
         }),
       });
@@ -175,22 +175,19 @@ export const CreateOrderlineAddressComponent = (props: {
         setResponseStatus(status);
       } else {
         // const resJSON = await res.json();
-        console.log(
-          "response Json : : : : : orderLineAddressformLayout ---> ",
-          resJSON
-        );
-        // prepareSchema(resJSON.properties.address.items)
-        //   .then((schemaJson) => {
-        //     console.log("SchemaJson updated : : :: ", schemaJson);
-        //     return schemaJson;
-        //   })
-        //   .then((formLayout) => {
-        //     console.log("Schema returened : : : ", formLayout);
-        const objectName = "CreateAddressesSchema";
-        resJSON[objectName].type = "object";
-        console.log("addressform", resJSON[objectName]);
-        setformLayout(resJSON[objectName]);
-        setUISchema(resJSON[objectName]);
+        // console.log(
+        //   "response Json : : : : : orderLineAddressformLayout ---> ",
+        //   resJSON
+        // );
+        prepareSchema(resJSON).then((schemaJson) => {
+          const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
+          // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+          setformLayout(schemaJson[firstParent]);
+
+          setUISchema(resJSON[firstParent]);
+          // console.log("response Json : : : : : formLayout ---> ", resJSON);
+        });
+
         //     // setloading(false);
         //   });
       }
@@ -215,6 +212,22 @@ export const CreateOrderlineAddressComponent = (props: {
     );
   }
 
+  const onSuccessHandler = (body, label) => {
+    console.log("label of orderline address   ", body, "v dhgvd", label);
+    setAppState({
+      global: {
+        tsdApp: {
+          formData: {
+            ...appState?.global?.tsdApp?.formData,
+            [label]: body.params.values,
+          },
+        },
+      },
+    });
+
+    setLayoutConfig(routes.createOrderline);
+  };
+
   console.log("formLayout orderlineaddressFormLayout : :: : ", formLayout);
 
   // console.log("from json:", buttonView);
@@ -228,10 +241,12 @@ export const CreateOrderlineAddressComponent = (props: {
         // schema={_schema}
         uiSchema={formLayout.uischema}
         _formData={_formData}
-        label={label}
+        label={appState.global.tsdApp.formData.isChecked.key}
         setLayoutConfig={setLayoutConfig}
-        _submitButton={true}
+        _submitButton={"Save"}
         _cancelButton={true}
+        _onSuccess={onSuccessHandler}
+
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

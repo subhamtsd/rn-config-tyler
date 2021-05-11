@@ -11,11 +11,15 @@ import {
   View,
   ScrollView,
   TextInput,
+  Pressable,
   CheckBox,
+  TouchableOpacity,
   // Picker,
 } from "react-native";
 
 // import { CheckBox } from "react-native-elements";
+import { Calendar } from "react-native-calendars";
+import Modal from "modal-react-native-web";
 
 import { cloneDeep } from "lodash";
 
@@ -55,10 +59,28 @@ export const RenderTable = (props: {
     maxNoOfRows,
   } = props;
 
-  const [arrObj, setArrObj] = useState([]);
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
-  const [addRowButtonStatus, setAddRowButtonStatus] = useState(false);
+  const [arrObj, setArrObj] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty(label)
+      ? appState.global.tsdApp.formData[label]
+      : []
+  );
+  const [isChecked, setIsChecked] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty("isChecked")
+      ? appState.global.tsdApp.formData["isChecked"]
+      : { status: false, key: -1 }
+  );
+  const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
+  const [addAddressButtonStatus, setAddAddressButtonStatus] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty("isChecked")
+      ? appState.global.tsdApp.formData["isChecked"].status
+      : false
+  );
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
 
   //   console.log("hii from createorderlinelist");
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
@@ -79,6 +101,7 @@ export const RenderTable = (props: {
       newArrObj.forEach((obj) => {
         if (obj.key === key) {
           obj.item[keyname] = value;
+          obj.addStatus = false;
         }
       });
       return newArrObj;
@@ -86,7 +109,6 @@ export const RenderTable = (props: {
   };
 
   const addRowHandler = () => {
-    setAddRowButtonStatus(true);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       const newObj = {
@@ -99,21 +121,8 @@ export const RenderTable = (props: {
       newArrObj.push(newObj);
       return newArrObj;
     });
+    setAddRowButtonStatus(false);
   };
-
-  const checkboxChangeHanlder = (value) => {
-    setIsAllChecked(value);
-  };
-
-  useEffect(() => {
-    setArrObj((oldArrObj) => {
-      const newArrObj = cloneDeep(oldArrObj);
-      newArrObj.forEach((obj) => {
-        obj.isChecked = isAllChecked;
-      });
-      return newArrObj;
-    });
-  }, [isAllChecked]);
 
   const singleCheckboxHandler = (key, value) => {
     setArrObj((oldArrObj) => {
@@ -126,10 +135,12 @@ export const RenderTable = (props: {
       });
       return newArrObj;
     });
+
+    setIsChecked({ status: value, key: value ? key : -1 });
+    setAddAddressButtonStatus(value);
   };
 
   const addActionHandler = (key) => {
-    setAddRowButtonStatus(false);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       newArrObj.forEach((obj) => {
@@ -139,6 +150,7 @@ export const RenderTable = (props: {
       });
       return newArrObj;
     });
+    setAddRowButtonStatus(true);
   };
 
   const deleteActionHandler = (key) => {
@@ -147,15 +159,16 @@ export const RenderTable = (props: {
       const newArrObj = tempArrObj.filter((obj) => obj.key !== key);
       return newArrObj;
     });
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
   };
 
-  if (!addRowButtonStatus) {
+  if (addRowButtonStatus) {
     const arr = arrObj.filter((obj) => obj.addStatus === false);
     if (arr.length > 0) {
-      setAddRowButtonStatus(true);
+      setAddRowButtonStatus(false);
     }
   }
+
   //   const keyIdPrefix = () => {
   //     const keyArray = Object.getOwnPropertyNames(
   //       dataToRender[firstParent].properties
@@ -217,21 +230,11 @@ export const RenderTable = (props: {
             <CheckBox
               color="#0e73ca"
               value={obj.isChecked}
+              disabled={!(obj.addStatus && obj.isChecked === isChecked.status)}
               onValueChange={(value) => {
                 console.log(value);
                 singleCheckboxHandler(obj.key, value);
               }}
-              //arrow func ,toggle the value of isSelected ,iterate to checked array and make every value equals to isSelected
-              // onValueChange={selectAll}
-              // checked={isSelected}
-              // onValueChange={() => {
-              //   isSelected = !isSelected;
-              //   // console.log(checked)
-              //   for (const i in checked) {
-              //     setSelection({});
-              //   }
-              //   console.log(checked);
-              // }}
             />
           }
         </Text>
@@ -245,6 +248,128 @@ export const RenderTable = (props: {
               [keyName]: tableHeaderObj[keyName],
             },
           };
+
+          if (schema?.properties?.[keyName]?.format === "date") {
+            return (
+              <Row
+                style={{
+                  borderBottomWidth: 2,
+                  borderBottomColor: "grey",
+                  width: "100%",
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  paddingBottom: 5,
+                  alignContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Col>
+                  {
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <View style={detailViewStyles.centeredView}>
+                        <View style={detailViewStyles.modalView}>
+                          <Calendar
+                            theme={{
+                              backgroundColor: "#000",
+                              calendarBackground: "#fff",
+                              arrowColor: "orange",
+                            }}
+                            // Initially visible month. Default = Date()
+                            //current={new Date().toISOString().slice(0, 10)}
+                            // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                            minDate={"2012-05-10"}
+                            // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                            maxDate={"2025-05-30"}
+                            // Handler which gets executed on day press. Default = undefined
+                            onDayPress={(day) => {
+                              valueChangeHandler(
+                                day.dateString,
+                                keyName,
+                                obj.key
+                              );
+                            }}
+                            // Handler which gets executed on day long press. Default = undefined
+                            onDayLongPress={(day) => {
+                              console.log("selected day", day);
+                            }}
+                            // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                            monthFormat={"yyyy MMM"}
+                            // Handler which gets executed when visible month changes in calendar. Default = undefined
+                            onMonthChange={(month) => {
+                              console.log("month changed", month);
+                            }}
+                            // Hide month navigation arrows. Default = false
+                            hideArrows={false}
+                            // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                            //renderArrow={(direction) => (<Arrow/>)}
+                            // Do not show days of other months in month page. Default = false
+                            hideExtraDays={true}
+                            // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                            // day from another month that is visible in calendar page. Default = false
+                            disableMonthChange={false}
+                            // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                            firstDay={1}
+                            // Hide day names. Default = false
+                            hideDayNames={false}
+                            // Show week numbers to the left. Default = false
+                            showWeekNumbers={false}
+                            // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                            onPressArrowLeft={(subtractMonth) =>
+                              subtractMonth()
+                            }
+                            // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+                            onPressArrowRight={(addMonth) => addMonth()}
+                            // Disable left arrow. Default = false
+                            disableArrowLeft={false}
+                            // Disable right arrow. Default = false
+                            disableArrowRight={false}
+                            // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
+
+                            // Replace default month and year title with custom one. the function receive a date as parameter.
+                            // Enable the option to swipe between months. Default = false
+                            enableSwipeMonths={true}
+                            markedDates={{
+                              [obj.item[keyName]]: { selected: true },
+                            }}
+                          />
+                          <View style={detailViewStyles.insideText}>
+                            <Pressable
+                              onPress={() => {
+                                setModalVisible(false);
+                              }}
+                            >
+                              <Text style={detailViewStyles.textStyle2}>
+                                Close
+                              </Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      </View>
+                    </Modal>
+                  }
+                  <TouchableOpacity
+                    style={detailViewStyles.button}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={detailViewStyles.textStyle}>
+                      {obj.item[keyName] == undefined
+                        ? new Date().toISOString().slice(0, 10)
+                        : obj.item[keyName]}
+                    </Text>
+                  </TouchableOpacity>
+                </Col>
+              </Row>
+            );
+          }
 
           if (schema?.properties?.[keyName]?.displayType === "dropdown") {
             return (
@@ -389,7 +514,7 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
-            disabled={addRowButtonStatus}
+            disabled={!addRowButtonStatus}
             onPress={addRowHandler}
           ></Button>
         </Col>
@@ -404,9 +529,33 @@ export const RenderTable = (props: {
           <Button
             title={`Add Address`}
             color="#0e73ca"
-            disabled
+            disabled={!(addAddressButtonStatus && isChecked.status)}
             onPress={() => {
-              console.log("Copy Row Clicked");
+              if (appState.global.tsdApp.hasOwnProperty("formData")) {
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      formData: {
+                        ...appState.global.tsdApp.formData,
+                        [label]: arrObj,
+                        ["isChecked"]: isChecked,
+                      },
+                    },
+                  },
+                });
+              } else {
+                setAppState({
+                  global: {
+                    tsdApp: {
+                      formData: {
+                        [label]: arrObj,
+                        ["isChecked"]: isChecked,
+                      },
+                    },
+                  },
+                });
+              }
+              setLayoutConfig(routes.createOrderlineAddress);
               // copy the last row
             }}
           ></Button>
@@ -422,22 +571,6 @@ export const RenderTable = (props: {
         <Grid>
           {/* TABLE HEADER DATA */}
           <Row>
-            <Text
-              style={{
-                // flex: 1,
-                padding: 8,
-                paddingBottom: 0,
-                // borderWidth: 2,
-              }}
-            >
-              {
-                <CheckBox
-                  color="#0e73ca"
-                  value={isAllChecked}
-                  onValueChange={(value) => checkboxChangeHanlder(value)}
-                />
-              }
-            </Text>
             {Object.keys(tableHeaderObj).map(function (keyName, _keyIndex) {
               return (
                 <Row
@@ -497,8 +630,22 @@ export const RenderTable = (props: {
         <Button
           title={`Save`}
           color="#0e73ca"
+          disabled={
+            !(saveButtonStatus && arrObj.length > 0 && addRowButtonStatus)
+          }
           onPress={() => {
-            console.log("pressed save");
+            console.log("Final submit");
+            setAppState({
+              global: {
+                tsdApp: {
+                  formData: {
+                    ...appState?.global?.tsdApp?.formData,
+                    [label]: arrObj,
+                  },
+                },
+              },
+            });
+            setSaveButtonStatus(false);
           }}
         />
       </View>
@@ -506,3 +653,122 @@ export const RenderTable = (props: {
     </View>
   );
 };
+
+const detailViewStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // borderWidth: 1,
+  },
+  item: {
+    padding: 10,
+    margin: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderStyle: "solid",
+    opacity: 1,
+    // borderRadius: 2,
+    // height: 330,
+    // alignItems: 'center',
+    justifyContent: "center",
+    elevation: 5,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 1,
+  },
+  title: {
+    fontSize: 20,
+    color: "#0d47a1",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  description: {
+    fontSize: 15,
+    color: "#0d47a1",
+    textAlign: "left",
+  },
+  subInfo: {
+    fontSize: 12,
+    color: "#1565c0",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  buttonView: {
+    marginLeft: 1,
+    marginRight: 1,
+    marginTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    // borderWidth: 2,
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 35,
+    width: "100%",
+    marginTop: 4,
+    marginBottom: 2,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  textStyle: {
+    justifyContent: "center",
+    alignContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 15,
+    width: 100,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: "#cccccc",
+    borderRadius: 1,
+    padding: 5,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button2: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle2: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 20,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  insideText: {
+    width: 100,
+  },
+});

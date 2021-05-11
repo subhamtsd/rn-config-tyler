@@ -9,6 +9,9 @@ import {
   View,
   ScrollView,
   TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
   // Picker,
 } from "react-native";
 import { cloneDeep } from "lodash";
@@ -21,6 +24,8 @@ import { useState } from "react";
 import { routes } from "../../../configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { prepareSchema } from "../../../helper/helper";
+import { Calendar } from "react-native-calendars";
+import Modal from "modal-react-native-web";
 
 export const RenderTable = (props: {
   appState: any;
@@ -50,9 +55,15 @@ export const RenderTable = (props: {
     maxNoOfRows,
   } = props;
 
-  const [arrObj, setArrObj] = useState([]);
-  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
-  const [addRowButtonStatus, setAddRowButtonStatus] = useState(false);
+  const [arrObj, setArrObj] = useState(
+    appState.global.tsdApp.hasOwnProperty("formData") &&
+      appState.global.tsdApp.formData.hasOwnProperty(label)
+      ? appState.global.tsdApp.formData[label]
+      : []
+  );
+  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+  const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   // console.log("data to render", dataToRender);
 
@@ -81,6 +92,7 @@ export const RenderTable = (props: {
       newArrObj.forEach((obj) => {
         if (obj.key === key) {
           obj.item[keyname] = value;
+          obj.addStatus = false;
         }
       });
       return newArrObj;
@@ -88,8 +100,7 @@ export const RenderTable = (props: {
   };
 
   const addRowHandler = () => {
-    setAddRowButtonStatus(true);
-
+    setAddRowButtonStatus(false);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       const newObj = {
@@ -104,7 +115,8 @@ export const RenderTable = (props: {
     });
   };
   const addActionHandler = (key) => {
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
+    setSaveButtonStatus(true);
     setArrObj((oldArrObj) => {
       const newArrObj = cloneDeep(oldArrObj);
       newArrObj.forEach((obj) => {
@@ -122,15 +134,24 @@ export const RenderTable = (props: {
       const newArrObj = tempArrObj.filter((obj) => obj.key !== key);
       return newArrObj;
     });
-    setAddRowButtonStatus(false);
+    setAddRowButtonStatus(true);
   };
 
-  if (!addRowButtonStatus) {
+  if (addRowButtonStatus) {
     if (
       arrObj.length >= 2 ||
       arrObj.filter((obj) => obj.addStatus === false).length > 0
     ) {
-      setAddRowButtonStatus(true);
+      setAddRowButtonStatus(false);
+    }
+  }
+
+  if (saveButtonStatus) {
+    if (
+      arrObj.length === 0 ||
+      arrObj.filter((obj) => obj.addStatus === false).length > 0
+    ) {
+      setSaveButtonStatus(false);
     }
   }
 
@@ -181,6 +202,128 @@ export const RenderTable = (props: {
               [keyName]: tableHeaderObj[keyName],
             },
           };
+
+          if (schema?.properties?.[keyName]?.format === "date") {
+            return (
+              <Row
+                style={{
+                  borderBottomWidth: 2,
+                  borderBottomColor: "grey",
+                  width: "100%",
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  paddingBottom: 5,
+                  alignContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Col>
+                  {
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <View style={detailViewStyles.centeredView}>
+                        <View style={detailViewStyles.modalView}>
+                          <Calendar
+                            theme={{
+                              backgroundColor: "#000",
+                              calendarBackground: "#fff",
+                              arrowColor: "orange",
+                            }}
+                            // Initially visible month. Default = Date()
+                            //current={new Date().toISOString().slice(0, 10)}
+                            // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                            minDate={"2012-05-10"}
+                            // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                            maxDate={"2025-05-30"}
+                            // Handler which gets executed on day press. Default = undefined
+                            onDayPress={(day) => {
+                              valueChangeHandler(
+                                day.dateString,
+                                keyName,
+                                obj.key
+                              );
+                            }}
+                            // Handler which gets executed on day long press. Default = undefined
+                            onDayLongPress={(day) => {
+                              console.log("selected day", day);
+                            }}
+                            // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                            monthFormat={"yyyy MMM"}
+                            // Handler which gets executed when visible month changes in calendar. Default = undefined
+                            onMonthChange={(month) => {
+                              console.log("month changed", month);
+                            }}
+                            // Hide month navigation arrows. Default = false
+                            hideArrows={false}
+                            // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                            //renderArrow={(direction) => (<Arrow/>)}
+                            // Do not show days of other months in month page. Default = false
+                            hideExtraDays={true}
+                            // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                            // day from another month that is visible in calendar page. Default = false
+                            disableMonthChange={false}
+                            // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                            firstDay={1}
+                            // Hide day names. Default = false
+                            hideDayNames={false}
+                            // Show week numbers to the left. Default = false
+                            showWeekNumbers={false}
+                            // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                            onPressArrowLeft={(subtractMonth) =>
+                              subtractMonth()
+                            }
+                            // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+                            onPressArrowRight={(addMonth) => addMonth()}
+                            // Disable left arrow. Default = false
+                            disableArrowLeft={false}
+                            // Disable right arrow. Default = false
+                            disableArrowRight={false}
+                            // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
+
+                            // Replace default month and year title with custom one. the function receive a date as parameter.
+                            // Enable the option to swipe between months. Default = false
+                            enableSwipeMonths={true}
+                            markedDates={{
+                              [obj.item[keyName]]: { selected: true },
+                            }}
+                          />
+                          <View style={detailViewStyles.insideText}>
+                            <Pressable
+                              onPress={() => {
+                                setModalVisible(false);
+                              }}
+                            >
+                              <Text style={detailViewStyles.textStyle2}>
+                                Close
+                              </Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      </View>
+                    </Modal>
+                  }
+                  <TouchableOpacity
+                    style={detailViewStyles.button}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={detailViewStyles.textStyle}>
+                      {obj.item[keyName] == undefined
+                        ? new Date().toISOString().slice(0, 10)
+                        : obj.item[keyName]}
+                    </Text>
+                  </TouchableOpacity>
+                </Col>
+              </Row>
+            );
+          }
 
           if (schema?.properties?.[keyName]?.displayType === "dropdown") {
             return (
@@ -323,7 +466,7 @@ export const RenderTable = (props: {
           <Button
             title={`Add Row`}
             color="#0e73ca"
-            disabled={addRowButtonStatus}
+            disabled={!addRowButtonStatus}
             onPress={addRowHandler}
           ></Button>
         </Col>
@@ -413,25 +556,22 @@ export const RenderTable = (props: {
       </ScrollView>
       <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>
         <Button
-          title={`Submit`}
+          title={`Save`}
           color="#0e73ca"
+          disabled={!saveButtonStatus}
           onPress={() => {
             console.log("Final submit");
-            // const finalData =
-            //   appState.global.tsdApp.createComponent[
-            //     appState.global.tsdApp.activeTab.name
-            //   ];
-            // console.log("final Data in the body Parameter 1st ::: ", finalData);
-            // finalData[firstParent] = {
-            //   [secondParent[0]]: listOfItems,
-            // };
-            // console.log("final Data in the body Parameter 2nd ::: ", finalData);
-            // fetchApi(
-            //   appState.global.tsdApp.activeAction.endPoint,
-            //   "POST",
-            //   finalData,
-            //   routes["detail"]
-            // );
+            setAppState({
+              global: {
+                tsdApp: {
+                  formData: {
+                    ...appState?.global?.tsdApp?.formData,
+                    [label]: arrObj,
+                  },
+                },
+              },
+            });
+            setSaveButtonStatus(false);
           }}
         ></Button>
       </View>
@@ -439,3 +579,122 @@ export const RenderTable = (props: {
     </View>
   );
 };
+
+const detailViewStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // borderWidth: 1,
+  },
+  item: {
+    padding: 10,
+    margin: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderStyle: "solid",
+    opacity: 1,
+    // borderRadius: 2,
+    // height: 330,
+    // alignItems: 'center',
+    justifyContent: "center",
+    elevation: 5,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 1,
+  },
+  title: {
+    fontSize: 20,
+    color: "#0d47a1",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  description: {
+    fontSize: 15,
+    color: "#0d47a1",
+    textAlign: "left",
+  },
+  subInfo: {
+    fontSize: 12,
+    color: "#1565c0",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  buttonView: {
+    marginLeft: 1,
+    marginRight: 1,
+    marginTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    // borderWidth: 2,
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 35,
+    width: "100%",
+    marginTop: 4,
+    marginBottom: 2,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  textStyle: {
+    justifyContent: "center",
+    alignContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 15,
+    width: 100,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: "#cccccc",
+    borderRadius: 1,
+    padding: 5,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button2: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle2: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 20,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  insideText: {
+    width: 100,
+  },
+});

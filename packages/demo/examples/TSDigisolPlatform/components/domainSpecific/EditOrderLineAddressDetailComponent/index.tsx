@@ -12,9 +12,8 @@ import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { parseFormData } from "../../../helper/helper";
 import { prepareSchema } from "../../../helper/helper";
-// import { JsonFormComponent } from './../../JsonFormComponent/index';
 
-export const EditOrderLineDetailComponent = (props: {
+export const EditOrderLineAddressDetailComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -153,7 +152,7 @@ export const EditOrderLineDetailComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-  // retrieve formlayout via api
+  // retrieve formLayout via api
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
@@ -165,18 +164,16 @@ export const EditOrderLineDetailComponent = (props: {
         body: JSON.stringify({
           userId: "TsdAdmin",
           roleKey: 1,
-          moduleKey: "156051",
-
-          tabKey: "171505",
-
+          moduleKey: "2007",
+          tabKey: "3006",
           actionName: "Edit",
         }),
       });
       const resJSON = await res.json();
-      console.log("resJson ::::: edit component---> ", resJSON);
+      // console.log("resJson ::::: edit component---> ", resJSON);
 
       // const resJSON = await res.json();
-      console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+      // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
       prepareSchema(resJSON)
         .then((schemaJson) => {
           console.log("SchemaJson edit updated : : :: ", schemaJson);
@@ -197,9 +194,8 @@ export const EditOrderLineDetailComponent = (props: {
     fetchData();
   }, []);
 
-  // console.log("formData  : : :  in editordeline component : : : ", _formData);
-
-  // console.log("FormLayout Json in Editorderline Component : : : ", formLayout);
+  // console.log("formData  : : :  in editaddress component : : : ", _formData);
+  // console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>

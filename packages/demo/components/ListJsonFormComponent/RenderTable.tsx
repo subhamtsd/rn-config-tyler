@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
@@ -12,7 +11,7 @@ import {
   StyleSheet,
   CheckBox,
   TouchableOpacity,
-  Pressable
+  Pressable,
   // Picker
 } from "react-native";
 
@@ -24,9 +23,8 @@ import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesCo
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
 import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 // import DatePicker from 'react-native-web-ui-components/Datepicker';
-import {Calendar, CalendarList, Agenda, Arrow} from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda, Arrow } from "react-native-calendars";
 import Modal from "modal-react-native-web";
-
 
 export const RenderTable = (props: {
   appState: any;
@@ -71,7 +69,7 @@ export const RenderTable = (props: {
   // console.log("Second Parent: " + secondParent);
   prepareSchema(
     props.dataToRender[firstParent].properties[secondParent[0]]
-  ).then((schemaJson) => {
+  ).then((_schemaJson) => {
     // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
   });
 
@@ -161,20 +159,20 @@ export const RenderTable = (props: {
     setListItems(listOfItems.slice(listOfItems[arrKey], 1));
     setArrObj(arrObj.slice(arrObj[arrKey], 1));
   };
-  
-  let selectedDates = {};
+
+  const selectedDates = {};
   // const addDates = (prevDate) => {
   //   return {...prevDate,[keyIndex]:day.dateString}
   // }
 
-  const rowSection = arrObj.map((arrKey,arrIndex) => {
-     console.log("arrIndex : : : ", arrIndex);
-    console.log("stateDate::::",date);
-    
+  const rowSection = arrObj.map((arrKey, arrIndex) => {
+    console.log("arrIndex : : : ", arrIndex);
+    console.log("stateDate::::", date);
+
     return (
       <Row>
         {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
-          console.log("keyIndex:::",keyIndex);
+          console.log("keyIndex:::", keyIndex);
           // console.log("arrIndex : : : ", arrIndex);
           const schema = {
             type: "object",
@@ -185,9 +183,8 @@ export const RenderTable = (props: {
               [keyName]: tableHeaderObj[keyName],
             },
           };
-          
+
           if (schema?.properties?.[keyName]?.format === "date") {
-            
             return (
               <Row
                 style={{
@@ -202,103 +199,241 @@ export const RenderTable = (props: {
                 }}
               >
                 <Col>
-                  {<Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                      setModalVisible(!modalVisible);
-                    }}
+                  {
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}
                     >
-                    <View style={detailViewStyles.centeredView}>
-                      <View style={detailViewStyles.modalView}>
-                        <Calendar
-                          theme={{
-                            backgroundColor: '#000',
-                            calendarBackground: '#fff',
-                            arrowColor: 'orange'
-                          }}
-                          // Initially visible month. Default = Date()
-                          //current={new Date().toISOString().slice(0, 10)}
-                          // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-                          minDate={'2012-05-10'}
-                          // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-                          maxDate={'2025-05-30'}
-                          // Handler which gets executed on day press. Default = undefined
-                          onDayPress={(day) => {
-                            setDate({...date,[arrIndex]:day.dateString});
-                            // setItem({...item,[keyName]:date[arrIndex]})
-                            console.log("FINAL ITEMS ",item);
-                            
-                          }}
-                          // Handler which gets executed on day long press. Default = undefined
-                          onDayLongPress={(day) => { console.log('selected day', day) }}
-                          // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-                          monthFormat={'yyyy MMM'}
-                          // Handler which gets executed when visible month changes in calendar. Default = undefined
-                          onMonthChange={(month) => { console.log('month changed', month) }}
-                          // Hide month navigation arrows. Default = false
-                          hideArrows={false}
-                          // Replace default arrows with custom ones (direction can be 'left' or 'right')
-                          //renderArrow={(direction) => (<Arrow/>)}
-                          // Do not show days of other months in month page. Default = false
-                          hideExtraDays={true}
-                          // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
-                          // day from another month that is visible in calendar page. Default = false
-                          disableMonthChange={false}
-                          // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
-                          firstDay={1}
-                          // Hide day names. Default = false
-                          hideDayNames={false}
-                          // Show week numbers to the left. Default = false
-                          showWeekNumbers={false}
-                          // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-                          onPressArrowLeft={subtractMonth => subtractMonth()}
-                          // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-                          onPressArrowRight={addMonth => addMonth()}
-                          // Disable left arrow. Default = false
-                          disableArrowLeft={false}
-                          // Disable right arrow. Default = false
-                          disableArrowRight={false}
-                          // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
-                       
-                          // Replace default month and year title with custom one. the function receive a date as parameter.
-                          // Enable the option to swipe between months. Default = false
-                          enableSwipeMonths={true}
-                          markedDates={{
-                           //[date.dateString]: {selected: true},
-                            //[date.arrIndex] : {selected:true}
-                            [date[arrIndex]]:{selected:true}
-                          }}
-                        />
-                        <View
-                          style={detailViewStyles.insideText}
-                        >
-                            <Pressable onPress={() => {
-                              console.log("FINALDATE",date);
-                              setItem({...item,[keyName]:date[arrIndex]})
-                              setModalVisible(false)
-                            }}>
+                      <View style={detailViewStyles.centeredView}>
+                        <View style={detailViewStyles.modalView}>
+                          <Calendar
+                            theme={{
+                              backgroundColor: "#000",
+                              calendarBackground: "#fff",
+                              arrowColor: "orange",
+                            }}
+                            // Initially visible month. Default = Date()
+                            //current={new Date().toISOString().slice(0, 10)}
+                            // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                            minDate={"2012-05-10"}
+                            // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                            maxDate={"2025-05-30"}
+                            // Handler which gets executed on day press. Default = undefined
+                            onDayPress={(day) => {
+                              setDate({ ...date, [arrIndex]: day.dateString });
+                              // setItem({...item,[keyName]:date[arrIndex]})
+                              console.log("FINAL ITEMS ", item);
+                            }}
+                            // Handler which gets executed on day long press. Default = undefined
+                            onDayLongPress={(day) => {
+                              console.log("selected day", day);
+                            }}
+                            // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                            monthFormat={"yyyy MMM"}
+                            // Handler which gets executed when visible month changes in calendar. Default = undefined
+                            onMonthChange={(month) => {
+                              console.log("month changed", month);
+                            }}
+                            // Hide month navigation arrows. Default = false
+                            hideArrows={false}
+                            // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                            //renderArrow={(direction) => (<Arrow/>)}
+                            // Do not show days of other months in month page. Default = false
+                            hideExtraDays={true}
+                            // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                            // day from another month that is visible in calendar page. Default = false
+                            disableMonthChange={false}
+                            // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                            firstDay={1}
+                            // Hide day names. Default = false
+                            hideDayNames={false}
+                            // Show week numbers to the left. Default = false
+                            showWeekNumbers={false}
+                            // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                            onPressArrowLeft={(subtractMonth) =>
+                              subtractMonth()
+                            }
+                            // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+                            onPressArrowRight={(addMonth) => addMonth()}
+                            // Disable left arrow. Default = false
+                            disableArrowLeft={false}
+                            // Disable right arrow. Default = false
+                            disableArrowRight={false}
+                            // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
+
+                            // Replace default month and year title with custom one. the function receive a date as parameter.
+                            // Enable the option to swipe between months. Default = false
+                            enableSwipeMonths={true}
+                            markedDates={{
+                              //[date.dateString]: {selected: true},
+                              //[date.arrIndex] : {selected:true}
+                              [date[arrIndex]]: { selected: true },
+                            }}
+                          />
+                          <View style={detailViewStyles.insideText}>
+                            <Pressable
+                              onPress={() => {
+                                console.log("FINALDATE", date);
+                                setItem({ ...item, [keyName]: date[arrIndex] });
+                                setModalVisible(false);
+                              }}
+                            >
                               <Text style={detailViewStyles.textStyle2}>
                                 Close
                               </Text>
                             </Pressable>
-                          
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </Modal>}
+                    </Modal>
+                  }
                   <TouchableOpacity
                     style={detailViewStyles.button}
                     onPress={() => {
                       // setCurrentRow({arrIndex},()=>console.log()
                       // );
                       // setCurrentRow(arrIndex)
-                      console.log("wantedIndex",arrIndex);
-                      setModalVisible(!modalVisible)
+                      console.log("wantedIndex", arrIndex);
+                      setModalVisible(!modalVisible);
                     }}
                   >
-                    <Text style={detailViewStyles.textStyle}>{date[arrIndex]==undefined?(new Date().toISOString().slice(0, 10)):(date[arrIndex])}</Text>
+                    <Text style={detailViewStyles.textStyle}>
+                      {date[arrIndex] == undefined
+                        ? new Date().toISOString().slice(0, 10)
+                        : date[arrIndex]}
+                    </Text>
+                  </TouchableOpacity>
+                </Col>
+              </Row>
+            );
+          }
+
+          if (schema?.properties?.[keyName]?.format === "date") {
+            return (
+              <Row
+                style={{
+                  borderBottomWidth: 2,
+                  borderBottomColor: "grey",
+                  width: "100%",
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                  paddingBottom: 5,
+                  alignContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Col>
+                  {
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <View style={detailViewStyles.centeredView}>
+                        <View style={detailViewStyles.modalView}>
+                          <Calendar
+                            theme={{
+                              backgroundColor: "#000",
+                              calendarBackground: "#fff",
+                              arrowColor: "orange",
+                            }}
+                            // Initially visible month. Default = Date()
+                            //current={new Date().toISOString().slice(0, 10)}
+                            // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+                            minDate={"2012-05-10"}
+                            // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+                            maxDate={"2025-05-30"}
+                            // Handler which gets executed on day press. Default = undefined
+                            onDayPress={(day) => {
+                              setDate({ ...date, [arrIndex]: day.dateString });
+                              // setItem({...item,[keyName]:date[arrIndex]})
+                              console.log("FINAL ITEMS ", item);
+                            }}
+                            // Handler which gets executed on day long press. Default = undefined
+                            onDayLongPress={(day) => {
+                              console.log("selected day", day);
+                            }}
+                            // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+                            monthFormat={"yyyy MMM"}
+                            // Handler which gets executed when visible month changes in calendar. Default = undefined
+                            onMonthChange={(month) => {
+                              console.log("month changed", month);
+                            }}
+                            // Hide month navigation arrows. Default = false
+                            hideArrows={false}
+                            // Replace default arrows with custom ones (direction can be 'left' or 'right')
+                            //renderArrow={(direction) => (<Arrow/>)}
+                            // Do not show days of other months in month page. Default = false
+                            hideExtraDays={true}
+                            // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+                            // day from another month that is visible in calendar page. Default = false
+                            disableMonthChange={false}
+                            // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+                            firstDay={1}
+                            // Hide day names. Default = false
+                            hideDayNames={false}
+                            // Show week numbers to the left. Default = false
+                            showWeekNumbers={false}
+                            // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+                            onPressArrowLeft={(subtractMonth) =>
+                              subtractMonth()
+                            }
+                            // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+                            onPressArrowRight={(addMonth) => addMonth()}
+                            // Disable left arrow. Default = false
+                            disableArrowLeft={false}
+                            // Disable right arrow. Default = false
+                            disableArrowRight={false}
+                            // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
+
+                            // Replace default month and year title with custom one. the function receive a date as parameter.
+                            // Enable the option to swipe between months. Default = false
+                            enableSwipeMonths={true}
+                            markedDates={{
+                              //[date.dateString]: {selected: true},
+                              //[date.arrIndex] : {selected:true}
+                              [date[arrIndex]]: { selected: true },
+                            }}
+                          />
+                          <View style={detailViewStyles.insideText}>
+                            <Pressable
+                              onPress={() => {
+                                console.log("FINALDATE", date);
+                                setItem({ ...item, [keyName]: date[arrIndex] });
+                                setModalVisible(false);
+                              }}
+                            >
+                              <Text style={detailViewStyles.textStyle2}>
+                                Close
+                              </Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      </View>
+                    </Modal>
+                  }
+                  <TouchableOpacity
+                    style={detailViewStyles.button}
+                    onPress={() => {
+                      // setCurrentRow({arrIndex},()=>console.log()
+                      // );
+                      // setCurrentRow(arrIndex)
+                      console.log("wantedIndex", arrIndex);
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={detailViewStyles.textStyle}>
+                      {date[arrIndex] == undefined
+                        ? new Date().toISOString().slice(0, 10)
+                        : date[arrIndex]}
+                    </Text>
                   </TouchableOpacity>
                 </Col>
               </Row>
@@ -329,7 +464,7 @@ export const RenderTable = (props: {
                       borderColor: "grey",
                       marginTop: 5,
                     }}
-                    onValueChange={(itemValue, itemIndex) => {
+                    onValueChange={(itemValue, _itemIndex) => {
                       // setSelectedLanguage(itemValue);
                       setItem({
                         ...item,
@@ -512,7 +647,7 @@ export const RenderTable = (props: {
         <Grid>
           {/* TABLE HEADER DATA */}
           <Row>
-            {Object.keys(tableHeaderObj).map(function (keyName, keyIndex) {
+            {Object.keys(tableHeaderObj).map(function (keyName, _keyIndex) {
               return (
                 <Row
                   style={{
@@ -575,7 +710,7 @@ export const RenderTable = (props: {
             console.log("Final submit");
             const finalData =
               appState.global.tsdApp.createComponent[
-              appState.global.tsdApp.activeTab.name
+                appState.global.tsdApp.activeTab.name
               ];
             console.log("final Data in the body Parameter 1st ::: ", finalData);
             finalData[firstParent] = {
@@ -666,7 +801,7 @@ const detailViewStyles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     fontSize: 15,
-    width: 100
+    width: 100,
   },
   centeredView: {
     flex: 1,
@@ -704,13 +839,13 @@ const detailViewStyles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 20
+    fontSize: 20,
   },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
   },
   insideText: {
-    width: 100
-  }
+    width: 100,
+  },
 });

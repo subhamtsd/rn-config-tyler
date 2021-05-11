@@ -37,9 +37,12 @@ import { EditBillToAddressDetailComponent } from "../../components/domainSpecifi
 import { CreateAddressFormComponent } from "../../components/domainSpecific/CreateAddressFormComponent";
 import { CreateOrderlineListComponent } from "../../components/domainSpecific/CreateOrderlineListComponent";
 import { CreateOrderlineAddressComponent } from "../../components/domainSpecific/CreateOrderlineAddressComponent";
+import { CreateOrderFooterComponent } from "./../../components/domainSpecific/CreateOrderFooterComponent/index";
+import { EditOrderLineAddressDetailComponent } from "../../components/domainSpecific/EditOrderLineAddressDetailComponent/index";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
+
 export const componentsSet = {
   Comp5,
   ActionComp,
@@ -71,6 +74,8 @@ export const componentsSet = {
   CreateAddressFormComponent,
   CreateOrderlineListComponent,
   CreateOrderlineAddressComponent,
+  CreateOrderFooterComponent,
+  EditOrderLineAddressDetailComponent,
   // JsonForm
 
   // TEST FOR JSON FORM

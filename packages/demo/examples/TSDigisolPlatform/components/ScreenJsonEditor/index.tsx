@@ -7,7 +7,7 @@ import { componentGridStyle } from "../../styles/common";
 import PropTypes from "prop-types";
 import ace from "brace";
 import "brace/mode/json";
-import "brace/mode/javascript"
+import "brace/mode/javascript";
 import "brace/theme/monokai";
 
 import { JsonEditor as Editor } from "jsoneditor-react";
@@ -17,68 +17,106 @@ import { Bold } from "react-native-web-ui-components";
 import { useEffect } from "react";
 
 export const ScreenJsonEditor = (props: {
-    appState: any;
-    label: any;
-    styles: any;
-    children: any;
-    setAppState: any;
-    layoutConfig: any;
-    setLayoutConfig: any;
-    getEvents: any;
-    events: any;
+  appState: any;
+  label: any;
+  styles: any;
+  children: any;
+  setAppState: any;
+  layoutConfig: any;
+  setLayoutConfig: any;
+  getEvents: any;
+  events: any;
 }) => {
-    const {
-        appState,
-        label,
-        styles,
-        children,
-        setAppState,
-        layoutConfig,
-        setLayoutConfig,
-        getEvents,
-    } = props;
+  const {
+    appState,
+    label,
+    styles,
+    children,
+    setAppState,
+    layoutConfig,
+    setLayoutConfig,
+    getEvents,
+  } = props;
 
-    const [showJSON, setShowJSON] = useState({});
-    const [finalJSON, setFinalJSON] = useState({});
+  const initialJson = {
+    tabName: "InventoryItem",
+    actionMethod: "PUT",
+    functionName: "Presales",
+    actionUri: "InvItem/create",
+    moduleName: "Inventory",
+    actionName: "Create",
+    properties: [
+      {
+        propertyPattern: "[a-zA-Z0-9]",
+        propertyDisplayName: "Inventory Organisation Code",
+        propertyName: "inventoryOrganizationCode",
+        propertyType: "string",
+        propertyRequired: "0",
+        propertyDisplayType: "",
+        apiUri: "",
+        apiMethod: "",
+      },
+      {
+        propertyPattern: "[a-zA-Z0-9]",
+        propertyDisplayName: "UOM",
+        propertyName: "uom",
+        propertyType: "string",
+        propertyRequired: "0",
+        propertyDisplayType: "",
+        apiUri: "",
+        apiMethod: "",
+      },
+      {
+        propertyPattern: "[a-zA-Z0-9]",
+        propertyDisplayName: "Description",
+        propertyName: "description",
+        propertyType: "string",
+        propertyRequired: "0",
+        propertyDisplayType: "",
+        apiUri: "",
+        apiMethod: "",
+      },
+    ],
+  };
 
-    console.log(`label is ${label}`);
-    console.log(getEvents(`${label}-btn-one`, setLayoutConfig));
+  const [showJSON, setShowJSON] = useState(initialJson);
+  const [finalJSON, setFinalJSON] = useState({});
 
+  console.log(`label is ${label}`);
+  console.log(getEvents(`${label}-btn-one`, setLayoutConfig));
 
-    const handleChange = (event) => {
-        return setShowJSON(event);
-    }
-    const onError = () => {
-        console.log("error found");
-    }
-    const sendJSON = () => {
-        fetchData();
-    }
-    const handleReset = () => {
-        setShowJSON({ key: "value" });
-    }
+  const handleChange = (event) => {
+    return setShowJSON(event);
+  };
+  const onError = () => {
+    console.log("error found");
+  };
+  const sendJSON = () => {
+    fetchData();
+  };
+  const handleReset = () => {
+    setShowJSON({ key: "value" });
+  };
 
+  const json = {};
 
-    const json = {};
+  const fetchData = async () => {
+    const res = await fetch(`${SERVER_ENDPOINT}v1/screen/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(showJSON),
+    });
+    const resJSON = await res.json();
 
-    const fetchData = async () => {
-        const res = await fetch(`${SERVER_ENDPOINT}v1/screen/`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(showJSON)
-        });
-        const resJSON = await res.json();
+    // console.log("objectName : : : : ", objectName);
+  };
 
-        // console.log("objectName : : : : ", objectName);
-    };
-
-
-    return (
-        <View style={componentGridStyle}>
-            {/*<Button
+  return (
+    <View style={componentGridStyle}>
+      {/*<Button
         testID={`${label}-btn-one`}
         title="HELLO DEMO"
         {...getEvents(
@@ -92,17 +130,17 @@ export const ScreenJsonEditor = (props: {
         //   console.log("Hello World from Default Component");
         // }}
       ></Button> */}
-            <Editor
-                ace={ace}
-                key={1}
-                value={showJSON}
-                mode={"tree"}
-                modes={["text", "code", "tree", "form", "view"]}
-                onChange={handleChange}
-                onError={onError}
-                theme={"ace/theme/github"}
-            />
-            {/* <JSONEditor
+      <Editor
+        ace={ace}
+        key={1}
+        value={showJSON}
+        mode={"tree"}
+        modes={["text", "code", "tree", "form", "view"]}
+        onChange={handleChange}
+        onError={onError}
+        theme={"ace/theme/github"}
+      />
+      {/* <JSONEditor
                 json={json}
                 onChangeJSON={handleChange}
                 onError={onError}
