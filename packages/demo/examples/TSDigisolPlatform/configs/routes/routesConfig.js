@@ -23,7 +23,7 @@ routes.orderLineDetail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -231,7 +231,7 @@ routes.orderDetail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -396,7 +396,7 @@ routes.defaultAppConfig = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -494,7 +494,7 @@ routes.jsonEditorScreen = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -596,7 +596,7 @@ routes.search = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -722,7 +722,7 @@ routes.searchWithForm = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -848,7 +848,7 @@ routes.detail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -930,19 +930,19 @@ routes.detail = {
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
           },
-          "2.2.3.1.bodyContent2": {
-            // col no
-            // idx: "JsonFormComponent",
-            idx: "ShowQRCodeComponent",
-            colSize: 2,
-            label: "showQRCodeComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
-          },
+          // "2.2.3.1.bodyContent2": {
+          //   // col no
+          //   // idx: "JsonFormComponent",
+          //   idx: "ShowQRCodeComponent",
+          //   colSize: 2,
+          //   label: "showQRCodeComponent",
+          //   colStyle: {
+          //     display: "flex",
+          //     borderColor: "blue",
+          //     // borderWidth: 1,
+          //     height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+          //   },
+          // },
         },
       },
     },
@@ -972,7 +972,7 @@ routes.editOrderLineDetail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1097,7 +1097,7 @@ routes.editBillToAddressDetail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1220,7 +1220,7 @@ routes.editOrdeLineAddressDetail = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1342,7 +1342,7 @@ routes.edit = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1465,7 +1465,7 @@ routes.delete = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1689,7 +1689,7 @@ routes.createOrder = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1790,7 +1790,7 @@ routes.createOrderline = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
@@ -1960,7 +1960,7 @@ routes.createOrderlineAddress = {
     "2.1.leftNavCol": {
       layout: {
         colConfig: {
-          colSize: 2,
+          colSize: 1.5,
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {

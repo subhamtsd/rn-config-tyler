@@ -162,14 +162,14 @@ export const appConfig = {
       "2.1.leftNavCol": {
         layout: {
           colConfig: {
-            colSize: 2,
+            colSize: 1.5,
           },
           "2.1.leftNavBodyRow": {
             rowConfig: {
               rowSize: 12,
             },
             leftNavBody: {
-              colSize: 2,
+              colSize: 1,
               // idx: "ToggleNavigation",
               idx: "NavigationBar",
               label: "navigationBar",
@@ -230,7 +230,7 @@ export const appConfig = {
             },
             "2.2.3.1.bodyContent2": {
               idx: "DefaultScreen",
-              colSize: 4,
+              colSize: 2,
               label: "helloWorld",
               colStyle: {
                 // display: "flex",

@@ -140,7 +140,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
-  console.log("viewData in showEntity : :: : : ", viewData.qrName);
+  console.log("viewData in showEntity : :: : : ", viewData);
 
   const [selectedId, setSelectedId] = useState(null);
   const [qrcodeVisible, setqrcodeVisible] = useState(true);
@@ -562,7 +562,10 @@ export const ShowEntity = (props: {
         <FlatList
           data={[viewData]}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => {
+            console.log("item.id ::: ", item);
+            item?.id || {};
+          }}
           extraData={selectedId}
         />
         {/* </SafeAreaView> */}
