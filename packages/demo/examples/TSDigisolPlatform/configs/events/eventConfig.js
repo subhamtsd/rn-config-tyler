@@ -672,16 +672,16 @@ export const events = {
     // },
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       console.log("From billToAddressDetailViewComponent ::: ", ...args);
-      setAppState({
-        global: {
-          tsdApp: {
-            formData: {
-              ...appState?.global?.tsdApp?.formData,
-              viewData: args[0],
-            },
-          },
-        },
-      });
+      // setAppState({
+      //   global: {
+      //     tsdApp: {
+      //       formData: {
+      //         ...appState?.global?.tsdApp?.formData,
+      //         viewData: args[0],
+      //       },
+      //     },
+      //   },
+      // });
       setLayoutConfig(routes["editBillToAddressDetail"]);
     },
   },

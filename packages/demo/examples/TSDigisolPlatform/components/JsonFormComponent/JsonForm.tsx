@@ -37,9 +37,16 @@ export const JsonForm = ({
   // TODO: show message
   const [message, setMessage] = useSafeSetState(null);
   // TODO: submit formData to ideal connected endpoint
-  const [formData, setFormData] = useSafeSetState({
-    ...appState?.global?.tsdApp?.formData?.[label], // FIXME: get this based on component property
-  });
+
+  // TODO:
+  // const [formData, setFormData] = useSafeSetState({
+  //   ...appState?.global?.tsdApp?.formData?.[label], // FIXME: get this based on component property
+  // });
+  const [formData, setFormData] = useSafeSetState(
+    _formData // FIXME: get this based on component property
+  );
+
+  console.log("_formDatA :::: ", formData);
 
   console.log("jsonformcomponent create", label);
   // console.log("AnyRecord : : : : ", _onBeforeSubmit);
