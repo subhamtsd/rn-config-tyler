@@ -129,11 +129,7 @@ export const CreateAddressFormComponent = (props: {
     fetchFormLayout();
   }, []);
 
-  return loading ? (
-    <View style={componentGridStyle}>
-      <ActivityIndicator />
-    </View>
-  ) : (
+  return loading ? null : (
     <View style={componentGridStyle}>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button

@@ -91,11 +91,7 @@ export const CreateOrderlineListComponent = (props: {
 
   console.log();
 
-  return loading ? (
-    <View style={componentGridStyle}>
-      <ActivityIndicator />
-    </View>
-  ) : (
+  return loading ? null : (
     <View style={componentGridStyle}>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button

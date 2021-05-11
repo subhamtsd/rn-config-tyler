@@ -49,6 +49,8 @@ export const ListRender = (props: {
   const [noOfRows, setnoOfRows] = useState(10);
   const [responseData, setResponseData] = useState({});
   const [pageArray, setPageArray] = useState(["0"]);
+  const [responseStatus, setResponseStatus] = useState(200);
+  const [loading, setLoading] = useState(true);
 
   if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
@@ -73,6 +75,13 @@ export const ListRender = (props: {
       },
       body: JSON.stringify(body),
     });
+
+    if (res.status != 200) {
+      setResponseStatus(500);
+      return;
+    }
+
+    // console.log("res status", res.status);
     const resJSON = await res.json();
     // TODO : HERE IT IS USED TO MODIFY THE VALUE OF NEXT AND PREV BUTTON
     console.log("resJson in listRender : : :: : ", resJSON.status);
@@ -92,6 +101,7 @@ export const ListRender = (props: {
       setPrevKey(nextKey);
       setNextKey(resJSON.page?.lastRecordKey);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -214,7 +224,7 @@ export const ListRender = (props: {
 
   console.log("FINAL DATA  ::: ", finalData);
 
-  if (finalData.length === 0) {
+  if (responseStatus != 200) {
     return (
       <View>
         <Text>No Data found</Text>
@@ -224,7 +234,7 @@ export const ListRender = (props: {
 
   console.log("props.listFormLayout :::: ", props.listFormLayout);
 
-  return (
+  return loading ? null : (
     <View style={{}}>
       <View
         style={{
@@ -250,7 +260,7 @@ export const ListRender = (props: {
               textAlign: "center",
             }}
           >
-            {props.appState.global.tsdApp.activeTab.name} LIST
+            {props.appState.global.tsdApp.activeTab.name} List
           </Text>
         </View>
       </View>

@@ -43,6 +43,9 @@ import { EditOrderLineAddressDetailComponent } from "../../components/domainSpec
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
 
+// ******************** POC on NAV BAR *****************************
+import { ToggleNavigation } from "../../../../components/ToggleNavigation";
+
 export const componentsSet = {
   Comp5,
   ActionComp,
@@ -80,8 +83,8 @@ export const componentsSet = {
 
   // TEST FOR JSON FORM
   AddEditEntity,
+  ToggleNavigation,
 };
-
 
 // *************************************************
 //  Layout config
@@ -167,11 +170,13 @@ export const appConfig = {
             },
             leftNavBody: {
               colSize: 2,
+              // idx: "ToggleNavigation",
               idx: "NavigationBar",
               label: "navigationBar",
               colStyle: {
-                borderWidth: 0,
                 height: "110vh",
+                borderWidth: 0,
+                borderColor: "blue",
               },
             },
           },

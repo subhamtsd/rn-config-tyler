@@ -77,19 +77,6 @@ export const OrderLineListViewComponent = (props: {
 
   return (
     <View style={componentGridStyle}>
-      <Text
-        style={{
-          fontSize: 20,
-          color: "#0d47a1",
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        {/* {appState.global != undefined
-          ? JSON.stringify(appState.global.tsdApp.listComponent)
-          : ""} */}
-        {UItitle}
-      </Text>
       <ScrollView horizontal>
         <ListRender
           listFormLayout={listFormLayout}
@@ -102,6 +89,7 @@ export const OrderLineListViewComponent = (props: {
           setLayoutConfig={setLayoutConfig}
           getEvents={getEvents}
           events={events}
+          UItitle={UItitle}
         />
       </ScrollView>
       {children || (appState && appState[label] && appState[label]?.children)}

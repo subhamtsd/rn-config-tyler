@@ -113,15 +113,13 @@ export const prepareSchema = async (schemaList: any) => {
 
 // TODO: Move the data to Helper File
 export const parseFormData = (data) => {
+  console.log("parseFormData -----------> in fnc ", data);
   Object.keys(data).map((key, index) => {
     if (data[key] === "true") {
       data[key] = true;
     } else if (data[key] === "false") {
       data[key] = false;
     }
-    // if (key === "languageKey") {
-    //   data["languageKey"] = 1;
-    // }
   });
   console.log("data after formating :::::: ", data);
   return data;
