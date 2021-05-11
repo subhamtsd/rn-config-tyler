@@ -20,6 +20,7 @@ import {
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
+import { ShowQRCodeComponent } from "../../examples/TSDigisolPlatform/components/ShowQRCodeComponent";
 
 const TextRender = ({ textFeild, value }: any) => {
   // console.log("Error value : : : ", value);
@@ -125,12 +126,14 @@ export const ShowEntity = (props: {
     setLayoutConfig,
     getEvents,
     UItitle,
+    events
   } = props.props;
 
   console.log("Layout Config in showEntity :::: ", props);
 
   const viewData = props.viewData;
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalQRVisible, setModalQRVisible] = useState(false);
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
@@ -215,6 +218,45 @@ export const ShowEntity = (props: {
               </Col>
 
               <Col style={{}}>
+                {
+                  <Modal animationType="slide"
+                    transparent={true}
+                    visible={modalQRVisible}
+                    onRequestClose={() => {
+                      Alert.alert("Modal has been closed.");
+                      setModalQRVisible(!modalQRVisible);
+                    }}
+                  >
+                    <View style={detailViewStyles.centeredView}>
+                      <View style={detailViewStyles.QRcontainer}>
+                        <View style={detailViewStyles.modalQRView}>
+                          <View style={{width: '100%',height: 40,borderTopEndRadius:5,borderTopStartRadius:5, backgroundColor: '#ccc',justifyContent: 'center',alignItems: 'center'}}>
+                            <Text>QR Message</Text>
+                          </View>
+                          <ShowQRCodeComponent
+                            appState={appState}
+                            label={label}
+                            styles={styles}
+                            children={children}
+                            setAppState={setAppState}
+                            layoutConfig={layoutConfig}
+                            setLayoutConfig={setLayoutConfig}
+                            events={events}
+                            getEvents={getEvents}
+                          />
+                          <Pressable
+                            style={[
+                              detailViewStyles.buttonQR,
+                              detailViewStyles.buttonClose,
+                            ]}
+                            onPress={() => setModalQRVisible(!modalQRVisible)}>
+                            <Text style={detailViewStyles.textStyle2}>close</Text>
+                          </Pressable>
+                        </View>
+                      </View>
+                    </View>
+                  </Modal>
+                }
                 <View style={detailViewStyles.buttonView}>
                   <TouchableOpacity
                     // testID={`${label}-edit-btn`}
@@ -224,23 +266,25 @@ export const ShowEntity = (props: {
                     //   setAppState,
                     //   appState
                     // )}
+                    disabled= {appState.global.tsdApp.activeModule.name==="ServiceOrders" || appState.global.tsdApp.activeModule.name==="SalesOrder" ? false:true}
                     onPress={() => {
                       console.log("Button Clicked ::: --> ", viewData?.qrLink);
                       const qrcodeStatus = !qrcodeVisible;
-                      setqrcodeVisible(!qrcodeVisible);
-                      setAppState({
-                        global: {
-                          tsdApp: {
-                            ShowQRCodeComponent: {
-                              isQrcodeVisible: qrcodeVisible,
-                              // TODO: Should be dynamic for the component to show QR code
-                              qrcodeImage: `default`,
-                              // TODO: Should be dynamic for the component for show Message after QR code is rendered
-                              message: "QR code for Order",
-                            },
-                          },
-                        },
-                      });
+                      // setqrcodeVisible(!qrcodeVisible);
+                      setModalQRVisible(!modalQRVisible);
+                      // setAppState({
+                      //   global: {
+                      //     tsdApp: {
+                      //       ShowQRCodeComponent: {
+                      //         isQrcodeVisible: qrcodeVisible,
+                      //         // TODO: Should be dynamic for the component to show QR code
+                      //         qrcodeImage: `default`,
+                      //         // TODO: Should be dynamic for the component for show Message after QR code is rendered
+                      //         message: "QR code for Order",
+                      //       },
+                      //     },
+                      //   },
+                      // });
                     }}
                     style={detailViewStyles.button}
                   >
@@ -255,14 +299,15 @@ export const ShowEntity = (props: {
                   <Modal
                     animationType="slide"
                     transparent={true}
-                    visible={modalVisible}
+                    visible={modalDeleteVisible}
                     onRequestClose={() => {
                       Alert.alert("Modal has been closed.");
-                      setModalVisible(!modalVisible);
+                      setModalDeleteVisible(!modalDeleteVisible);
                     }}
                   >
                     <View style={detailViewStyles.centeredView}>
-                      <View style={detailViewStyles.modalView}>
+                      <View style={detailViewStyles.QRcontainer}>
+                      <View style={detailViewStyles.modalDeleteView}>
                         <Text style={detailViewStyles.modalText}>
                           Are you sure you want to delete ??
                         </Text>
@@ -292,7 +337,7 @@ export const ShowEntity = (props: {
                               ]}
                               onPress={() => {
                                 // TODO : Add API for the Deleting the Selected row Data
-                                setModalVisible(!modalVisible);
+                                setModalDeleteVisible(!modalDeleteVisible);
                                 const res = fetch(
                                   `${SERVER_ENDPOINT}v1/schema/modulelayout`,
                                   {
@@ -307,12 +352,12 @@ export const ShowEntity = (props: {
                                       moduleName:
                                         appState.global != undefined
                                           ? appState.global.tsdApp.activeModule
-                                              .name
+                                            .name
                                           : "Service Orders",
                                       tabName:
                                         appState.global != undefined
                                           ? appState.global.tsdApp.activeTab
-                                              .name
+                                            .name
                                           : "CreateOrders",
                                       actionName: "Delete",
                                     }),
@@ -376,13 +421,12 @@ export const ShowEntity = (props: {
                                       `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
                                         /{[^}]*}/,
                                         ""
-                                      )}${
-                                        appState.global.tsdApp.viewComponent[
-                                          appState.global.tsdApp.activeTab.name
-                                        ][
-                                          _data.businessFunctions[0].modules[0]
-                                            .tabs[0].actions[0].uriParams
-                                        ]
+                                      )}${appState.global.tsdApp.viewComponent[
+                                      appState.global.tsdApp.activeTab.name
+                                      ][
+                                      _data.businessFunctions[0].modules[0]
+                                        .tabs[0].actions[0].uriParams
+                                      ]
                                       }`,
                                       {
                                         method:
@@ -427,7 +471,7 @@ export const ShowEntity = (props: {
                               ]}
                               onPress={async () => {
                                 // remove the delete action from delete component in action
-                                setModalVisible(!modalVisible);
+                                setModalDeleteVisible(!modalDeleteVisible);
                                 await setAppState({
                                   global: {
                                     tsdApp: {
@@ -446,6 +490,7 @@ export const ShowEntity = (props: {
                           </View>
                         </View>
                       </View>
+                      </View>
                     </View>
                   </Modal>
                   // </View>
@@ -454,7 +499,7 @@ export const ShowEntity = (props: {
                   <TouchableOpacity
                     style={detailViewStyles.button}
                     onPress={() => {
-                      setModalVisible(true);
+                      setModalDeleteVisible(true);
                     }}
                   >
                     <Text style={detailViewStyles.textStyle}>DELETE</Text>
@@ -551,6 +596,23 @@ const detailViewStyles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
   },
+  buttonQR: {
+    alignItems: "center",
+    backgroundColor: "#0e73ca",
+    height: 35,
+    width: "30%",
+    marginTop: 40,
+    marginBottom: 10,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 30,
+    paddingRight: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 5,
+  },
   textStyle: {
     justifyContent: "center",
     alignContent: "center",
@@ -565,17 +627,35 @@ const detailViewStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
+    padding: 50
   },
-  modalView: {
+  modalQRView: {
     // margin: 20,
-    backgroundColor: "#cccccc",
-    borderRadius: 1,
-    padding: 35,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    marginHorizontal: 70,
+    marginVertical: 40,
     alignItems: "center",
     shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+  modalDeleteView: {
+    // margin: 20,
+    backgroundColor: "#ccc",
+    borderRadius: 5,
+    marginHorizontal: 70,
+    marginVertical: 40,
+    alignItems: "center",
+  },
+  QRcontainer: {
+    backgroundColor: '#f3f9fb', 
+    borderRadius: 10,
+    shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 3,
+      height: 5,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
