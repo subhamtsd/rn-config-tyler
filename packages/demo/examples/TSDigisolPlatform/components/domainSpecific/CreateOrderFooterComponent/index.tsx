@@ -73,16 +73,29 @@ export const CreateOrderFooterComponent = (props: {
       addressInfos: {
         address: address,
       },
-      orderlines: {
+      orderLines: {
         orderLine: orderLine,
       },
     };
-    const newAppState = cloneDeep(appState);
-    delete newAppState.global.tsdApp.formData;
-
-    setAppState(newAppState, false);
-
     console.log("final submit body   ", body);
+    const res1 = fetch(
+      `${SERVER_ENDPOINT}${appState.global.tsdApp.editComponent.action.endPoint}/`,
+      {
+        method: appState.global.tsdApp.editComponent.action.httpMethod,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    )
+      .then((res) => res.json())
+      .then((_data) => {
+        console.log("submit success ", _data);
+        const newAppState = cloneDeep(appState);
+        delete newAppState.global.tsdApp.formData;
+        setAppState(newAppState, false);
+      });
   };
 
   return (

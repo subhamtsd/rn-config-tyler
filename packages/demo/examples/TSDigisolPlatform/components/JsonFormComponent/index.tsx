@@ -106,13 +106,12 @@ export const JsonFormComponent = (props: {
               : "Search",
         }),
       });
-      const resJSON = await res.json();
       const status = res.status;
       console.log("status : :: : ", status);
       if (status === 204) {
         setResponseStatus(status);
       } else {
-        // const resJSON = await res.json();
+        const resJSON = await res.json();
         console.log("response Json : : : : : formLayout ---> ", resJSON);
         prepareSchema(resJSON)
           .then((schemaJson) => {
@@ -131,15 +130,14 @@ export const JsonFormComponent = (props: {
             console.log("objectName : : : : ", objectName);
             setformLayout(formLayout[objectName]);
             setUISchema(formLayout[objectName]);
-            // setloading(false);
+            setloading(false);
           });
       }
     };
     fetchData();
     // setloading(false);
   }, []);
-
-  if (formLayout === initialFormSchema) {
+  if (responseStatus == 204) {
     return (
       <View style={componentGridStyle}>
         <Text>No data found</Text>
@@ -171,7 +169,7 @@ export const JsonFormComponent = (props: {
 
   // console.log("from json:", buttonView);
 
-  return (
+  return loading ? null : (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       <JsonForm
         setAppState={setAppState}
