@@ -269,7 +269,7 @@ export const ListRender = (props: {
               textAlign: "center",
             }}
           >
-            {props.appState.global.tsdApp.activeTab.name} LIST
+            {props.appState.global.tsdApp.activeTab.name} List
           </Text>
         </View>
       </View>

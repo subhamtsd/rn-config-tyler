@@ -35,7 +35,7 @@ routes.orderLineDetail = {
             colSize: 1,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "100vh" },
+            colStyle: { borderWidth: 0, height: "300vh" },
           },
         },
       },
@@ -111,14 +111,17 @@ routes.orderLineDetail = {
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "ShowQRCodeComponent",
+            idx: "BillToAddressDetailViewComponent",
             colSize: 2,
-            label: "showQRCodeComponent",
+            label: "billToAddressDetailViewComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+            passProps: {
+              UItitle: "Bill To Address Details",
             },
           },
         },
@@ -144,22 +147,22 @@ routes.orderLineDetail = {
               UItitle: "OrderLines of Order",
             },
           },
-          "2.2.4.2.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
-            idx: "BillToAddressDetailViewComponent",
-            colSize: 2,
-            label: "billToAddressDetailViewComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
-            passProps: {
-              UItitle: "Bill To Address Details",
-            },
-          },
+          // "2.2.4.2.bodyContent": {
+          //   // col no
+          //   // idx: "JsonFormComponent",
+          //   idx: "BillToAddressDetailViewComponent",
+          //   colSize: 2,
+          //   label: "billToAddressDetailViewComponent",
+          //   colStyle: {
+          //     display: "flex",
+          //     borderColor: "blue",
+          //     // borderWidth: 1,
+          //     height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+          //   },
+          //   passProps: {
+          //     UItitle: "Bill To Address Details",
+          //   },
+          // },
         },
         "2.2.5.bodyContentRow": {
           rowConfig: {
@@ -240,7 +243,7 @@ routes.orderDetail = {
             colSize: 1,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "100vh" },
+            colStyle: { borderWidth: 0, height: "200vh" },
           },
         },
       },
@@ -316,14 +319,17 @@ routes.orderDetail = {
           "2.2.3.1.bodyContent2": {
             // col no
             // idx: "JsonFormComponent",
-            idx: "ShowQRCodeComponent",
+            idx: "BillToAddressDetailViewComponent",
             colSize: 2,
-            label: "showQRCodeComponent",
+            label: "billToAddressDetailViewComponent",
             colStyle: {
               display: "flex",
               borderColor: "blue",
               // borderWidth: 1,
               height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+            passProps: {
+              UItitle: "Bill To Address Details",
             },
           },
         },
@@ -349,22 +355,22 @@ routes.orderDetail = {
               UItitle: "OrderLines of Order",
             },
           },
-          "2.2.4.2.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
-            idx: "BillToAddressDetailViewComponent",
-            colSize: 2,
-            label: "billToAddressDetailViewComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
-            passProps: {
-              UItitle: "Bill To Address Details",
-            },
-          },
+          // "2.2.4.2.bodyContent": {
+          //   // col no
+          //   // idx: "JsonFormComponent",
+          //   idx: "BillToAddressDetailViewComponent",
+          //   colSize: 2,
+          //   label: "billToAddressDetailViewComponent",
+          //   colStyle: {
+          //     display: "flex",
+          //     borderColor: "blue",
+          //     // borderWidth: 1,
+          //     height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+          //   },
+          //   passProps: {
+          //     UItitle: "Bill To Address Details",
+          //   },
+          // },
         },
       },
     },
