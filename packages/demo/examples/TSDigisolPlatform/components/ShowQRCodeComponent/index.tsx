@@ -34,19 +34,23 @@ export const ShowQRCodeComponent = (props: {
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log(props.appState);
+  console.log('appstate in QRCODE : ',props.appState);
   const [qrcodeVisible, setqrcodeVisible] = useState(
-    appState.global.tsdApp?.ShowQRCodeComponent?.isQrcodeVisible
+    false
   );
 
   return (
-    <View style={componentGridStyle}>
+    <View style={{marginHorizontal: 60}}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        {/* <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           {qrcodeVisible ? `Here is your QR Code` : `QR code is Hidden`}
-        </Text>
+        </Text> */}
+        <View style ={{width: '100%', alignItems: 'center',marginBottom: 30,marginTop: 5}}>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            QR code 
+          </Text>
+        </View>
         <View>
-          {qrcodeVisible ? (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Image
                 // source={require(appState.global.tsdApp?.ShowQRCodeComponent
@@ -55,7 +59,7 @@ export const ShowQRCodeComponent = (props: {
                 //   : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage +
                 //       `.png`)}
                 // source={require(`C:/QRCODE/default.png`)}
-                source={require(`C:/QRCODE/${appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage}.png`)}
+                source={require(`D:/QRCODE/default.png`)}
                 style={{
                   width: 200,
                   height: 200,
@@ -65,17 +69,6 @@ export const ShowQRCodeComponent = (props: {
                 {appState.global.tsdApp?.ShowQRCodeComponent?.message}
               </Text>
             </View>
-          ) : (
-            <View
-              style={{
-                borderWidth: 1,
-                width: 160,
-                height: 160,
-                marginTop: 20,
-                marginBottom: 20,
-              }}
-            ></View>
-          )}
         </View>
       </View>
       {/* <Button
