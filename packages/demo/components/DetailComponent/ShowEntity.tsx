@@ -159,6 +159,7 @@ export const ShowEntity = (props: {
 
   const renderItem = ({ item }: any) => {
     const backgroundColor = item.id === selectedId ? "#e0e0e0" : "#fff";
+    const QRbackgroundColor = appState.global.tsdApp.activeModule.name==="ServiceOrders" || appState.global.tsdApp.activeModule.name==="SalesOrder" ? 1:0.3;
 
     return (
       <View>
@@ -228,7 +229,7 @@ export const ShowEntity = (props: {
                     }}
                   >
                     <View style={detailViewStyles.centeredView}>
-                      <View style={detailViewStyles.QRcontainer}>
+                      
                         <View style={detailViewStyles.modalQRView}>
                           <View style={{width: '100%',height: 40,borderTopEndRadius:5,borderTopStartRadius:5, backgroundColor: '#ccc',justifyContent: 'center',alignItems: 'center'}}>
                             <Text>QR Message</Text>
@@ -253,7 +254,7 @@ export const ShowEntity = (props: {
                             <Text style={detailViewStyles.textStyle2}>close</Text>
                           </Pressable>
                         </View>
-                      </View>
+                      
                     </View>
                   </Modal>
                 }
@@ -286,7 +287,7 @@ export const ShowEntity = (props: {
                       //   },
                       // });
                     }}
-                    style={detailViewStyles.button}
+                    style={[detailViewStyles.button,{opacity: QRbackgroundColor}]}
                   >
                     <Text style={detailViewStyles.textStyle}>QRCODE</Text>
                   </TouchableOpacity>
@@ -306,7 +307,7 @@ export const ShowEntity = (props: {
                     }}
                   >
                     <View style={detailViewStyles.centeredView}>
-                      <View style={detailViewStyles.QRcontainer}>
+                      
                       <View style={detailViewStyles.modalDeleteView}>
                         <Text style={detailViewStyles.modalText}>
                           Are you sure you want to delete ??
@@ -491,7 +492,7 @@ export const ShowEntity = (props: {
                         </View>
                       </View>
                       </View>
-                    </View>
+                    
                   </Modal>
                   // </View>
                 }
@@ -598,11 +599,10 @@ const detailViewStyles = StyleSheet.create({
   },
   buttonQR: {
     alignItems: "center",
-    backgroundColor: "#0e73ca",
     height: 35,
     width: "30%",
-    marginTop: 40,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
     paddingTop: 7,
     paddingBottom: 5,
     paddingLeft: 30,

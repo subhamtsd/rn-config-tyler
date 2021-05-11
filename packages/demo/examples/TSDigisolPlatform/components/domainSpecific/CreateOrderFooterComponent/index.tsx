@@ -10,6 +10,9 @@ import {
   View,
   ScrollView,
   ActivityIndicator,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { isPropertyAssignment } from "typescript";
@@ -86,40 +89,93 @@ export const CreateOrderFooterComponent = (props: {
   };
 
   return (
-    <Row>
-      <Col
+    <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View
         style={{
           marginLeft: 60,
           marginRight: 60,
-          marginBottom: 20,
+          marginBottom: 20
         }}
       >
         {/* ******************** Add Rows Button ******************** */}
-        <Button
-          title={`Submit`}
-          color="#0e73ca"
-          disabled={status}
+        <TouchableOpacity
+          style={buttonStyle.buttonSubmit}
+          // disabled={status}
           onPress={submitHandler}
-        ></Button>
-      </Col>
-      <Col
+        >
+          <Text style={buttonStyle.text1}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+      <View
         style={{
           marginLeft: 60,
           marginRight: 60,
-          marginBottom: 20,
+          marginBottom: 20
         }}
       >
         {/* ******************** COPY ROWS BUTTON ********************************* */}
-        <Button
-          title={`cancel`}
-          color="#0e73ca"
-          disabled
+        <TouchableOpacity
+          style={buttonStyle.buttonCancel}
+          // disabled={status}
           onPress={() => {
             console.log("Cancel Clicked");
             // copy the last row
           }}
-        ></Button>
-      </Col>
-    </Row>
+        >
+          <Text style={buttonStyle.text2}>Cancel</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
+
+const buttonStyle = StyleSheet.create({
+  buttonSubmit: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#0e73ca",
+    height: 35,
+    width: "140px",
+    marginTop: 20,
+    marginLeft: 150,
+    marginBottom: 20,
+    marginRight: 10,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+    // borderColor: '#000',
+    // borderWidth: 0.5,
+    borderRadius: 2
+  },
+  buttonCancel: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    height: 35,
+    width: "140px",
+    marginLeft: 30,
+    marginTop: 20,
+    marginBottom: 20,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+    borderColor: '#000',
+    borderWidth: 0.5
+  },
+  text1: {
+    color: '#fff',
+    paddingRight: 20,
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: 500
+  },
+  text2: {
+    color: '#545454',
+    paddingRight: 20,
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: 500
+  },
+})
