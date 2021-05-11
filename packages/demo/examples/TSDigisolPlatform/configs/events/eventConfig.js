@@ -63,7 +63,11 @@ export const events = {
       };
 
       const saveCreateComponentData = async (tabName, body) => {
-        console.log("tabName in saveCreateComponentData : :: : : ", tabName);
+        console.log(
+          "tabName in saveCreateComponentData : :: : : ",
+          tabName,
+          body
+        );
         setAppState({
           global: {
             tsdApp: {
@@ -114,6 +118,7 @@ export const events = {
 
       const createOperation = async () => {
         const activeTabName = appState.global.tsdApp.activeTab.name;
+        console.log("from eventConfig", body);
         saveCreateComponentData(activeTabName, body);
         // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
         // TODO: Removed Screen as tab name from here in order to fit a JSON editor
@@ -163,16 +168,6 @@ export const events = {
           //   .then((data) => {
           //     console.log("from create order ", data);
           //   });
-          setAppState({
-            global: {
-              tsdApp: {
-                formData: {
-                  ...appState?.global?.tsdApp?.formData,
-                  [args[1]]: body,
-                },
-              },
-            },
-          });
 
           setLayoutConfig(routes.createOrder);
           // await getScreenLayout(
@@ -187,16 +182,6 @@ export const events = {
           // );
         } else if (activeTabName === "AllocateOrders") {
           if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
-            setAppState({
-              global: {
-                tsdApp: {
-                  formData: {
-                    ...appState?.global?.tsdApp?.formData,
-                    [args[1]]: body,
-                  },
-                },
-              },
-            });
             setLayoutConfig(routes.createOrder);
             // await getScreenLayout(
             //   // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
@@ -294,6 +279,9 @@ export const events = {
         setAppState({
           global: {
             tsdApp: {
+              createComponent: {
+                [activeTabName]: body,
+              },
               formData: {
                 ...appState?.global?.tsdApp?.formData,
                 [args[1]]: body,
