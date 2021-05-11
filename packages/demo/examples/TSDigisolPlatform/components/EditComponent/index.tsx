@@ -36,7 +36,9 @@ export const EditComponent = (props: {
   } = props;
 
   const _formData = parseFormData(
-    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
+    appState.global.tsdApp.viewComponent[
+      appState.global.tsdApp.activeTab.name
+    ] || {}
   );
 
   const [_schema, setSchema] = useSafeSetState({

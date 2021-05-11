@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -139,7 +140,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
-  console.log("viewData in showEntity : :: : : ", viewData);
+  console.log("viewData in showEntity : :: : : ", viewData.qrName);
 
   const [selectedId, setSelectedId] = useState(null);
   const [qrcodeVisible, setqrcodeVisible] = useState(true);
@@ -241,7 +242,7 @@ export const ShowEntity = (props: {
                             alignItems: "center",
                           }}
                         >
-                          <Text>QR Message</Text>
+                          <Text>Order Details</Text>
                         </View>
                         <ShowQRCodeComponent
                           appState={appState}
@@ -253,6 +254,12 @@ export const ShowEntity = (props: {
                           setLayoutConfig={setLayoutConfig}
                           events={events}
                           getEvents={getEvents}
+                          qrcodeImage={
+                            viewData.qrName === undefined ||
+                            viewData.qrName === ""
+                              ? "default.png"
+                              : viewData.qrName
+                          }
                         />
                         <Pressable
                           style={[

@@ -175,7 +175,7 @@ export const appConfig = {
               label: "navigationBar",
               colStyle: {
                 height: "110vh",
-                borderWidth: 2,
+                borderWidth: 0,
                 borderColor: "blue",
               },
             },

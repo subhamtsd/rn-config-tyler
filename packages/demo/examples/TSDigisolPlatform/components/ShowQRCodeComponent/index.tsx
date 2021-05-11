@@ -15,6 +15,7 @@ export const ShowQRCodeComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  qrcodeImage: any;
 }) => {
   const {
     appState,
@@ -25,6 +26,7 @@ export const ShowQRCodeComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    qrcodeImage,
   } = props;
 
   const qrCodeImage =
@@ -56,13 +58,7 @@ export const ShowQRCodeComponent = (props: {
         <View>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Image
-              // source={require(appState.global.tsdApp?.ShowQRCodeComponent
-              //   ?.qrcodeImage === undefined
-              //   ? `C:\\QRCODE\\default.png`
-              //   : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage +
-              //       `.png`)}
-              // source={require(`C:/QRCODE/default.png`)}
-              source={require(`C:/QRCODE/1122236402.png`)}
+              source={require(`C:/QRCODE/${qrcodeImage || `default.png`}`)}
               style={{
                 width: 200,
                 height: 200,
