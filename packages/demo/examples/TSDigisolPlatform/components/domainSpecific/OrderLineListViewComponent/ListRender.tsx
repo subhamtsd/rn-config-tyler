@@ -25,6 +25,7 @@ export const ListRender = (props: {
   setAppState: any;
   setLayoutConfig: any;
   styles: any;
+  UItitle: any;
 }) => {
   // const {
   //   appState,
@@ -216,12 +217,31 @@ export const ListRender = (props: {
     <View style={{}}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "row-reverse",
           marginBottom: 10,
         }}
       >
         {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
+        <View
+          style={{
+            // borderWidth: 1,
+            width: 900,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#0d47a1",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {props.UItitle} List
+          </Text>
+        </View>
       </View>
       {/* <View>
         <Text>{JSON.stringify(finalData)}</Text>
