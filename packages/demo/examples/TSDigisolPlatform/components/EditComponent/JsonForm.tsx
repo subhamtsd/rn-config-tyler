@@ -25,7 +25,8 @@ export const JsonForm = ({
   schema = {}, // This data
   uiSchema = {}, // this data
   label = "",
-  _submitButton = "UPDATE",
+  _submitButton = false,
+  _cancelButton = false,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
@@ -139,7 +140,7 @@ export const JsonForm = ({
           schema={schema}
           uiSchema={uiSchema}
           submitButton={_submitButton}
-          cancelButton={false}
+          cancelButton={_cancelButton}
           onChange={onChange}
           buttonPosition="center"
           {...getEvents(
