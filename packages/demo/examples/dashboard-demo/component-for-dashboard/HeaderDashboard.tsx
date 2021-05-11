@@ -29,11 +29,11 @@ export const HeaderDashboard = (props: {
   return (
     <View>
       <Text style={{}}>DefaultScreen *** {label}</Text>
-      {/* <Button
+      <Button
         testID={`${label}-btn-one`}
         title="ACT"
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
-      ></Button> */}
+      ></Button>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

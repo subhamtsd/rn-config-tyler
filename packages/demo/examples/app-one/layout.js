@@ -39,7 +39,7 @@ export const appConfig = {
               colSize: 1,
               idx: "About",
               label: "leftNavHeader",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "20vh" },
+              colStyle: { borderColor: "red", borderWidth: 2, height: "99vh" },
             },
           },
           "112leftNavBodyRow": {
@@ -48,18 +48,9 @@ export const appConfig = {
               idx: "Home",
               colSize: 1,
               label: "leftNavBody",
-              colStyle: { borderColor: "red", borderWidth: 2, height: "80vh" },
+              colStyle: {  height: "1vh",backgroundColor:"grey" },
             },
-          },
-          // "113leftNavFooterRow": {
-          //   leftNavFooter: {
-          //     // col no
-          //     colSize: 1,
-          //     idx: "About",
-          //     label: "leftNavFooter",
-          //     colStyle: { borderColor: "red", borderWidth: 2, height: "40vh" },
-          //   },
-          // },
+          }
         },
       },
       "12bodyCol": {
@@ -86,15 +77,6 @@ export const appConfig = {
               colStyle: { borderColor: "red", borderWidth: 2, height: "60vh" },
             },
           },
-          // "123bodyFooterRow": {
-          //   bodyFooter: {
-          //     // col no
-          //     idx: "Home",
-          //     colSize: 1,
-          //     label: "bodyFooter",
-          //     colStyle: { borderColor: "red", borderWidth: 2, height: "10vh" },
-          //   },
-          // },
         },
       },
     },

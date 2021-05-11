@@ -180,7 +180,7 @@ export const App = (props: AppProps) => {
                 // size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
                 style={{
-                  borderWidth: 6,
+                  borderWidth: 1,
                   borderColor: "gray",
                   ...rows[rId]?.rowConfig?.rowStyle,
                 }}

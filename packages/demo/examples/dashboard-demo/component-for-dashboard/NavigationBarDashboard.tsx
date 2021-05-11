@@ -36,17 +36,15 @@ export const NavigationBarDashboard = (props: {
     getEvents,
   } = props;
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [listDataSource, setListDataSource] = useState([]);
   const [multiSelect, setMultiSelect] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-
+    setLoading(false);
     /**
      * @DOC : SCHEMA API to fetch buisness Function Data
      */
-
     const fetchData = async () => {
       const res = await fetch(
         // `https://run.mocky.io/v3/1f38d881-eaae-4fcd-b6fe-05fdc83f5554`,

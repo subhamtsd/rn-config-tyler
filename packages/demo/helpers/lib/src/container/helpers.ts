@@ -9,6 +9,10 @@ export const setLayoutConfig = (
   _config,
   format = "none"
 ) => {
+  console.log(config)
+  console.log(_config)
+
+
   // find out if the object is in collapsed/dotted format
   if (format === "dotted") {
     // expand to proper JSON from dotted notation
@@ -45,6 +49,7 @@ export const setLayoutConfig = (
     );
   }
 };
+
 
 export const setAppState = (_setAppState, appState, newAppState, format="none") => {
   if (format === "isPartial") {
