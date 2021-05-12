@@ -21,6 +21,7 @@ import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
+import { routes } from "../../../configs/routes/routesConfig";
 import { cloneDeep } from "lodash";
 
 export const CreateOrderFooterComponent = (props: {
@@ -97,6 +98,15 @@ export const CreateOrderFooterComponent = (props: {
       .then((res) => res.json())
       .then((_data) => {
         console.log("submit success ", _data);
+        const newAppState = cloneDeep(appState);
+        delete newAppState.global.tsdApp.formData;
+        newAppState.global.tsdApp["viewComponent"][
+          `${appState.global.tsdApp.activeTab.name}`
+        ] = _data;
+        setAppState(newAppState, false);
+        setLayoutConfig(routes["orderDetail"], "copy");
+      })
+      .catch((err) => {
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
         setAppState(newAppState, false);
