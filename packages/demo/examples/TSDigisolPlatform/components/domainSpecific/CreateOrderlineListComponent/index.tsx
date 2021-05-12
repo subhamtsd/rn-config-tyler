@@ -58,23 +58,7 @@ export const CreateOrderlineListComponent = (props: {
 
   useEffect(() => {
     console.log("hello");
-    const sendRequest = {
-      // service
-      moduleKey: 23751,
-      roleKey: 1,
-      tabKey: 2006,
-      userId: "TsdAdmin",
-      actionName: "Create",
-    };
-    const bodyRequest1 = {
-      // Sales
-      moduleKey: 156051,
-      roleKey: 1,
-      tabKey: 171505,
-      userId: "TsdAdmin",
-      actionName: "Create",
-    };
-
+    const module = appState?.global?.tsdApp?.activeModule?.key;
     const fetchFormLayout = async () => {
       setLoading(true);
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
@@ -83,7 +67,13 @@ export const CreateOrderlineListComponent = (props: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(sendRequest),
+        body: JSON.stringify({
+          moduleKey: module,
+          roleKey: 1,
+          tabKey: module == 23751 ? 2006 : 171505,
+          userId: "TsdAdmin",
+          actionName: "Create",
+        }),
       });
       console.log("hello fetch");
       const resJSON = await res.json();

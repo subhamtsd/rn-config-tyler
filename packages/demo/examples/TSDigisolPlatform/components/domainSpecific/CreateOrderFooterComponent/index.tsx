@@ -53,7 +53,6 @@ export const CreateOrderFooterComponent = (props: {
   const submitHandler = () => {
     const {
       bodyHeader,
-      createAddressFormComponent,
       createOrderlineListComponent,
     } = appState?.global?.tsdApp?.formData;
 
@@ -66,10 +65,13 @@ export const CreateOrderFooterComponent = (props: {
       };
       orderLine.push(newObj);
     });
-    createAddressFormComponent.forEach((obj) => {
-      const newObj = { ...obj.item };
-      address.push(newObj);
-    });
+
+    appState?.global?.tsdApp?.formData?.createAddressFormComponent?.forEach(
+      (obj) => {
+        const newObj = { ...obj.item };
+        address.push(newObj);
+      }
+    );
 
     const body = {
       ...bodyHeader,
@@ -82,9 +84,9 @@ export const CreateOrderFooterComponent = (props: {
     };
     console.log("final submit body   ", body);
     const res1 = fetch(
-      `${SERVER_ENDPOINT}${appState.global.tsdApp.editComponent.action.endPoint}/`,
+      `${SERVER_ENDPOINT}${appState.global.tsdApp.activeAction.endPoint}/`,
       {
-        method: appState.global.tsdApp.editComponent.action.httpMethod,
+        method: appState.global.tsdApp.activeAction.httpMethod,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
