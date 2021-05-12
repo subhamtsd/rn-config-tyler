@@ -43,7 +43,7 @@ export const CreateOrderlineListComponent = (props: {
     getEvents,
     events,
     _childDependeny,
-    UItitle
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
@@ -96,12 +96,16 @@ export const CreateOrderlineListComponent = (props: {
 
   return loading ? null : (
     <View style={componentGridStyle}>
-      <Text style={{
-        fontSize: 20,
-        color: "#0d47a1",
-        fontWeight: "bold",
-        textAlign: "center",
-      }}>{UItitle}</Text>
+      <Text
+        style={{
+          fontSize: 20,
+          color: "#0d47a1",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        {UItitle}
+      </Text>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}

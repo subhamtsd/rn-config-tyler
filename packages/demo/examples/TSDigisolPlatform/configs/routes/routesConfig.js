@@ -1907,7 +1907,7 @@ routes.createOrderline = {
             colStyle: {
               display: "flex",
               borderColor: "blue",
-              // borderWidth: 1,
+              borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
             passProps: {
