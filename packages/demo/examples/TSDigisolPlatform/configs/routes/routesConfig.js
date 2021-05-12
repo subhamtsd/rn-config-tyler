@@ -243,7 +243,7 @@ routes.orderDetail = {
             colSize: 1,
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "00vh" },
+            colStyle: { borderWidth: 0, height: "200vh" },
           },
         },
       },
@@ -489,7 +489,7 @@ routes.jsonEditorScreen = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 12,
+      rowSize: 11,
     },
     "2.1.leftNavCol": {
       layout: {
@@ -498,7 +498,7 @@ routes.jsonEditorScreen = {
         },
         "2.1.leftNavBodyRow": {
           rowConfig: {
-            rowSize: 12,
+            rowSize: 11,
           },
           leftNavBody: {
             colSize: 2,
