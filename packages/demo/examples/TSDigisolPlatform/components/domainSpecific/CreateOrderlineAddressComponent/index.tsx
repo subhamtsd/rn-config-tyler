@@ -27,6 +27,7 @@ export const CreateOrderlineAddressComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any
 }) => {
   const {
     appState,
@@ -37,6 +38,7 @@ export const CreateOrderlineAddressComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle
   } = props;
 
   console.log(`label is ${label}`);
@@ -233,19 +235,28 @@ export const CreateOrderlineAddressComponent = (props: {
   // console.log("from json:", buttonView);
 
   return loading ? null : (
-    <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
-      <JsonForm
-        setAppState={setAppState}
-        appState={appState}
-        schema={formLayout}
-        // schema={_schema}
-        uiSchema={formLayout.uischema}
-        _formData={_formData}
-        label={appState.global.tsdApp.formData.isChecked.key}
-        setLayoutConfig={setLayoutConfig}
-        _submitButton={"Save"}
-        _cancelButton={true}
-        _onSuccess={onSuccessHandler}
+    <View>
+      
+      <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
+      <Text style={{
+        fontSize: 20,
+        color: "#0d47a1",
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 20
+      }}>{UItitle}</Text>
+        <JsonForm
+          setAppState={setAppState}
+          appState={appState}
+          schema={formLayout}
+          // schema={_schema}
+          uiSchema={formLayout.uischema}
+          _formData={_formData}
+          label={appState.global.tsdApp.formData.isChecked.key}
+          setLayoutConfig={setLayoutConfig}
+          _submitButton={"Save"}
+          _cancelButton={true}
+          _onSuccess={onSuccessHandler}
 
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
@@ -265,10 +276,10 @@ export const CreateOrderlineAddressComponent = (props: {
         // _onChange={(e) => {
         //   console.log("data changed");
         // }}
-      />
-      {/* </ScrollView> */}
+        />
+        {/* </ScrollView> */}
 
-      {/* <Link
+        {/* <Link
         style={{
           backgroundColor: "blue",
           width: 50,
@@ -283,7 +294,8 @@ export const CreateOrderlineAddressComponent = (props: {
       >
         Go
       </Link> */}
-      {children || (appState && appState[label] && appState[label]?.children)}
-    </ScrollView>
+        {children || (appState && appState[label] && appState[label]?.children)}
+      </ScrollView>
+    </View>
   );
 };

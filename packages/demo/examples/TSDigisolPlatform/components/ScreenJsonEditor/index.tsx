@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
@@ -195,8 +197,6 @@ const buttonStyle = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 50,
     paddingRight: 30,
-    borderColor: "#000",
-    borderWidth: 0.5,
   },
   button2: {
     alignItems: "center",
