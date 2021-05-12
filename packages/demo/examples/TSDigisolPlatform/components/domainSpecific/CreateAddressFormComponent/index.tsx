@@ -31,6 +31,7 @@ export const CreateAddressFormComponent = (props: {
   getEvents: any;
   events: any;
   _childDependeny: any;
+  UItitle: any
 }) => {
   const {
     appState,
@@ -43,6 +44,7 @@ export const CreateAddressFormComponent = (props: {
     getEvents,
     events,
     _childDependeny,
+    UItitle
   } = props;
 
   console.log(`label is ${label}`);
@@ -131,6 +133,12 @@ export const CreateAddressFormComponent = (props: {
 
   return loading ? null : (
     <View style={componentGridStyle}>
+      <Text style={{
+        fontSize: 20,
+        color: "#0d47a1",
+        fontWeight: "bold",
+        textAlign: "center",
+      }}>{UItitle}</Text>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}

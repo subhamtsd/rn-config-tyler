@@ -1760,6 +1760,9 @@ routes.createOrder = {
               display: "flex",
               borderColor: "blue",
             },
+            passProps: {
+              UItitle: "Add Bill To Address",
+            },
           },
         },
       },
@@ -1884,6 +1887,9 @@ routes.createOrderline = {
               // borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Add Bill To Address",
+            },
           },
         },
         "2.2.4.bodyContentRow": {
@@ -1903,6 +1909,9 @@ routes.createOrderline = {
               borderColor: "blue",
               // borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+            },
+            passProps: {
+              UItitle: "Add Orderline",
             },
           },
           "2.2.4.2.bodyContent": {
@@ -2054,6 +2063,9 @@ routes.createOrderlineAddress = {
               // borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Add Bill To Address",
+            },
           },
         },
         "2.2.4.bodyContentRow": {
@@ -2074,6 +2086,9 @@ routes.createOrderlineAddress = {
               // borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Add Orderline",
+            },
           },
           "2.2.4.2.bodyContent": {
             // col no
@@ -2087,6 +2102,9 @@ routes.createOrderlineAddress = {
               // borderWidth: 1,
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
+            passProps: {
+              UItitle: "Add Ship To Address",
+            }
           },
         },
         "2.2.5.bodyFooterRow": {
