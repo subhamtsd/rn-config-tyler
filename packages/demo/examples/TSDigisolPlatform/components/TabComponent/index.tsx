@@ -101,10 +101,10 @@ export const TabComponent = (props: {
             }}
           >
             <TouchableOpacity
-              onPress={async () => {
+              onPress={() => {
                 // console.log("Button with Tab item : ", item);
                 // TODO : Should come from event management
-                await setAppState({
+                setAppState({
                   global: {
                     tsdApp: {
                       activeTab: {
@@ -122,13 +122,6 @@ export const TabComponent = (props: {
                         data: {
                           response: [],
                         },
-                      },
-                      ShowQRCodeComponent: {
-                        isQrcodeVisible: false,
-                        // TODO: Add Some Dummy Image here
-                        qrcodeImage: "qr_code_PNG24.png",
-                        // TODO: Reset of message for any tab
-                        message: "",
                       },
                     },
                   },

@@ -182,7 +182,7 @@ const buttonStyle = StyleSheet.create({
     button1: {
         alignItems: "center",
         alignSelf: "center",
-        backgroundColor: "#fff",
+        backgroundColor: "#0e73ca",
         height: 35,
         width: "140px",
         marginTop: 7,
@@ -192,16 +192,13 @@ const buttonStyle = StyleSheet.create({
         paddingBottom: 5,
         paddingLeft: 50,
         paddingRight: 30,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 5,
+        borderColor: '#000',
+        borderWidth: 0.5
     },
     button2: {
         alignItems: "center",
         alignSelf: "center",
-        backgroundColor: "#0e73ca",
+        backgroundColor: "#fff",
         height: 35,
         width: "140px",
         marginTop: 7,
@@ -210,22 +207,19 @@ const buttonStyle = StyleSheet.create({
         paddingBottom: 5,
         paddingLeft: 50,
         paddingRight: 30,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 5,
+        borderColor: '#000',
+        borderWidth: 0.5,
     },
     text1: {
-        color: '#545454',
-        paddingRight: 20,
-        fontSize: 14,
-        fontWeight: 'normal'
-    },
-    text2: {
         color: '#fff',
         paddingRight: 20,
         fontSize: 14,
-        fontWeight: 'normal'
+        fontWeight: '400'
+    },
+    text2: {
+        color: '#545454',
+        paddingRight: 20,
+        fontSize: 14,
+        fontWeight: '400'
     },
 })

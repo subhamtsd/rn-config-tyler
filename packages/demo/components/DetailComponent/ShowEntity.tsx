@@ -140,7 +140,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
-  console.log("viewData in showEntity : :: : : ", viewData.qrName);
+  console.log("viewData in showEntity : :: : : ", viewData);
 
   const [selectedId, setSelectedId] = useState(null);
   const [qrcodeVisible, setqrcodeVisible] = useState(true);
@@ -160,6 +160,11 @@ export const ShowEntity = (props: {
 
   const renderItem = ({ item }: any) => {
     const backgroundColor = item.id === selectedId ? "#e0e0e0" : "#fff";
+    const QRbackgroundColor =
+      appState.global.tsdApp.activeModule.name === "ServiceOrders" ||
+      appState.global.tsdApp.activeModule.name === "SalesOrder"
+        ? 1
+        : 0.3;
 
     return (
       <View>
@@ -309,7 +314,10 @@ export const ShowEntity = (props: {
                       //   },
                       // });
                     }}
-                    style={detailViewStyles.button}
+                    style={[
+                      detailViewStyles.button,
+                      { opacity: QRbackgroundColor },
+                    ]}
                   >
                     <Text style={detailViewStyles.textStyle}>QRCODE</Text>
                   </TouchableOpacity>
@@ -329,11 +337,16 @@ export const ShowEntity = (props: {
                     }}
                   >
                     <View style={detailViewStyles.centeredView}>
-                      <View style={detailViewStyles.QRcontainer}>
-                        <View style={detailViewStyles.modalDeleteView}>
-                          <Text style={detailViewStyles.modalText}>
-                            Are you sure you want to delete ??
-                          </Text>
+                      <View style={detailViewStyles.modalDeleteView}>
+                        <Text style={detailViewStyles.modalText}>
+                          Are you sure you want to delete ??
+                        </Text>
+                        <View
+                          style={{
+                            // borderWidth: 2,
+                            flexDirection: "row",
+                          }}
+                        >
                           <View
                             style={{
                               // borderWidth: 2,
@@ -549,7 +562,10 @@ export const ShowEntity = (props: {
         <FlatList
           data={[viewData]}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => {
+            console.log("item.id ::: ", item);
+            item?.id || {};
+          }}
           extraData={selectedId}
         />
         {/* </SafeAreaView> */}
@@ -625,11 +641,10 @@ const detailViewStyles = StyleSheet.create({
   },
   buttonQR: {
     alignItems: "center",
-    backgroundColor: "#0e73ca",
     height: 35,
     width: "30%",
-    marginTop: 40,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
     paddingTop: 7,
     paddingBottom: 5,
     paddingLeft: 30,
