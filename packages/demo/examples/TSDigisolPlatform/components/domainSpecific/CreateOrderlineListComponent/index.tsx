@@ -58,6 +58,7 @@ export const CreateOrderlineListComponent = (props: {
 
   useEffect(() => {
     console.log("hello");
+    const module = appState?.global?.tsdApp?.activeModule?.key;
     const fetchFormLayout = async () => {
       setLoading(true);
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
@@ -67,9 +68,9 @@ export const CreateOrderlineListComponent = (props: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          moduleKey: 156051,
+          moduleKey: module,
           roleKey: 1,
-          tabKey: 171505,
+          tabKey: module == 23751 ? 2006 : 171505,
           userId: "TsdAdmin",
           actionName: "Create",
         }),
