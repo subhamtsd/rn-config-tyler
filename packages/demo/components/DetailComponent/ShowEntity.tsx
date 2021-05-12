@@ -329,11 +329,10 @@ export const ShowEntity = (props: {
                       setModalDeleteVisible(!modalDeleteVisible);
                     }}
                   >
-                    <View style={detailViewStyles.centeredView}>
-                      
+                    <View style={detailViewStyles.centeredView}> 
                       <View style={detailViewStyles.modalDeleteView}>
                         <Text style={detailViewStyles.modalText}>
-                          Are you sure you want to delete ??
+                          Are you sure you want to delete ?
                         </Text>
                         <View
                           style={{
@@ -676,11 +675,15 @@ const detailViewStyles = StyleSheet.create({
   },
   modalDeleteView: {
     // margin: 20,
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
     borderRadius: 5,
     marginHorizontal: 70,
     marginVertical: 40,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
   QRcontainer: {
     backgroundColor: "#f3f9fb",
@@ -713,5 +716,7 @@ const detailViewStyles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    marginHorizontal: 30,
+    marginVertical: 35
   },
 });

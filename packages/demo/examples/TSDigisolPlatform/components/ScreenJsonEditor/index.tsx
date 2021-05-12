@@ -192,8 +192,7 @@ const buttonStyle = StyleSheet.create({
         paddingBottom: 5,
         paddingLeft: 50,
         paddingRight: 30,
-        borderColor: '#000',
-        borderWidth: 0.5
+        
     },
     button2: {
         alignItems: "center",
