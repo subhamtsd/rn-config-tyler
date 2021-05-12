@@ -156,6 +156,7 @@ export const HeaderBar = (props: {
                     },
                   },
                 });
+                setLayoutConfig(routes["defaultAppConfig"], "copy");
               }}
               {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
             >

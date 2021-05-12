@@ -140,7 +140,7 @@ export const ShowEntity = (props: {
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
   console.log("appState : : : : in ShowEntity : : : : ", props.props);
 
-  console.log("viewData in showEntity : :: : : ", viewData.qrName);
+  console.log("viewData in showEntity : :: : : ", viewData);
 
   const [selectedId, setSelectedId] = useState(null);
   const [qrcodeVisible, setqrcodeVisible] = useState(true);
@@ -160,7 +160,11 @@ export const ShowEntity = (props: {
 
   const renderItem = ({ item }: any) => {
     const backgroundColor = item.id === selectedId ? "#e0e0e0" : "#fff";
-    const QRbackgroundColor = appState.global.tsdApp.activeModule.name==="ServiceOrders" || appState.global.tsdApp.activeModule.name==="SalesOrder" ? 1:0.3;
+    const QRbackgroundColor =
+      appState.global.tsdApp.activeModule.name === "ServiceOrders" ||
+      appState.global.tsdApp.activeModule.name === "SalesOrder"
+        ? 1
+        : 0.3;
 
     return (
       <View>
@@ -310,7 +314,10 @@ export const ShowEntity = (props: {
                       //   },
                       // });
                     }}
-                    style={[detailViewStyles.button,{opacity: QRbackgroundColor}]}
+                    style={[
+                      detailViewStyles.button,
+                      { opacity: QRbackgroundColor },
+                    ]}
                   >
                     <Text style={detailViewStyles.textStyle}>QRCODE</Text>
                   </TouchableOpacity>
@@ -329,7 +336,7 @@ export const ShowEntity = (props: {
                       setModalDeleteVisible(!modalDeleteVisible);
                     }}
                   >
-                    <View style={detailViewStyles.centeredView}> 
+                    <View style={detailViewStyles.centeredView}>
                       <View style={detailViewStyles.modalDeleteView}>
                         <Text style={detailViewStyles.modalText}>
                           Are you sure you want to delete ?
@@ -555,7 +562,10 @@ export const ShowEntity = (props: {
         <FlatList
           data={[viewData]}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => {
+            console.log("item.id ::: ", item);
+            item?.id || {};
+          }}
           extraData={selectedId}
         />
         {/* </SafeAreaView> */}

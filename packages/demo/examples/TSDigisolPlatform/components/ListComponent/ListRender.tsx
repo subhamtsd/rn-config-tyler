@@ -44,20 +44,20 @@ export const ListRender = (props: {
 
   const [isPaginationAvailable, setIsPaginationAvailable] = useState(true);
   const [finalData, setFinalData] = useState([]);
-  const [prevKey, setPrevKey] = useState(0);
+  const [prevKey, setPrevKey] = useState([]);
   const [nextKey, setNextKey] = useState(0);
   const [noOfRows, setnoOfRows] = useState(10);
   const [responseData, setResponseData] = useState({});
   const [pageArray, setPageArray] = useState(["0"]);
   const [responseStatus, setResponseStatus] = useState(200);
   const [loading, setLoading] = useState(true);
+  const [totalPage, setTotalPage] = useState(0);
 
   if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
   }
 
   console.log("Props in List Render : : : ", props);
-
   // if (loading)
   //   return (
   //     <View style={listRenderstyles.container}>
@@ -66,6 +66,7 @@ export const ListRender = (props: {
   //   );
 
   const fetchApi = async (endPoint, httpMethod, body) => {
+    setLoading(true);
     const res = await fetch(`${SERVER_ENDPOINT}${endPoint}`, {
       method: httpMethod,
       // method: "POST",
@@ -98,7 +99,7 @@ export const ListRender = (props: {
     if (resJSON.pageSize === "") {
       setIsPaginationAvailable(false);
     } else {
-      setPrevKey(nextKey);
+      setTotalPage(Math.ceil(resJSON.page?.recordCount / noOfRows));
       setNextKey(resJSON.page?.lastRecordKey);
     }
     setLoading(false);
@@ -127,37 +128,43 @@ export const ListRender = (props: {
 
   console.log("nextKey : :: : ", nextKey);
   console.log("prevKey : :: : : ", prevKey);
+  console.log("recordCount", totalPage);
 
-  const prevHandler = () => {
+  const prevHandler = async () => {
     const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+    const prev = prevKey.length < 2 ? 0 : prevKey[prevKey.length - 2];
     body["page"] = {
       pageSize: "10",
-      lastRecordKey: prevKey,
+      lastRecordKey: prev,
     };
     console.log("PrevButton press ::::", body);
-    fetchApi(
+    await fetchApi(
       props.appState.global.tsdApp.activeAction.endPoint,
       props.appState.global.tsdApp.activeAction.httpMethod,
       body
     );
+    console.log("prev key yeas", prevKey[prevKey.length - 1]);
+    setPrevKey((old) => {
+      const newArr = [...old];
+      newArr.pop();
+      return newArr;
+    });
   };
 
-  const nextHandler = () => {
+  const nextHandler = async () => {
     const body = props.appState.global.tsdApp.searchComponent.searchPayload;
     body["page"] = {
       pageSize: "10",
       lastRecordKey: nextKey,
     };
-    setPageArray(() => [...pageArray, nextKey]);
     console.log("NextHandler Press : :: : ", body);
-    fetchApi(
+    await fetchApi(
       props.appState.global.tsdApp.activeAction.endPoint,
       props.appState.global.tsdApp.activeAction.httpMethod,
       body
     );
+    setPrevKey((old) => [...old, nextKey]);
   };
-
-  console.log("pageArray : : :: : ", pageArray);
 
   const prev = "<<";
   const next = ">>";
@@ -180,6 +187,7 @@ export const ListRender = (props: {
               padding: 5,
               backgroundColor: "#0e73ca",
             }}
+            disabled={!prevKey.length}
             onPress={prevHandler}
           >
             <Text
@@ -202,6 +210,7 @@ export const ListRender = (props: {
               padding: 5,
               backgroundColor: "#0e73ca",
             }}
+            disabled={prevKey.length >= totalPage - 1}
             onPress={nextHandler}
           >
             <Text
