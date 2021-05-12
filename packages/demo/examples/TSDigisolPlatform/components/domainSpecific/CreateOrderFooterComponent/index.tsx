@@ -110,11 +110,6 @@ export const CreateOrderFooterComponent = (props: {
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
         setAppState(newAppState, false);
-      })
-      .catch((err) => {
-        const newAppState = cloneDeep(appState);
-        delete newAppState.global.tsdApp.formData;
-        setAppState(newAppState, false);
       });
   };
 
