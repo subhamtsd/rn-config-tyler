@@ -489,7 +489,7 @@ routes.jsonEditorScreen = {
   },
   "2.container": {
     rowConfig: {
-      rowSize: 11,
+      rowSize: 12,
     },
     "2.1.leftNavCol": {
       layout: {
