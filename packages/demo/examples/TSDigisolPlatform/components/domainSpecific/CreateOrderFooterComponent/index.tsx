@@ -21,6 +21,7 @@ import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
+import { routes } from "../../../configs/routes/routesConfig";
 import { cloneDeep } from "lodash";
 
 export const CreateOrderFooterComponent = (props: {
@@ -53,7 +54,6 @@ export const CreateOrderFooterComponent = (props: {
   const submitHandler = () => {
     const {
       bodyHeader,
-      createAddressFormComponent,
       createOrderlineListComponent,
     } = appState?.global?.tsdApp?.formData;
 
@@ -66,10 +66,13 @@ export const CreateOrderFooterComponent = (props: {
       };
       orderLine.push(newObj);
     });
-    createAddressFormComponent.forEach((obj) => {
-      const newObj = { ...obj.item };
-      address.push(newObj);
-    });
+
+    appState?.global?.tsdApp?.formData?.createAddressFormComponent?.forEach(
+      (obj) => {
+        const newObj = { ...obj.item };
+        address.push(newObj);
+      }
+    );
 
     const body = {
       ...bodyHeader,
@@ -82,9 +85,9 @@ export const CreateOrderFooterComponent = (props: {
     };
     console.log("final submit body   ", body);
     const res1 = fetch(
-      `${SERVER_ENDPOINT}${appState.global.tsdApp.editComponent.action.endPoint}/`,
+      `${SERVER_ENDPOINT}${appState.global.tsdApp.activeAction.endPoint}/`,
       {
-        method: appState.global.tsdApp.editComponent.action.httpMethod,
+        method: appState.global.tsdApp.activeAction.httpMethod,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -97,17 +100,26 @@ export const CreateOrderFooterComponent = (props: {
         console.log("submit success ", _data);
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
+        newAppState.global.tsdApp["viewComponent"][
+          `${appState.global.tsdApp.activeTab.name}`
+        ] = _data;
+        setAppState(newAppState, false);
+        setLayoutConfig(routes["orderDetail"], "copy");
+      })
+      .catch((err) => {
+        const newAppState = cloneDeep(appState);
+        delete newAppState.global.tsdApp.formData;
         setAppState(newAppState, false);
       });
   };
 
   return (
-    <View style={{display: 'flex', flexDirection: 'row'}}>
+    <View style={{ display: "flex", flexDirection: "row" }}>
       <View
         style={{
           marginLeft: 60,
           marginRight: 60,
-          marginBottom: 20
+          marginBottom: 20,
         }}
       >
         {/* ******************** Add Rows Button ******************** */}
@@ -123,7 +135,7 @@ export const CreateOrderFooterComponent = (props: {
         style={{
           marginLeft: 60,
           marginRight: 60,
-          marginBottom: 20
+          marginBottom: 20,
         }}
       >
         {/* ******************** COPY ROWS BUTTON ********************************* */}
@@ -159,7 +171,7 @@ const buttonStyle = StyleSheet.create({
     paddingRight: 30,
     // borderColor: '#000',
     // borderWidth: 0.5,
-    borderRadius: 2
+    borderRadius: 2,
   },
   buttonCancel: {
     alignItems: "center",
@@ -174,21 +186,21 @@ const buttonStyle = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 50,
     paddingRight: 30,
-    borderColor: '#000',
-    borderWidth: 0.5
+    borderColor: "#000",
+    borderWidth: 0.5,
   },
   text1: {
-    color: '#fff',
+    color: "#fff",
     paddingRight: 20,
     fontSize: 16,
     lineHeight: 20,
-    fontWeight: 500
+    fontWeight: 500,
   },
   text2: {
-    color: '#545454',
+    color: "#545454",
     paddingRight: 20,
     fontSize: 16,
     lineHeight: 20,
-    fontWeight: 500
+    fontWeight: 500,
   },
-})
+});

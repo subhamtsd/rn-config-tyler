@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { Button, Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { componentGridStyle } from "../../styles/common";
 // import { JSONEditor } from "../../../../components/JSONEditor";
 
-import PropTypes from "prop-types";
 import ace from "brace";
 import "brace/mode/json";
 import "brace/mode/javascript";
@@ -12,9 +13,6 @@ import "brace/theme/monokai";
 
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "./ScreenJsonEditor.css";
-import { routes } from "../../configs/routes/routesConfig";
-import { Bold } from "react-native-web-ui-components";
-import { useEffect } from "react";
 
 export const ScreenJsonEditor = (props: {
   appState: any;
@@ -134,7 +132,7 @@ export const ScreenJsonEditor = (props: {
         ace={ace}
         key={1}
         value={showJSON}
-        mode={"tree"}
+        mode={"code"}
         modes={["text", "code", "tree", "form", "view"]}
         onChange={handleChange}
         onError={onError}
@@ -145,31 +143,38 @@ export const ScreenJsonEditor = (props: {
                 onChangeJSON={handleChange}
                 onError={onError}
             /> */}
-            <View style={{display: 'flex',flexDirection: 'row',alignSelf:'center',marginTop: 10}}>
-                <TouchableOpacity
-                    style={buttonStyle.button1}
-                    onPress={() => {
-                        console.log("requiredJSON", showJSON);
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignSelf: "center",
+          marginTop: 10,
+        }}
+      >
+        <TouchableOpacity
+          style={buttonStyle.button1}
+          onPress={() => {
+            console.log("requiredJSON", showJSON);
 
-                        sendJSON();
-                    }}
-                >
-                    <Text style={buttonStyle.text1}>Create</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={buttonStyle.button2}
-                    onPress={() => {
-                        console.log("reset done", showJSON);
+            sendJSON();
+          }}
+        >
+          <Text style={buttonStyle.text1}>Create</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={buttonStyle.button2}
+          onPress={() => {
+            console.log("reset done", showJSON);
 
-                        setShowJSON({ key: "value" })
-                    }}
-                >
-                    <Text style={buttonStyle.text2}>Reset</Text>
-                </TouchableOpacity>
-            </View>
-            {children || (appState && appState[label] && appState[label]?.children)}
-        </View>
-    );
+            setShowJSON({ key: "value" });
+          }}
+        >
+          <Text style={buttonStyle.text2}>Reset</Text>
+        </TouchableOpacity>
+      </View>
+      {children || (appState && appState[label] && appState[label]?.children)}
+    </View>
+  );
 };
 
 // JSONEditor.propTypes = {
@@ -179,46 +184,45 @@ export const ScreenJsonEditor = (props: {
 // };
 
 const buttonStyle = StyleSheet.create({
-    button1: {
-        alignItems: "center",
-        alignSelf: "center",
-        backgroundColor: "#0e73ca",
-        height: 35,
-        width: "140px",
-        marginTop: 7,
-        marginBottom: 0,
-        marginRight: 10,
-        paddingTop: 7,
-        paddingBottom: 5,
-        paddingLeft: 50,
-        paddingRight: 30,
-        
-    },
-    button2: {
-        alignItems: "center",
-        alignSelf: "center",
-        backgroundColor: "#fff",
-        height: 35,
-        width: "140px",
-        marginTop: 7,
-        marginBottom: 0,
-        paddingTop: 7,
-        paddingBottom: 5,
-        paddingLeft: 50,
-        paddingRight: 30,
-        borderColor: '#000',
-        borderWidth: 0.5,
-    },
-    text1: {
-        color: '#fff',
-        paddingRight: 20,
-        fontSize: 14,
-        fontWeight: '400'
-    },
-    text2: {
-        color: '#545454',
-        paddingRight: 20,
-        fontSize: 14,
-        fontWeight: '400'
-    },
-})
+  button1: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#0e73ca",
+    height: 35,
+    width: "140px",
+    marginTop: 7,
+    marginBottom: 0,
+    marginRight: 10,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+  },
+  button2: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    height: 35,
+    width: "140px",
+    marginTop: 7,
+    marginBottom: 0,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 50,
+    paddingRight: 30,
+    borderColor: "#000",
+    borderWidth: 0.5,
+  },
+  text1: {
+    color: "#fff",
+    paddingRight: 20,
+    fontSize: 14,
+    fontWeight: "400",
+  },
+  text2: {
+    color: "#545454",
+    paddingRight: 20,
+    fontSize: 14,
+    fontWeight: "400",
+  },
+});

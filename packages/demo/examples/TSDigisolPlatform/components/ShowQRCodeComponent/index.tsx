@@ -58,7 +58,10 @@ export const ShowQRCodeComponent = (props: {
         <View>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Image
-              source={require(`D:/QRCODE/${qrcodeImage || `default.png`}`)}
+              // source={require(`/home/ubuntu/code/tsdcell/qrcode/${
+              //   qrcodeImage || `default.png`
+              // }`)}
+              source={require(`C:/QRCODE/${qrcodeImage || `default.png`}`)}
               style={{
                 width: 200,
                 height: 200,

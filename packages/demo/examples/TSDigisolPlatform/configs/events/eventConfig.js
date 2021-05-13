@@ -289,7 +289,7 @@ export const events = {
             },
           },
         });
-        setLayoutConfig(routes.createOrderline);
+        setLayoutConfig(routes[`createOrderline`], "copy");
       } else {
         console.log("onCancel button");
       }
