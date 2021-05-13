@@ -126,7 +126,15 @@ export const TabComponent = (props: {
                     },
                   },
                 });
+                if(appState.global.tsdApp.activeAction.name == "Create") {
+                  if(item.tabKey == 3012) {
+                    setLayoutConfig(routes["jsonEditorScreen"], "copy");
+                  } else {
+                    setLayoutConfig(routes["defaultAppConfig"], "copy");
+                  }
+                } else {
                 setLayoutConfig(routes["defaultAppConfig"], "copy");
+                }
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}
               // TODO : Title of button should come from API
