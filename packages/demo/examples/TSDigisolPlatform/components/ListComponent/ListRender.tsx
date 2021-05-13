@@ -233,6 +233,14 @@ export const ListRender = (props: {
 
   console.log("FINAL DATA  ::: ", finalData);
 
+  if (!loading && responseStatus == 200 && finalData.length == 0) {
+    return (
+      <View>
+        <Text>No Data found</Text>
+      </View>
+    );
+  }
+
   if (responseStatus != 200) {
     return (
       <View>
@@ -243,7 +251,7 @@ export const ListRender = (props: {
 
   console.log("props.listFormLayout :::: ", props.listFormLayout);
 
-  return loading ? null : (
+  return loading && finalData.length == 0 ? null : (
     <View style={{}}>
       <View
         style={{

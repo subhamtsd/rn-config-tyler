@@ -79,6 +79,11 @@ export const ListJsonFormComponent = (props: {
         }
       );
       const resJSON = await res.json();
+      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
+      const secondParent = Object.getOwnPropertyNames(
+        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
+      );
+      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
       setformLayout(resJSON);
       console.log("response Json : : : : : listformLayout ---> ", resJSON);
       setLoading(false);
@@ -86,11 +91,7 @@ export const ListJsonFormComponent = (props: {
     fetchFormLayout();
   }, []);
 
-  return loading ? (
-    <View style={componentGridStyle}>
-      <ActivityIndicator />
-    </View>
-  ) : (
+  return loading ? null : (
     <View style={componentGridStyle}>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button

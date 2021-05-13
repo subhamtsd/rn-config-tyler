@@ -61,7 +61,7 @@ export const RenderTable = (props: {
       ? appState.global.tsdApp.formData[label]
       : []
   );
-  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
   const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 

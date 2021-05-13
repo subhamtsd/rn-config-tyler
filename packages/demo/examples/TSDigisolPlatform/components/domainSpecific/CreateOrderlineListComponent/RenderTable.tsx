@@ -80,7 +80,7 @@ export const RenderTable = (props: {
   );
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
 
   //   console.log("hii from createorderlinelist");
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
@@ -151,6 +151,7 @@ export const RenderTable = (props: {
       return newArrObj;
     });
     setAddRowButtonStatus(true);
+    setSaveButtonStatus(true);
   };
 
   const deleteActionHandler = (key) => {

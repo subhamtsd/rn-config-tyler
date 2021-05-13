@@ -138,8 +138,8 @@ export const HeaderBar = (props: {
                       },
                       activeAction: {
                         name: "Search",
-                        key: "124684",
-                        endPoint: "v1/organization/alllist",
+                        key: "4003",
+                        endPoint: "v1/catalog/list",
                         httpMethod: "POST",
                         showButton: true,
                       },
@@ -152,7 +152,7 @@ export const HeaderBar = (props: {
                       formToggle: {
                         formSelected: routes["search"],
                         messages: "Show Form",
-                      }
+                      },
                     },
                   },
                 });
