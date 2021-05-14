@@ -208,6 +208,8 @@ export const EditOrderLineAddressDetailComponent = (props: {
         _formData={appState?.global?.tsdApp?.formData?.viewData}
         label={label}
         setLayoutConfig={setLayoutConfig}
+        _submitButton={"Update"}
+        _cancelButton={true}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

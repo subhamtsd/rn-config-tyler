@@ -25,8 +25,8 @@ export const JsonForm = ({
   schema = {}, // This data
   uiSchema = {}, // this data
   label = "",
-  _submitButton = false,
-  _cancelButton = false,
+  _submitButton = true,
+  _cancelButton = true,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
