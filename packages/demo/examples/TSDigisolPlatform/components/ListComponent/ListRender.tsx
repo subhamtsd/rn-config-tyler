@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import SearchListComponent from "./SearchListComponent";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { FontAwesome } from "@expo/vector-icons";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -52,6 +53,7 @@ export const ListRender = (props: {
   const [responseStatus, setResponseStatus] = useState(200);
   const [loading, setLoading] = useState(true);
   const [totalPage, setTotalPage] = useState(0);
+  const [pageNumber, setpageNumber] = useState(1);
 
   if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
@@ -149,6 +151,9 @@ export const ListRender = (props: {
       newArr.pop();
       return newArr;
     });
+    setpageNumber((oldPage) => {
+      return oldPage - 1;
+    });
   };
 
   const nextHandler = async () => {
@@ -164,10 +169,10 @@ export const ListRender = (props: {
       body
     );
     setPrevKey((old) => [...old, nextKey]);
+    setpageNumber((oldPage) => {
+      return oldPage + 1;
+    });
   };
-
-  const prev = "<<";
-  const next = ">>";
 
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
@@ -185,46 +190,44 @@ export const ListRender = (props: {
               marginLeft: 3,
               // borderWidth: 1,
               padding: 5,
-              backgroundColor: "#0e73ca",
+              borderColor: "#999999",
             }}
-            disabled={!prevKey.length}
+            disabled={loading || pageNumber === 1}
             onPress={prevHandler}
           >
-            <Text
-              style={{
-                color: "white",
-                justifyContent: "center",
-                alignSelf: "center",
-                marginBottom: "3px",
-                fontWeight: "bold",
-                fontSize: 20,
-              }}
-            >
-              {prev}
-            </Text>
+            <FontAwesome
+              name="caret-left"
+              size={50}
+              color={pageNumber === 1 ? "grey" : "#2196f3"}
+            />
           </TouchableOpacity>
+          <Text
+            style={{
+              // borderWidth: 1,
+              paddingTop: 15,
+              fontSize: 20,
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+          >
+            {pageNumber}
+          </Text>
           <TouchableOpacity
             style={{
               marginLeft: 3,
               // borderWidth: 1,
               padding: 5,
-              backgroundColor: "#0e73ca",
+              borderColor: "#999999",
+              // backgroundColor: "#0e73ca",
             }}
-            disabled={prevKey.length >= totalPage - 1}
+            disabled={loading || pageNumber === totalPage}
             onPress={nextHandler}
           >
-            <Text
-              style={{
-                color: "white",
-                justifyContent: "center",
-                alignSelf: "center",
-                marginBottom: "3px",
-                fontWeight: "bold",
-                fontSize: 20,
-              }}
-            >
-              {next}
-            </Text>
+            <FontAwesome
+              name="caret-right"
+              size={50}
+              color={pageNumber === totalPage ? "grey" : "#2196f3"}
+            />
           </TouchableOpacity>
         </View>
       );
