@@ -25,6 +25,8 @@ import { routes } from "../../../configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { prepareSchema } from "../../../helper/helper";
 import { Calendar } from "react-native-calendars";
+import { calenderStyleTheme } from '../../../styles/calenderStyleTheme';
+import { FontAwesome } from "@expo/vector-icons";
 import Modal from "modal-react-native-web";
 
 export const RenderTable = (props: {
@@ -229,18 +231,84 @@ export const RenderTable = (props: {
                     >
                       <View style={detailViewStyles.centeredView}>
                         <View style={detailViewStyles.modalView}>
-                          <Calendar
-                            theme={{
-                              backgroundColor: "#000",
-                              calendarBackground: "#fff",
-                              arrowColor: "orange",
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              borderBottomWidth: 1,
+                              borderBottomColor: "#a8a8a8",
+                              padding: 5,
                             }}
+                          >
+                            <View style={{ borderWidth: 0, marginRight: 250 }}>
+                              <Text
+                                style={{
+                                  fontSize: 15,
+                                  color: "#0d47a1",
+                                  fontWeight: "bold",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Select Date
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                borderWidth: 0,
+                                alignContent: "flex-end",
+                              }}
+                            >
+                              <Pressable
+                                onPress={() => {
+                                  setModalVisible(false);
+                                }}
+                              >
+                                <FontAwesome
+                                  name="window-close"
+                                  size={20}
+                                  color="red"
+                                  style={{
+                                    // borderWidth: 2,
+                                    alignSelf: "flex-end",
+                                  }}
+                                />
+                              </Pressable>
+                            </View>
+                          </View>
+                          <Calendar
+                            style={{
+                              height: 350,
+                              width: 350,
+                            }}
+                            theme={calenderStyleTheme}
+                            renderArrow={(direction) =>
+                              direction === "left" ? (
+                                <FontAwesome
+                                  name="chevron-left"
+                                  size={18}
+                                  color="#2196f3"
+                                  // style={{
+                                  //   position: "absolute",
+                                  //   alignSelf: "flex-start",
+                                  // }}
+                                />
+                              ) : (
+                                <FontAwesome
+                                  name="chevron-right"
+                                  color="#2196f3"
+                                  size={18}
+                                  // style={{
+                                  //   position: "absolute",
+                                  //   alignSelf: "flex-end",
+                                  // }}
+                                />
+                              )
+                            }
                             // Initially visible month. Default = Date()
-                            //current={new Date().toISOString().slice(0, 10)}
+                            current={new Date().toISOString().slice(0, 10)}
                             // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-                            minDate={"2012-05-10"}
+                            minDate={"2021-05-12"}
                             // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-                            maxDate={"2025-05-30"}
+                            maxDate={"2021-05-24"}
                             // Handler which gets executed on day press. Default = undefined
                             onDayPress={(day) => {
                               valueChangeHandler(
@@ -252,6 +320,7 @@ export const RenderTable = (props: {
                             // Handler which gets executed on day long press. Default = undefined
                             onDayLongPress={(day) => {
                               console.log("selected day", day);
+                              setModalVisible(false);
                             }}
                             // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                             monthFormat={"yyyy MMM"}
@@ -293,17 +362,6 @@ export const RenderTable = (props: {
                               [obj.item[keyName]]: { selected: true },
                             }}
                           />
-                          <View style={detailViewStyles.insideText}>
-                            <Pressable
-                              onPress={() => {
-                                setModalVisible(false);
-                              }}
-                            >
-                              <Text style={detailViewStyles.textStyle2}>
-                                Close
-                              </Text>
-                            </Pressable>
-                          </View>
                         </View>
                       </View>
                     </Modal>

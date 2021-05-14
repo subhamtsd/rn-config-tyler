@@ -30,32 +30,8 @@ import { useState } from "react";
 import { routes } from "../../../configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { prepareSchema } from "../../../helper/helper";
+import { calenderStyleTheme } from '../../../styles/calenderStyleTheme';
 import { FontAwesome } from "@expo/vector-icons";
-
-export const calenderStyleTheme = {
-  backgroundColor: "#f0f0f0",
-  calendarBackground: "#ffffff",
-  textSectionTitleColor: "#000000",
-  selectedDayBackgroundColor: "#337ab7",
-  selectedDayTextColor: "#ffffff",
-  todayTextColor: "#00adf5",
-  dayTextColor: "#2d4150",
-  textDisabledColor: "#d9e1e8",
-  dotColor: "#00adf5",
-  selectedDotColor: "#ffffff",
-  disabledArrowColor: "#d9e1e8",
-  monthTextColor: "#000000",
-  textDayFontFamily: "Helvetica Neue",
-  textMonthFontFamily: "Helvetica Neue",
-  textDayHeaderFontFamily: "Helvetica Neue",
-  textDayFontWeight: "300",
-  textMonthFontWeight: "bold",
-  textDayHeaderFontWeight: "300",
-  textDayFontSize: ".9rem",
-  textDayFontWeight: "bold",
-  textMonthFontSize: 16,
-  textDayHeaderFontSize: 16,
-}
 
 export const RenderTable = (props: {
   appState: any;
