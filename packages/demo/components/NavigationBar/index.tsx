@@ -88,11 +88,12 @@ export const NavigationBar = (props: {
       );
     }
     setListDataSource(array);
+    console.log("Navigation Clicked");
   };
 
   if (loading)
     return (
-      <View style={NavStyles.container}>
+      <View style={(NavStyles.container, { display: "none" })}>
         <ActivityIndicator />
       </View>
     );
@@ -117,7 +118,6 @@ export const NavigationBar = (props: {
                     }}
                     {...props}
                     item={item}
-
                   />
                 ))}
                 <Text>

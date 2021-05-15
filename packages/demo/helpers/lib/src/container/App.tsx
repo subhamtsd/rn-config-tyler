@@ -23,21 +23,70 @@ export const App = (props: AppProps) => {
   });
 
   // logic to update layout config (which is stored in config state var)
-  const setLayoutConfig = (config, isDottedFormat = false) => {
-    // find out if the object is in collapsed/dotted format
-    if (isDottedFormat) {
-      // expand to proper JSON from dotted notation
-      config = object(config);
+  const setLayoutConfig = (
+    // config,
+    _config,
+    format = "none"
+    // isDottedFormat = false
+  ) => {
+    if (format === "dotted") {
+      _config = object(config);
+      setConfig(
+        merge(
+          props?.config,
+          {
+            layout: _config,
+          },
+          { arrayMerge: overwriteMerge }
+        )
+      );
+    } else if (format === "copy") {
+      // copy into current, no merge
+
+      // const _NewConfig = {
+      //   componentsSet: props?.config?.componentsSet,
+      //   links: props?.config?.links,
+      //   layout: _config,
+      // };
+      console.log("Config with copy :::: ", _config);
+      console.log("Config with props :::: ", props?.config);
+      // setConfig({ _config });
+      console.log("Config.layout ::: ", config.layout);
+
+      setConfig({ ...config, layout: _config }, () => {
+        console.log("Config.layout new ::: ", config.layout);
+      });
+
+      // setConfig(_NewConfig);
+    } else if (format === "sustain") {
+      // copy from current
+      _config = config;
+      setConfig(merge(props?.config, { layout: _config }));
+    } else {
+      setConfig(
+        merge(
+          props?.config,
+          {
+            layout: _config,
+          },
+          { arrayMerge: overwriteMerge }
+        )
+      );
     }
-    setConfig(
-      merge(
-        props?.config,
-        {
-          layout: config,
-        },
-        { arrayMerge: overwriteMerge }
-      )
-    );
+    // find out if the object is in collapsed/dotted format
+    // if (isDottedFormat) {
+    //   // expand to proper JSON from dotted notation
+    //   config = object(config);
+    // }
+    // setConfig(
+    //   merge(
+    //     props?.config,
+    //     {
+    //       layout: config,
+    //     },
+    //     { arrayMerge: overwriteMerge }
+    //   )
+    // );
   };
 
   // logic to update app state
@@ -182,7 +231,7 @@ export const App = (props: AppProps) => {
                 size={rows[rId]?.rowConfig?.rowSize || 1}
                 key={`${rId}`}
                 style={{
-                  borderWidth: 6,
+                  borderWidth: 0,
                   borderColor: "gray",
                   ...rows[rId]?.rowConfig?.rowStyle,
                 }}
@@ -227,7 +276,7 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row>
+      {/* <Row style={{ maxHeight: "5vh" }}>{headerSection}</Row> */}
       <Row>{UX(config?.layout) || {}}</Row>
     </Grid>
   );
