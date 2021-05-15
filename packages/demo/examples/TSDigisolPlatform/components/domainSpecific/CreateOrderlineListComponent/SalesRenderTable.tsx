@@ -31,7 +31,7 @@ import { routes } from "../../../configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { prepareSchema } from "../../../helper/helper";
 
-export const RenderTable = (props: {
+export const SalesRenderTable = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -211,7 +211,7 @@ export const RenderTable = (props: {
   //       });
   //   };
 
-  console.log("orderlist array", arrObj);
+  // console.log("orderlist array", arrObj);
 
   const rowSection = arrObj.map((obj) => {
     // console.log("arrKey : : : ", arrKey);
