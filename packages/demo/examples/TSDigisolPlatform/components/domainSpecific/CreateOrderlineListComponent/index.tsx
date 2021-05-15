@@ -16,8 +16,9 @@ import { isPropertyAssignment } from "typescript";
 import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "./RenderTable";
+import { SalesRenderTable } from "./SalesRenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { ServiceRenderTable } from "./ServiceRenderTable";
 
 export const CreateOrderlineListComponent = (props: {
   appState: any;
@@ -81,10 +82,10 @@ export const CreateOrderlineListComponent = (props: {
       const resJSON = await res.json();
 
       prepareSchema(resJSON).then((schemaJson) => {
-        // console.log(
-        //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
-        //   schemaJson
-        // );
+        console.log(
+          "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
+          schemaJson
+        );
         setformLayout(schemaJson);
         setLoading(false);
       });
@@ -117,20 +118,37 @@ export const CreateOrderlineListComponent = (props: {
         <ScrollView>
           <Grid>
             {/* <Text>{noOfColumns}</Text> */}
-            <RenderTable
-              appState={appState}
-              label={label}
-              styles={styles}
-              children={children}
-              setAppState={setAppState}
-              layoutConfig={layoutConfig}
-              setLayoutConfig={setLayoutConfig}
-              getEvents={getEvents}
-              events={events}
-              noOfColumns={7}
-              maxNoOfRows={20}
-              dataToRender={formLayout}
-            />
+            {appState.global.tsdApp.activeModule == 156051 ? (
+              <SalesRenderTable
+                appState={appState}
+                label={label}
+                styles={styles}
+                children={children}
+                setAppState={setAppState}
+                layoutConfig={layoutConfig}
+                setLayoutConfig={setLayoutConfig}
+                getEvents={getEvents}
+                events={events}
+                noOfColumns={7}
+                maxNoOfRows={20}
+                dataToRender={formLayout}
+              />
+            ) : (
+              <ServiceRenderTable
+                appState={appState}
+                label={label}
+                styles={styles}
+                children={children}
+                setAppState={setAppState}
+                layoutConfig={layoutConfig}
+                setLayoutConfig={setLayoutConfig}
+                getEvents={getEvents}
+                events={events}
+                noOfColumns={7}
+                maxNoOfRows={20}
+                dataToRender={formLayout}
+              />
+            )}
           </Grid>
         </ScrollView>
       </View>
