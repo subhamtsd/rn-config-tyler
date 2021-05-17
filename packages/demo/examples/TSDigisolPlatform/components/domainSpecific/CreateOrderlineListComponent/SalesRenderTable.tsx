@@ -55,7 +55,7 @@ export const calenderStyleTheme = {
   textDayFontWeight: "bold",
   textMonthFontSize: 16,
   textDayHeaderFontSize: 16,
-}
+};
 
 export const SalesRenderTable = (props: {
   appState: any;

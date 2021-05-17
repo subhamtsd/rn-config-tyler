@@ -357,18 +357,21 @@ const detailViewStyles = StyleSheet.create({
   },
   modalView: {
     // margin: 20,
-    backgroundColor: "#cccccc",
+    backgroundColor: "white",
     borderRadius: 1,
-    padding: 5,
+    borderColor: "#a8a8a8",
+    borderWidth: 1,
+    // padding: 5,
     alignItems: "center",
     shadowColor: "#000",
+    height: 400,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 10,
   },
   button2: {
     borderRadius: 20,
@@ -385,7 +388,9 @@ const detailViewStyles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 12,
+    padding: 2,
+    margin: 2,
   },
   modalText: {
     marginBottom: 15,
@@ -393,5 +398,6 @@ const detailViewStyles = StyleSheet.create({
   },
   insideText: {
     width: 100,
+    backgroundColor: "#5cabc5",
   },
 });

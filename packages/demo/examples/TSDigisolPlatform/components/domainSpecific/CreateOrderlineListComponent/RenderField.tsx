@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/jsx-key */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -30,6 +31,8 @@ import { useState } from "react";
 import { routes } from "../../../configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { prepareSchema } from "../../../helper/helper";
+import { calenderStyleTheme } from "./SalesRenderTable";
+import { FontAwesome } from "@expo/vector-icons";
 
 export const RenderField = (props: {
   data: any;
@@ -88,8 +91,8 @@ export const RenderField = (props: {
       }),
     });
     const resJSON = await res.json();
-    setMaxDate(resJSON.response[resJSON.response.length - 1].endDate);
-    setMinDate(resJSON.response[0].startDate);
+    setMaxDate(resJSON?.response[resJSON.response.length - 1].endDate);
+    setMinDate(resJSON?.response[0].startDate);
   };
 
   const fetchSlotList = async (date, skuCode) => {
@@ -168,14 +171,80 @@ export const RenderField = (props: {
                   >
                     <View style={detailViewStyles.centeredView}>
                       <View style={detailViewStyles.modalView}>
-                        <Calendar
-                          theme={{
-                            backgroundColor: "#000",
-                            calendarBackground: "#fff",
-                            arrowColor: "orange",
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            borderBottomWidth: 1,
+                            borderBottomColor: "#a8a8a8",
+                            padding: 5,
                           }}
+                        >
+                          <View style={{ borderWidth: 0, marginRight: 250 }}>
+                            <Text
+                              style={{
+                                fontSize: 15,
+                                color: "#0d47a1",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                              }}
+                            >
+                              Select Date
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              borderWidth: 0,
+                              alignContent: "flex-end",
+                            }}
+                          >
+                            <Pressable
+                              onPress={() => {
+                                setModalVisible(false);
+                              }}
+                            >
+                              <FontAwesome
+                                name="window-close"
+                                size={20}
+                                color="red"
+                                style={{
+                                  // borderWidth: 2,
+                                  alignSelf: "flex-end",
+                                }}
+                              />
+                            </Pressable>
+                          </View>
+                        </View>
+                        <Calendar
+                          style={{
+                            height: 350,
+                            width: 350,
+                          }}
+                          theme={calenderStyleTheme}
+                          renderArrow={(direction) =>
+                            direction === "left" ? (
+                              <FontAwesome
+                                name="chevron-left"
+                                size={18}
+                                color="#2196f3"
+                                // style={{
+                                //   position: "absolute",
+                                //   alignSelf: "flex-start",
+                                // }}
+                              />
+                            ) : (
+                              <FontAwesome
+                                name="chevron-right"
+                                color="#2196f3"
+                                size={18}
+                                // style={{
+                                //   position: "absolute",
+                                //   alignSelf: "flex-end",
+                                // }}
+                              />
+                            )
+                          }
                           // Initially visible month. Default = Date()
-                          //current={new Date().toISOString().slice(0, 10)}
+                          //   current={new Date().toISOString().slice(0, 10)}
                           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                           minDate={minDate}
                           // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
@@ -188,6 +257,7 @@ export const RenderField = (props: {
                           // Handler which gets executed on day long press. Default = undefined
                           onDayLongPress={(day) => {
                             console.log("selected day", day);
+                            setModalVisible(false);
                           }}
                           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                           monthFormat={"yyyy MMM"}
@@ -200,7 +270,7 @@ export const RenderField = (props: {
                           // Replace default arrows with custom ones (direction can be 'left' or 'right')
                           //renderArrow={(direction) => (<Arrow/>)}
                           // Do not show days of other months in month page. Default = false
-                          hideExtraDays={false}
+                          hideExtraDays={true}
                           // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
                           // day from another month that is visible in calendar page. Default = false
                           disableMonthChange={false}
@@ -227,17 +297,6 @@ export const RenderField = (props: {
                             [item[keyName]]: { selected: true },
                           }}
                         />
-                        <View style={detailViewStyles.insideText}>
-                          <Pressable
-                            onPress={() => {
-                              setModalVisible(false);
-                            }}
-                          >
-                            <Text style={detailViewStyles.textStyle2}>
-                              Close
-                            </Text>
-                          </Pressable>
-                        </View>
                       </View>
                     </View>
                   </Modal>
@@ -292,7 +351,7 @@ export const RenderField = (props: {
                     }
                   }}
                 >
-                  <Picker.Item label="Empty field" value="" />
+                  <Picker.Item label="" value="" />
                   {keyName == "slotCode"
                     ? slot.map((ele, i) => {
                         return (
@@ -482,18 +541,21 @@ const detailViewStyles = StyleSheet.create({
   },
   modalView: {
     // margin: 20,
-    backgroundColor: "#cccccc",
+    backgroundColor: "white",
     borderRadius: 1,
-    padding: 5,
+    borderColor: "#a8a8a8",
+    borderWidth: 1,
+    // padding: 5,
     alignItems: "center",
     shadowColor: "#000",
+    height: 400,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 10,
   },
   button2: {
     borderRadius: 20,
@@ -510,7 +572,9 @@ const detailViewStyles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 12,
+    padding: 2,
+    margin: 2,
   },
   modalText: {
     marginBottom: 15,
@@ -518,5 +582,6 @@ const detailViewStyles = StyleSheet.create({
   },
   insideText: {
     width: 100,
+    backgroundColor: "#5cabc5",
   },
 });
