@@ -1761,7 +1761,7 @@ routes.createOrder = {
               borderColor: "blue",
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
@@ -1888,7 +1888,7 @@ routes.createOrderline = {
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
@@ -2064,7 +2064,7 @@ routes.createOrderlineAddress = {
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
