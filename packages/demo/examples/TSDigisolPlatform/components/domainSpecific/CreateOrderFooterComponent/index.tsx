@@ -100,11 +100,15 @@ export const CreateOrderFooterComponent = (props: {
         console.log("submit success ", _data);
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
-        newAppState.global.tsdApp["viewComponent"][
-          `${appState.global.tsdApp.activeTab.name}`
-        ] = _data;
+        delete newAppState.global.tsdApp.createComponent;
+        newAppState.global.tsdApp.viewComponent=
+          {[appState.global.tsdApp.activeTab.name]: _data};
+        console.log('newAppState ::: ',newAppState);
         setAppState(newAppState, false);
-        setLayoutConfig(routes["orderDetail"], "copy");
+        setLayoutConfig(
+          routes.orderDetail,
+          "copy"
+        );    
       })
       .catch((err) => {
         const newAppState = cloneDeep(appState);

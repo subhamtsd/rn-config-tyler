@@ -108,6 +108,9 @@ export const ScreenJsonEditor = (props: {
       body: JSON.stringify(showJSON),
     });
     const resJSON = await res.json();
+    if (resJSON.status === "SUCCESS") {
+      alert('Screen Created Successfully');
+    }
 
     // console.log("objectName : : : : ", objectName);
   };
@@ -155,7 +158,6 @@ export const ScreenJsonEditor = (props: {
           style={buttonStyle.button1}
           onPress={() => {
             console.log("requiredJSON", showJSON);
-
             sendJSON();
           }}
         >
@@ -165,7 +167,7 @@ export const ScreenJsonEditor = (props: {
           style={buttonStyle.button2}
           onPress={() => {
             console.log("reset done", showJSON);
-
+            // alert('Editor is reset to empty');
             setShowJSON({ key: "value" });
           }}
         >

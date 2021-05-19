@@ -45,7 +45,7 @@ export const JsonFormComponent = (props: {
   const activeTabName =
     appState?.global?.tsdApp?.activeTab?.name || "CreateOrder";
   const _formData =
-    appState?.global?.tsdApp?.createComponent[activeTabName] ||
+    appState?.global?.tsdApp?.createComponent?.[activeTabName] ||
     appState?.global?.tsdApp?.searchComponent?.searchPayload ||
     appState?.global?.tsdApp?.formData?.bodyHeader;
   console.log("FORM DATA : :::: --- Create Form ::: ", _formData);

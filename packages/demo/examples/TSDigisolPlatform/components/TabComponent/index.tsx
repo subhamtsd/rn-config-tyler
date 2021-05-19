@@ -118,11 +118,13 @@ export const TabComponent = (props: {
                         httpMethod: item.actions[0].httpMethod,
                         showButton: item.actions[0].showButton,
                       },
+                      createComponent: null,
                       listComponent: {
                         data: {
                           response: [],
                         },
                       },
+                      formData: null,
                     },
                   },
                 });

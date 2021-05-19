@@ -16,6 +16,8 @@ export const ToggleNavigation = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  zIndex: any;
+  flex: any;
 }) => {
   const {
     appState,
@@ -26,6 +28,8 @@ export const ToggleNavigation = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    zIndex,
+    flex
   } = props;
 
   console.log(`label is ${label}`);
@@ -40,17 +44,33 @@ export const ToggleNavigation = (props: {
       shadowColor: "#000000",
       shadowOpacity: 0.8,
       shadowRadius: 3,
+      backgroundColor: 'pink',
       marginLeft: -40,
+      zIndex: zIndex,
+      flex: flex
     },
     main: { paddingLeft: 3 },
   };
 
   return (
-    <View
+    <View style={{display:'flex',flexDirection:'row',zIndex: zIndex,flex:flex}}>
+      <View style={{height: '100vh',width: 120,backgroundColor: '#5cabc5',zIndex:20}}> 
+      <Button
+        onPress={() => {
+          setDrawerVisible(!drawerVisible);
+          console.log('Hello World');
+        }}
+        title="Show NavBar"
+        color="#818181"
+        accessibilityLabel="Learn more about this purple button"
+      />
+    </View>
+    {/* <View
       style={{
-        height: "100%",
+        height: "100vh",
+        backgroundColor: 'purple'
       }}
-    >
+    > */}
       {/* <Text style={{}}>Home *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
@@ -59,70 +79,37 @@ export const ToggleNavigation = (props: {
       ></Button>
       <Text> AA {appState?.$appState?.loginValues}</Text> */}
       <Drawer
-        type="overlay"
-        // ref={(ref) => (this._drawer = ref)}
-        open={drawerVisible}
-        openDrawerOffset={(viewport) => viewport.width - 200}
-        // closeDrawerOffset={-100}
-        content={
-          <View
-            style={{
-              borderWidth: 2,
-              backgroundColor: "red",
-              height: "100%",
-              borderColor: "blue",
-            }}
-          >
-            <Button
-              onPress={() => {
-                // this._drawer.close();
-                setDrawerVisible(false);
-                console.log("Hello World");
-              }}
-              title="Hide NavBar"
-              color="#841584"
-              accessibilityLabel="Learn more about this purple button"
-            />
-            <Text
-              style={{
-                marginLeft: 50,
-              }}
-            >
-              Hello World
-            </Text>
-          </View>
-        }
-        styles={drawerStyles}
-        tweenHandler={Drawer.tweenPresets.parallax}
-      >
+      type="overlay"
+      open={drawerVisible}
+      openDrawerOffset={(viewport) => drawerVisible ? viewport.width-250:viewport.width-150 }
+      closedDrawerOffset={500}
+      content={
         <View
           style={{
-            flex: 1,
-            justifyContent: "center",
-            backgroundColor: "#ecf0f1",
-            padding: 8,
             borderWidth: 1,
-            width: 100,
-          }}
-        >
-          <View
-            style={{
-              width: "100%",
-              alignContent: "center",
+            zIndex: -1
+          }}>
+          <Button
+            onPress={() => {
+              setDrawerVisible(!drawerVisible);
+              console.log('Hello World');
             }}
-          >
-            <Button
-              onPress={() => {
-                setDrawerVisible(true);
-              }}
-              title="ShoW"
-              color="#841584"
-              accessibilityLabel="Learn more about this purple button"
-            />
-          </View>
+            title="Hide NavBar"
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+          />
         </View>
-      </Drawer>
+      }
+      styles={drawerStyles}
+      tweenHandler={Drawer.tweenPresets.parallax}>
+
+    </Drawer>
       {children || (appState && appState[label] && appState[label]?.children)}
+    {/* </View> */}
     </View>
   );
+  // const drawerStyles = {
+  //   drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3,zIndex:-1 },
+  //   main: { paddingLeft: 0},
+  // };
 };
