@@ -118,12 +118,11 @@ export const CreateOrderFooterComponent = (props: {
   };
 
   return (
-    <View style={{ display: "flex", flexDirection: "row" }}>
+    <View style={{ display: "flex", flexDirection: "row",alignContent:'center',justifyContent:'center' }}>
       <View
         style={{
-          marginLeft: 60,
-          marginRight: 60,
-          marginBottom: 20,
+          alignSelf: 'center',
+          marginTop: -30
         }}
       >
         {/* ******************** Add Rows Button ******************** */}
@@ -137,9 +136,8 @@ export const CreateOrderFooterComponent = (props: {
       </View>
       <View
         style={{
-          marginLeft: 60,
-          marginRight: 60,
-          marginBottom: 20,
+          alignSelf: 'center',
+          marginTop: -30
         }}
       >
         {/* ******************** COPY ROWS BUTTON ********************************* */}
