@@ -562,12 +562,17 @@ export const RenderTable = (props: {
 
   return (
     <View style={componentGridStyle}>
-      <Row>
+      <Row
+        style={{
+          flexDirection: "row-reverse",
+        }}
+      >
         <Col
           style={{
-            marginLeft: 60,
-            marginRight: 60,
-            marginBottom: 20,
+            // marginLeft: 60,
+            // marginRight: 60,
+            // marginBottom: 20,
+            maxWidth: 130,
           }}
         >
           {/* ******************** Add Rows Button ******************** */}
@@ -580,12 +585,12 @@ export const RenderTable = (props: {
         </Col>
         <Col
           style={{
-            marginLeft: 60,
+            // marginLeft: 60,
             marginRight: 60,
-            marginBottom: 20,
+            // marginBottom: 20,
+            maxWidth: 130,
           }}
         >
-          {/* ******************** COPY ROWS BUTTON ********************************* */}
           <Button
             title={`Add Address`}
             color="#0e73ca"
@@ -616,7 +621,6 @@ export const RenderTable = (props: {
                 });
               }
               setLayoutConfig(routes.createOrderlineAddress);
-              // copy the last row
             }}
           ></Button>
         </Col>
@@ -686,28 +690,41 @@ export const RenderTable = (props: {
           {/* TODO : This iteration should be done with the help of loop */}
         </Grid>
       </ScrollView>
-      <View style={{ borderWidth: 0, marginLeft: 450, marginTop: 20 }}>
-        <Button
-          title={`Save`}
-          color="#0e73ca"
-          disabled={
-            !(saveButtonStatus && arrObj.length > 0 && addRowButtonStatus)
-          }
-          onPress={() => {
-            console.log("Final submit");
-            setAppState({
-              global: {
-                tsdApp: {
-                  formData: {
-                    ...appState?.global?.tsdApp?.formData,
-                    [label]: arrObj,
+      <View
+        style={{
+          maxWidth: "100%",
+          marginTop: 20,
+          // borderWidth: 1,
+        }}
+      >
+        <View
+          style={{
+            // borderWidth: 1,
+            maxWidth: 150,
+          }}
+        >
+          <Button
+            title={`Save`}
+            color="#0e73ca"
+            disabled={
+              !(saveButtonStatus && arrObj.length > 0 && addRowButtonStatus)
+            }
+            onPress={() => {
+              console.log("Final submit");
+              setAppState({
+                global: {
+                  tsdApp: {
+                    formData: {
+                      ...appState?.global?.tsdApp?.formData,
+                      [label]: arrObj,
+                    },
                   },
                 },
-              },
-            });
-            setSaveButtonStatus(false);
-          }}
-        />
+              });
+              setSaveButtonStatus(false);
+            }}
+          />
+        </View>
       </View>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>

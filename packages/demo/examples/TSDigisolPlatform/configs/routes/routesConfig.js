@@ -1761,7 +1761,7 @@ routes.createOrder = {
               borderColor: "blue",
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
@@ -1888,7 +1888,7 @@ routes.createOrderline = {
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
@@ -1914,19 +1914,19 @@ routes.createOrderline = {
               UItitle: "Add Orderline",
             },
           },
-          "2.2.4.2.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
-            idx: "DefaultScreen",
-            colSize: 2,
-            label: "defaultScreen",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
-          },
+          // "2.2.4.2.bodyContent": {
+          //   // col no
+          //   // idx: "JsonFormComponent",
+          //   idx: "DefaultScreen",
+          //   colSize: 2,
+          //   label: "defaultScreen",
+          //   colStyle: {
+          //     display: "flex",
+          //     borderColor: "blue",
+          //     // borderWidth: 1,
+          //     // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
+          //   },
+          // },
         },
         "2.2.5.bodyFooterRow": {
           rowConfig: {
@@ -2064,7 +2064,7 @@ routes.createOrderlineAddress = {
               // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
             },
             passProps: {
-              UItitle: "Add Bill To Address",
+              UItitle: "Add Address",
             },
           },
         },
