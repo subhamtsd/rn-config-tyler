@@ -61,7 +61,7 @@ export const ShowQRCodeComponent = (props: {
               // source={require(`/home/ubuntu/code/tsdcell/qrcode/${
               //   qrcodeImage || `default.png`
               // }`)}
-              source={require(`D:/QRCODE/default.png`)}
+              source={require(`C:/QRCODE/default.png`)}
               style={{
                 width: 200,
                 height: 200,
