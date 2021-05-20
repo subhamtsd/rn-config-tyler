@@ -1,5 +1,5 @@
 import React, { createElement, useState } from "react";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Button, Platform, Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { AppProps, UXColumnProps } from "../AppProps";
 import { JSONEditor } from "../components/JSONEditor";
@@ -12,10 +12,11 @@ import {
 // All component which will be rendered
 
 // ******************************************************************** //
-
+// Live Edit App
 // render a grid layout as per the configuration
 export const App = (props: AppProps) => {
   const [config, setConfig] = useState(props?.config);
+  const [debug, setDebug] = useState(props?.debug || false);
   const routes = props?.routes;
   const componentsSet = props?.config?.componentsSet;
   // const history = useHistory();
@@ -66,7 +67,6 @@ export const App = (props: AppProps) => {
       setLayoutConfig,
       colClass,
     } = colProps;
-    console.log(`label is ${label}`);
     const colSection = createElement(
       label &&
         appState[label] &&
@@ -81,7 +81,7 @@ export const App = (props: AppProps) => {
         routes,
         key,
         setAppState,
-        ...styles,
+        style: { ...styles, ...tailwind(colClass) },
         label,
         setLayoutConfig,
         getEvents,
@@ -129,7 +129,6 @@ export const App = (props: AppProps) => {
               getEvents,
             };
 
-            console.log(`colClass is `, colClass);
             return (
               <Col
                 size={colSize}
@@ -174,7 +173,7 @@ export const App = (props: AppProps) => {
           if (rId === "layoutConfig") {
             return null;
           } else {
-            console.log(rows[rId]);
+            // console.log(rows[rId]);
 
             return (
               <Row
@@ -225,14 +224,481 @@ export const App = (props: AppProps) => {
     );
   }
 
+  const schema = {
+    type: "object",
+    properties: {
+      componentsSet: {
+        type: "object",
+      },
+      layout: {
+        type: "object",
+        properties: {
+          "0": {
+            type: "object",
+            properties: {
+              "0": {
+                type: "object",
+                properties: {
+                  layout: {
+                    type: "object",
+                    properties: {
+                      "0": {
+                        type: "object",
+                        properties: {
+                          "0": {
+                            type: "object",
+                            properties: {
+                              idx: {
+                                title: "Component",
+                                enum: ["About", "Home"],
+                                type: "string",
+                              },
+                              label: {
+                                type: "string",
+                              },
+                              colClass: {
+                                type: "string",
+                              },
+                              size: {
+                                type: "integer",
+                              },
+                            },
+                            required: ["idx", "label", "colClass", "size"],
+                          },
+                        },
+                        required: ["0"],
+                      },
+                      "1": {
+                        type: "object",
+                        properties: {
+                          "0": {
+                            type: "object",
+                            properties: {
+                              idx: {
+                                type: "string",
+                              },
+                              label: {
+                                type: "string",
+                              },
+                              colClass: {
+                                type: "string",
+                              },
+                              size: {
+                                type: "integer",
+                              },
+                            },
+                            required: ["idx", "label", "colClass", "size"],
+                          },
+                        },
+                        required: ["0"],
+                      },
+                      layoutConfig: {
+                        type: "object",
+                        properties: {
+                          layoutClass: {
+                            type: "string",
+                          },
+                          size: {
+                            type: "integer",
+                          },
+                        },
+                        required: ["layoutClass", "size"],
+                      },
+                    },
+                    required: ["0", "1", "layoutConfig"],
+                  },
+                },
+                required: ["layout"],
+              },
+              "1": {
+                type: "object",
+                properties: {
+                  layout: {
+                    type: "object",
+                    properties: {
+                      "0": {
+                        type: "object",
+                        properties: {
+                          "0": {
+                            type: "object",
+                            properties: {
+                              layout: {
+                                type: "object",
+                                properties: {
+                                  "0": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0"],
+                                  },
+                                  "1": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                      "1": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0", "1"],
+                                  },
+                                  layoutConfig: {
+                                    type: "object",
+                                    properties: {
+                                      layoutClass: {
+                                        type: "string",
+                                      },
+                                      size: {
+                                        type: "integer",
+                                      },
+                                    },
+                                    required: ["layoutClass", "size"],
+                                  },
+                                },
+                                required: ["0", "1", "layoutConfig"],
+                              },
+                            },
+                            required: ["layout"],
+                          },
+                        },
+                        required: ["0"],
+                      },
+                      "1": {
+                        type: "object",
+                        properties: {
+                          "0": {
+                            type: "object",
+                            properties: {
+                              layout: {
+                                type: "object",
+                                properties: {
+                                  "0": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                      "1": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0", "1"],
+                                  },
+                                  "1": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0"],
+                                  },
+                                  layoutConfig: {
+                                    type: "object",
+                                    properties: {
+                                      layoutClass: {
+                                        type: "string",
+                                      },
+                                      size: {
+                                        type: "integer",
+                                      },
+                                    },
+                                    required: ["layoutClass", "size"],
+                                  },
+                                },
+                                required: ["0", "1", "layoutConfig"],
+                              },
+                            },
+                            required: ["layout"],
+                          },
+                          "1": {
+                            type: "object",
+                            properties: {
+                              layout: {
+                                type: "object",
+                                properties: {
+                                  "0": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                      "1": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0", "1"],
+                                  },
+                                  "1": {
+                                    type: "object",
+                                    properties: {
+                                      "0": {
+                                        type: "object",
+                                        properties: {
+                                          idx: {
+                                            type: "string",
+                                          },
+                                          label: {
+                                            type: "string",
+                                          },
+                                          size: {
+                                            type: "integer",
+                                          },
+                                          colClass: {
+                                            type: "string",
+                                          },
+                                        },
+                                        required: [
+                                          "idx",
+                                          "label",
+                                          "size",
+                                          "colClass",
+                                        ],
+                                      },
+                                    },
+                                    required: ["0"],
+                                  },
+                                  layoutConfig: {
+                                    type: "object",
+                                    properties: {
+                                      layoutClass: {
+                                        type: "string",
+                                      },
+                                      size: {
+                                        type: "integer",
+                                      },
+                                    },
+                                    required: ["layoutClass", "size"],
+                                  },
+                                },
+                                required: ["0", "1", "layoutConfig"],
+                              },
+                            },
+                            required: ["layout"],
+                          },
+                        },
+                        required: ["0", "1"],
+                      },
+                      layoutConfig: {
+                        type: "object",
+                        properties: {
+                          layoutClass: {
+                            type: "string",
+                          },
+                          size: {
+                            type: "integer",
+                          },
+                        },
+                        required: ["layoutClass", "size"],
+                      },
+                    },
+                    required: ["0", "1", "layoutConfig"],
+                  },
+                },
+                required: ["layout"],
+              },
+            },
+            required: ["0", "1"],
+          },
+          layoutConfig: {
+            type: "object",
+            properties: {
+              layoutClass: {
+                type: "string",
+              },
+            },
+            required: ["layoutClass"],
+          },
+        },
+        required: ["0", "layoutConfig"],
+      },
+    },
+    required: ["componentsSet", "layout"],
+  };
+
   return (
     <Grid style={{ flex: 1, borderWidth: 0, borderColor: "yellow" }}>
-      {props?.debug && Platform.OS === "web" ? (
+      <Button
+        style={{ flexGrow: "stretch", backgroundColor: "#3883fa" }}
+        title="Debug"
+        onPress={() => {
+          setDebug(!debug);
+        }}
+      ></Button>
+      {debug && Platform.OS === "web" ? (
         <JSONEditor
+          // FIXME: turn this validate attribute value to true
+          validate={false}
+          schema={schema}
+          schemaRefs={{}}
           json={config}
-          onChangeJSON={(json) => {
-            // TODO: add schema conformation for JSONEditor values of component names
-            setConfig(json);
+          onChangeJSON={(newConfig) => {
+            console.log("**** JSON config updated using editor ****");
+            setConfig(newConfig);
           }}
         />
       ) : null}

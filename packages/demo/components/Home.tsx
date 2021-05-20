@@ -11,31 +11,34 @@ export const Home = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  colClass: string;
 }) => {
   const {
     appState,
     label,
-    styles,
+    style,
     children,
     setAppState,
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    colClass,
   } = props;
 
-  console.log(`label is ${label}`);
+  console.log(colClass);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log(appState);
+  // console.log(appState);
 
   return (
-    <View>
+    <View style={style}>
       <Text style={{}}>Home *** {label}</Text>
       <Button
+        style={style}
         testID={`${label}-btn-one`}
         title="ACT1"
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
       ></Button>
-      <Text> AA {appState?.$appState?.loginValues}</Text>
+      <Text style={style}> AA {appState?.$appState?.loginValues}</Text>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );
