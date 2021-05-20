@@ -209,6 +209,7 @@ export const ShowEntity = (props: {
                 <View style={detailViewStyles.buttonView}>
                   <TouchableOpacity
                     testID={`${label}-edit-btn`}
+                    onPress= {()=> console.log(`edit button label --- ${label}-edit-btn`)}
                     {...getEvents(
                       `${label}-edit-btn`,
                       setLayoutConfig,

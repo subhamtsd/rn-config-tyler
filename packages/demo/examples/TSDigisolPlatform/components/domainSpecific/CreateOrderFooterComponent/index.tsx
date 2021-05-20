@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
+import Modal from "modal-react-native-web";
 import { isPropertyAssignment } from "typescript";
 import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
@@ -51,6 +52,8 @@ export const CreateOrderFooterComponent = (props: {
 
   console.log(`label is ${label}`);
 
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+
   const submitHandler = () => {
     const {
       bodyHeader,
@@ -83,7 +86,7 @@ export const CreateOrderFooterComponent = (props: {
         orderLine: orderLine,
       },
     };
-    console.log("final submit body   ", body);
+    console.log("final submit body  ", body);
     const res1 = fetch(
       `${SERVER_ENDPOINT}${appState.global.tsdApp.activeAction.endPoint}/`,
       {
@@ -98,17 +101,24 @@ export const CreateOrderFooterComponent = (props: {
       .then((res) => res.json())
       .then((_data) => {
         console.log("submit success ", _data);
+
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
         delete newAppState.global.tsdApp.createComponent;
-        newAppState.global.tsdApp.viewComponent=
-          {[appState.global.tsdApp.activeTab.name]: _data};
-        console.log('newAppState ::: ',newAppState);
-        setAppState(newAppState, false);
-        setLayoutConfig(
-          routes.orderDetail,
-          "copy"
-        );    
+        if (_data.status === "FAILURE") {
+          setErrorModalVisible(true);
+        } else {
+          newAppState.global.tsdApp.viewComponent =
+            { [appState.global.tsdApp.activeTab.name]: _data };
+          console.log('newAppState ::: ', newAppState);
+          setAppState(newAppState, false);
+          if (_data.status !== "FAILURE") {
+            setLayoutConfig(
+              routes.orderDetail,
+              "copy"
+            );
+          }
+        }
       })
       .catch((err) => {
         const newAppState = cloneDeep(appState);
@@ -118,45 +128,75 @@ export const CreateOrderFooterComponent = (props: {
   };
 
   return (
-    <View style={{ display: "flex", flexDirection: "row",alignContent:'center',justifyContent:'center' }}>
-      <View
-        style={{
-          alignSelf: 'center',
-          marginTop: -30
-        }}
-      >
-        {/* ******************** Add Rows Button ******************** */}
-        <TouchableOpacity
-          style={buttonStyle.buttonSubmit}
-          // disabled={status}
-          onPress={submitHandler}
-        >
-          <Text style={buttonStyle.text1}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          alignSelf: 'center',
-          marginTop: -30
-        }}
-      >
-        {/* ******************** COPY ROWS BUTTON ********************************* */}
-        <TouchableOpacity
-          style={buttonStyle.buttonCancel}
-          // disabled={status}
-          onPress={() => {
-            console.log("Cancel Clicked");
-            // copy the last row
+    <View>
+      {
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={errorModalVisible}
+          onRequestClose={() => {
+            setErrorModalVisible(!errorModalVisible);
           }}
         >
-          <Text style={buttonStyle.text2}>Cancel</Text>
-        </TouchableOpacity>
+          <View style={createOrderFooterStyle.centeredView}>
+            <View style={createOrderFooterStyle.modalSubmitCloseView}>
+              <Text style={createOrderFooterStyle.cancelText}>
+                Error occured while creating an order !
+              </Text>
+
+              <Pressable
+                style={[
+                  createOrderFooterStyle.buttonCloseSubmit,
+                  createOrderFooterStyle.buttonClose,
+                ]}
+                onPress={() => setErrorModalVisible(false)}
+              >
+                <Text style={createOrderFooterStyle.modalCancelText}>close</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      }
+      <View style={{ display: "flex", flexDirection: "row", alignContent: 'center', justifyContent: 'center' }}>
+        <View
+          style={{
+            alignSelf: 'center',
+            marginTop: -30
+          }}
+        >
+          {/* ******************** Add Rows Button ******************** */}
+          <TouchableOpacity
+            style={createOrderFooterStyle.buttonSubmit}
+            // disabled={status}
+            onPress={submitHandler}
+          >
+            <Text style={createOrderFooterStyle.submitText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            alignSelf: 'center',
+            marginTop: -30
+          }}
+        >
+          {/* ******************** COPY ROWS BUTTON ********************************* */}
+          <TouchableOpacity
+            style={createOrderFooterStyle.buttonCancel}
+            // disabled={status}
+            onPress={() => {
+              console.log("Cancel Clicked");
+              // copy the last row
+            }}
+          >
+            <Text style={createOrderFooterStyle.cancelText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
-const buttonStyle = StyleSheet.create({
+const createOrderFooterStyle = StyleSheet.create({
   buttonSubmit: {
     alignItems: "center",
     alignSelf: "center",
@@ -191,18 +231,62 @@ const buttonStyle = StyleSheet.create({
     borderColor: "#000",
     borderWidth: 0.5,
   },
-  text1: {
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  buttonCloseSubmit: {
+    alignItems: "center",
+    height: 35,
+    width: "30%",
+    marginTop: 20,
+    marginBottom: 20,
+    paddingTop: 7,
+    paddingBottom: 5,
+    paddingLeft: 30,
+    paddingRight: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    padding: 50,
+  },
+  modalSubmitCloseView: {
+    // margin: 20,
+    padding: '2%',
+    backgroundColor: "#f3f9fb",
+    borderRadius: 5,
+    marginHorizontal: 70,
+    marginVertical: 40,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+  submitText: {
     color: "#fff",
     paddingRight: 20,
     fontSize: 16,
     lineHeight: 20,
     fontWeight: 500,
   },
-  text2: {
+  cancelText: {
     color: "#545454",
     paddingRight: 20,
     fontSize: 16,
     lineHeight: 20,
     fontWeight: 500,
+  },
+  modalCancelText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
