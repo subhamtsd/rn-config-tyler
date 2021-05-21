@@ -37,12 +37,13 @@ const links = {
 };
 
 export const appConfig = {
-
   componentsSet,
   links,
   layout: {
     "1.container": {
       "1.1.leftNavCol": {
+        colClass:
+          "border-rounded-1 text-bg-blue-100 border-blue-400 text-blue-700",
         layout: {
           "1.1.leftNavHeaderRow": {
             leftNavHeader: {
