@@ -15,7 +15,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
-import Modal from "modal-react-native-web";
+import { ErrorModal } from '../../ErrorModal';
 import { isPropertyAssignment } from "typescript";
 import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
@@ -55,14 +55,16 @@ export const CreateOrderFooterComponent = (props: {
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const submitHandler = () => {
-    const {
-      bodyHeader,
-      createOrderlineListComponent,
-    } = appState?.global?.tsdApp?.formData;
+    const bodyHeader = appState?.global?.tsdApp?.formData?.bodyHeader;
+    const createOrderlineListComponent = appState?.global?.tsdApp?.formData?.createOrderlineListComponent;
+    // const {
+    //   bodyHeader,
+    //   createOrderlineListComponent,
+    // } = appState?.global?.tsdApp?.formData;
 
     const orderLine = [];
     const address = [];
-    createOrderlineListComponent.forEach((obj) => {
+    createOrderlineListComponent?.forEach((obj) => {
       const newObj = { ...obj.item };
       newObj["address"] = {
         ...appState?.global?.tsdApp?.formData?.[obj.key],
@@ -98,15 +100,21 @@ export const CreateOrderFooterComponent = (props: {
         body: JSON.stringify(body),
       }
     )
+      .then((res)=>{
+        if(res.status !== 201) {
+          setErrorModalVisible(!errorModalVisible);
+          // throw new Error("Whoops!");
+        }
+        return res1;
+      })
       .then((res) => res.json())
       .then((_data) => {
         console.log("submit success ", _data);
-
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
         delete newAppState.global.tsdApp.createComponent;
         if (_data.status === "FAILURE") {
-          setErrorModalVisible(true);
+          setErrorModalVisible(!errorModalVisible);
         } else {
           newAppState.global.tsdApp.viewComponent =
             { [appState.global.tsdApp.activeTab.name]: _data };
@@ -127,35 +135,18 @@ export const CreateOrderFooterComponent = (props: {
       });
   };
 
+  function handleModalVisible(showModal) {
+    return setErrorModalVisible(showModal);
+  }
+
   return (
     <View>
-      {
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={errorModalVisible}
-          onRequestClose={() => {
-            setErrorModalVisible(!errorModalVisible);
-          }}
-        >
-          <View style={createOrderFooterStyle.centeredView}>
-            <View style={createOrderFooterStyle.modalSubmitCloseView}>
-              <Text style={createOrderFooterStyle.cancelText}>
-                Error occured while creating an order !
-              </Text>
-
-              <Pressable
-                style={[
-                  createOrderFooterStyle.buttonCloseSubmit,
-                  createOrderFooterStyle.buttonClose,
-                ]}
-                onPress={() => setErrorModalVisible(false)}
-              >
-                <Text style={createOrderFooterStyle.modalCancelText}>close</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
+      { errorModalVisible &&
+        <ErrorModal
+          message= "Something went wrong"
+          modalDisplay={errorModalVisible}
+          functionProp={handleModalVisible}
+        />
       }
       <View style={{ display: "flex", flexDirection: "row", alignContent: 'center', justifyContent: 'center' }}>
         <View
