@@ -48,7 +48,7 @@ export const appConfig = {
               idx: "Home",
               colSize: 1,
               label: "leftNavBody",
-              colStyle: {  height: "1vh",backgroundColor:"grey" },
+              colStyle: {  height: "1vh",display:"none" },
             },
           }
         },
