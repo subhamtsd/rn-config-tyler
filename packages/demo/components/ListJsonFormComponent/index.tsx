@@ -29,7 +29,7 @@ export const ListJsonFormComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  _childDependeny: any;
+  _childDependency: any;
 }) => {
   const {
     appState,
@@ -41,7 +41,7 @@ export const ListJsonFormComponent = (props: {
     setLayoutConfig,
     getEvents,
     events,
-    _childDependeny,
+    _childDependency,
   } = props;
 
   console.log(`label is ${label}`);
@@ -70,11 +70,10 @@ export const ListJsonFormComponent = (props: {
             userId: "TsdAdmin",
             roleKey: 1,
             moduleKey:
-              props._childDependeny.listJsonFormComponentDependency.moduleKey,
-            tabKey:
-              props._childDependeny.listJsonFormComponentDependency.tabKey,
+              _childDependency.ListJsonFormComponentDependency.moduleKey,
+            tabKey: _childDependency.ListJsonFormComponentDependency.tabKey,
             actionName:
-              props._childDependeny.listJsonFormComponentDependency.actionName,
+              _childDependency.ListJsonFormComponentDependency.actionName,
           }),
         }
       );
@@ -88,7 +87,8 @@ export const ListJsonFormComponent = (props: {
 
   return loading ? (
     <View style={componentGridStyle}>
-      <ActivityIndicator />
+      {/* <ActivityIndicator /> */}
+      <Text>Rendering layout ...</Text>
     </View>
   ) : (
     <View style={componentGridStyle}>

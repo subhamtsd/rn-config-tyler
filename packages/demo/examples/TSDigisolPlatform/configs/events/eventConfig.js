@@ -115,7 +115,7 @@ export const events = {
           .then((res) => res.json())
           .then(async (_data) => {
             console.log("Layout config ::::: ", _data);
-            setLayoutConfig(_data);
+            setLayoutConfig(_data, "copy");
             console.log("LAYOUT CHANGED :::", routes["userChildLayout"]);
           });
       };
@@ -126,8 +126,8 @@ export const events = {
         // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
-            // `https://run.mocky.io/v3/f9ffe752-5e74-484a-9d57-84928bd9cbd7`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -137,7 +137,8 @@ export const events = {
         } else if (activeTabName === "Product") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -146,13 +147,15 @@ export const events = {
         } else if (activeTabName === "User") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            "https://run.mocky.io/v3/0793709f-8fe6-43f2-92db-fa928c2e8b09",
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
             "Submit-button"
           );
         } else if (
+          // TODO : NEED TO UPDATE THE CHILD LAYOUT ACCORDING TO OLD framework Development
           activeTabName === "CreateOrders" ||
           activeTabName === "BookOrders" ||
           activeTabName === "ReserveOrders" ||
@@ -191,7 +194,8 @@ export const events = {
         } else if (activeTabName === "InventorySupply") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            "https://run.mocky.io/v3/c8cee798-636d-4a68-878d-9feebc8f9990",
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
@@ -200,7 +204,8 @@ export const events = {
         } else if (activeTabName === "Attributes") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
-            `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
+            "https://run.mocky.io/v3/cc9354f0-975d-4ce9-973e-e7c40f03f609",
             appState.global.tsdApp.activeModule.key,
             appState.global.tsdApp.activeTab.key,
             appState.global.tsdApp.activeAction.name,
