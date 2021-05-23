@@ -107,6 +107,7 @@ export const App = (props: AppProps) => {
             const {
               idx,
               label,
+              size,
               colSize,
               props,
               children,
@@ -118,6 +119,7 @@ export const App = (props: AppProps) => {
               ...props,
               ...cols[cId],
               idx,
+              size,
               label,
               children,
               colSize,
@@ -129,9 +131,11 @@ export const App = (props: AppProps) => {
               getEvents,
             };
 
+            console.log(`passProps >> `, passProps);
+            
             return (
               <Col
-                size={colSize}
+                size={size}
                 style={{ ...colStyle, ...tailwind(colClass) }}
                 key={`${rId}-${colNo}`}
               >
@@ -146,7 +150,8 @@ export const App = (props: AppProps) => {
               <Col
                 key={`${rId}-${colNo}`}
                 size={
-                  cols[cId].layout?.layoutConfig?.size ||
+                  cols[cId].layout?.layoutConfig?.size 
+                  ||
                   cols[cId]?.layout.colConfig?.colSize
                 }
                 style={{
