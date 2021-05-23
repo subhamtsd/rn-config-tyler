@@ -50,8 +50,7 @@ export const setLayoutConfig = (
 export const setAppState = (_setAppState, appState, newAppState, format="none") => {
   if (format === "isPartial") {
     _setAppState(merge(appState, newAppState, { arrayMerge: overwriteMerge })); ///ui,children,props
-  }
-  else {
+  } else {
     _setAppState(newAppState);
   }
 };
