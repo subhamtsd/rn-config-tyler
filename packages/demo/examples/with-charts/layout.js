@@ -231,16 +231,13 @@ const links = {
 };
 
 export const appConfig = {
+  tw:true,
   /// 1st layout
   componentsSet,
-  links, // FIXME: links mess up the styling in dynamic page transitions. pls look at the fix
   layout: {
     // row no
     "1.container": {
-      rowConfig: {
-        rowSize: 1,
-        rowStyle: rowStyle,
-      },
+
       // col no
       "1.1.leftNavCol": {
         layout: {
@@ -249,11 +246,7 @@ export const appConfig = {
             colStyle: { backgroundColor: "grey" },
           },
           "1.1.leftNavHeaderRow": {
-            // row no
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: rowStyle,
-            },
+            
             leftNavHeader: {
               // col no
               colSize: 1,
@@ -270,10 +263,7 @@ export const appConfig = {
         },
       },
       "1.2.bodyCol": {
-        rowConfig: {
-          rowSize: 1,
-          rowStyle: rowStyle,
-        },
+        
         layout: {
           colConfig: {
             colSize: 11,
@@ -282,10 +272,7 @@ export const appConfig = {
             },
           },
           "1.2.1.bodyHeaderRow": {
-            rowConfig: {
-              rowSize: 1,
-              rowStyle: rowStyle,
-            },
+            
             bodyHeader: {
               // col no
               colSize: 1,
