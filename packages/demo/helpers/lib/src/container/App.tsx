@@ -175,7 +175,8 @@ export const App = (props: AppProps) => {
       let gridJsx = [];
       if (rows && Object.keys(rows)) {
         gridJsx = Object.keys(rows).map((rId) => {
-          if (rId === "layoutConfig") {
+          if (rId === "colConfig" || rId === "layoutConfig") 
+          {
             return null;
           } else {
             // console.log(rows[rId]);
