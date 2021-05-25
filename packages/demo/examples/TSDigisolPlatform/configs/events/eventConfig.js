@@ -441,7 +441,7 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
-          setLayoutConfig(routes["detail"]);
+          setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
@@ -458,7 +458,7 @@ export const events = {
           },
         },
       });
-      setLayoutConfig(routes["editOrderLineDetail"]);
+      setLayoutConfig(routes["editOrderLineDetail"], "copy");
 
       // console.log("From dtail list editbutton ::: ", appState);
     },
@@ -485,13 +485,13 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
-          setLayoutConfig(routes["detail"]);
+          setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
   "billToAddressDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
-      // console.log("abcdefg", args[1]);
+      console.log("abcdefg", args[1]);
       setAppState({
         global: {
           tsdApp: {
@@ -525,7 +525,7 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
-          setLayoutConfig(routes["detail"]);
+          setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
@@ -543,7 +543,7 @@ export const events = {
           },
         },
       });
-      setLayoutConfig(routes["editOrderLineAddressDetail"]);
+      setLayoutConfig(routes["editOrderLineAddressDetail"], "copy");
     },
   },
   "detailListComponent-delete-btn": {

@@ -101,14 +101,12 @@ export const CreateOrderFooterComponent = (props: {
         const newAppState = cloneDeep(appState);
         delete newAppState.global.tsdApp.formData;
         delete newAppState.global.tsdApp.createComponent;
-        newAppState.global.tsdApp.viewComponent=
-          {[appState.global.tsdApp.activeTab.name]: _data};
-        console.log('newAppState ::: ',newAppState);
+        newAppState.global.tsdApp.viewComponent = {
+          [appState.global.tsdApp.activeTab.name]: _data,
+        };
+        console.log("newAppState ::: ", newAppState);
         setAppState(newAppState, false);
-        setLayoutConfig(
-          routes.orderDetail,
-          "copy"
-        );    
+        setLayoutConfig(routes.orderDetail, "copy");
       })
       .catch((err) => {
         const newAppState = cloneDeep(appState);
@@ -118,11 +116,18 @@ export const CreateOrderFooterComponent = (props: {
   };
 
   return (
-    <View style={{ display: "flex", flexDirection: "row",alignContent:'center',justifyContent:'center' }}>
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "center",
+      }}
+    >
       <View
         style={{
-          alignSelf: 'center',
-          marginTop: -30
+          alignSelf: "center",
+          marginTop: -30,
         }}
       >
         {/* ******************** Add Rows Button ******************** */}
@@ -136,8 +141,8 @@ export const CreateOrderFooterComponent = (props: {
       </View>
       <View
         style={{
-          alignSelf: 'center',
-          marginTop: -30
+          alignSelf: "center",
+          marginTop: -30,
         }}
       >
         {/* ******************** COPY ROWS BUTTON ********************************* */}

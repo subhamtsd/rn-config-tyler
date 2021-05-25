@@ -130,7 +130,7 @@ export const ShowEntity = (props: {
     events,
   } = props.props;
 
-  console.log("Layout Config in showEntity :::: ", props);
+  console.log("Layout Config in showEntity :::: ", label);
 
   const viewData = props.viewData;
   const [modalQRVisible, setModalQRVisible] = useState(false);
