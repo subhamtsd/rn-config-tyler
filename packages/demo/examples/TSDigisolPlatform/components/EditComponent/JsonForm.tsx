@@ -25,7 +25,8 @@ export const JsonForm = ({
   schema = {}, // This data
   uiSchema = {}, // this data
   label = "",
-  _submitButton = true,
+  _submitButton = false,
+  _cancelButton = false,
   setLayoutConfig = {},
   ...props
 }): AnyRecord => {
@@ -58,7 +59,7 @@ export const JsonForm = ({
   };
   const onErrorOk = () => setException(null);
   // form data mutator
-  console.log("formData in jsonForm of Edit : : : ", formData);
+  // console.log("formData in jsonForm of Edit : : : ", formData);
 
   const onChange = (event) => {
     setFormData({
@@ -139,7 +140,7 @@ export const JsonForm = ({
           schema={schema}
           uiSchema={uiSchema}
           submitButton={_submitButton}
-          cancelButton={false}
+          cancelButton={_cancelButton}
           onChange={onChange}
           buttonPosition="center"
           {...getEvents(

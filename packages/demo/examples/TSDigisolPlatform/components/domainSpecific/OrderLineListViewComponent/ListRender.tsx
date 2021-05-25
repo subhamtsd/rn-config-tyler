@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import SearchListComponent from "./SearchListComponent";
+// import SearchListComponent from "../../ListComponent/SearchListComponent";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -24,6 +25,7 @@ export const ListRender = (props: {
   setAppState: any;
   setLayoutConfig: any;
   styles: any;
+  UItitle: any;
 }) => {
   // const {
   //   appState,
@@ -47,6 +49,8 @@ export const ListRender = (props: {
   const [noOfRows, setnoOfRows] = useState(10);
   const [responseData, setResponseData] = useState({});
   const [pageArray, setPageArray] = useState(["0"]);
+  const [responseStatus, setResponseStatus] = useState(200);
+  const [loading, setLoading] = useState(true);
 
   if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
@@ -71,6 +75,11 @@ export const ListRender = (props: {
       },
       body: JSON.stringify(body),
     });
+    if (res.status != 200) {
+      setResponseStatus(res.status);
+      return;
+    }
+
     const resJSON = await res.json();
     // TODO : HERE IT IS USED TO MODIFY THE VALUE OF NEXT AND PREV BUTTON
     console.log("resJson in listRender : : :: : ", resJSON.status);
@@ -80,16 +89,7 @@ export const ListRender = (props: {
     } else {
       setFinalData(resJSON.response);
     }
-    // setResponseData(resJSON);
-    // setFinalData(resJSON.response);
-    // TODO : Remove hardcoding for pageSize
-    // When the pageSize is not empty string
-    if (resJSON.pageSize === "") {
-      setIsPaginationAvailable(false);
-    } else {
-      setPrevKey(nextKey);
-      setNextKey(resJSON.page?.lastRecordKey);
-    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -114,93 +114,96 @@ export const ListRender = (props: {
   //   }
   // }
 
-  console.log("nextKey : :: : ", nextKey);
-  console.log("prevKey : :: : : ", prevKey);
+  // console.log("nextKey : :: : ", nextKey);
+  // console.log("prevKey : :: : : ", prevKey);
 
-  const prevHandler = () => {
-    const body = props.appState.global.tsdApp.searchComponent.searchPayload;
-    body["page"] = {
-      pageSize: "10",
-      lastRecordKey: prevKey,
-    };
-    console.log("PrevButton press ::::", body);
-    fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
-      body
-    );
-  };
+  // const prevHandler = () => {
+  //   const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+  //   body["page"] = {
+  //     pageSize: "10",
+  //     lastRecordKey: prevKey,
+  //   };
+  //   console.log("PrevButton press ::::", body);
+  //   fetchApi(
+  //     props.appState.global.tsdApp.activeAction.endPoint,
+  //     props.appState.global.tsdApp.activeAction.httpMethod,
+  //     body
+  //   );
+  // };
 
-  const nextHandler = () => {
-    const body = props.appState.global.tsdApp.searchComponent.searchPayload;
-    body["page"] = {
-      pageSize: "10",
-      lastRecordKey: nextKey,
-    };
-    setPageArray(() => [...pageArray, nextKey]);
-    console.log("NextHandler Press : :: : ", body);
-    fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
-      body
-    );
-  };
+  // const nextHandler = () => {
+  //   const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+  //   body["page"] = {
+  //     pageSize: "10",
+  //     lastRecordKey: nextKey,
+  //   };
+  //   setPageArray(() => [...pageArray, nextKey]);
+  //   console.log("NextHandler Press : :: : ", body);
+  //   fetchApi(
+  //     props.appState.global.tsdApp.activeAction.endPoint,
+  //     props.appState.global.tsdApp.activeAction.httpMethod,
+  //     body
+  //   );
+  // };
 
-  console.log("pageArray : : :: : ", pageArray);
+  // console.log("pageArray : : :: : ", pageArray);
 
-  const paginationView = (isPaginationAvailable: boolean) => {
-    if (isPaginationAvailable) {
-      return (
-        <View
-          style={{
-            flexDirection: "row",
-            flex: 3,
-            marginLeft: 10,
-            // borderWidth: 2,
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              marginLeft: 3,
-              // borderWidth: 1,
-              padding: 5,
-              backgroundColor: "#0e73ca",
-            }}
-            onPress={prevHandler}
-          >
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Prev
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              marginLeft: 3,
-              // borderWidth: 1,
-              padding: 5,
-              backgroundColor: "#0e73ca",
-            }}
-            onPress={nextHandler}
-          >
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Next
-            </Text>
-          </TouchableOpacity>
-        </View>
-      );
-    } else return <View />;
-  };
+  // const prev = "<<";
+  // const next = ">>";
+
+  // const paginationView = (isPaginationAvailable: boolean) => {
+  //   if (isPaginationAvailable) {
+  //     return (
+  //       <View
+  //         style={{
+  //           flexDirection: "row",
+  //           flex: 3,
+  //           marginLeft: 10,
+  //           // borderWidth: 2,
+  //         }}
+  //       >
+  //         <TouchableOpacity
+  //           style={{
+  //             marginLeft: 3,
+  //             // borderWidth: 1,
+  //             padding: 5,
+  //             backgroundColor: "#0e73ca",
+  //           }}
+  //           onPress={prevHandler}
+  //         >
+  //           <Text
+  //             style={{
+  //               color: "white",
+  //             }}
+  //           >
+  //             {prev}
+  //           </Text>
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           style={{
+  //             marginLeft: 3,
+  //             // borderWidth: 1,
+  //             padding: 5,
+  //             backgroundColor: "#0e73ca",
+  //           }}
+  //           onPress={nextHandler}
+  //         >
+  //           <Text
+  //             style={{
+  //               color: "white",
+  //             }}
+  //           >
+  //             {next}
+  //           </Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     );
+  //   } else return <View />;
+  // };
 
   console.log("FINAL DATA  ::: ", finalData);
 
-  if (finalData.length === 0) {
+  if (responseStatus != 200) {
     return (
       <View>
         <Text>No Data found</Text>
@@ -208,16 +211,33 @@ export const ListRender = (props: {
     );
   }
 
-  return (
+  return loading ? null : (
     <View style={{}}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "row-reverse",
           marginBottom: 10,
         }}
       >
-        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
-        {paginationView(isPaginationAvailable)}
+        <View
+          style={{
+            // borderWidth: 1,
+            width: 900,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#0d47a1",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {props.UItitle} List
+          </Text>
+        </View>
       </View>
       {/* <View>
         <Text>{JSON.stringify(finalData)}</Text>

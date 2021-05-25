@@ -5,15 +5,15 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, Text, View } from "react-native";
 // import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
-import useSafeSetState from "../../helper/useSafeState";
-import { routes } from "../../configs/routes/routesConfig";
-import { componentGridStyle } from "../../styles/common";
-import { JsonForm } from "./JsonForm";
-import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
-import { parseFormData } from "../../helper/helper";
-import { prepareSchema } from "../../helper/helper";
+import useSafeSetState from "../../../helper/useSafeState";
+import { routes } from "../../../configs/routes/routesConfig";
+import { componentGridStyle } from "../../../styles/common";
+import { JsonForm } from "../../JsonFormComponent/JsonForm";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { parseFormData } from "../../../helper/helper";
+import { prepareSchema } from "../../../helper/helper";
 
-export const EditComponent = (props: {
+export const EditOrderLineAddressDetailComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -36,13 +36,8 @@ export const EditComponent = (props: {
   } = props;
 
   const _formData = parseFormData(
-    appState.global.tsdApp.viewComponent[
-      appState.global.tsdApp.activeTab.name
-    ] || {}
+    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
   );
-
-  console.log("Hello World!");
-  
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -157,10 +152,8 @@ export const EditComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-
+  // retrieve formLayout via api
   useEffect(() => {
-    let resJson;
-    let preparedSchema;
     const fetchData = async () => {
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
         method: "POST",
@@ -171,24 +164,9 @@ export const EditComponent = (props: {
         body: JSON.stringify({
           userId: "TsdAdmin",
           roleKey: 1,
-          moduleKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.key
-                : "23751"
-              : "23751",
-          tabKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab != undefined
-                ? appState.global.tsdApp.activeTab.key
-                : "34601"
-              : "34601",
-          actionName:
-            appState.global != undefined
-              ? appState.global.tsdApp.editComponent.action != undefined
-                ? appState.global.tsdApp.editComponent.action.name
-                : "Edit"
-              : "Edit",
+          moduleKey: "2007",
+          tabKey: "3006",
+          actionName: "Edit",
         }),
       });
       const resJSON = await res.json();
@@ -198,21 +176,16 @@ export const EditComponent = (props: {
       // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
       prepareSchema(resJSON)
         .then((schemaJson) => {
-          // console.log("SchemaJson edit updated : : :: ", schemaJson);
+          console.log("SchemaJson edit updated : : :: ", schemaJson);
           return schemaJson;
         })
         .then((formLayout) => {
           // console.log("Schema edit returned : : : ", formLayout);
           // console.log("edit component appstate:", appState.global);
-          const objectName =
-            appState.global != undefined
-              ? appState.global.tsdApp.editComponent.action.name +
-                appState.global.tsdApp.activeTab.name +
-                "Schema"
-              : "EditCreateOrdersSchema";
+          const firstParent = Object.getOwnPropertyNames(formLayout)[0];
 
-          // console.log("objectName : : : : ", objectName);
-          setformLayout(formLayout[objectName]);
+          // console.log("objectName : : : : ", objectNam);
+          setformLayout(formLayout[firstParent]);
           // setloading(false);
         });
 
@@ -221,9 +194,8 @@ export const EditComponent = (props: {
     fetchData();
   }, []);
 
-  // console.log("formData  : : :  in edit component : : : ", _formData);
-
-  // console.log("FormLayout Json in Edit Component : : : ", formLayout);
+  // console.log("formData  : : :  in editaddress component : : : ", _formData);
+  // console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
@@ -232,12 +204,12 @@ export const EditComponent = (props: {
         appState={appState}
         schema={formLayout}
         // schema={_schema}
-        _submitButton={"UPDATE"}
-        _cancelButton={true}
         uiSchema={formLayout.uischema}
-        _formData={_formData}
+        _formData={appState?.global?.tsdApp?.formData?.viewData}
         label={label}
         setLayoutConfig={setLayoutConfig}
+        _submitButton={"Update"}
+        _cancelButton={true}
         // _onBeforeSubmit={(e) => {
         //   console.log("*** _onBeforeSubmit ***");
         //   console.log(e);

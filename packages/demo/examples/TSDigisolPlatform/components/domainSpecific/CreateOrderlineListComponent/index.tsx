@@ -12,13 +12,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
+import { isPropertyAssignment } from "typescript";
+import { events } from "../../../configs/events/eventConfig";
+import { prepareSchema } from "../../../helper/helper";
+import { componentGridStyle } from "../../../styles/common";
 import { RenderTable } from "./RenderTable";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 
-export const ListJsonFormComponent = (props: {
+export const CreateOrderlineListComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -28,7 +29,8 @@ export const ListJsonFormComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  _childDependency: any;
+  _childDependeny: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -40,12 +42,13 @@ export const ListJsonFormComponent = (props: {
     setLayoutConfig,
     getEvents,
     events,
-    _childDependency,
+    _childDependeny,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log("listJsonFormComponent :::: ---> ", props);
+  console.log("createOrderlineListComponent :::: ---> ", props);
 
   const initialVal = {
     key: "values",
@@ -53,44 +56,56 @@ export const ListJsonFormComponent = (props: {
   // const [data, setdata] = useState(initialVal);
   const [formLayout, setformLayout] = useState(initialVal);
   const [loading, setLoading] = useState(true);
+  console.log("hello from createorderline");
 
   useEffect(() => {
+    console.log("hello");
+    const module = appState?.global?.tsdApp?.activeModule?.key;
     const fetchFormLayout = async () => {
       setLoading(true);
-      const res = await fetch(
-        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleKey:
-              _childDependency.ListJsonFormComponentDependency.moduleKey,
-            tabKey: _childDependency.ListJsonFormComponentDependency.tabKey,
-            actionName:
-              _childDependency.ListJsonFormComponentDependency.actionName,
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          moduleKey: module,
+          roleKey: 1,
+          tabKey: module == 23751 ? 2006 : 171505,
+          userId: "TsdAdmin",
+          actionName: "Create",
+        }),
+      });
+      console.log("hello fetch");
       const resJSON = await res.json();
-      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
-      const secondParent = Object.getOwnPropertyNames(
-        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
-      );
-      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
-      setformLayout(resJSON);
-      console.log("response Json : : : : : listformLayout ---> ", resJSON);
-      setLoading(false);
+
+      prepareSchema(resJSON).then((schemaJson) => {
+        // console.log(
+        //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
+        //   schemaJson
+        // );
+        setformLayout(schemaJson);
+        setLoading(false);
+      });
     };
     fetchFormLayout();
   }, []);
 
+  console.log();
+
   return loading ? null : (
     <View style={componentGridStyle}>
+      <Text
+        style={{
+          fontSize: 20,
+          color: "#0d47a1",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        {UItitle}
+      </Text>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
@@ -113,7 +128,7 @@ export const ListJsonFormComponent = (props: {
               getEvents={getEvents}
               events={events}
               noOfColumns={7}
-              maxNoOfRows={100}
+              maxNoOfRows={20}
               dataToRender={formLayout}
             />
           </Grid>

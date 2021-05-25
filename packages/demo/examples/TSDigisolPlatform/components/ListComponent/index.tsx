@@ -19,6 +19,7 @@ export const ListComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -29,6 +30,7 @@ export const ListComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
@@ -92,9 +94,9 @@ export const ListComponent = (props: {
 
   // console.log("List Form layout : : : ", listFormLayout);
 
+
   return (
-    <View style={componentGridStyle}>
-      {/* <Text>Hello List</Text> */}
+    <View style={[componentGridStyle]}>
       <ScrollView horizontal>
         <ListRender
           listFormLayout={listFormLayout}
@@ -107,6 +109,7 @@ export const ListComponent = (props: {
           setLayoutConfig={setLayoutConfig}
           getEvents={getEvents}
           events={events}
+          UItitle={UItitle}
         />
       </ScrollView>
       {children || (appState && appState[label] && appState[label]?.children)}

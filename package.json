@@ -23,8 +23,11 @@
     "react-native-calendars": "^1.1254.0",
     "react-native-chart-kit": "^6.11.0",
     "react-native-svg": "^12.1.0",
-    "react-native-web-jsonschema-form": "^3.1.4",
-    "tailwind-rn": "^3.0.1"
+    "tailwind-rn": "^3.0.1",
+    "lodash": "^4.17.21",
+    "react-native-elements": "^3.4.1",
+    "react-native-uuid": "^2.0.1",
+    "react-native-web-jsonschema-form": "^3.1.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",

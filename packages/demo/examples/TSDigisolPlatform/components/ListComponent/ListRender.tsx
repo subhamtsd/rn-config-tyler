@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,6 +12,7 @@ import {
 } from "react-native";
 import SearchListComponent from "./SearchListComponent";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { FontAwesome } from "@expo/vector-icons";
 
 // TODO : Mention props types
 export const ListRender = (props: {
@@ -24,6 +26,7 @@ export const ListRender = (props: {
   setAppState: any;
   setLayoutConfig: any;
   styles: any;
+  UItitle: any;
 }) => {
   // const {
   //   appState,
@@ -42,18 +45,21 @@ export const ListRender = (props: {
 
   const [isPaginationAvailable, setIsPaginationAvailable] = useState(true);
   const [finalData, setFinalData] = useState([]);
-  const [prevKey, setPrevKey] = useState(0);
+  const [prevKey, setPrevKey] = useState([]);
   const [nextKey, setNextKey] = useState(0);
   const [noOfRows, setnoOfRows] = useState(10);
   const [responseData, setResponseData] = useState({});
   const [pageArray, setPageArray] = useState(["0"]);
+  const [responseStatus, setResponseStatus] = useState(200);
+  const [loading, setLoading] = useState(true);
+  const [totalPage, setTotalPage] = useState(0);
+  const [pageNumber, setpageNumber] = useState(1);
 
   if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
     setIsPaginationAvailable(false);
   }
 
   console.log("Props in List Render : : : ", props);
-
   // if (loading)
   //   return (
   //     <View style={listRenderstyles.container}>
@@ -62,6 +68,7 @@ export const ListRender = (props: {
   //   );
 
   const fetchApi = async (endPoint, httpMethod, body) => {
+    setLoading(true);
     const res = await fetch(`${SERVER_ENDPOINT}${endPoint}`, {
       method: httpMethod,
       // method: "POST",
@@ -71,6 +78,13 @@ export const ListRender = (props: {
       },
       body: JSON.stringify(body),
     });
+
+    if (res.status != 200) {
+      setResponseStatus(500);
+      return;
+    }
+
+    // console.log("res status", res.status);
     const resJSON = await res.json();
     // TODO : HERE IT IS USED TO MODIFY THE VALUE OF NEXT AND PREV BUTTON
     console.log("resJson in listRender : : :: : ", resJSON.status);
@@ -87,9 +101,10 @@ export const ListRender = (props: {
     if (resJSON.pageSize === "") {
       setIsPaginationAvailable(false);
     } else {
-      setPrevKey(nextKey);
+      setTotalPage(Math.ceil(resJSON.page?.recordCount / noOfRows));
       setNextKey(resJSON.page?.lastRecordKey);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -115,37 +130,49 @@ export const ListRender = (props: {
 
   console.log("nextKey : :: : ", nextKey);
   console.log("prevKey : :: : : ", prevKey);
+  console.log("recordCount", totalPage);
 
-  const prevHandler = () => {
+  const prevHandler = async () => {
     const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+    const prev = prevKey.length < 2 ? 0 : prevKey[prevKey.length - 2];
     body["page"] = {
       pageSize: "10",
-      lastRecordKey: prevKey,
+      lastRecordKey: prev,
     };
     console.log("PrevButton press ::::", body);
-    fetchApi(
+    await fetchApi(
       props.appState.global.tsdApp.activeAction.endPoint,
       props.appState.global.tsdApp.activeAction.httpMethod,
       body
     );
+    console.log("prev key yeas", prevKey[prevKey.length - 1]);
+    setPrevKey((old) => {
+      const newArr = [...old];
+      newArr.pop();
+      return newArr;
+    });
+    setpageNumber((oldPage) => {
+      return oldPage - 1;
+    });
   };
 
-  const nextHandler = () => {
+  const nextHandler = async () => {
     const body = props.appState.global.tsdApp.searchComponent.searchPayload;
     body["page"] = {
       pageSize: "10",
       lastRecordKey: nextKey,
     };
-    setPageArray(() => [...pageArray, nextKey]);
     console.log("NextHandler Press : :: : ", body);
-    fetchApi(
+    await fetchApi(
       props.appState.global.tsdApp.activeAction.endPoint,
       props.appState.global.tsdApp.activeAction.httpMethod,
       body
     );
+    setPrevKey((old) => [...old, nextKey]);
+    setpageNumber((oldPage) => {
+      return oldPage + 1;
+    });
   };
-
-  console.log("pageArray : : :: : ", pageArray);
 
   const paginationView = (isPaginationAvailable: boolean) => {
     if (isPaginationAvailable) {
@@ -163,34 +190,44 @@ export const ListRender = (props: {
               marginLeft: 3,
               // borderWidth: 1,
               padding: 5,
-              backgroundColor: "#0e73ca",
+              borderColor: "#999999",
             }}
+            disabled={loading || pageNumber === 1}
             onPress={prevHandler}
           >
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Prev
-            </Text>
+            <FontAwesome
+              name="caret-left"
+              size={50}
+              color={pageNumber === 1 ? "grey" : "#2196f3"}
+            />
           </TouchableOpacity>
+          <Text
+            style={{
+              // borderWidth: 1,
+              paddingTop: 15,
+              fontSize: 20,
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+          >
+            {pageNumber}
+          </Text>
           <TouchableOpacity
             style={{
               marginLeft: 3,
               // borderWidth: 1,
               padding: 5,
-              backgroundColor: "#0e73ca",
+              borderColor: "#999999",
+              // backgroundColor: "#0e73ca",
             }}
+            disabled={loading || pageNumber === totalPage}
             onPress={nextHandler}
           >
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Next
-            </Text>
+            <FontAwesome
+              name="caret-right"
+              size={50}
+              color={pageNumber === totalPage ? "grey" : "#2196f3"}
+            />
           </TouchableOpacity>
         </View>
       );
@@ -199,7 +236,7 @@ export const ListRender = (props: {
 
   console.log("FINAL DATA  ::: ", finalData);
 
-  if (finalData.length === 0) {
+  if (!loading && responseStatus == 200 && finalData.length == 0) {
     return (
       <View>
         <Text>No Data found</Text>
@@ -207,22 +244,46 @@ export const ListRender = (props: {
     );
   }
 
-  return (
-    <View
-      style={{
-        // borderWidth: 3,
-        height: "65vh", // can only be used in WEB
-      }}
-    >
+  if (responseStatus != 200) {
+    return (
+      <View>
+        <Text>No Data found</Text>
+      </View>
+    );
+  }
+
+  console.log("props.listFormLayout :::: ", props.listFormLayout);
+
+  return loading && finalData.length == 0 ? null : (
+    <View style={{}}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "row-reverse",
           marginBottom: 10,
           // borderWidth: 3,
         }}
       >
-        <Text style={listRenderstyles.heading}>Search Here</Text>
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         {paginationView(isPaginationAvailable)}
+        <View
+          style={{
+            // borderWidth: 1,
+            width: 900,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#0d47a1",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {props.appState.global.tsdApp.activeTab.name} List
+          </Text>
+        </View>
       </View>
       {/* <View>
         <Text>{JSON.stringify(finalData)}</Text>
@@ -243,13 +304,16 @@ export const ListRender = (props: {
         visibleKeys={props.listFormLayout.map((data: { field: any }) => {
           return data.field;
         })}
+        showTitleKey={props.listFormLayout.map((data: { title: any }) => {
+          return data.title;
+        })}
         flexWidth={[]} // Column-span (length of array should be equal to that of visibleKeys)
         numberOfLines={finalData.length} // Row-span
         searchBarWrapperStyle={null}
         searchBarStyle={null}
         titleStyle={null}
         dataStyle={{ color: "darkblue" }}
-        inputPlaceholder="Search Here"
+        inputPlaceholder="Search this List ..."
         buttonColor="#0e73ca"
         buttonTitle="Show"
         buttonPress={() => {

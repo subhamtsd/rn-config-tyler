@@ -17,26 +17,35 @@ import { routes } from "./configs/routes/routesConfig";
 // import { SideNavBar } from "../../../todo-app/TODOAPP/SideNavBar";
 
 // TSD COMPONENT
-import { NavigationBar } from "./components/NavigationBar/index";
-// import { NavigationBar } from "../../components/NavigationBar/index";
-import { HeaderBar } from "./components/HeaderBar";
-import { TabComponent } from "./components/TabComponent";
-import { ActionComponent } from "./components/ActionComponent/index";
-import { JsonFormComponent } from "./components/JsonFormComponent/index";
-import { DefaultScreen } from "./components/DefaultScreen";
-import { ListComponent } from "./components/ListComponent";
-import { DetailListComponent } from "./components/DetailListComponent";
-import { EditComponent } from "./components/EditComponent/index";
+import { NavigationBar } from "../TSDigisolPlatform/components/NavigationBar/index";
+import { HeaderBar } from "../TSDigisolPlatform/components/HeaderBar";
+import { TabComponent } from "../TSDigisolPlatform/components/TabComponent";
+import { ActionComponent } from "../TSDigisolPlatform/components/ActionComponent";
+import { JsonFormComponent } from "../TSDigisolPlatform/components/JsonFormComponent/index";
+import { DefaultScreen } from "../TSDigisolPlatform/components/DefaultScreen/index";
+import { ScreenJsonEditor } from "../TSDigisolPlatform/components/ScreenJsonEditor";
+import { ListComponent } from "../TSDigisolPlatform/components/ListComponent";
+import { DetailListComponent } from "../TSDigisolPlatform/components/DetailListComponent";
+import { EditComponent } from "../TSDigisolPlatform/components/EditComponent/index";
 import { ListJsonFormComponent } from "../../components/ListJsonFormComponent";
-import { LoginComponent } from "./components/LoginComponent";
-import { BillToAddressDetailViewComponent } from "./components/domainSpecific/BillToAddressDetailViewComponent";
-import { OrderLineAddressDetailViewComponent } from "./components/domainSpecific/OrderLineAddressDetailViewComponent";
-import { OrderLineDetailViewComponent } from "./components/domainSpecific/OrderLineDetailViewComponent";
-import { OrderLineListViewComponent } from "./components/domainSpecific/OrderLineListViewComponent";
-import { ShowQRCodeComponent } from "./components/ShowQRCodeComponent";
+import { LoginComponent } from "../TSDigisolPlatform/components/LoginComponent";
+import { BillToAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/BillToAddressDetailViewComponent";
+import { OrderLineAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/OrderLineAddressDetailViewComponent";
+import { OrderLineDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/OrderLineDetailViewComponent";
+import { OrderLineListViewComponent } from "../TSDigisolPlatform/components/domainSpecific/OrderLineListViewComponent";
+import { ShowQRCodeComponent } from "../TSDigisolPlatform/components/ShowQRCodeComponent";
+import { EditOrderLineDetailComponent } from "../TSDigisolPlatform/components/domainSpecific/EditOrderLineDetailComponent/index";
+import { EditBillToAddressDetailComponent } from "../TSDigisolPlatform/components/domainSpecific/EditBillToAddressDetailComponent/index";
+import { CreateAddressFormComponent } from "../TSDigisolPlatform/components/domainSpecific/CreateAddressFormComponent";
+import { CreateOrderlineListComponent } from "../TSDigisolPlatform/components/domainSpecific/CreateOrderlineListComponent";
+import { CreateOrderlineAddressComponent } from "../TSDigisolPlatform/components/domainSpecific/CreateOrderlineAddressComponent";
+import { CreateOrderFooterComponent } from "./../TSDigisolPlatform/components/domainSpecific/CreateOrderFooterComponent/index";
+import { EditOrderLineAddressDetailComponent } from "../TSDigisolPlatform/components/domainSpecific/EditOrderLineAddressDetailComponent/index";
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../components/AddEditEntity";
+import { ToggleNavigation } from "../..//components/ToggleNavigation";
+
 export const componentsSet = {
   Comp5,
   ActionComp,
@@ -47,6 +56,7 @@ export const componentsSet = {
   // TodoApp2,
   // SideNavBar,
   DefaultScreen,
+  ScreenJsonEditor,
   NavigationBar,
   HeaderBar,
   TabComponent,
@@ -62,10 +72,18 @@ export const componentsSet = {
   OrderLineDetailViewComponent,
   OrderLineListViewComponent,
   ShowQRCodeComponent,
+  EditOrderLineDetailComponent,
+  EditBillToAddressDetailComponent,
+  CreateAddressFormComponent,
+  CreateOrderlineListComponent,
+  CreateOrderlineAddressComponent,
+  CreateOrderFooterComponent,
+  EditOrderLineAddressDetailComponent,
   // JsonForm
 
   // TEST FOR JSON FORM
   AddEditEntity,
+  ToggleNavigation,
 };
 
 const links = {

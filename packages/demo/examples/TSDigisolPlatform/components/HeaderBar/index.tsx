@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { getInitEvents } from "../../configs/events/eventConfig";
+import { routes } from "../../configs/routes/routesConfig";
 // import { useSelector, useDispatch } from "react-redux";
 
 export const HeaderBar = (props: {
@@ -132,22 +133,30 @@ export const HeaderBar = (props: {
                         key: "2001",
                       },
                       activeTab: {
-                        name: "Organisation",
-                        key: "118201",
+                        name: "Catalog",
+                        key: "3000",
                       },
                       activeAction: {
                         name: "Search",
-                        key: "124684",
-                        endPoint: "v1/organization/alllist",
+                        key: "4003",
+                        endPoint: "v1/catalog/list",
                         httpMethod: "POST",
                         showButton: true,
                       },
                       createComponent: {
                         layout: {},
                       },
+                      searchComponent: {
+                        Organisation: {},
+                      },
+                      formToggle: {
+                        formSelected: routes["search"],
+                        messages: "Show Form",
+                      },
                     },
                   },
                 });
+                setLayoutConfig(routes["defaultAppConfig"], "copy");
               }}
               {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
             >

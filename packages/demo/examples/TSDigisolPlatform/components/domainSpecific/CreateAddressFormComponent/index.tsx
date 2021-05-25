@@ -12,13 +12,15 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
+import { isPropertyAssignment } from "typescript";
+import { events } from "../../../configs/events/eventConfig";
+import { prepareSchema } from "../../../helper/helper";
+import { componentGridStyle } from "../../../styles/common";
 import { RenderTable } from "./RenderTable";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
+import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
 
-export const ListJsonFormComponent = (props: {
+export const CreateAddressFormComponent = (props: {
   appState: any;
   label: any;
   styles: any;
@@ -28,7 +30,8 @@ export const ListJsonFormComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  _childDependency: any;
+  _childDependeny: any;
+  UItitle: any;
 }) => {
   const {
     appState,
@@ -40,7 +43,8 @@ export const ListJsonFormComponent = (props: {
     setLayoutConfig,
     getEvents,
     events,
-    _childDependency,
+    _childDependeny,
+    UItitle,
   } = props;
 
   console.log(`label is ${label}`);
@@ -48,7 +52,46 @@ export const ListJsonFormComponent = (props: {
   console.log("listJsonFormComponent :::: ---> ", props);
 
   const initialVal = {
-    key: "values",
+    type: "object",
+    required: ["orderType"],
+    properties: {
+      orderName: {
+        title: "Order Name",
+        type: "string",
+        format: "",
+        uid: "orderName",
+        pattern: "[a-zA-Z0-9]",
+      },
+      orderKey: {
+        title: "Order Key",
+        type: "string",
+        format: "",
+        uid: "orderKey",
+        pattern: "[0-9]",
+      },
+      orderStatus: {
+        title: "Order Status",
+        type: "string",
+        format: "",
+        uid: "orderStatus",
+        pattern: "[a-zA-Z]",
+      },
+      orderType: {
+        title: "Order Type",
+        type: "string",
+        format: "",
+        uid: "orderType",
+        pattern: "[a-zA-Z]",
+      },
+      extOrderNo: {
+        title: "External Order No",
+        type: "string",
+        format: "",
+        uid: "extOrderNo",
+        pattern: "",
+      },
+    },
+    uischema: {},
   };
   // const [data, setdata] = useState(initialVal);
   const [formLayout, setformLayout] = useState(initialVal);
@@ -57,40 +100,49 @@ export const ListJsonFormComponent = (props: {
   useEffect(() => {
     const fetchFormLayout = async () => {
       setLoading(true);
-      const res = await fetch(
-        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "TsdAdmin",
-            roleKey: 1,
-            moduleKey:
-              _childDependency.ListJsonFormComponentDependency.moduleKey,
-            tabKey: _childDependency.ListJsonFormComponentDependency.tabKey,
-            actionName:
-              _childDependency.ListJsonFormComponentDependency.actionName,
-          }),
-        }
-      );
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          moduleKey: 2007,
+          roleKey: 1,
+          tabKey: 3006,
+          userId: "TsdAdmin",
+          actionName: "Create",
+        }),
+      });
       const resJSON = await res.json();
-      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
-      const secondParent = Object.getOwnPropertyNames(
-        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
-      );
-      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
-      setformLayout(resJSON);
-      console.log("response Json : : : : : listformLayout ---> ", resJSON);
-      setLoading(false);
+
+      // console.log("First Parent ::: " + firstParent);
+
+      // console.log("Props in ---> ", props.dataToRender[firstParent]);
+      // console.log("Second Parent: " + secondParent);
+      prepareSchema(resJSON).then((schemaJson) => {
+        const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
+        // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+        setformLayout(schemaJson[firstParent]);
+        // console.log("response Json : : : : : formLayout ---> ", resJSON);
+        setLoading(false);
+      });
     };
     fetchFormLayout();
   }, []);
 
   return loading ? null : (
     <View style={componentGridStyle}>
+      <Text
+        style={{
+          fontSize: 20,
+          color: "#0d47a1",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        {UItitle}
+      </Text>
       {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
@@ -113,7 +165,7 @@ export const ListJsonFormComponent = (props: {
               getEvents={getEvents}
               events={events}
               noOfColumns={7}
-              maxNoOfRows={100}
+              maxNoOfRows={2}
               dataToRender={formLayout}
             />
           </Grid>

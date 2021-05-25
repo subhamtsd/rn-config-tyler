@@ -15,6 +15,7 @@ export const ShowQRCodeComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  qrcodeImage: any;
 }) => {
   const {
     appState,
@@ -25,50 +26,51 @@ export const ShowQRCodeComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    qrcodeImage,
   } = props;
 
   const qrCodeImage =
-    appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage ||
-    `qr_code_PNG24.png`;
+    appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage === undefined
+      ? `C:\\QRCODE\\default`
+      : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage;
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log(props.appState);
-  const [qrcodeVisible, setqrcodeVisible] = useState(
-    appState.global.tsdApp?.ShowQRCodeComponent?.isQrcodeVisible
-  );
+  console.log("appstate in QRCODE : ", props.appState);
+  const [qrcodeVisible, setqrcodeVisible] = useState(false);
 
   return (
-    <View style={componentGridStyle}>
+    <View style={{ marginHorizontal: 60 }}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        {/* <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           {qrcodeVisible ? `Here is your QR Code` : `QR code is Hidden`}
-        </Text>
+        </Text> */}
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            marginBottom: 30,
+            marginTop: 5,
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>QR code</Text>
+        </View>
         <View>
-          {qrcodeVisible ? (
-            <View style={{ alignItems: "center", justifyContent: "center" }}>
-              <Image
-                source={require(`../../../../../../assets/images/${qrCodeImage}`)}
-                style={{
-                  width: 200,
-                  height: 200,
-                }}
-              />
-              <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-                {appState.global.tsdApp?.ShowQRCodeComponent?.message}
-              </Text>
-            </View>
-          ) : (
-            <View
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Image
+              // source={require(`/home/ubuntu/code/tsdcell/qrcode/${
+              //   qrcodeImage || `default.png`
+              // }`)}
+              source={require(`C:/QRCODE/default.png`)}
               style={{
-                borderWidth: 1,
-                width: 160,
-                height: 160,
-                marginTop: 20,
-                marginBottom: 20,
+                width: 200,
+                height: 200,
               }}
-            ></View>
-          )}
+            />
+            <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+              {appState.global.tsdApp?.ShowQRCodeComponent?.message}
+            </Text>
+          </View>
         </View>
       </View>
       {/* <Button

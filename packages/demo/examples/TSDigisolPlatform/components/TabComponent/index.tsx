@@ -118,22 +118,25 @@ export const TabComponent = (props: {
                         httpMethod: item.actions[0].httpMethod,
                         showButton: item.actions[0].showButton,
                       },
+                      createComponent: null,
                       listComponent: {
                         data: {
                           response: [],
                         },
                       },
-                      ShowQRCodeComponent: {
-                        isQrcodeVisible: false,
-                        // TODO: Add Some Dummy Image here
-                        qrcodeImage: "qr_code_PNG24.png",
-                        // TODO: Reset of message for any tab
-                        message: "",
-                      },
+                      formData: null,
                     },
                   },
                 });
+                if(appState.global.tsdApp.activeAction.name == "Create") {
+                  if(item.tabKey == 3012) {
+                    setLayoutConfig(routes["jsonEditorScreen"], "copy");
+                  } else {
+                    setLayoutConfig(routes["defaultAppConfig"], "copy");
+                  }
+                } else {
                 setLayoutConfig(routes["defaultAppConfig"], "copy");
+                }
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}
               // TODO : Title of button should come from API

@@ -30,14 +30,7 @@ export const ListEntities = () => {
     fetchData();
   }, []);
 
-  if (loading)
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-      </View>
-    );
-
-  return (
+  return loading ? null : (
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>Search Filter Example</Text>
       {/* Component I rendered */}
