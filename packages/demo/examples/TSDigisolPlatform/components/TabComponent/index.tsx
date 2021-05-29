@@ -104,38 +104,41 @@ export const TabComponent = (props: {
               onPress={() => {
                 // console.log("Button with Tab item : ", item);
                 // TODO : Should come from event management
-                setAppState({
-                  global: {
-                    tsdApp: {
-                      activeTab: {
-                        name: item.tabName,
-                        key: item.tabKey,
-                      },
-                      activeAction: {
-                        name: item.actions[0].actionName,
-                        key: item.actions[0].actionKey,
-                        endPoint: item.actions[0].endPoint,
-                        httpMethod: item.actions[0].httpMethod,
-                        showButton: item.actions[0].showButton,
-                      },
-                      createComponent: null,
-                      listComponent: {
-                        data: {
-                          response: [],
+                setAppState(
+                  {
+                    global: {
+                      tsdApp: {
+                        activeTab: {
+                          name: item.tabName,
+                          key: item.tabKey,
                         },
+                        activeAction: {
+                          name: item.actions[0].actionName,
+                          key: item.actions[0].actionKey,
+                          endPoint: item.actions[0].endPoint,
+                          httpMethod: item.actions[0].httpMethod,
+                          showButton: item.actions[0].showButton,
+                        },
+                        createComponent: null,
+                        listComponent: {
+                          data: {
+                            response: [],
+                          },
+                        },
+                        formData: null,
                       },
-                      formData: null,
                     },
                   },
-                });
-                if(appState.global.tsdApp.activeAction.name == "Create") {
-                  if(item.tabKey == 3012) {
+                  "isPartial"
+                );
+                if (appState.global.tsdApp.activeAction.name == "Create") {
+                  if (item.tabKey == 3012) {
                     setLayoutConfig(routes["jsonEditorScreen"], "copy");
                   } else {
                     setLayoutConfig(routes["defaultAppConfig"], "copy");
                   }
                 } else {
-                setLayoutConfig(routes["defaultAppConfig"], "copy");
+                  setLayoutConfig(routes["defaultAppConfig"], "copy");
                 }
                 // dispatch(updateTabSelection(item.tabName, item.tabKey));
               }}

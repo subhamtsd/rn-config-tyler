@@ -799,7 +799,6 @@ export const appConfig = {
 //   }
 // };
 
-
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
 
@@ -1085,19 +1084,22 @@ export const events = {
       ) {
         // console.log("from create orderline form");
 
-        setAppState({
-          global: {
-            tsdApp: {
-              createComponent: {
-                [activeTabName]: body,
-              },
-              formData: {
-                ...appState?.global?.tsdApp?.formData,
-                [args[1]]: body,
+        setAppState(
+          {
+            global: {
+              tsdApp: {
+                createComponent: {
+                  [activeTabName]: body,
+                },
+                formData: {
+                  ...appState?.global?.tsdApp?.formData,
+                  [args[1]]: body,
+                },
               },
             },
           },
-        });
+          "isPartial"
+        );
         setLayoutConfig(routes[`createOrderline`], "copy");
       } else {
         console.log("onCancel button");
@@ -1146,15 +1148,18 @@ export const events = {
       )
         .then((res) => res.json())
         .then((_data) => {
-          setAppState({
-            global: {
-              tsdApp: {
-                viewComponent: {
-                  [appState.global.tsdApp.activeTab.name]: _data,
+          setAppState(
+            {
+              global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.global.tsdApp.activeTab.name]: _data,
+                  },
                 },
               },
             },
-          });
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
@@ -1184,35 +1189,38 @@ export const events = {
         .then((res) => res.json())
         .then((_data) => {
           // console.log("_Data : :: ", _data);
-          setAppState({
-            global: {
-              tsdApp: {
-                editComponent: {
-                  action: {
-                    name:
-                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                        .actionName,
-                    key:
-                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                        .actionKey,
-                    endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                      /{[^}]*}/,
-                      ""
-                    ),
-                    uriParams:
-                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                        .uriParams,
-                    httpMethod:
-                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                        .httpMethod,
-                    showButton:
-                      _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                        .showButton,
+          setAppState(
+            {
+              global: {
+                tsdApp: {
+                  editComponent: {
+                    action: {
+                      name:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                          .actionName,
+                      key:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                          .actionKey,
+                      endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                        /{[^}]*}/,
+                        ""
+                      ),
+                      uriParams:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                          .uriParams,
+                      httpMethod:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                          .httpMethod,
+                      showButton:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+                          .showButton,
+                    },
                   },
                 },
               },
             },
-          });
+            "isPartial"
+          );
           // console.log("appState in Edit event : : : ", appState);
           setLayoutConfig(routes["edit"], "copy");
         });
@@ -1245,16 +1253,19 @@ export const events = {
 
   "orderLineDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
-      setAppState({
-        global: {
-          tsdApp: {
-            formData: {
-              ...appState?.global?.tsdApp?.formData,
-              viewData: args[1],
+      setAppState(
+        {
+          global: {
+            tsdApp: {
+              formData: {
+                ...appState?.global?.tsdApp?.formData,
+                viewData: args[1],
+              },
             },
           },
         },
-      });
+        "isPartial"
+      );
       setLayoutConfig(routes["editOrderLineDetail"], "copy");
 
       // console.log("From dtail list editbutton ::: ", appState);
@@ -1289,16 +1300,19 @@ export const events = {
   "billToAddressDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       console.log("abcdefg", args[1]);
-      setAppState({
-        global: {
-          tsdApp: {
-            formData: {
-              ...appState?.global?.tsdApp?.formData,
-              viewData: args[1],
+      setAppState(
+        {
+          global: {
+            tsdApp: {
+              formData: {
+                ...appState?.global?.tsdApp?.formData,
+                viewData: args[1],
+              },
             },
           },
         },
-      });
+        "isPartial"
+      );
       // console.log("config", appState);
       setLayoutConfig(routes["editBillToAddressDetail"], "copy");
     },
@@ -1330,16 +1344,19 @@ export const events = {
   "orderLineAddressDetailViewComponent-edit-btn": {
     // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
-      setAppState({
-        global: {
-          tsdApp: {
-            formData: {
-              ...appState?.global?.tsdApp?.formData,
-              viewData: args[1],
+      setAppState(
+        {
+          global: {
+            tsdApp: {
+              formData: {
+                ...appState?.global?.tsdApp?.formData,
+                viewData: args[1],
+              },
             },
           },
         },
-      });
+        "isPartial"
+      );
       setLayoutConfig(routes["editOrderLineAddressDetail"], "copy");
     },
   },
@@ -1425,15 +1442,18 @@ export const events = {
             .then((finalData) => {
               console.log("appState in Search List :::", appState);
 
-              setAppState({
-                global: {
-                  tsdApp: {
-                    viewComponent: {
-                      [appState.global.tsdApp.activeTab.name]: finalData,
+              setAppState(
+                {
+                  global: {
+                    tsdApp: {
+                      viewComponent: {
+                        [appState.global.tsdApp.activeTab.name]: finalData,
+                      },
                     },
                   },
                 },
-              });
+                "isPartial"
+              );
             })
             .then(() => {
               console.log("APPSTATE IN LIST VIEW : :::: ", appState);

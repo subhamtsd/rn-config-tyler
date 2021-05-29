@@ -385,16 +385,19 @@ export default function SearchListComponent({
                                       props.appState
                                     );
 
-                                    props.setAppState({
-                                      global: {
-                                        tsdApp: {
-                                          viewComponent: {
-                                            [props.appState.global.tsdApp
-                                              .activeTab.name]: finalData,
+                                    props.setAppState(
+                                      {
+                                        global: {
+                                          tsdApp: {
+                                            viewComponent: {
+                                              [props.appState.global.tsdApp
+                                                .activeTab.name]: finalData,
+                                            },
                                           },
                                         },
                                       },
-                                    });
+                                      "isPartial"
+                                    );
                                   })
                                   .then(() => {
                                     console.log(

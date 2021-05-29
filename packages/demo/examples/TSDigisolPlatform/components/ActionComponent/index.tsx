@@ -58,29 +58,32 @@ export const ActionComponent = (props: {
     });
     const resJSON = await res.json();
 
-    setAppState({
-      global: {
-        tsdApp: {
-          activeAction: {
-            name:
-              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                .actionName,
-            key:
-              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                .actionKey,
-            endPoint:
-              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                .endPoint,
-            httpMethod:
-              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                .httpMethod,
-            showButton:
-              resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                .showButton,
+    setAppState(
+      {
+        global: {
+          tsdApp: {
+            activeAction: {
+              name:
+                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .actionName,
+              key:
+                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .actionKey,
+              endPoint:
+                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .endPoint,
+              httpMethod:
+                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .httpMethod,
+              showButton:
+                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                  .showButton,
+            },
           },
         },
       },
-    });
+      "isPartial"
+    );
 
     console.log(
       "ACTION COMPONENTS APPSTATE ::::: ---> ",

@@ -121,41 +121,44 @@ export const HeaderBar = (props: {
               testID={`${label}-btn-one`}
               // TODO: Remove this hardcoding
               onPress={() => {
-                setAppState({
-                  global: {
-                    tsdApp: {
-                      activeBuisnessFunction: {
-                        name: "Foundation",
-                        key: "1000",
-                      },
-                      activeModule: {
-                        name: "Catalog",
-                        key: "2001",
-                      },
-                      activeTab: {
-                        name: "Catalog",
-                        key: "3000",
-                      },
-                      activeAction: {
-                        name: "Search",
-                        key: "4003",
-                        endPoint: "v1/catalog/list",
-                        httpMethod: "POST",
-                        showButton: true,
-                      },
-                      createComponent: {
-                        layout: {},
-                      },
-                      searchComponent: {
-                        Organisation: {},
-                      },
-                      formToggle: {
-                        formSelected: routes["search"],
-                        messages: "Show Form",
+                setAppState(
+                  {
+                    global: {
+                      tsdApp: {
+                        activeBuisnessFunction: {
+                          name: "Foundation",
+                          key: "1000",
+                        },
+                        activeModule: {
+                          name: "Catalog",
+                          key: "2001",
+                        },
+                        activeTab: {
+                          name: "Catalog",
+                          key: "3000",
+                        },
+                        activeAction: {
+                          name: "Search",
+                          key: "4003",
+                          endPoint: "v1/catalog/list",
+                          httpMethod: "POST",
+                          showButton: true,
+                        },
+                        createComponent: {
+                          layout: {},
+                        },
+                        searchComponent: {
+                          Organisation: {},
+                        },
+                        formToggle: {
+                          formSelected: routes["search"],
+                          messages: "Show Form",
+                        },
                       },
                     },
                   },
-                });
+                  "isPartial"
+                );
                 setLayoutConfig(routes["defaultAppConfig"], "copy");
               }}
               {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
