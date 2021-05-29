@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Text, TextInput, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { TodoApp2 } from "./TodoApp2";
 
 export const TodoApp1 = (props: {
   appState: any;
@@ -11,6 +13,9 @@ export const TodoApp1 = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  newAppState:any
+  // task:any;
+  // handleAddTask:any
 }) => {
   const {
     appState,
@@ -21,26 +26,66 @@ export const TodoApp1 = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    newAppState
   } = props;
 
-  const [value, onChangeText] = React.useState("Add Task");
-  const [task, SetAddTask] = React.useState([]);
+  const [task, setTask] = React.useState();
+  const [taskItems, setTaskItems] = React.useState(["add"]);
 
-  console.log(`label is ${label}`);
-  console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
+  const handleAddTask = () => {
+    console.log(task);
+    if (!task) {
+      return alert("Please add your task ...");
+    } else {
+      setAppState({
+        $global: {
+          setTaskItems: (appState?.$global?.setTaskItems || []).concat(task),
+        },
+        // "a": ["d"], //1
+        //  "c": "d", //2
+      //   "a": {
+      //     "e" :  "f"
+      // } //3
+    //   "a": {
+    //     "e" :  "h"
+    // } //4
+      },
+      // "copy"
+      // "isPartial"
+      // "mo"
+      );
+    }
+  };
+  console.log(appState);
 
-  console.log("appState : : : : ", appState);
-  console.log("setAppState : : : ", setAppState);
 
-  const setTodoTask = (_text: string) => {
-    onChangeText(_text);
-    const newState = {
-      ui: {},
-      children: {},
-      props: {},
-      todoTask: [value],
-    };
-    setAppState(newState);
+//   { "$global" : {
+
+//     "a": "b" }
+ 
+//  }
+//  { c: "d"}
+//  Saurabh S8:13 PM
+//  {
+ 
+//       c: "d",
+//       "$global" : {
+ 
+//          "a": "b"
+//       }
+ 
+//  }
+//  {
+ 
+//       c: "d",
+     
+//  }
+
+
+  const deleteTask = (index) => {
+    let itemsArray = appState?.$global?.setTaskItems;
+    itemsArray.splice(index, 1);
+    setTaskItems(itemsArray);
   };
 
   return (
@@ -56,23 +101,39 @@ export const TodoApp1 = (props: {
       >
         <TextInput
           style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          // FIXME :  I am using this setTodoTask here textbox
-          // is not working correctly
-          // SAND
-          onChangeText={(text) => onChangeText(text)}
-          value={value}
+          placeholder="Add a task"
+          onChangeText={(text) => setTask(text)}
+          value={task}
+          // onBlur={() => handleAddTask()}
         />
+      </View>
+
+      <View
+        style={{
+          alignItems: "center",
+        }}
+      >
+        <Button  title="Add" onPress={() => handleAddTask()}></Button>
       </View>
       <View
         style={{
-          marginLeft: 200,
-          marginRight: 200,
+          marginLeft: 100,
+          marginRight: 100,
         }}
       >
+        {(appState?.$global?.setTaskItems || []).map((item, index) => {
+          return (
+            <TouchableOpacity key={index} onPress={() => deleteTask(index)}>
+              {/* <TodoApp2 text={item} id={index} /> */}
+              <Text key={index}>{item}</Text>
+            </TouchableOpacity>
+          );
+        })}
         <Button
           testID={`${label}-btn-one`}
+          // handleAddTask={handleAddTask}
           title="Add Task"
-          {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
+          {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState,appState)}
         ></Button>
       </View>
       {children || (appState && appState[label] && appState[label]?.children)}

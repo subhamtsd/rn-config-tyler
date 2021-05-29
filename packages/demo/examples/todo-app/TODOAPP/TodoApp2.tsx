@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, FlatList, Text, View } from "react-native";
+import { Text, View, FlatList } from "react-native";
 
 export const TodoApp2 = (props: {
   appState: any;
@@ -11,6 +11,8 @@ export const TodoApp2 = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
+  text: any;
+  id: any;
 }) => {
   const {
     appState,
@@ -21,43 +23,30 @@ export const TodoApp2 = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
+    text,
+    id,
   } = props;
-
-  console.log(`label is ${label}`);
-  console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
-  console.log("appState from TODOApp2 : : : : ", appState);
 
   return (
     <View>
-      <Text style={{}}>TodoApp2 *** {label}</Text>
-      <View>
-        <FlatList
-          data={[
-            { key: "Kitchen Work" },
-            { key: "Gardening" },
-            { key: "Study Maths" },
-            { key: "Dance Class" },
-            { key: "Painting Class" },
-          ]}
-          renderItem={({ item }: any) => (
-            <Text
-              style={{
-                marginLeft: 20,
-                padding: 5,
-                fontSize: 15,
-                height: 32,
-              }}
-            >
-              {item.key}
-            </Text>
-          )}
-        />
-      </View>
-      {/* <Button
-        testID={`${label}-btn-one`}
-        title="ACT"
-        {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
-      ></Button> */}
+      {/* <Text style={{}}>TodoApp2 *** {label}</Text> */}
+      {/* <View 
+        style={{
+          backgroundColor: 'skyblue',
+          padding: 10,
+          margin:2,
+          borderRadius: 4,
+          borderColor:"black",
+          flexDirection: 'row',
+          alignItems: 'center',
+          width:'30%'
+        }}
+      >
+        <Text >{id}) {text}</Text>
+      </View> */}
+      {(appState?.$global?.setTaskItems || []).map((item, index) => {
+        return <Text key={index}>{item}</Text>;
+      })}
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

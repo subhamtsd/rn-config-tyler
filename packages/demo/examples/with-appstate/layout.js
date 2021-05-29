@@ -122,7 +122,9 @@ export const events = {
           ui: "RandomPic",
           props: { label: "bodyContent" },
         },
-      });
+      },
+      "isPartial"
+      );
     },
   },
 };

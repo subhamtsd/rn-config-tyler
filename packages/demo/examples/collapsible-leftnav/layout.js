@@ -97,6 +97,8 @@ export const appConfig = {
         layout: {
           colConfig: {
             colSize: 2,
+            colStyle: { borderColor: "cyan", borderWidth: 4 },
+
           },
           "11leftNavHeaderRow": {
             leftNavHeader: {
@@ -104,8 +106,9 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavHeader",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "20vh" },
             },
+            
           },
           "11leftNavBodyRow": {
             leftNavBody: {
@@ -113,25 +116,26 @@ export const appConfig = {
               colSize: 1,
               idx: "Home",
               label: "leftNavBody",
-              colStyle: { borderWidth: 1, height: "90vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "80vh" },
             },
           },
+          
+          
         },
       },
       "12bodyCol": {
         layout: {
           colConfig: {
-            colSize: 11,
+            colSize: 10,
             colStyle: { borderColor: "cyan", borderWidth: 4 },
           },
           "121bodyHeaderRow": {
-
             bodyHeader: {
               // col no
               colSize: 1,
               idx: "About",
               label: "bodyHeader",
-              colStyle: { borderColor: "blue", borderWidth: 0, height: "10vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "60vh" },
             },
           },
           "122bodyContentRow": {
@@ -140,18 +144,17 @@ export const appConfig = {
               idx: "Home",
               colSize: 1,
               label: "bodyContent",
-              colStyle: { borderColor: "blue", borderWidth: 0, height: "80vh" },
+              colStyle: { borderColor: "blue", borderWidth: 1, height: "40vh" },
             },
           },
-          "123bodyFooterRow": {
-
-            bodyFooter: {
-              idx: "Home",
-              colSize: 1,
-              label: "bodyFooter",
-              colStyle: { borderColor: "blue", borderWidth: 0, height: "10vh" },
-            },
-          },
+          // "123bodyFooterRow": {
+          //   bodyFooter: {
+          //     idx: "Home",
+          //     // colSize: 1,
+          //     label: "bodyFooter",
+          //     colStyle: { borderColor: "blue", borderWidth: 0, height: "10vh" },
+          //   },
+          // },
         },
       },
     },

@@ -28,7 +28,7 @@ export const DefaultScreen = (props: {
 
   return (
     <View>
-      <Text style={{}}>DefaultScreen *** {label}</Text>
+      {/* <Text style={{}}>DefaultScreen *** {label}</Text> */}
       {/* <Button
         testID={`${label}-btn-one`}
         title="ACT"

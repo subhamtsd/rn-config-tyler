@@ -136,7 +136,7 @@ export const JsonForm = ({
           uiSchema={uiSchema}
           submitButton={_submitButton}
           cancelButton={false}
-          onChange={onChange}
+          onChange={_onChange}
           buttonPosition="center"
           {...getEvents(
             `${label}-form`,
@@ -150,3 +150,5 @@ export const JsonForm = ({
     </View>
   );
 };
+
+
