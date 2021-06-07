@@ -45,7 +45,7 @@ import { EditOrderLineAddressDetailComponent } from "../TSDigisolPlatform/compon
 
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../components/AddEditEntity";
-import { ToggleNavigation } from "../..//components/ToggleNavigation";
+import { ToggleNavigation } from "../../components/ToggleNavigation";
 
 export const componentsSet = {
   Comp5,
