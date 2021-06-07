@@ -29,7 +29,6 @@ export const DetailListComponent = (props: {
   } = props;
 
   console.log("Layout config in Detail COmponent ::: ", props);
-  
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
@@ -53,10 +52,10 @@ export const DetailListComponent = (props: {
 
   useEffect(() => {
     console.log("appState in Detail component : : :: ", appState);
-    appState.global
+    appState?.$global?.tsdApp
       ? setdata(
-          appState.global.tsdApp.viewComponent[
-            appState.global.tsdApp.activeTab.name
+          appState.$global.tsdApp.viewComponent[
+            appState.$global.tsdApp.activeTab.name
           ]
         )
       : setdata({});

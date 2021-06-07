@@ -3,16 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
-import { getInitEvents } from "../../configs/events/eventConfig";
 import { routes } from "../../configs/routes/routesConfig";
 // import { useSelector, useDispatch } from "react-redux";
 
@@ -123,7 +115,7 @@ export const HeaderBar = (props: {
               onPress={() => {
                 setAppState(
                   {
-                    global: {
+                    $global: {
                       tsdApp: {
                         activeBuisnessFunction: {
                           name: "Foundation",

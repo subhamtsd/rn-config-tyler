@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Button,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { routes } from "../../configs/routes/routesConfig";
-import { appConfig } from "../../configs/layouts/dashboardLayout";
 
 export const ActionComponent = (props: {
   appState;
@@ -46,12 +39,12 @@ export const ActionComponent = (props: {
         userId: "TsdAdmin",
         roleKey: 1,
         moduleName:
-          appState.global != undefined
-            ? appState.global.tsdApp.activeModule.name
+          appState?.$global?.tsdApp != undefined
+            ? appState.$global.tsdApp.activeModule.name
             : "Service Orders",
         tabName:
-          appState.global != undefined
-            ? appState.global.tsdApp.activeTab.name
+          appState?.$global?.tsdApp != undefined
+            ? appState.$global.tsdApp.activeTab.name
             : "CreateOrders",
         actionName: action,
       }),
@@ -60,15 +53,13 @@ export const ActionComponent = (props: {
 
     setAppState(
       {
-        global: {
+        $global: {
           tsdApp: {
             activeAction: {
-              name:
-                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                  .actionName,
-              key:
-                resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
-                  .actionKey,
+              name: resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .actionName,
+              key: resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
+                .actionKey,
               endPoint:
                 resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
                   .endPoint,
@@ -87,14 +78,14 @@ export const ActionComponent = (props: {
 
     console.log(
       "ACTION COMPONENTS APPSTATE ::::: ---> ",
-      appState.global.tsdApp,
+      appState.$global.tsdApp,
       "------",
       action
     );
 
     if (action === "Create") {
       // TODO : Remove hardcoding for Screen in UI module jsonEditorScreen from route
-      if (appState.global.tsdApp.activeModule.key === 2008) {
+      if (appState.$global.tsdApp.activeModule.key === 2008) {
         setLayoutConfig(routes["jsonEditorScreen"], "copy");
       } else {
         setLayoutConfig(routes["defaultAppConfig"], "copy");
@@ -126,9 +117,9 @@ export const ActionComponent = (props: {
               style={{
                 width: "100%",
                 backgroundColor:
-                  appState.global != undefined
-                    ? appState.global.tsdApp.activeAction != undefined
-                      ? appState.global.tsdApp.activeAction.name === "Create"
+                  appState?.$global?.tsdApp != undefined
+                    ? appState.$global.tsdApp.activeAction != undefined
+                      ? appState.$global.tsdApp.activeAction.name === "Create"
                         ? "#b2c560"
                         : "#5cabc5"
                       : "#5cabc5"
@@ -177,9 +168,9 @@ export const ActionComponent = (props: {
               }}
               style={{
                 backgroundColor:
-                  appState.global != undefined
-                    ? appState.global.tsdApp.activeAction != undefined
-                      ? appState.global.tsdApp.activeAction.name === "Search"
+                  appState?.$global?.tsdApp != undefined
+                    ? appState.$global.tsdApp.activeAction != undefined
+                      ? appState.$global.tsdApp.activeAction.name === "Search"
                         ? "#b2c560"
                         : "#5cabc5"
                       : "#5cabc5"

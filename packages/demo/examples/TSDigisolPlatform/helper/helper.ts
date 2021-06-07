@@ -74,25 +74,31 @@ export const prepareSchema = async (schemaList: any) => {
           await transformProperties(field_obj);
         } else {
           // TODO :: RM HARDCODING BELOW, REMOVE IT
-          const dropdownEnum = await getEnum(
-            // '/transaction-web/v1/device/list/' || field_obj['dropdownLoadApiURL'],
-            `${SERVER_ENDPOINT}${field_obj["dropdownLoadApiURL"]}`,
-            field_obj["dropdownLoadApiMethod"]
-          );
-          const Enum = [],
-            enumNames = [];
-          for (const select of dropdownEnum.response) {
-            Enum.push(select[field]);
-            enumNames.push(select[field]);
+          if (
+            field_obj?.dependency == undefined ||
+            field_obj?.dependency?.length == 0
+          ) {
+            const dropdownEnum = await getEnum(
+              // '/transaction-web/v1/device/list/' || field_obj['dropdownLoadApiURL'],
+              `${SERVER_ENDPOINT}${field_obj["dropdownLoadApiURL"]}`,
+              field_obj["dropdownLoadApiMethod"]
+            );
+
+            const Enum = [],
+              enumNames = [];
+            for (const select of dropdownEnum.response) {
+              Enum.push(select[field]);
+              enumNames.push(select[field]);
+            }
+            schema.properties[field]["enum"] = Enum;
+            schema.properties[field]["enumNames"] = enumNames;
+            console.log("NNNN");
+            console.log(
+              schema.properties[field]["enum"],
+              "----",
+              schema.properties[field]["enumNames"]
+            );
           }
-          schema.properties[field]["enum"] = Enum;
-          schema.properties[field]["enumNames"] = enumNames;
-          console.log("NNNN");
-          console.log(
-            schema.properties[field]["enum"],
-            "----",
-            schema.properties[field]["enumNames"]
-          );
         }
       }
     }

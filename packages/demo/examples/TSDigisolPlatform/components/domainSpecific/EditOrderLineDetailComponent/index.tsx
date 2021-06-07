@@ -2,11 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import { ScrollView } from "react-native";
 // import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../../helper/useSafeState";
-import { routes } from "../../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../../styles/common";
 import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
@@ -37,7 +36,9 @@ export const EditOrderLineDetailComponent = (props: {
   } = props;
 
   const _formData = parseFormData(
-    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
+    appState.$global.tsdApp.viewComponent[
+      appState.$global.tsdApp.activeTab.name
+    ]
   );
 
   const [_schema, setSchema] = useSafeSetState({
@@ -183,8 +184,6 @@ export const EditOrderLineDetailComponent = (props: {
           return schemaJson;
         })
         .then((formLayout) => {
-          // console.log("Schema edit returned : : : ", formLayout);
-          // console.log("edit component appstate:", appState.global);
           const firstParent = Object.getOwnPropertyNames(formLayout)[0];
 
           // console.log("objectName : : : : ", objectNam);
@@ -209,7 +208,7 @@ export const EditOrderLineDetailComponent = (props: {
         schema={formLayout}
         // schema={_schema}
         uiSchema={formLayout.uischema}
-        _formData={appState?.global?.tsdApp?.formData?.viewData}
+        _formData={appState?.$global?.tsdApp?.formData?.viewData}
         label={label}
         setLayoutConfig={setLayoutConfig}
         // _onBeforeSubmit={(e) => {

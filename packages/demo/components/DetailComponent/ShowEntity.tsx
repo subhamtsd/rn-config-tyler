@@ -147,22 +147,22 @@ export const ShowEntity = (props: {
   const [isOrderScreen, setIsOrderScreen] = useState(false);
 
   useEffect(() => {
-    if (appState.global.tsdApp.activeModule.key === 23751) {
+    if (appState.$global.tsdApp.activeModule.key === 23751) {
       // TODO : REMOVE HARDCODING for service order
       setIsOrderScreen(true);
-    } else if (appState.global.tsdApp.activeModule.key === 156051) {
+    } else if (appState.$global.tsdApp.activeModule.key === 156051) {
       // TODO : REMOVE HARDCODING for sales order
       setIsOrderScreen(true);
     } else {
       setIsOrderScreen(false);
     }
-  }, [appState.global.tsdApp.activeModule.key]);
+  }, [appState.$global.tsdApp.activeModule.key]);
 
   const renderItem = ({ item }: any) => {
     const backgroundColor = item.id === selectedId ? "#e0e0e0" : "#fff";
     const QRbackgroundColor =
-      appState.global.tsdApp.activeModule.name === "ServiceOrders" ||
-      appState.global.tsdApp.activeModule.name === "SalesOrder"
+      appState.$global.tsdApp.activeModule.name === "ServiceOrders" ||
+      appState.$global.tsdApp.activeModule.name === "SalesOrder"
         ? 1
         : 0.3;
 
@@ -289,9 +289,9 @@ export const ShowEntity = (props: {
                     //   appState
                     // )}
                     disabled={
-                      appState.global.tsdApp.activeModule.name ===
+                      appState.$global.tsdApp.activeModule.name ===
                         "ServiceOrders" ||
-                      appState.global.tsdApp.activeModule.name === "SalesOrder"
+                      appState.$global.tsdApp.activeModule.name === "SalesOrder"
                         ? false
                         : true
                     }
@@ -386,13 +386,13 @@ export const ShowEntity = (props: {
                                         userId: "TsdAdmin",
                                         roleKey: 1,
                                         moduleName:
-                                          appState.global != undefined
-                                            ? appState.global.tsdApp
+                                          appState?.$global?.tsdApp != undefined
+                                            ? appState.$global.tsdApp
                                                 .activeModule.name
                                             : "Service Orders",
                                         tabName:
-                                          appState.global != undefined
-                                            ? appState.global.tsdApp.activeTab
+                                          appState?.$global?.tsdApp != undefined
+                                            ? appState.$global.tsdApp.activeTab
                                                 .name
                                             : "CreateOrders",
                                         actionName: "Delete",
@@ -406,44 +406,48 @@ export const ShowEntity = (props: {
                                         _data
                                       );
 
-                                      setAppState({
-                                        global: {
-                                          tsdApp: {
-                                            deleteComponent: {
-                                              action: {
-                                                name:
-                                                  _data.businessFunctions[0]
+                                      setAppState(
+                                        {
+                                          $global: {
+                                            tsdApp: {
+                                              deleteComponent: {
+                                                action: {
+                                                  name: _data
+                                                    .businessFunctions[0]
                                                     .modules[0].tabs[0]
                                                     .actions[0].actionName,
-                                                key:
-                                                  _data.businessFunctions[0]
+                                                  key: _data
+                                                    .businessFunctions[0]
                                                     .modules[0].tabs[0]
                                                     .actions[0].actionKey,
-                                                endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                                                  /{[^}]*}/,
-                                                  ""
-                                                ),
-                                                uriParams:
-                                                  _data.businessFunctions[0]
-                                                    .modules[0].tabs[0]
-                                                    .actions[0].uriParams,
-                                                httpMethod:
-                                                  _data.businessFunctions[0]
-                                                    .modules[0].tabs[0]
-                                                    .actions[0].httpMethod,
-                                                showButton:
-                                                  _data.businessFunctions[0]
-                                                    .modules[0].tabs[0]
-                                                    .actions[0].showButton,
+                                                  endPoint:
+                                                    _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                                                      /{[^}]*}/,
+                                                      ""
+                                                    ),
+                                                  uriParams:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].uriParams,
+                                                  httpMethod:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].httpMethod,
+                                                  showButton:
+                                                    _data.businessFunctions[0]
+                                                      .modules[0].tabs[0]
+                                                      .actions[0].showButton,
+                                                },
                                               },
                                             },
                                           },
                                         },
-                                      });
+                                        "isPartial"
+                                      );
                                       // console.log(
                                       //   "DELETE API PART :::: ::",
-                                      //   appState.global.tsdApp.viewComponent[
-                                      //     appState.global.tsdApp.activeTab
+                                      //   appState.$global.tsdApp.viewComponent[
+                                      //     appState.$global.tsdApp.activeTab
                                       //       .name
                                       //   ][
                                       //     _data.businessFunctions[0]
@@ -458,8 +462,8 @@ export const ShowEntity = (props: {
                                           /{[^}]*}/,
                                           ""
                                         )}${
-                                          appState.global.tsdApp.viewComponent[
-                                            appState.global.tsdApp.activeTab
+                                          appState.$global.tsdApp.viewComponent[
+                                            appState.$global.tsdApp.activeTab
                                               .name
                                           ][
                                             _data.businessFunctions[0]
@@ -484,7 +488,7 @@ export const ShowEntity = (props: {
                                     })
                                     .then((result) => {
                                       // const keyName =
-                                      //   appState.global.tsdApp.deleteComponent
+                                      //   appState.$global.tsdApp.deleteComponent
                                       //     .action.uriParams;
                                       console.log(
                                         "result : : : : in showEntity : :: : ",
@@ -512,15 +516,18 @@ export const ShowEntity = (props: {
                                 onPress={async () => {
                                   // remove the delete action from delete component in action
                                   setModalDeleteVisible(!modalDeleteVisible);
-                                  await setAppState({
-                                    global: {
-                                      tsdApp: {
-                                        deleteComponent: {
-                                          action: {},
+                                  await setAppState(
+                                    {
+                                      $global: {
+                                        tsdApp: {
+                                          deleteComponent: {
+                                            action: {},
+                                          },
                                         },
                                       },
                                     },
-                                  });
+                                    "isPartial"
+                                  );
                                 }}
                               >
                                 <Text style={detailViewStyles.textStyle2}>
@@ -727,6 +734,6 @@ const detailViewStyles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
     marginHorizontal: 30,
-    marginVertical: 35
+    marginVertical: 35,
   },
 });

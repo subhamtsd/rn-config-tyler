@@ -43,8 +43,8 @@ export const BillToAddressDetailViewComponent = (props: {
       setLoading(true);
       // TODO : Remove hardcoding and fix error for addressKey in Detail component
       const addressKey =
-        appState.global.tsdApp.viewComponent[
-          appState.global.tsdApp.activeTab.name
+        appState.$global.tsdApp.viewComponent[
+          appState.$global.tsdApp.activeTab.name
         ]?.billingAddressKey || 112278902;
       const res = await fetch(`${SERVER_ENDPOINT}/v1/address/${addressKey}`, {
         method: "GET",

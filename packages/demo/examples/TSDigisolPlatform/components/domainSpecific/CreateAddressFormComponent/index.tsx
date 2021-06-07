@@ -4,21 +4,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { isPropertyAssignment } from "typescript";
-import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
 import { RenderTable } from "./RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
 
 export const CreateAddressFormComponent = (props: {
   appState: any;
@@ -30,7 +21,7 @@ export const CreateAddressFormComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  _childDependeny: any;
+  _childDependency: any;
   UItitle: any;
 }) => {
   const {
@@ -43,7 +34,7 @@ export const CreateAddressFormComponent = (props: {
     setLayoutConfig,
     getEvents,
     events,
-    _childDependeny,
+    _childDependency,
     UItitle,
   } = props;
 
@@ -100,33 +91,35 @@ export const CreateAddressFormComponent = (props: {
   useEffect(() => {
     const fetchFormLayout = async () => {
       setLoading(true);
-      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          moduleKey: 2007,
-          roleKey: 1,
-          tabKey: 3006,
-          userId: "TsdAdmin",
-          actionName: "Create",
-        }),
-      });
+      const res = await fetch(
+        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            moduleKey: _childDependency[`${label}Dependency`].moduleKey,
+            tabKey: _childDependency[`${label}Dependency`].tabKey,
+            actionName: _childDependency[`${label}Dependency`].actionName,
+            userId: "TsdAdmin",
+          }),
+        }
+      );
       const resJSON = await res.json();
+      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
+      const secondParent = Object.getOwnPropertyNames(
+        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
+      );
+      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
 
-      // console.log("First Parent ::: " + firstParent);
-
-      // console.log("Props in ---> ", props.dataToRender[firstParent]);
-      // console.log("Second Parent: " + secondParent);
-      prepareSchema(resJSON).then((schemaJson) => {
-        const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
-        // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
-        setformLayout(schemaJson[firstParent]);
-        // console.log("response Json : : : : : formLayout ---> ", resJSON);
-        setLoading(false);
-      });
+      // console.log(
+      //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
+      //   schemaJson
+      // );
+      setformLayout(resJSON);
+      setLoading(false);
     };
     fetchFormLayout();
   }, []);

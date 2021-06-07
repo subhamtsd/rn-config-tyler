@@ -52,7 +52,9 @@ export const ListRender = (props: {
   const [responseStatus, setResponseStatus] = useState(200);
   const [loading, setLoading] = useState(true);
 
-  if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
+  if (
+    props.appState.$global.tsdApp.listComponent?.data?.page?.pageSize === ""
+  ) {
     setIsPaginationAvailable(false);
   }
 
@@ -95,8 +97,8 @@ export const ListRender = (props: {
   useEffect(() => {
     fetchApi(`/v1/listOrderLines/list`, `POST`, {
       orderHeaderKey:
-        props.appState.global.tsdApp.viewComponent[
-          props.appState.global.tsdApp.activeTab.name
+        props.appState.$global.tsdApp.viewComponent[
+          props.appState.$global.tsdApp.activeTab.name
         ][`orderKey`],
     });
   }, []);

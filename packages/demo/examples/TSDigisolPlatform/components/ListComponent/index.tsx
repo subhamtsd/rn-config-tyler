@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, ScrollView } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
-import { events } from "../../configs/events/eventConfig";
+import { events } from "../../layout";
 import { componentGridStyle } from "../../styles/common";
 import { ListRender } from "./ListRender";
 
@@ -52,13 +52,13 @@ export const ListComponent = (props: {
           },
           body: JSON.stringify({
             moduleKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeModule.key
+              appState?.$global?.tsdApp != undefined
+                ? appState.$global.tsdApp.activeModule.key
                 : 23751,
             roleKey: 1,
             tabKey:
-              appState.global != undefined
-                ? appState.global.tsdApp.activeTab.key
+              appState?.$global?.tsdApp != undefined
+                ? appState.$global.tsdApp.activeTab.key
                 : 34601,
             userId: "TsdAdmin",
             actionName: "List",
@@ -69,8 +69,8 @@ export const ListComponent = (props: {
       const resJSON = await res.json();
       // TODO : HARDCODING remove
       const property =
-        appState.global != undefined
-          ? `List` + `${appState.global.tsdApp.activeTab.name}` + `Schema`
+        appState?.$global?.tsdApp != undefined
+          ? `List` + `${appState.$global.tsdApp.activeTab.name}` + `Schema`
           : `ListCreateOrdersSchema`;
 
       console.log("Property : : : ", property);
@@ -93,7 +93,6 @@ export const ListComponent = (props: {
   //   : console.log("APP STATE WITH FORMLAYOUT UNSUCCESSFULL");
 
   // console.log("List Form layout : : : ", listFormLayout);
-
 
   return (
     <View style={[componentGridStyle]}>

@@ -3,26 +3,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  StyleSheet,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import { Col, Grid, Row } from "react-native-easy-grid";
-import { isPropertyAssignment } from "typescript";
-import { events } from "../../../configs/events/eventConfig";
-import { prepareSchema } from "../../../helper/helper";
-import { componentGridStyle } from "../../../styles/common";
+import React from "react";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
 import { routes } from "../../../configs/routes/routesConfig";
-import { cloneDeep } from "lodash";
 
 export const CreateOrderFooterComponent = (props: {
   appState: any;
@@ -52,22 +36,24 @@ export const CreateOrderFooterComponent = (props: {
   console.log(`label is ${label}`);
 
   const submitHandler = () => {
-    const {
-      bodyHeader,
-      createOrderlineListComponent,
-    } = appState?.global?.tsdApp?.formData;
+    const createOrderlineListComponent =
+      appState?.$global?.tsdApp?.createComponent?.createOrderlineListComponent;
+    const bodyHeader =
+      appState?.$global?.tsdApp?.createComponent?.[
+        appState.$global.tsdApp.activeTab.name
+      ];
 
     const orderLine = [];
     const address = [];
-    createOrderlineListComponent.forEach((obj) => {
+    createOrderlineListComponent?.forEach((obj) => {
       const newObj = { ...obj.item };
       newObj["address"] = {
-        ...appState?.global?.tsdApp?.formData?.[obj.key],
+        ...appState?.$global?.tsdApp?.createComponent?.[obj.key],
       };
       orderLine.push(newObj);
     });
 
-    appState?.global?.tsdApp?.formData?.createAddressFormComponent?.forEach(
+    appState?.$global?.tsdApp?.createComponent?.createAddressFormComponent?.forEach(
       (obj) => {
         const newObj = { ...obj.item };
         address.push(newObj);
@@ -85,9 +71,9 @@ export const CreateOrderFooterComponent = (props: {
     };
     console.log("final submit body   ", body);
     const res1 = fetch(
-      `${SERVER_ENDPOINT}${appState.global.tsdApp.activeAction.endPoint}/`,
+      `${SERVER_ENDPOINT}${appState.$global.tsdApp.activeAction.endPoint}/`,
       {
-        method: appState.global.tsdApp.activeAction.httpMethod,
+        method: appState.$global.tsdApp.activeAction.httpMethod,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -98,19 +84,20 @@ export const CreateOrderFooterComponent = (props: {
       .then((res) => res.json())
       .then((_data) => {
         console.log("submit success ", _data);
-        const newAppState = cloneDeep(appState);
-        delete newAppState.global.tsdApp.formData;
-        delete newAppState.global.tsdApp.createComponent;
-        newAppState.global.tsdApp.viewComponent = {
-          [appState.global.tsdApp.activeTab.name]: _data,
+        const newAppState = { ...appState };
+        delete newAppState.$global.tsdApp.formData;
+        delete newAppState.$global.tsdApp.createComponent;
+        newAppState.$global.tsdApp.viewComponent = {
+          [appState.$global.tsdApp.activeTab.name]: _data,
         };
         console.log("newAppState ::: ", newAppState);
         setAppState(newAppState, false);
         setLayoutConfig(routes.orderDetail, "copy");
       })
       .catch((err) => {
-        const newAppState = cloneDeep(appState);
-        delete newAppState.global.tsdApp.formData;
+        const newAppState = { ...appState };
+        delete newAppState.$global.tsdApp.formData;
+        delete newAppState.$global.tsdApp.createComponent;
         setAppState(newAppState, false);
       });
   };

@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Button, Text, View, ScrollView, TouchableOpacity } from "react-native";
-import { appConfig } from "../../configs/layouts/dashboardLayout";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { routes } from "../../configs/routes/routesConfig";
 // import { useSelector, useDispatch } from "react-redux";
 // import { updateTabSelection } from "../../../../src/state-management/actions";
@@ -46,9 +45,9 @@ export const TabComponent = (props: {
           roleKey: 1,
           // TODO : Conditional for default state undefined
           moduleName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule != undefined
+                ? appState.$global.tsdApp.activeModule.name
                 : "ServiceOrders"
               : "ServiceOrders",
           // tabName:
@@ -58,9 +57,9 @@ export const TabComponent = (props: {
           //       : "CreateOrders"
           //     : "CreateOrders",
           actionName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeAction != undefined
-                ? appState.global.tsdApp.activeAction.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeAction != undefined
+                ? appState.$global.tsdApp.activeAction.name
                 : "Search"
               : "Search",
         }),
@@ -106,7 +105,7 @@ export const TabComponent = (props: {
                 // TODO : Should come from event management
                 setAppState(
                   {
-                    global: {
+                    $global: {
                       tsdApp: {
                         activeTab: {
                           name: item.tabName,
@@ -131,7 +130,7 @@ export const TabComponent = (props: {
                   },
                   "isPartial"
                 );
-                if (appState.global.tsdApp.activeAction.name == "Create") {
+                if (appState.$global.tsdApp.activeAction.name == "Create") {
                   if (item.tabKey == 3012) {
                     setLayoutConfig(routes["jsonEditorScreen"], "copy");
                   } else {
@@ -145,8 +144,8 @@ export const TabComponent = (props: {
               // TODO : Title of button should come from API
               style={{
                 backgroundColor:
-                  appState.global != undefined
-                    ? appState.global.tsdApp.activeTab.name === item.tabName
+                  appState?.$global?.tsdApp != undefined
+                    ? appState.$global.tsdApp.activeTab.name === item.tabName
                       ? "#b2c560"
                       : ""
                     : item.tabName === item.tabName
@@ -178,4 +177,162 @@ export const TabComponent = (props: {
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );
+};
+
+const abc = {
+  CreateorderLines: {
+    type: "array",
+    required: [
+      "bookDate",
+      "addressInfoKey",
+      "orderedQty",
+      "unitPrice",
+      "slotCode",
+      "skuCode",
+      "organizationCode",
+    ],
+    properties: {
+      bookDate: {
+        title: "Booking Date",
+        type: "string",
+        format: "date",
+        uid: "bookDate",
+        pattern: "[a-zA-Z0-9]",
+        apiUri: "v1/calender/list",
+        apiMethod: "POST",
+        dependency: ["skuCode"],
+        nextDepended: [
+          {
+            fieldName: "slotCode",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+        ],
+      },
+      addressInfoKey: {
+        title: "Address Key",
+        type: "string",
+        format: "",
+        uid: "addressInfoKey",
+        pattern: "[0-9]",
+        dependency: [],
+        nextDepended: [],
+      },
+      orderedQty: {
+        title: "orderedQty",
+        type: "string",
+        format: "",
+        uid: "orderedQty",
+        pattern: "[0-9]",
+        dependency: [],
+        nextDepended: [],
+      },
+      unitPrice: {
+        title: "Unit Price",
+        type: "string",
+        format: "readOnly",
+        uid: "unitPrice",
+        pattern: "^[0-9]+(.[0-9]{1,2})?$",
+        apiUri: "v1/price/466474",
+        apiMethod: "GET",
+        dependency: ["skuCode"],
+        nextDepended: [],
+      },
+      slotCode: {
+        title: "Slot Code",
+        type: "string",
+        format: "",
+        uid: "slotCode",
+        dropdownLoadApiURL: "v1/slotcode/list",
+        dropdownLoadApiMethod: "POST",
+        pattern: "[a-zA-Z0-9]",
+        dependency: ["skuCode", "bookingDate"],
+        nextDepended: [
+          {
+            fieldName: "organizationCode",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+        ],
+      },
+      skuCode: {
+        title: "Sku Code",
+        type: "string",
+        format: "",
+        displayType: "dropdown",
+        dropdownLoadApiURL: "v1/sku/list",
+        dropdownLoadApiMethod: "POST",
+        uid: "skuCode",
+        pattern: "[a-zA-Z0-9]",
+        dependency: [],
+        nextDepended: [
+          {
+            fieldName: "bookDate",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+          {
+            fieldName: "unitPrice",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+        ],
+      },
+      organizationCode: {
+        title: "Ship Node",
+        type: "string",
+        format: "",
+        displayType: "dropdown",
+        dropdownLoadApiURL: "v1/organization/allnodelist",
+        dropdownLoadApiMethod: "POST",
+        uid: "organizationCode",
+        pattern: "[a-zA-Z0-9]",
+        dependency: ["skuCode", "bookDate", "slotCode"],
+        nextDepended: [
+          {
+            fieldName: "inStock",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+        ],
+      },
+      inStock: {
+        title: "In Stock",
+        type: "string",
+        format: "readOnly",
+        apiUri: "v1/inStock/466474",
+        apiMethod: "GET",
+        dependency: ["skuCode", "bookDate", "slotCode", "organizationCode"],
+        nextDepended: [
+          {
+            fieldName: "orderedQty",
+            fieldStyle: {
+              borderColor: "blue",
+            },
+          },
+        ],
+      },
+    },
+    uischema: {
+      bookDate: {
+        "ui:title": "Booking Date",
+        "ui:widget": "date",
+      },
+      skuCode: {
+        "ui:title": "Sku Code",
+        "ui:widget": "select",
+        "ui:placeholder": "Please select your Sku Code",
+      },
+      organizationCode: {
+        "ui:title": "Ship Node",
+        "ui:widget": "select",
+        "ui:placeholder": "Please select your Ship Node",
+      },
+    },
+  },
 };

@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Button, Text, View } from "react-native";
-import { componentGridStyle } from "../../../styles/common";
+import { View } from "react-native";
 import { ShowEntity } from "../../../../../components/DetailComponent/ShowEntity";
 
 export const OrderLineDetailViewComponent = (props: {
@@ -43,7 +42,7 @@ export const OrderLineDetailViewComponent = (props: {
       <Text> AA {appState?.$appState?.loginValues}</Text> */}
       <ShowEntity
         props={props}
-        viewData={appState.global.tsdApp?.orderLineDetail}
+        viewData={appState?.$global?.tsdApp?.orderLineDetail}
       />
 
       {children || (appState && appState[label] && appState[label]?.children)}

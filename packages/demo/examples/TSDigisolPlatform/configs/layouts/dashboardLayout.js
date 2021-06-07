@@ -7,7 +7,7 @@ import {
   RandomPic,
   // JsonForm,
 } from "../../../../components/index";
-import { rowStyle, styles } from "../../styles/common";
+import { styles } from "../../styles/common";
 
 // ******************** TODO APP EXAMPLE ************************* //
 // import { TodoApp1 } from "../../../todo-app/TODOAPP/TodoApp1";

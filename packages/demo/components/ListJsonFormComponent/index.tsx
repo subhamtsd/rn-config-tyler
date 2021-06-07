@@ -4,15 +4,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { events } from "../../examples/TSDigisolPlatform/configs/events/eventConfig";
 import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { RenderTable } from "./RenderTable";

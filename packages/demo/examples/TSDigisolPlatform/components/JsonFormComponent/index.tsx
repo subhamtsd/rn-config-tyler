@@ -2,15 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
-import useSafeSetState from "../../helper/useSafeState";
-import { routes } from "../../configs/routes/routesConfig";
+import { ScrollView, Text, View } from "react-native";
 import { componentGridStyle } from "../../styles/common";
 import { JsonForm } from "./JsonForm";
 import { prepareSchema } from "../../helper/helper";
@@ -43,11 +35,10 @@ export const JsonFormComponent = (props: {
 
   // console.log("DISPATCH : : : : ", dispatch);
   const activeTabName =
-    appState?.global?.tsdApp?.activeTab?.name || "CreateOrder";
+    appState?.$global?.tsdApp?.activeTab?.name || "CreateOrder";
   const _formData =
-    appState?.global?.tsdApp?.createComponent?.[activeTabName] ||
-    appState?.global?.tsdApp?.searchComponent?.searchPayload ||
-    appState?.global?.tsdApp?.formData?.bodyHeader;
+    appState?.$global?.tsdApp?.createComponent?.[activeTabName] ||
+    appState?.$global?.tsdApp?.searchComponent?.searchPayload;
   console.log("FORM DATA : :::: --- Create Form ::: ", _formData);
 
   const [loading, setloading] = useState(true);
@@ -68,9 +59,9 @@ export const JsonFormComponent = (props: {
   const [responseStatus, setResponseStatus] = useState(200);
 
   const actionStatus =
-    appState.global != undefined
-      ? appState.global.tsdApp.activeAction != undefined
-        ? appState.global.tsdApp.activeAction.name
+    appState?.$global?.tsdApp != undefined
+      ? appState.$global.tsdApp.activeAction != undefined
+        ? appState.$global.tsdApp.activeAction.name
         : "Search"
       : "Search";
 
@@ -87,21 +78,21 @@ export const JsonFormComponent = (props: {
           userId: "TsdAdmin",
           roleKey: 1,
           moduleKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.key
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule != undefined
+                ? appState.$global.tsdApp.activeModule.key
                 : "23751"
               : "23751",
           tabKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab != undefined
-                ? appState.global.tsdApp.activeTab.key
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeTab != undefined
+                ? appState.$global.tsdApp.activeTab.key
                 : "34601"
               : "34601",
           actionName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeAction != undefined
-                ? appState.global.tsdApp.activeAction.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeAction != undefined
+                ? appState.$global.tsdApp.activeAction.name
                 : "Search"
               : "Search",
         }),
@@ -118,18 +109,17 @@ export const JsonFormComponent = (props: {
             console.log("SchemaJson updated : : :: ", schemaJson);
             return schemaJson;
           })
-          .then((formLayout) => {
+          .then((formSchema) => {
             console.log("Schema returened : : : ", formLayout);
             const objectName =
-              appState.global != undefined
-                ? appState.global.tsdApp.activeAction.name +
-                  appState.global.tsdApp.activeTab.name +
+              appState?.$global?.tsdApp != undefined
+                ? appState.$global.tsdApp.activeAction.name +
+                  appState.$global.tsdApp.activeTab.name +
                   "Schema"
                 : "SearchCreateOrdersSchema";
 
             console.log("objectName : : : : ", objectName);
-            setformLayout(formLayout[objectName]);
-            setUISchema(formLayout[objectName]);
+            setformLayout(formSchema[objectName]);
             setloading(false);
           });
       }
@@ -148,22 +138,22 @@ export const JsonFormComponent = (props: {
   console.log("formLayout setFormLayout : :: : ", formLayout.uischema);
 
   const submitButtonView =
-    appState.global === undefined ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751) ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 156051)
+    appState?.$global?.tsdApp === undefined ||
+    (appState.$global.tsdApp.activeAction.name === "Create" &&
+      appState.$global.tsdApp.activeModule.key === 23751) ||
+    (appState.$global.tsdApp.activeAction.name === "Create" &&
+      appState.$global.tsdApp.activeModule.key === 156051)
       ? "Add Address"
-      : appState.global.tsdApp.activeAction.name === "Create"
+      : appState.$global.tsdApp.activeAction.name === "Create"
       ? "Create"
       : "Search";
 
   const cancelButtonView =
-    appState.global === undefined ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 23751) ||
-    (appState.global.tsdApp.activeAction.name === "Create" &&
-      appState.global.tsdApp.activeModule.key === 156051)
+    appState?.$global?.tsdApp === undefined ||
+    (appState.$global.tsdApp.activeAction.name === "Create" &&
+      appState.$global.tsdApp.activeModule.key === 23751) ||
+    (appState.$global.tsdApp.activeAction.name === "Create" &&
+      appState.$global.tsdApp.activeModule.key === 156051)
       ? "Add OrderLine"
       : "Cancel";
 
@@ -176,7 +166,7 @@ export const JsonFormComponent = (props: {
         appState={appState}
         schema={formLayout}
         // schema={_schema}
-        uiSchema={formLayout.uischema}
+        uischema={formLayout.uischema}
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}

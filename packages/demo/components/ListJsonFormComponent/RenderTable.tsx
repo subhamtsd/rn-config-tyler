@@ -67,11 +67,6 @@ export const RenderTable = (props: {
     dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
   );
   // console.log("Second Parent: " + secondParent);
-  prepareSchema(
-    props.dataToRender[firstParent].properties[secondParent[0]]
-  ).then((_schemaJson) => {
-    // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
-  });
 
   const tableHeaderObj =
     dataToRender[firstParent].properties[secondParent[0]].items.properties;
@@ -136,19 +131,22 @@ export const RenderTable = (props: {
       .then((res) => res.json())
       .then((_data) => {
         console.log("data create", _data);
-        setAppState({
-          global: {
-            tsdApp: {
-              createComponent: {
-                [appState.global.tsdApp.activeTab.name]: _data,
-                formData: body,
-              },
-              viewComponent: {
-                [appState.global.tsdApp.activeTab.name]: _data,
+        setAppState(
+          {
+            $global: {
+              tsdApp: {
+                createComponent: {
+                  [appState.$global.tsdApp.activeTab.name]: _data,
+                  formData: body,
+                },
+                viewComponent: {
+                  [appState.$global.tsdApp.activeTab.name]: _data,
+                },
               },
             },
           },
-        });
+          "isPartial"
+        );
         console.log("DATA UPDATED .......");
         setLayoutConfig(routeToRedirect, "copy");
       });
@@ -709,8 +707,8 @@ export const RenderTable = (props: {
           onPress={() => {
             console.log("Final submit");
             const finalData =
-              appState.global.tsdApp.createComponent[
-                appState.global.tsdApp.activeTab.name
+              appState.$global.tsdApp.createComponent[
+                appState.$global.tsdApp.activeTab.name
               ];
             console.log("final Data in the body Parameter 1st ::: ", finalData);
             finalData[firstParent] = {
@@ -718,7 +716,7 @@ export const RenderTable = (props: {
             };
             console.log("final Data in the body Parameter 2nd ::: ", finalData);
             // fetchApi(
-            //   appState.global.tsdApp.activeAction.endPoint,
+            //   appState.$global.tsdApp.activeAction.endPoint,
             //   "POST",
             //   finalData,
             //   routes["detail"]
