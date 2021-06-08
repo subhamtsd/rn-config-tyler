@@ -61,208 +61,6 @@ export const RenderField = (props: {
   const [loading, setLoading] = useState(true);
   console.log(data);
 
-  // const tableHeaderObj = {
-  //   bookDate: {
-  //     title: "Booking Date",
-  //     type: "string",
-  //     format: "date",
-  //     uid: "bookDate",
-  //     pattern: "[a-zA-Z0-9]",
-  //     isDisabled: true,
-  //     dependency: ["skuCode"],
-  //     dropdownLoadApiURL: "v1/calendarworkingday/list",
-  //     dropdownLoadApiMethod: "POST",
-  //     nextDepended: {
-  //       dependentField: [
-  //         {
-  //           fieldName: "slotCode",
-  //           fieldStyle: {
-  //             borderColor: "blue",
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   },
-  //   addressInfoKey: {
-  //     title: "Address Key",
-  //     type: "string",
-  //     format: "",
-  //     displayType: "dropdown",
-  //     dropdownLoadApiURL: "v1/address/list",
-  //     dropdownLoadApiMethod: "POST",
-  //     uid: "addressInfoKey",
-  //     pattern: "[0-9]",
-  //     isDisabled: false,
-  //     enum: [
-  //       "112210401",
-  //       "112234010",
-  //       "112234011",
-  //       "112234012",
-  //       "112246201",
-  //       "112278901",
-  //       "112278902",
-  //       "112278903",
-  //       "1122110701",
-  //       "1122113801",
-  //       "1122113802",
-  //       "1122113803",
-  //       "1122144401",
-  //       "1122150101",
-  //       "1122150301",
-  //     ],
-  //     enumNames: [
-  //       "112210401",
-  //       "112234010",
-  //       "112234011",
-  //       "112234012",
-  //       "112246201",
-  //       "112278901",
-  //       "112278902",
-  //       "112278903",
-  //       "1122110701",
-  //       "1122113801",
-  //       "1122113802",
-  //       "1122113803",
-  //       "1122144401",
-  //       "1122150101",
-  //       "1122150301",
-  //     ],
-  //   },
-  //   orderedQty: {
-  //     title: "orderedQty",
-  //     type: "string",
-  //     format: "",
-  //     uid: "orderedQty",
-  //     pattern: "[0-9]",
-  //     isDisabled: false,
-  //   },
-  //   unitPrice: {
-  //     title: "Unit Price",
-  //     type: "string",
-  //     format: "",
-  //     uid: "unitPrice",
-  //     pattern: "^[0-9]+(.[0-9]{1,2})?$",
-  //     isDisabled: false,
-  //   },
-  //   slotCode: {
-  //     title: "Time Slot",
-  //     type: "string",
-  //     format: "",
-  //     displayType: "dropdown",
-  //     uid: "slotCode",
-  //     pattern: "[a-zA-Z0-9]",
-  //     dependency: ["skuCode", "bookDate"],
-  //     dropdownLoadApiURL: "v1/slotcapacity/list",
-  //     dropdownLoadApiMethod: "POST",
-  //     isDisabled: true,
-  //   },
-  //   skuCode: {
-  //     title: "Sku Code",
-  //     type: "string",
-  //     format: "",
-  //     displayType: "dropdown",
-  //     dropdownLoadApiURL: "v1/sku/list",
-  //     dropdownLoadApiMethod: "POST",
-  //     uid: "skuCode",
-  //     pattern: "[a-zA-Z0-9]",
-  //     isDisabled: false,
-  //     nextDepended: {
-  //       dependentField: [
-  //         {
-  //           fieldName: "bookDate",
-  //           fieldStyle: {
-  //             borderColor: "blue",
-  //           },
-  //         },
-  //       ],
-  //     },
-  //     enum: [
-  //       "ENO_52WVC10228",
-  //       "ENO_52WVC10229",
-  //       "ENO_52WVC10230",
-  //       "STEERING_(HPS)",
-  //       "STEERING_(EPHS)",
-  //       "STEERING_(EPS)",
-  //       "TRANSMISSION_AMT",
-  //       "TRANSMISSION_CVT",
-  //       "DISC_BRAKE",
-  //       "DRUM_BRAKES",
-  //       "LAMINATED_GLASS",
-  //       "TEMPERED_GLASS",
-  //       "7_INCH_ALLOY",
-  //       "14_INCH_ALLOY",
-  //       " MSH10-33-BlueNew1",
-  //       "ENGINE_SERVICING",
-  //       "CLEANING_SERVICING",
-  //       "TRANSMISSION_INSTALLATION",
-  //       "GLASS_INSTALLATION",
-  //       "BOYD_PART_INSTALLATION",
-  //     ],
-  //     enumNames: [
-  //       "ENO_52WVC10228",
-  //       "ENO_52WVC10229",
-  //       "ENO_52WVC10230",
-  //       "STEERING_(HPS)",
-  //       "STEERING_(EPHS)",
-  //       "STEERING_(EPS)",
-  //       "TRANSMISSION_AMT",
-  //       "TRANSMISSION_CVT",
-  //       "DISC_BRAKE",
-  //       "DRUM_BRAKES",
-  //       "LAMINATED_GLASS",
-  //       "TEMPERED_GLASS",
-  //       "7_INCH_ALLOY",
-  //       "14_INCH_ALLOY",
-  //       " MSH10-33-BlueNew1",
-  //       "ENGINE_SERVICING",
-  //       "CLEANING_SERVICING",
-  //       "TRANSMISSION_INSTALLATION",
-  //       "GLASS_INSTALLATION",
-  //       "BOYD_PART_INSTALLATION",
-  //     ],
-  //   },
-  //   organizationCode: {
-  //     title: "Ship Node",
-  //     type: "string",
-  //     format: "",
-  //     displayType: "dropdown",
-  //     dropdownLoadApiURL: "v1/organization/allnodelist",
-  //     dropdownLoadApiMethod: "POST",
-  //     uid: "organizationCode",
-  //     pattern: "[a-zA-Z0-9]",
-  //     isDisabled: false,
-  //     enum: [
-  //       "ChennaiWarehouse",
-  //       "VATIKALAMPS",
-  //       "MumbaiWarehouse",
-  //       "BangaloreStore",
-  //       "GlobalInventory",
-  //       "AFADC",
-  //       "AFADLR1",
-  //       "AFADLR2",
-  //       "MAGENTOORG",
-  //     ],
-  //     enumNames: [
-  //       "ChennaiWarehouse",
-  //       "VATIKALAMPS",
-  //       "MumbaiWarehouse",
-  //       "BangaloreStore",
-  //       "GlobalInventory",
-  //       "AFADC",
-  //       "AFADLR1",
-  //       "AFADLR2",
-  //       "MAGENTOORG",
-  //     ],
-  //   },
-  //   actionDisplay: {
-  //     title: "Action",
-  //     type: "button",
-  //     uid: "action",
-  //     pattern: "[]",
-  //   },
-  // };
-  // console.log("table", tableHeaderObj);
-
   const fetchData = async (keyName: string | number, body: {}) => {
     const res = await fetch(
       `${SERVER_ENDPOINT}${tableHeaderObj[keyName].dropdownLoadApiURL}`,
@@ -278,20 +76,21 @@ export const RenderField = (props: {
     const resJSON = await res.json();
     if (tableHeaderObj[keyName].displayType == "dropdown") {
       const value = [];
+      const label = [];
       for (const data of resJSON.response) {
-        value.push(data[keyName]);
+        value.push(data[resJSON?.filedValue || keyName]);
+        label.push(data[resJSON.displayValue || keyName]);
       }
-      return { enum: value };
+      return { enum: value, enumName: label };
     } else if (tableHeaderObj[keyName].format == "date") {
       return {
         minDate: resJSON.response?.[0]?.startDate,
         maxDate: resJSON.response?.[resJSON.response.length - 1]?.startDate,
       };
+    } else if (tableHeaderObj[keyName].format == "readOnly") {
+      return resJSON.response[0][resJSON.displayValue];
     }
   };
-
-  // console.log("here", disableList);
-  // console.log("here", dataList);
 
   const cleanProperty = (
     keyName: string | number,
@@ -319,10 +118,9 @@ export const RenderField = (props: {
   const onChangeHandler = async (value: string | null, keyName: string) => {
     const newItem = { ...item };
     newItem[keyName] = value;
-    if (value == null && value == "") {
+    if (value == null || value == "" || value == "null") {
       delete newItem[keyName];
     }
-    console.log(newItem);
     const newDataList = { ...dataList };
     const newDisableList = { ...disableList };
     tableHeaderObj[keyName]?.nextDepended?.dependentField?.forEach(
@@ -330,9 +128,7 @@ export const RenderField = (props: {
         cleanProperty(property.fieldName, newItem, newDataList, newDisableList);
       }
     );
-    setItem(newItem);
-    setAddActionButtonStatus(true);
-    if (value == null || value == "") {
+    if (value == null || value == "" || value == "null") {
       setDisableList(newDisableList);
       setDataList(newDataList);
     } else if (tableHeaderObj[keyName]?.nextDepended?.dependentField) {
@@ -356,7 +152,11 @@ export const RenderField = (props: {
             );
             if (flag) {
               const data = await fetchData(property.fieldName, body);
-              newDataList[property.fieldName] = data;
+              if (tableHeaderObj[property.fieldName]?.format == "readOnly") {
+                newItem[property.fieldName] = data;
+              } else {
+                newDataList[property.fieldName] = data;
+              }
               newDisableList[property.fieldName] = false;
             }
           }
@@ -365,12 +165,13 @@ export const RenderField = (props: {
       setDataList(newDataList);
       setDisableList(newDisableList);
     }
+    setItem(newItem);
+    setAddActionButtonStatus(true);
   };
 
   useEffect(() => {
     const newDisableList = { ...disableList };
     const newDataList = { ...dataList };
-
     Promise.all(
       Object.keys(tableHeaderObj).map(async (keyName) => {
         newDisableList[keyName] = !(
@@ -409,7 +210,13 @@ export const RenderField = (props: {
                 );
                 if (flag) {
                   const data = await fetchData(property.fieldName, body);
-                  newDataList[property.fieldName] = data;
+                  if (
+                    tableHeaderObj[property.fieldName]?.format == "readOnly"
+                  ) {
+                    item[property.fieldName] = data;
+                  } else {
+                    newDataList[property.fieldName] = data;
+                  }
                   newDisableList[property.fieldName] = false;
                 }
               }
@@ -753,7 +560,8 @@ export const RenderField = (props: {
                   marginTop: 5,
                   padding: 17,
                 }}
-                value={item[keyName]}
+                value={item[keyName] || ""}
+                editable={tableHeaderObj[keyName]?.format != "readOnly"}
                 onChangeText={(text) => {
                   onChangeHandler(text, keyName);
                 }}

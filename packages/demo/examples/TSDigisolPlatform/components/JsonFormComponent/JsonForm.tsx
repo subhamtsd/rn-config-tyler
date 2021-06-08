@@ -119,15 +119,19 @@ export const JsonForm = ({
     const resJSON = await res.json();
     if (formSchema?.["properties"]?.[keyName]?.displayType == "dropdown") {
       const value = [];
+      const label = [];
       for (const data of resJSON.response) {
-        value.push(data[keyName]);
+        value.push(data[resJSON?.filedValue || keyName]);
+        label.push(data[resJSON.displayValue]);
       }
-      return value;
+      return { enum: value, enumName: label };
     } else if (formSchema["properties"][keyName]?.format == "date") {
       return {
         minDate: resJSON.response?.[0]?.startDate,
         maxDate: resJSON.response?.[resJSON.response.length - 1]?.startDate,
       };
+    } else if (formSchema["properties"][keyName]?.format == "readOnly") {
+      return resJSON.response[0][resJSON.displayValue];
     }
   };
 
@@ -175,7 +179,6 @@ export const JsonForm = ({
         cleanProperty(property.fieldName, newFormData, newUiSchema);
       }
     );
-    setFormData(newFormData);
     if (value == null || value == "") {
       setUiSchema(newUiSchema);
     } else if (
@@ -205,8 +208,8 @@ export const JsonForm = ({
                 formSchema?.["properties"]?.[property.fieldName]?.displayType ==
                 "dropdown"
               ) {
-                newUiSchema[property.fieldName]["ui:enum"] = data;
-                newUiSchema[property.fieldName]["ui:enumName"] = data;
+                newUiSchema[property.fieldName]["ui:enum"] = data.enum;
+                newUiSchema[property.fieldName]["ui:enumName"] = data.enumName;
               }
               if (
                 formSchema?.["properties"]?.[property.fieldName]?.format ==
@@ -215,6 +218,12 @@ export const JsonForm = ({
                 newUiSchema[property.fieldName]["ui:minDate"] = data["minDate"];
                 newUiSchema[property.fieldName]["ui:maxDate"] = data["maxDate"];
               }
+              if (
+                formSchema?.["properties"]?.[property.fieldName]?.format ==
+                "readOnly"
+              ) {
+                newFormData[property.fieldName] = data;
+              }
               newUiSchema[property.fieldName]["ui:disabled"] = false;
             }
           }
@@ -222,10 +231,12 @@ export const JsonForm = ({
       );
       setUiSchema(newUiSchema);
     }
+    setFormData(newFormData);
   };
 
   useEffect(() => {
     const newUiSchema = { ...uiSchema };
+    const newFormData = { ...formData };
     Promise.all(
       Object.keys(formSchema?.["properties"]).map(async (name) => {
         if (
@@ -245,14 +256,14 @@ export const JsonForm = ({
                 property.fieldName
               ]?.dependency?.forEach((propertyName) => {
                 if (
-                  formData[propertyName] == undefined ||
-                  formData[propertyName] == "" ||
-                  formData[propertyName] == null
+                  newFormData[propertyName] == undefined ||
+                  newFormData[propertyName] == "" ||
+                  newFormData[propertyName] == null
                 ) {
                   flag = false;
                   return;
                 }
-                body[propertyName] = formData[propertyName];
+                body[propertyName] = newFormData[propertyName];
               });
               if (flag) {
                 const data = await fetchData(property.fieldName, body);
@@ -260,8 +271,9 @@ export const JsonForm = ({
                   formSchema?.["properties"]?.[property.fieldName]
                     ?.displayType == "dropdown"
                 ) {
-                  newUiSchema[property.fieldName]["ui:enum"] = data;
-                  newUiSchema[property.fieldName]["ui:enumName"] = data;
+                  newUiSchema[property.fieldName]["ui:enum"] = data.enum;
+                  newUiSchema[property.fieldName]["ui:enumName"] =
+                    data.enumName;
                 }
                 if (
                   formSchema?.["properties"]?.[property.fieldName]?.format ==
@@ -272,15 +284,21 @@ export const JsonForm = ({
                   newUiSchema[property.fieldName]["ui:maxDate"] =
                     data["maxDate"];
                 }
+                if (
+                  formSchema?.["properties"]?.[property.fieldName]?.format ==
+                  "readOnly"
+                ) {
+                  newFormData[property.fieldName] = data;
+                }
                 newUiSchema[property.fieldName]["ui:disabled"] = false;
               }
             })
           );
         }
-        setUiSchema(newUiSchema);
       })
     ).then(() => {
       setUiSchema(newUiSchema);
+      setFormData(newFormData);
     });
   }, []);
 

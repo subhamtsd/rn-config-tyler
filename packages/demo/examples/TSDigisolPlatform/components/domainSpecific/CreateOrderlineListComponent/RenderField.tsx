@@ -60,7 +60,6 @@ export const RenderField = (props: {
   const [dataList, setDataList] = useState({});
   const [disableList, setDisableList] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log(data);
 
   const fetchData = async (keyName: string | number, body: {}) => {
     const res = await fetch(
@@ -77,20 +76,26 @@ export const RenderField = (props: {
     const resJSON = await res.json();
     if (tableHeaderObj[keyName].displayType == "dropdown") {
       const value = [];
+      const label = [];
       for (const data of resJSON.response) {
-        value.push(data[keyName]);
+        value.push(data[resJSON?.filedValue || keyName]);
+        label.push(data[resJSON.displayValue]);
       }
-      return { enum: value };
+      return { enum: value, enumName: label };
     } else if (tableHeaderObj[keyName].format == "date") {
       return {
         minDate: resJSON.response?.[0]?.startDate,
         maxDate: resJSON.response?.[resJSON.response.length - 1]?.startDate,
       };
+    } else if (tableHeaderObj[keyName].format == "readOnly") {
+      console.log(resJSON.response[0]);
+
+      return resJSON.response[0][resJSON.displayValue];
     }
   };
 
-  // console.log("here", disableList);
-  // console.log("here", dataList);
+  console.log("here", disableList);
+  console.log("here", dataList);
 
   const cleanProperty = (
     keyName: string | number,
@@ -118,10 +123,9 @@ export const RenderField = (props: {
   const onChangeHandler = async (value: string | null, keyName: string) => {
     const newItem = { ...item };
     newItem[keyName] = value;
-    if (value == null && value == "") {
+    if (value == null || value == "" || value == "null") {
       delete newItem[keyName];
     }
-    console.log(newItem);
     const newDataList = { ...dataList };
     const newDisableList = { ...disableList };
     tableHeaderObj[keyName]?.nextDepended?.dependentField?.forEach(
@@ -129,9 +133,7 @@ export const RenderField = (props: {
         cleanProperty(property.fieldName, newItem, newDataList, newDisableList);
       }
     );
-    setItem(newItem);
-    setAddActionButtonStatus(true);
-    if (value == null || value == "") {
+    if (value == null || value == "" || value == "null") {
       setDisableList(newDisableList);
       setDataList(newDataList);
     } else if (tableHeaderObj[keyName]?.nextDepended?.dependentField) {
@@ -155,7 +157,11 @@ export const RenderField = (props: {
             );
             if (flag) {
               const data = await fetchData(property.fieldName, body);
-              newDataList[property.fieldName] = data;
+              if (tableHeaderObj[property.fieldName]?.format == "readOnly") {
+                newItem[property.fieldName] = data;
+              } else {
+                newDataList[property.fieldName] = data;
+              }
               newDisableList[property.fieldName] = false;
             }
           }
@@ -164,12 +170,13 @@ export const RenderField = (props: {
       setDataList(newDataList);
       setDisableList(newDisableList);
     }
+    setItem(newItem);
+    setAddActionButtonStatus(true);
   };
 
   useEffect(() => {
     const newDisableList = { ...disableList };
     const newDataList = { ...dataList };
-
     Promise.all(
       Object.keys(tableHeaderObj).map(async (keyName) => {
         newDisableList[keyName] = !(
@@ -208,7 +215,13 @@ export const RenderField = (props: {
                 );
                 if (flag) {
                   const data = await fetchData(property.fieldName, body);
-                  newDataList[property.fieldName] = data;
+                  if (
+                    tableHeaderObj[property.fieldName]?.format == "readOnly"
+                  ) {
+                    item[property.fieldName] = data;
+                  } else {
+                    newDataList[property.fieldName] = data;
+                  }
                   newDisableList[property.fieldName] = false;
                 }
               }
@@ -459,14 +472,20 @@ export const RenderField = (props: {
                 >
                   <Picker.Item
                     label={`Select ${tableHeaderObj[keyName].title} `}
-                    value={null}
+                    value={"null"}
                   />
                   {dataList[keyName]?.enum?.map(
                     (
                       ele: ItemValue | undefined,
                       i: React.Key | null | undefined
                     ) => {
-                      return <Picker.Item label={ele} value={ele} key={i} />;
+                      return (
+                        <Picker.Item
+                          label={dataList[keyName]?.enumName?.[i] || ele}
+                          value={ele}
+                          key={i}
+                        />
+                      );
                     }
                   )}
                 </Picker>
@@ -552,7 +571,8 @@ export const RenderField = (props: {
                   marginTop: 5,
                   padding: 17,
                 }}
-                value={item[keyName]}
+                value={item[keyName] || ""}
+                editable={tableHeaderObj[keyName]?.format != "readOnly"}
                 onChangeText={(text) => {
                   onChangeHandler(text, keyName);
                 }}
