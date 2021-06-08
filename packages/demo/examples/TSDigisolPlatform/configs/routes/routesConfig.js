@@ -12,7 +12,7 @@ routes.orderLineDetail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -28,7 +28,7 @@ routes.orderLineDetail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "296vh" },
+            colStyle: { height: "236vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -91,14 +91,14 @@ routes.orderLineDetail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -106,7 +106,7 @@ routes.orderLineDetail = {
             colSize: 2,
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { borderColor: "red", height: "75vh" },
             passProps: {
               UItitle: "Order Details",
             },
@@ -115,7 +115,7 @@ routes.orderLineDetail = {
             colSize: 2,
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Bill To Address",
             },
@@ -126,7 +126,7 @@ routes.orderLineDetail = {
             colSize: 2,
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "OrderLines of Order",
             },
@@ -146,7 +146,7 @@ routes.orderLineDetail = {
             colSize: 2,
             idx: "OrderLineDetailViewComponent",
             label: "orderLineDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "OrderLine Detail",
             },
@@ -155,7 +155,7 @@ routes.orderLineDetail = {
             colSize: 2,
             idx: "OrderLineAddressDetailViewComponent",
             label: "orderLineAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Orderline Address Detail",
             },
@@ -178,7 +178,7 @@ routes.orderDetail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -194,7 +194,7 @@ routes.orderDetail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "197vh" },
+            colStyle: { height: "162vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -245,14 +245,14 @@ routes.orderDetail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -260,7 +260,7 @@ routes.orderDetail = {
             colSize: 2,
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Order Details",
             },
@@ -269,7 +269,7 @@ routes.orderDetail = {
             colSize: 2,
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Bill To Address",
             },
@@ -280,7 +280,7 @@ routes.orderDetail = {
             colSize: 2,
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "OrderLines of Order",
             },
@@ -312,7 +312,7 @@ routes.defaultAppConfig = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -328,16 +328,16 @@ routes.defaultAppConfig = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
+            colStyle: {
+              height: "88vh",
+            },
           },
         },
         "2.2.leftNavBodyRow": {
           leftNavBody2: {
             idx: "DefaultScreen",
-            // label: "1",
+            label: "navigationBar",
             colStyle: {
-              // display: "none",
               backgroundColor: "skyblue",
               borderWidth: 1,
               height: "1vh",
@@ -347,9 +347,8 @@ routes.defaultAppConfig = {
         "2.3.leftNavBodyRow": {
           leftNavBody3: {
             idx: "DefaultScreen",
-            // label: "2",
+            label: "navigationBar",
             colStyle: {
-              // display: "none",
               backgroundColor: "skyblue",
               borderWidth: 1,
               height: "1vh",
@@ -367,14 +366,20 @@ routes.defaultAppConfig = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: {
+              borderWidth: 1,
+              height: "8vh",
+            },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: {
+              borderWidth: 1,
+              height: "7vh",
+            },
           },
         },
         "2.2.3.BodyRow": {
@@ -382,13 +387,17 @@ routes.defaultAppConfig = {
             colSize: 2,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: {
+              height: "75vh",
+            },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 4,
             idx: "DefaultScreen",
             label: "helloWorld",
-            colStyle: { borderWidth: 1 },
+            colStyle: {
+              height: "75vh",
+            },
           },
         },
       },
@@ -408,7 +417,7 @@ routes.search = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -424,7 +433,7 @@ routes.search = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -461,14 +470,14 @@ routes.search = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -482,7 +491,7 @@ routes.search = {
             colSize: 4,
             idx: "ListComponent",
             label: "listComponent",
-            colStyle: { borderWidth: 1, height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -502,7 +511,7 @@ routes.detail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -518,7 +527,7 @@ routes.detail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -557,14 +566,14 @@ routes.detail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -572,7 +581,7 @@ routes.detail = {
             colSize: 2,
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           // "2.2.3.1.bodyContent2": {
           //   colSize: 2,
@@ -598,7 +607,7 @@ routes.edit = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -614,7 +623,7 @@ routes.edit = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -651,14 +660,14 @@ routes.edit = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -666,13 +675,13 @@ routes.edit = {
             colSize: 2,
             idx: "EditComponent",
             label: "editComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 2,
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -692,7 +701,7 @@ routes.editOrderLineDetail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -708,7 +717,7 @@ routes.editOrderLineDetail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -745,14 +754,14 @@ routes.editOrderLineDetail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -760,13 +769,13 @@ routes.editOrderLineDetail = {
             colSize: 2,
             idx: "EditOrderLineDetailComponent",
             label: "editOrderLineDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           "2.2.3.2.bodyContent2": {
             colSize: 4,
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 0, height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -786,7 +795,7 @@ routes.editBillToAddressDetail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -802,7 +811,7 @@ routes.editBillToAddressDetail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -839,14 +848,14 @@ routes.editBillToAddressDetail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -854,13 +863,13 @@ routes.editBillToAddressDetail = {
             colSize: 2,
             idx: "EditBillToAddressDetailComponent",
             label: "editBillToAddressDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 2,
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -880,7 +889,7 @@ routes.editOrderLineAddressDetail = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -896,7 +905,7 @@ routes.editOrderLineAddressDetail = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -933,14 +942,14 @@ routes.editOrderLineAddressDetail = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -948,13 +957,13 @@ routes.editOrderLineAddressDetail = {
             colSize: 2,
             idx: "EditOrderLineAddressDetailComponent",
             label: "editOrderLineAddressDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 2,
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -974,7 +983,7 @@ routes.delete = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -990,7 +999,7 @@ routes.delete = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -1029,14 +1038,14 @@ routes.delete = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -1044,13 +1053,13 @@ routes.delete = {
             colSize: 2,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { borderColor: "red", height: "75vh" },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 4,
             idx: "DefaultScreen",
             label: "helloWorld",
-            colStyle: { borderWidth: 1 },
+            colStyle: { height: "75vh" },
           },
         },
       },
@@ -1070,7 +1079,7 @@ routes.createOrder = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -1086,7 +1095,7 @@ routes.createOrder = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -1125,14 +1134,14 @@ routes.createOrder = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -1140,7 +1149,7 @@ routes.createOrder = {
             colSize: 1,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Order Details",
             },
@@ -1149,7 +1158,7 @@ routes.createOrder = {
             colSize: 2,
             idx: "CreateAddressFormComponent",
             label: "createAddressFormComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Add Address",
               _childDependency: {
@@ -1179,7 +1188,7 @@ routes.createOrderline = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -1195,7 +1204,7 @@ routes.createOrderline = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "186vh" },
+            colStyle: { height: "169vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -1207,7 +1216,7 @@ routes.createOrderline = {
               backgroundColor: "skyblue",
               borderWidth: 1,
               height: "1vh",
-              display: "none",
+              // display: "none",
             },
           },
         },
@@ -1219,7 +1228,7 @@ routes.createOrderline = {
               backgroundColor: "skyblue",
               borderWidth: 1,
               height: "1vh",
-              display: "none",
+              // display: "none",
             },
           },
         },
@@ -1258,14 +1267,14 @@ routes.createOrderline = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -1273,7 +1282,7 @@ routes.createOrderline = {
             colSize: 1,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Order Details",
             },
@@ -1282,7 +1291,7 @@ routes.createOrderline = {
             colSize: 2,
             idx: "CreateAddressFormComponent",
             label: "createAddressFormComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Add Address",
               _childDependency: {
@@ -1300,7 +1309,7 @@ routes.createOrderline = {
             colSize: 1,
             idx: "CreateOrderlineListComponent",
             label: "createOrderlineListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Add Orderline",
             },
@@ -1311,7 +1320,7 @@ routes.createOrderline = {
             colSize: 1,
             idx: "CreateOrderFooterComponent",
             label: "createOrderFooterComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
       },
@@ -1331,7 +1340,7 @@ routes.createOrderlineAddress = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -1347,7 +1356,7 @@ routes.createOrderlineAddress = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "186vh" },
+            colStyle: { height: "169vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -1410,14 +1419,14 @@ routes.createOrderlineAddress = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -1425,7 +1434,7 @@ routes.createOrderlineAddress = {
             colSize: 1,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Order Details",
             },
@@ -1434,7 +1443,7 @@ routes.createOrderlineAddress = {
             colSize: 2,
             idx: "CreateAddressFormComponent",
             label: "createAddressFormComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Add Address",
               _childDependency: {
@@ -1452,7 +1461,7 @@ routes.createOrderlineAddress = {
             colSize: 2,
             idx: "CreateOrderlineListComponent",
             label: "createOrderlineListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
             passProps: {
               UItitle: "Add Orderline",
               // _childDependency: {
@@ -1478,7 +1487,7 @@ routes.createOrderlineAddress = {
                 },
               },
             },
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
         "2.2.5.BodyRow": {
@@ -1486,7 +1495,7 @@ routes.createOrderlineAddress = {
             colSize: 1,
             idx: "CreateOrderFooterComponent",
             label: "createOrderFooterComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
       },
@@ -1507,7 +1516,7 @@ routes.jsonEditorScreen = {
             colSize: 1,
             idx: "HeaderBar",
             label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "auto" },
           },
         },
       },
@@ -1523,7 +1532,7 @@ routes.jsonEditorScreen = {
           leftNavBody: {
             idx: "NavigationBar",
             label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
+            colStyle: { height: "88vh" },
             // colStyle: { borderWidth:1, height: "100vh" },
           },
         },
@@ -1560,14 +1569,14 @@ routes.jsonEditorScreen = {
           bodyHeader: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "8vh" },
           },
         },
         "2.2.2.BodyRow": {
           bodyContent: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            colStyle: { height: "7vh" },
           },
         },
         "2.2.3.BodyRow": {
@@ -1575,13 +1584,13 @@ routes.jsonEditorScreen = {
             colSize: 2,
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            colStyle: { height: "75vh" },
           },
           "2.2.3.1.bodyContent2": {
             colSize: 4,
             idx: "ScreenJsonEditor",
             label: "screenJsonEditor",
-            colStyle: { borderWidth: 1, height: "80vh" },
+            colStyle: { height: "75vh" },
           },
         },
       },

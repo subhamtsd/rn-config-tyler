@@ -207,7 +207,6 @@ const links = {
 
 // SAGAR's config
 export const appConfig = {
-  /// 1st layout
   componentsSet,
   layout: {
     colConfig: {
@@ -221,7 +220,7 @@ export const appConfig = {
               colSize: 1,
               idx: "HeaderBar",
               label: "headerBar",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              colStyle: { height: "auto" },
             },
           },
         },
@@ -231,20 +230,21 @@ export const appConfig = {
       "2.1.leftNavCol": {
         layout: {
           colConfig: {
-            colSize: 2,
+            colSize: 1.5,
           },
           "2.1.leftNavBodyRow": {
             leftNavBody: {
               idx: "NavigationBar",
               label: "navigationBar",
-              colStyle: { borderWidth: 1, height: "98vh" },
-              // colStyle: { borderWidth:1, height: "100vh" },
+              colStyle: {
+                height: "88vh",
+              },
             },
           },
           "2.2.leftNavBodyRow": {
             leftNavBody2: {
               idx: "DefaultScreen",
-              // label: "1",
+              label: "navigationBar",
               colStyle: {
                 backgroundColor: "skyblue",
                 borderWidth: 1,
@@ -255,7 +255,7 @@ export const appConfig = {
           "2.3.leftNavBodyRow": {
             leftNavBody3: {
               idx: "DefaultScreen",
-              // label: "2",
+              label: "navigationBar",
               colStyle: {
                 backgroundColor: "skyblue",
                 borderWidth: 1,
@@ -274,14 +274,18 @@ export const appConfig = {
             bodyHeader: {
               idx: "ActionComponent",
               label: "actionComponent",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              colStyle: {
+                height: "8vh",
+              },
             },
           },
           "2.2.2.BodyRow": {
             bodyContent: {
               idx: "TabComponent",
               label: "tabComponent",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              colStyle: {
+                height: "7vh",
+              },
             },
           },
           "2.2.3.BodyRow": {
@@ -289,13 +293,17 @@ export const appConfig = {
               colSize: 2,
               idx: "JsonFormComponent",
               label: "bodyHeader",
-              colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+              colStyle: {
+                height: "75vh",
+              },
             },
-            "2.2.3.2.bodyContent": {
+            "2.2.3.1.bodyContent2": {
               colSize: 4,
               idx: "DefaultScreen",
               label: "helloWorld",
-              colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+              colStyle: {
+                height: "75vh",
+              },
             },
           },
         },
