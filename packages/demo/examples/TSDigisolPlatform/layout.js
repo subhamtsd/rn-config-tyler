@@ -236,7 +236,7 @@ export const appConfig = {
             0: {
               idx: "TabComponent",
               label: "tabComponent",
-              size: 10,
+              size: 8,
             },
           },
           2: {
@@ -890,7 +890,7 @@ export const events = {
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
+            "https://run.mocky.io/v3/9afda2b1-618b-44df-ba07-f7879fb6ca69",
             appState.$global.tsdApp.activeModule.key,
             appState.$global.tsdApp.activeTab.key,
             appState.$global.tsdApp.activeAction.name,
@@ -901,7 +901,7 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
+            "https://run.mocky.io/v3/9afda2b1-618b-44df-ba07-f7879fb6ca69",
             appState.$global.tsdApp.activeModule.key,
             appState.$global.tsdApp.activeTab.key,
             appState.$global.tsdApp.activeAction.name,
@@ -911,7 +911,7 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/0793709f-8fe6-43f2-92db-fa928c2e8b09",
+            "https://run.mocky.io/v3/e9580864-4d33-44d8-9da6-40fa6fff554c",
             appState.$global.tsdApp.activeModule.key,
             appState.$global.tsdApp.activeTab.key,
             appState.$global.tsdApp.activeAction.name,
@@ -975,7 +975,7 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/c8cee798-636d-4a68-878d-9feebc8f9990",
+            "https://run.mocky.io/v3/d3377fac-093d-4354-babd-e35cd9726de8",
             appState.$global.tsdApp.activeModule.key,
             appState.$global.tsdApp.activeTab.key,
             appState.$global.tsdApp.activeAction.name,
@@ -985,7 +985,7 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/cc9354f0-975d-4ce9-973e-e7c40f03f609",
+            "https://run.mocky.io/v3/bdde5c91-3bdd-49b8-8460-c72a4678a158",
             appState.$global.tsdApp.activeModule.key,
             appState.$global.tsdApp.activeTab.key,
             appState.$global.tsdApp.activeAction.name,

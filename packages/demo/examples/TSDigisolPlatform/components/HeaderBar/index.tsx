@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
+import { relative } from "path";
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
@@ -100,10 +101,12 @@ export const HeaderBar = (props: {
                 borderWidth: 1,
                 borderRadius: 2,
                 borderColor: "grey",
-                width: 45,
-                height: 45,
-                alignItems: "center",
+                // width: "6vh",
+                // height: "6vh",
+                // alignItems: "center",
                 // paddingRight: 10,
+                flex: 1,
+                margin: 5,
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.5,
@@ -159,8 +162,8 @@ export const HeaderBar = (props: {
               <Image
                 source={require("../../../../../../assets/images/icons8-update-file-96.png")}
                 style={{
-                  width: 40,
-                  height: 40,
+                  width: "6vh",
+                  height: "6vh",
                 }}
               />
             </TouchableOpacity>
@@ -185,31 +188,37 @@ const HeaderStyles = StyleSheet.create({
   },
   logoViewStyle: {
     margin: 1,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginLeft: 30,
   },
   logoTextStyle: {
-    marginLeft: 30,
-    marginTop: 2,
+    // marginLeft: 30,
+    // marginTop: 2,
     // marginBottom: 10,
-    width: 150,
-    height: 50,
+    width: "21vh",
+    height: "7vh",
     // borderWidth: 1,
   },
   userNameViewStyle: {
     // borderWidth: 1,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     margin: 1,
   },
   userNameTextStyle: {
-    marginLeft: 150,
-    marginRight: 100,
-    marginTop: 10,
-    marginBottom: 26,
+    fontSize: 17,
   },
   logoutViewStyle: {
     // borderWidth: 1,
-    marginTop: 5,
-    marginBottom: 5,
-    marginRight: 50,
+    // marginTop: 5,
+    // marginBottom: 5,
     alignItems: "flex-end",
+    flex: 1,
+    justifyContent: "center",
+    marginRight: 50,
   },
   logoutTextStyle: {
     marginLeft: 150,

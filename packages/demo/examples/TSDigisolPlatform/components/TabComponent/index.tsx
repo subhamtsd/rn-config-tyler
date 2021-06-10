@@ -84,6 +84,8 @@ export const TabComponent = (props: {
         shadowOpacity: 0.5,
         shadowRadius: 2,
         elevation: 5,
+        flex: 1,
+        // alignItems: "center",
       }}
     >
       {/* <Text style={{}}>Home *** {label}</Text> */}
@@ -95,9 +97,11 @@ export const TabComponent = (props: {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {data.map((item: any, key) => (
           <View
-            style={{
-              marginRight: 5,
-            }}
+            style={
+              {
+                // margin: 5,
+              }
+            }
           >
             <TouchableOpacity
               onPress={() => {
@@ -151,19 +155,18 @@ export const TabComponent = (props: {
                     : item.tabName === item.tabName
                     ? "#b2c560"
                     : "",
-                height: 40,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingLeft: 30,
-                paddingRight: 30,
+                width: "25vh",
+                marginRight: 5,
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
               }}
             >
               <Text
                 style={{
                   justifyContent: "center",
-                  alignContent: "center",
-                  marginLeft: 10,
-                  marginRight: 10,
+                  alignItems: "center",
+                  margin: 10,
                   color: "white",
                   //   fontWeight: "bold",
                 }}

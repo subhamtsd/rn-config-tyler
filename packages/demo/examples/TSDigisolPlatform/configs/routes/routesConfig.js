@@ -31,7 +31,7 @@ routes.orderLineDetail = {
             idx: "TabComponent",
             label: "tabComponent",
             // colClass: "fixed",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -112,7 +112,7 @@ routes.orderDetail = {
             idx: "TabComponent",
             label: "tabComponent",
             // colClass: "fixed",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -174,7 +174,7 @@ routes.defaultAppConfig = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -224,7 +224,7 @@ routes.search = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -269,7 +269,7 @@ routes.detail = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -314,7 +314,7 @@ routes.edit = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -364,7 +364,7 @@ routes.editOrderLineDetail = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -414,7 +414,7 @@ routes.editBillToAddressDetail = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -464,7 +464,7 @@ routes.editOrderLineAddressDetail = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -514,7 +514,7 @@ routes.delete = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -564,7 +564,7 @@ routes.createOrder = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -624,7 +624,7 @@ routes.createOrderline = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -701,7 +701,7 @@ routes.createOrderlineAddress = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {
@@ -798,7 +798,7 @@ routes.jsonEditorScreen = {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 10,
+            size: 8,
           },
         },
         2: {

@@ -101,16 +101,13 @@ export const ActionComponent = (props: {
   // console.log("appState in action : : : : ", props);
 
   return (
-    <View>
+    <View style={{ flex: 1, margin: 7 }}>
       <Grid>
         <Row>
           <Col
             style={{
-              marginTop: 10,
-              marginBottom: 10,
-              marginLeft: 180,
-              marginRight: 180,
-              // borderWidth: 2,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <TouchableOpacity
@@ -118,7 +115,8 @@ export const ActionComponent = (props: {
                 fetchData("Create");
               }}
               style={{
-                width: "100%",
+                width: "25vh",
+                // flex: 1,
                 backgroundColor:
                   appState?.$global?.tsdApp != undefined
                     ? appState.$global.tsdApp.activeAction != undefined
@@ -129,13 +127,13 @@ export const ActionComponent = (props: {
                     : "Create" === "Create"
                     ? "#5cabc5"
                     : "#5cabc5",
-                height: 35,
-                paddingTop: 7,
+                height: "5vh",
+                // paddingTop: 5,
                 justifyContent: "center",
-                alignContent: "center",
-                paddingBottom: 5,
-                paddingLeft: 50,
-                paddingRight: 30,
+                alignItems: "center",
+                // paddingBottom: 5,
+                // paddingLeft: 50,
+                // paddingRight: 30,
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.5,
@@ -147,8 +145,8 @@ export const ActionComponent = (props: {
                 style={{
                   justifyContent: "center",
                   alignContent: "center",
-                  marginLeft: 10,
-                  marginRight: 10,
+                  margin: 10,
+                  // marginRight: 10,
                   color: "white",
                   fontWeight: "bold",
                 }}
@@ -159,10 +157,8 @@ export const ActionComponent = (props: {
           </Col>
           <Col
             style={{
-              marginTop: 10,
-              marginBottom: 10,
-              marginLeft: 180,
-              marginRight: 180,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <TouchableOpacity
@@ -180,11 +176,15 @@ export const ActionComponent = (props: {
                     : "Search" === "Search"
                     ? "#5cabc5"
                     : "#5cabc5",
-                height: 35,
-                paddingTop: 7,
-                paddingBottom: 5,
-                paddingLeft: 50,
-                paddingRight: 30,
+                height: "5vh",
+                width: "25vh",
+                // flex: 1,
+                // paddingTop: 5,
+                // paddingBottom: 5,
+                // paddingLeft: 50,
+                // paddingRight: 30,
+                justifyContent: "center",
+                alignItems: "center",
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.5,
@@ -196,8 +196,8 @@ export const ActionComponent = (props: {
                 style={{
                   justifyContent: "center",
                   alignContent: "center",
-                  marginLeft: 10,
-                  marginRight: 10,
+                  margin: 10,
+                  // marginRight: 10,
                   color: "white",
                   fontWeight: "bold",
                 }}
