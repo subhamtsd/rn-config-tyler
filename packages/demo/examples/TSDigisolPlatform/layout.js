@@ -46,6 +46,9 @@ import { EditOrderLineAddressDetailComponent } from "../TSDigisolPlatform/compon
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../components/AddEditEntity";
 import { ToggleNavigation } from "../..//components/ToggleNavigation";
+// ******************** POC on NEWNAV BAR *****************************
+import { NewNavbar } from "../../components/NewNavbar";
+import { Hierarchy } from "../../../demo/examples/TSDigisolPlatform/components/HierarchyComponent/index";
 
 export const componentsSet = {
   Comp5,
@@ -85,6 +88,8 @@ export const componentsSet = {
   // TEST FOR JSON FORM
   AddEditEntity,
   ToggleNavigation,
+  NewNavbar,
+  Hierarchy,
 };
 
 const links = {
@@ -213,62 +218,49 @@ export const appConfig = {
     colConfig: {
       colSize: 1,
     },
-    "1.container": {
-      "1.1.leftNavCol": {
-        layout: {
-          "1.1.leftNavBodyRow": {
-            Header: {
-              colSize: 1,
-              idx: "HeaderBar",
-              label: "headerBar",
-              colStyle: { borderWidth: 1, height: "10vh" },
-            },
-          },
-        },
-      },
-    },
+    // "1.container": {
+    //   "1.1.leftNavCol": {
+    //     layout: {
+    //       "1.1.leftNavBodyRow": {
+    //         Header: {
+    //           colSize: 1,
+    //           idx: "HeaderBar",
+    //           label: "headerBar",
+    //           colStyle: { borderWidth: 1, height: "10vh" },
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
     "2.container": {
       "2.1.leftNavCol": {
         layout: {
           colConfig: {
-            colSize: 2,
+            colSize: 0.64,
           },
           "2.1.leftNavBodyRow": {
             leftNavBody: {
-              idx: "NavigationBar",
+              idx: "NewNavbar",
               label: "navigationBar",
-              colStyle: { borderWidth: 1, height: "98vh" },
+              colStyle: { height: "100vh" },
               // colStyle: { borderWidth:1, height: "100vh" },
             },
           },
-          "2.2.leftNavBodyRow": {
-            leftNavBody2: {
-              idx: "DefaultScreen",
-              // label: "1",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
-          "2.3.leftNavBodyRow": {
-            leftNavBody3: {
-              idx: "DefaultScreen",
-              // label: "2",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
+          
         },
       },
       "2.2.bodyCol": {
         layout: {
           colConfig: {
             colSize: 10,
+          },
+          "1.1.leftNavBodyRow": {
+            Header: {
+              // colSize: 1,
+              idx: "HeaderBar",
+              label: "headerBar",
+              colStyle: { borderWidth: 1, height: "10vh" },
+            },
           },
           "2.2.1.BodyRow": {
             bodyHeader: {
@@ -286,15 +278,21 @@ export const appConfig = {
           },
           "2.2.3.BodyRow": {
             "2.2.3.1.bodyContent": {
-              colSize: 2,
+              size: 2,
               idx: "JsonFormComponent",
               label: "bodyHeader",
               colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
             },
             "2.2.3.1.bodyContent2": {
-              colSize: 4,
+              size: 2,
               idx: "DefaultScreen",
               label: "helloWorld",
+              colStyle: { borderWidth: 1 },
+            },
+            "2.2.3.1.bodyContent3": {
+              size: 1,
+              idx: "Hierarchy",
+              label: "hierarchy",
               colStyle: { borderWidth: 1 },
             },
           },
