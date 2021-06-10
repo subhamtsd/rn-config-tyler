@@ -85,7 +85,10 @@ export const ActionComponent = (props: {
 
     if (action === "Create") {
       // TODO : Remove hardcoding for Screen in UI module jsonEditorScreen from route
-      if (appState.$global.tsdApp.activeModule.key === 2008) {
+      if (
+        appState.$global.tsdApp.activeModule.key === 2008 &&
+        appState.$global.tsdApp.activeTab.key === 3012
+      ) {
         setLayoutConfig(routes["jsonEditorScreen"], "copy");
       } else {
         setLayoutConfig(routes["defaultAppConfig"], "copy");

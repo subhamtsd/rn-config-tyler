@@ -207,104 +207,52 @@ const links = {
 
 // SAGAR's config
 export const appConfig = {
+  tw: true,
   componentsSet,
   layout: {
-    colConfig: {
-      colSize: 1,
-    },
-    "1.container": {
-      "1.1.leftNavCol": {
-        layout: {
-          "1.1.leftNavBodyRow": {
-            Header: {
-              colSize: 1,
-              idx: "HeaderBar",
-              label: "headerBar",
-              colStyle: { height: "auto" },
-            },
-          },
-        },
+    0: {
+      0: {
+        idx: "HeaderBar",
+        label: "headerBar",
+        size: 1.3,
       },
     },
-    "2.container": {
-      "2.1.leftNavCol": {
-        layout: {
-          colConfig: {
-            colSize: 1.5,
-          },
-          "2.1.leftNavBodyRow": {
-            leftNavBody: {
-              idx: "NavigationBar",
-              label: "navigationBar",
-              colStyle: {
-                height: "88vh",
-              },
-            },
-          },
-          "2.2.leftNavBodyRow": {
-            leftNavBody2: {
-              idx: "DefaultScreen",
-              label: "navigationBar",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
-          "2.3.leftNavBodyRow": {
-            leftNavBody3: {
-              idx: "DefaultScreen",
-              label: "navigationBar",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
-        },
+    1: {
+      0: {
+        idx: "NavigationBar",
+        label: "navigationBar",
+        size: 15,
       },
-      "2.2.bodyCol": {
+      1: {
         layout: {
-          colConfig: {
-            colSize: 10,
-          },
-          "2.2.1.BodyRow": {
-            bodyHeader: {
+          0: {
+            0: {
               idx: "ActionComponent",
               label: "actionComponent",
-              colStyle: {
-                height: "8vh",
-              },
+              size: 10,
             },
           },
-          "2.2.2.BodyRow": {
-            bodyContent: {
+          1: {
+            0: {
               idx: "TabComponent",
               label: "tabComponent",
-              colStyle: {
-                height: "7vh",
-              },
+              size: 10,
             },
           },
-          "2.2.3.BodyRow": {
-            "2.2.3.1.bodyContent": {
-              colSize: 2,
+          2: {
+            0: {
               idx: "JsonFormComponent",
               label: "bodyHeader",
-              colStyle: {
-                height: "75vh",
-              },
+              size: 100,
             },
-            "2.2.3.1.bodyContent2": {
-              colSize: 4,
+            1: {
               idx: "DefaultScreen",
               label: "helloWorld",
-              colStyle: {
-                height: "75vh",
-              },
+              size: 200,
             },
+          },
+          layoutConfig: {
+            size: 95,
           },
         },
       },

@@ -100,8 +100,8 @@ export const HeaderBar = (props: {
                 borderWidth: 1,
                 borderRadius: 2,
                 borderColor: "grey",
-                width: 55,
-                height: 55,
+                width: 45,
+                height: 45,
                 alignItems: "center",
                 // paddingRight: 10,
                 shadowColor: "#000",
@@ -159,8 +159,8 @@ export const HeaderBar = (props: {
               <Image
                 source={require("../../../../../../assets/images/icons8-update-file-96.png")}
                 style={{
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                 }}
               />
             </TouchableOpacity>
@@ -175,6 +175,7 @@ export const HeaderBar = (props: {
 const HeaderStyles = StyleSheet.create({
   container: {
     display: "flex",
+    flex: 1,
     backgroundColor: "#eab358",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -187,7 +188,7 @@ const HeaderStyles = StyleSheet.create({
   },
   logoTextStyle: {
     marginLeft: 30,
-    marginTop: 5,
+    marginTop: 2,
     // marginBottom: 10,
     width: 150,
     height: 50,

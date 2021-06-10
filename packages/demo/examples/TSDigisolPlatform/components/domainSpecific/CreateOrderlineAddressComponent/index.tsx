@@ -145,7 +145,6 @@ export const CreateOrderlineAddressComponent = (props: {
   const initialFormSchema = {};
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-  const [uiSchema, setUISchema] = useState(_uiSchema);
   const [responseStatus, setResponseStatus] = useState(200);
 
   useEffect(() => {
@@ -178,9 +177,8 @@ export const CreateOrderlineAddressComponent = (props: {
         prepareSchema(resJSON).then((schemaJson) => {
           const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
           // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+          schemaJson[firstParent].type = "object";
           setformLayout(schemaJson[firstParent]);
-
-          setUISchema(resJSON[firstParent]);
           setloading(false);
           // console.log("response Json : : : : : formLayout ---> ", resJSON);
         });
@@ -255,7 +253,7 @@ export const CreateOrderlineAddressComponent = (props: {
           // schema={_schema}
           uiSchema={formLayout.uischema}
           _formData={_formData}
-          label={appState.$global.tsdApp.formData.isChecked.key}
+          label={appState.$global.tsdApp.createComponent.isChecked.key}
           setLayoutConfig={setLayoutConfig}
           _submitButton={"Save"}
           _cancelButton={true}
