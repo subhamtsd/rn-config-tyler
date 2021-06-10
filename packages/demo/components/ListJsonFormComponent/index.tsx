@@ -61,11 +61,9 @@ export const ListJsonFormComponent = (props: {
           body: JSON.stringify({
             userId: "TsdAdmin",
             roleKey: 1,
-            moduleKey:
-              _childDependency.ListJsonFormComponentDependency.moduleKey,
-            tabKey: _childDependency.ListJsonFormComponentDependency.tabKey,
-            actionName:
-              _childDependency.ListJsonFormComponentDependency.actionName,
+            moduleKey: _childDependency[`${label}Dependency`].moduleKey,
+            tabKey: _childDependency[`${label}Dependency`].tabKey,
+            actionName: _childDependency[`${label}Dependency`].actionName,
           }),
         }
       );
