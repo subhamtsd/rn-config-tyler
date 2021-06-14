@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import {
   About,
   ActionComp,
@@ -7,7 +8,7 @@ import {
   RandomPic,
   // JsonForm,
 } from "../../components/index";
-import { rowStyle, styles } from "./styles/common";
+import { styles } from "./styles/common";
 
 import { routes } from "./configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
@@ -1452,6 +1453,154 @@ export const events = {
       //   "appState in searchListComponent ",
       //   props.appState
       // );
+    },
+  },
+  "createOrderFooterComponent-submit-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const createOrderlineListComponent =
+        appState?.$global?.tsdApp?.createComponent
+          ?.createOrderlineListComponent;
+      const bodyHeader =
+        appState?.$global?.tsdApp?.createComponent?.[
+          appState.$global.tsdApp.activeTab.name
+        ];
+
+      const orderLine = [];
+      const address = [];
+      createOrderlineListComponent?.forEach((obj) => {
+        const newObj = { ...obj.item };
+        newObj["address"] = {
+          ...appState?.$global?.tsdApp?.createComponent?.[obj.key],
+        };
+        orderLine.push(newObj);
+      });
+
+      appState?.$global?.tsdApp?.createComponent?.createAddressFormComponent?.forEach(
+        (obj) => {
+          const newObj = { ...obj.item };
+          address.push(newObj);
+        }
+      );
+
+      const body = {
+        ...bodyHeader,
+        addressInfos: {
+          address: address,
+        },
+        orderLines: {
+          orderLine: orderLine,
+        },
+      };
+      console.log("final submit body   ", body);
+      fetch(
+        `${SERVER_ENDPOINT}${appState.$global.tsdApp.activeAction.endPoint}/`,
+        {
+          method: appState.$global.tsdApp.activeAction.httpMethod,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      )
+        .then((res) => res.json())
+        .then((_data) => {
+          console.log("submit success ", _data);
+          const newAppState = { ...appState };
+          delete newAppState.$global.tsdApp.formData;
+          delete newAppState.$global.tsdApp.createComponent;
+          newAppState.$global.tsdApp.viewComponent = {
+            [appState.$global.tsdApp.activeTab.name]: _data,
+          };
+          console.log("newAppState ::: ", newAppState);
+          setAppState(newAppState, false);
+          setLayoutConfig(routes.orderDetail, "copy");
+        })
+        .catch((err) => {
+          const newAppState = { ...appState };
+          delete newAppState.$global.tsdApp.formData;
+          delete newAppState.$global.tsdApp.createComponent;
+          setAppState(newAppState, false);
+        });
+    },
+  },
+  "createOrderlineAddressComponent-form": {
+    onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[0].params.values;
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [appState.$global.tsdApp.createComponent.isChecked.key]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+      setLayoutConfig(routes.createOrderline, "copy");
+    },
+  },
+  "createOrderlineListComponent-save": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+    },
+  },
+  "createOrderlineListComponent-add-address": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      const isChecked = args[3];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+                isChecked: isChecked,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+      setLayoutConfig(routes.createOrderlineAddress, "copy");
+    },
+  },
+  "createAddressFormComponent-save": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
     },
   },
 

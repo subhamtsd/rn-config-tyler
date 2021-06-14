@@ -78,7 +78,7 @@ export const CreateOrderlineListComponent = (props: {
       const secondParent = Object.getOwnPropertyNames(
         resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
       );
-      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
+      await prepareSchema(resJSON);
 
       // console.log(
       //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
@@ -126,8 +126,10 @@ export const CreateOrderlineListComponent = (props: {
               getEvents={getEvents}
               events={events}
               noOfColumns={7}
-              maxNoOfRows={20}
+              maxNoOfRows={10}
               dataToRender={formLayout}
+              checkBox={true}
+              checkBoxButton={"Add Address"}
             />
           </Grid>
         </ScrollView>

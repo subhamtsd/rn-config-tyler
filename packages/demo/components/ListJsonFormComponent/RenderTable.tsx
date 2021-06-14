@@ -9,7 +9,6 @@ import {
   ScrollView,
   TextInput,
   StyleSheet,
-  CheckBox,
   TouchableOpacity,
   Pressable,
   // Picker
@@ -19,11 +18,9 @@ import { Picker } from "@react-native-picker/picker";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
 import { useState } from "react";
-import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
-import { prepareSchema } from "../../examples/TSDigisolPlatform/helper/helper";
 // import DatePicker from 'react-native-web-ui-components/Datepicker';
-import { Calendar, CalendarList, Agenda, Arrow } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import Modal from "modal-react-native-web";
 
 export const RenderTable = (props: {
@@ -70,6 +67,9 @@ export const RenderTable = (props: {
 
   const tableHeaderObj =
     dataToRender[firstParent].properties[secondParent[0]].items.properties;
+
+  const uiSchema =
+    dataToRender[firstParent].properties[secondParent[0]].items.uischema;
 
   tableHeaderObj["actionDisplay"] = {
     title: "Action",
@@ -472,7 +472,7 @@ export const RenderTable = (props: {
                   >
                     {/* <Picker.Item label="Java" value="java" />
                     <Picker.Item label="JavaScript" value="js" /> */}
-                    {schema?.properties?.[keyName]?.enum.map((ele, i) => {
+                    {uiSchema?.[keyName]?.["ui:enum"].map((ele, i) => {
                       return <Picker.Item label={ele} value={ele} key={i} />;
                     })}
                   </Picker>

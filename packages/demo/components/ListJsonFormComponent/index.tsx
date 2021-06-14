@@ -72,7 +72,7 @@ export const ListJsonFormComponent = (props: {
       const secondParent = Object.getOwnPropertyNames(
         resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
       );
-      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
+      await prepareSchema(resJSON);
       setformLayout(resJSON);
       console.log("response Json : : : : : listformLayout ---> ", resJSON);
       setLoading(false);

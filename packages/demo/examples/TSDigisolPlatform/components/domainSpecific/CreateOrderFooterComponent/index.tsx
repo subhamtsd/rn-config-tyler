@@ -17,7 +17,6 @@ export const CreateOrderFooterComponent = (props: {
   layoutConfig: any;
   setLayoutConfig: any;
   getEvents: any;
-  events: any;
   _childDependeny: any;
 }) => {
   const {
@@ -29,78 +28,10 @@ export const CreateOrderFooterComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
-    events,
     _childDependeny,
   } = props;
 
   console.log(`label is ${label}`);
-
-  const submitHandler = () => {
-    const createOrderlineListComponent =
-      appState?.$global?.tsdApp?.createComponent?.createOrderlineListComponent;
-    const bodyHeader =
-      appState?.$global?.tsdApp?.createComponent?.[
-        appState.$global.tsdApp.activeTab.name
-      ];
-
-    const orderLine = [];
-    const address = [];
-    createOrderlineListComponent?.forEach((obj) => {
-      const newObj = { ...obj.item };
-      newObj["address"] = {
-        ...appState?.$global?.tsdApp?.createComponent?.[obj.key],
-      };
-      orderLine.push(newObj);
-    });
-
-    appState?.$global?.tsdApp?.createComponent?.createAddressFormComponent?.forEach(
-      (obj) => {
-        const newObj = { ...obj.item };
-        address.push(newObj);
-      }
-    );
-
-    const body = {
-      ...bodyHeader,
-      addressInfos: {
-        address: address,
-      },
-      orderLines: {
-        orderLine: orderLine,
-      },
-    };
-    console.log("final submit body   ", body);
-    const res1 = fetch(
-      `${SERVER_ENDPOINT}${appState.$global.tsdApp.activeAction.endPoint}/`,
-      {
-        method: appState.$global.tsdApp.activeAction.httpMethod,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    )
-      .then((res) => res.json())
-      .then((_data) => {
-        console.log("submit success ", _data);
-        const newAppState = { ...appState };
-        delete newAppState.$global.tsdApp.formData;
-        delete newAppState.$global.tsdApp.createComponent;
-        newAppState.$global.tsdApp.viewComponent = {
-          [appState.$global.tsdApp.activeTab.name]: _data,
-        };
-        console.log("newAppState ::: ", newAppState);
-        setAppState(newAppState, false);
-        setLayoutConfig(routes.orderDetail, "copy");
-      })
-      .catch((err) => {
-        const newAppState = { ...appState };
-        delete newAppState.$global.tsdApp.formData;
-        delete newAppState.$global.tsdApp.createComponent;
-        setAppState(newAppState, false);
-      });
-  };
 
   return (
     <View
@@ -121,7 +52,12 @@ export const CreateOrderFooterComponent = (props: {
         <TouchableOpacity
           style={buttonStyle.buttonSubmit}
           // disabled={status}
-          onPress={submitHandler}
+          {...getEvents(
+            `${label}-submit-btn`,
+            setLayoutConfig,
+            setAppState,
+            appState
+          )}
         >
           <Text style={buttonStyle.text1}>Submit</Text>
         </TouchableOpacity>

@@ -2,12 +2,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
-import { relative } from "path";
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { routes } from "../../configs/routes/routesConfig";
-// import { useSelector, useDispatch } from "react-redux";
 
 export const HeaderBar = (props: {
   appState: any;
