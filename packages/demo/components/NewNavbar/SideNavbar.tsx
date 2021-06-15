@@ -8,7 +8,7 @@ import Modal from "modal-react-native-web";
 import {DataModal} from "./DataModal";
 import { Ionicons } from '@expo/vector-icons';
 
-export const SideNavbar = ({modalDisplay,functionProp,displayModule,props}:any) => {
+export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,props}:any) => {
     const {
         appState,
         label,
@@ -22,33 +22,60 @@ export const SideNavbar = ({modalDisplay,functionProp,displayModule,props}:any) 
 
     const [modalVisible, setModalVisible] = useState(modalDisplay);
     const [dataVisible, setDataVisible] = useState(false);
+    const [activeModule,setActiveModule] = useState("");
+    const [moduleKey,setActiveModuleKey] = useState(-1);
     const [dataModules,setDataModules] = useState({});
     const [modalData, setModalData] = useState({"children":[]});
     const [tabView, setTabView] = useState(false);
+    const [data,setdata] = useState([]);
     const [selectedIndex, setIndex] = useState(0);
     console.log("dummy :", displayModule);
 
-    const fetchData1 = async () => {
-        const res = await fetch(
-          `https://run.mocky.io/v3/8ff89274-cafc-4e1e-8f7f-0a3eed2d2d54`,
-          // {
-          //   method: "POST",
-          //   headers: {
-          //     Accept: "application/json",
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify({}),
-          // }
-        ).then((res)=>{
-          return res.json()})
-        .then((res)=>
-        {console.log("required data ",res);
-        return setModalData(res)});
-      };
-      useEffect(()=>{
-        fetchData1
-    },[])
-      console.log("data modal :",modalData);
+    useEffect(() => {
+        const fetchData = async () => {
+          const res = await fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: "TsdAdmin",
+              roleKey: 1,
+              // TODO : Conditional for default state undefined
+              moduleName:
+                appState.global != undefined
+                  ? activeModule !=""
+                    ? activeModule
+                    : "ServiceOrders"
+                  : "ServiceOrders",
+              // tabName:
+              //   appState.global != undefined
+              //     ? appState.global.tsdApp.activeTab != undefined
+              //       ? appState.global.tsdApp.activeTab.name
+              //       : "CreateOrders"
+              //     : "CreateOrders",
+              actionName:
+                appState.global != undefined
+                  ? appState.global.tsdApp.activeAction != undefined
+                    ? appState.global.tsdApp.activeAction.name
+                    : "Search"
+                  : "Search",
+            }),
+          });
+          const resJSON = await res.json();
+          // console.log("active module : : : :", state.activeModuleSelection);
+          // console.log(
+          //   "Buisness Functions with Tabs",
+          //   resJSON.businessFunctions[0].modules[0].tabs
+          // );
+          setdata(resJSON.businessFunctions[0].modules[0].tabs);
+        };
+        fetchData();
+      }, []);
+
+    console.log("data modal :",data);
+    console.log("state of newNavbar :",appState);
       
 
     return (
@@ -90,17 +117,47 @@ export const SideNavbar = ({modalDisplay,functionProp,displayModule,props}:any) 
                                     onPress={() => {
                                         setModalVisible(false);
                                         functionProp(false);
+                                        stylingProp("");
                                     }
                                     }
                                 >
                                     <Ionicons name="close" size={24} color="#fff" />
                                 </TouchableOpacity>
                                 </View>
-                                {tabView ? <View>{displayModule.modules[selectedIndex].tabs.map((tab, index) =>
+                                {tabView ? <View>{displayModule.modules[selectedIndex].tabs.map((item, index) =>
                                     <TouchableOpacity onPress={()=>
-                                        {setDataVisible(true);
-                                        fetchData1;
-                                        setLayoutConfig(routes["orderDetail"], "copy");
+                                        {setDataVisible(true)
+                                            setAppState(
+                                                {
+                                                  global: {
+                                                    tsdApp: {
+                                                        activeModule: {
+                                                                      name: activeModule,
+                                                                      key: moduleKey,
+                                                                    },
+                                                      activeTab: {
+                                                        name: item.tabName,
+                                                        key: item.tabKey,
+                                                      },
+                                                      activeAction: {
+                                                        name: item.actions[0].actionName,
+                                                        key: item.actions[0].actionKey,
+                                                        endPoint: item.actions[0].endPoint,
+                                                        httpMethod: item.actions[0].httpMethod,
+                                                        showButton: item.actions[0].showButton,
+                                                      },
+                                                      createComponent: null,
+                                                      listComponent: {
+                                                        data: {
+                                                          response: [],
+                                                        },
+                                                      },
+                                                      formData: null,
+                                                    },
+                                                  },
+                                                },
+                                                "isPartial"
+                                              );
                                     }
                                     }>
                                         <Text style={{
@@ -108,7 +165,7 @@ export const SideNavbar = ({modalDisplay,functionProp,displayModule,props}:any) 
                                             color: "white",
                                             padding: 10,
                                         }}>
-                                            {tab.tabDisplayName}
+                                            {item.tabDisplayName}
                                         </Text>
                                     </TouchableOpacity>)}
                                 </View> : <View>{displayModule.modules.map((item, key) => (
@@ -116,7 +173,33 @@ export const SideNavbar = ({modalDisplay,functionProp,displayModule,props}:any) 
                                         onPress={() => {
                                             setIndex(key);
                                             setTabView(true);
-                                            //setLayoutConfig(routes["editOrderLineDetail"], "copy");
+                                            setActiveModule(item.moduleName);
+                                            setActiveModuleKey(item.moduleKey);
+                                            // const filteredAction = item.tabs[0].actions.find(
+                                            //     ({ actionName }) => actionName === "Search"
+                                            //   );
+                                            //   setAppState({
+                                            //     global: {
+                                            //       tsdApp: {
+                                            //         activeModule: {
+                                            //           name: item.moduleName,
+                                            //           key: item.moduleKey,
+                                            //         },
+                                            //         activeTab: {
+                                            //           name: item.tabs[0].tabName,
+                                            //           key: item.tabs[0].tabKey,
+                                            //         },
+                                            //         activeAction: {
+                                            //           name: filteredAction.actionName,
+                                            //           key: filteredAction.actionKey,
+                                            //           endPoint: filteredAction.endPoint,
+                                            //           httpMethod: filteredAction.httpMethod,
+                                            //           showButton: filteredAction.showButton,
+                                            //         },
+                                            //       },
+                                            //     },
+                                            //   });
+                                            //   setLayoutConfig(routes["defaultAppConfig"], "copy");
                                         }
                                         }
                                     >

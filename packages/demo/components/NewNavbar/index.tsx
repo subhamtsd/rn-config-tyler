@@ -39,6 +39,7 @@ export const NewNavbar = (props: {
     console.log(props.appState);
 
     const [listDataSource, setListDataSource] = useState([]);
+    const [activeFunction,setActiveFunction] = useState("");
     const [visible, setVisible] = useState(false);
     const [modules,setModules] = useState({});
 
@@ -75,11 +76,13 @@ export const NewNavbar = (props: {
     return (
         <View style={{ height: "100vh", display: "flex", flexDirection: "row", position: "fixed",marginTop:-35 }}>
             <View style={{ height: "100%", width: "90px", backgroundColor: "#373330", alignItems: "center" }}>
-                <View style={{ marginTop: "10vh", marginBottom: 30, width: 40, alignItems: "center" }}>
+                <View style={{ backgroundColor: activeFunction==="foundation"?"#4a4542":"#373330",width:"100%",paddingVertical:"20%" ,marginTop: "10vh", alignItems: "center" }}>
+                    {/* hard coded because not sure how to get the icons */}
                     <TouchableOpacity
                         onPress={() => {
                             setVisible(true);
                             setModules(listDataSource[0]);
+                            setActiveFunction("foundation");
                             console.log('pressed open');
                         }}
                     >
@@ -96,11 +99,12 @@ export const NewNavbar = (props: {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 5, marginBottom: 30, width: 40, alignItems: "center" }}>
+                <View style={{ backgroundColor: activeFunction==="sales"?"#4a4542":"#373330",width:"100%",paddingVertical:"30%", alignItems: "center" }}>
                     <TouchableOpacity
                         onPress={() => {
                             setVisible(true);
                             setModules(listDataSource[1]);
+                            setActiveFunction("sales");
                             console.log('pressed open');
                         }}
                     >
@@ -113,11 +117,12 @@ export const NewNavbar = (props: {
                         <Text style={{color:"#aaa6a0",fontSize:10,fontWeight:"bold"}}>SALES</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 10, marginBottom: 30, width: 60, alignItems: "center" }}>
+                <View style={{ backgroundColor: activeFunction==="postsales"?"#4a4542":"#373330",width:"100%",paddingVertical:"30%", alignItems: "center" }}>
                     <TouchableOpacity
                         onPress={() => {
                             setVisible(true);
                             setModules(listDataSource[2]);
+                            setActiveFunction("postsales");
                             console.log('pressed open');
                         }}
                     >
@@ -130,11 +135,12 @@ export const NewNavbar = (props: {
                         <Text style={{color:"#aaa6a0",fontSize:10,fontWeight:"bold"}}>POST SALES</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 15, marginBottom: 15, width: 40, alignItems: "center" }}>
+                <View style={{ backgroundColor: activeFunction==="configurator"?"#4a4542":"#373330",width:"100%",paddingVertical:"30%", alignItems: "center" }}>
                     <TouchableOpacity
                         onPress={() => {
                             setVisible(true);
                             setModules(listDataSource[3]);
+                            setActiveFunction("configurator");
                             console.log('pressed open');
                         }}
                     >
@@ -180,6 +186,7 @@ export const NewNavbar = (props: {
                 visible && <SideNavbar
                     modalDisplay={visible}
                     functionProp={setVisible}
+                    stylingProp={setActiveFunction}
                     displayModule={modules}
                     props={props}
                 />
