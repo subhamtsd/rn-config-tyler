@@ -18,6 +18,10 @@ import {
   Pressable,
 } from "react-native";
 
+import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
@@ -25,6 +29,9 @@ import { ShowQRCodeComponent } from "../../examples/TSDigisolPlatform/components
 
 const TextRender = ({ textFeild, value }: any) => {
   // console.log("Error value : : : ", value);
+  const valueToShow = JSON.stringify(value);
+  const lengthOfValue = valueToShow.length;
+  const finalValue = valueToShow.substring(1,lengthOfValue-1);
   return (
     <Row
       style={{
@@ -39,7 +46,7 @@ const TextRender = ({ textFeild, value }: any) => {
           }
         }
       >
-        <Text>{textFeild} : </Text>
+        <Text style={{color:"#6B7280",fontWeight:"500",fontSize:14}}>{textFeild} : </Text>
       </Col>
       <Col
         style={
@@ -48,7 +55,7 @@ const TextRender = ({ textFeild, value }: any) => {
           }
         }
       >
-        <Text>{JSON.stringify(value)}</Text>
+        <Text style={{color:"#000",fontStyle:"italic",fontWeight:"400",fontSize:14}}>{finalValue}</Text>
       </Col>
     </Row>
   );
@@ -78,7 +85,7 @@ const Item = ({ item, onPress, style, UItitle }: any) => (
             // borderWidth: 1,
             padding: 10,
             flex: 1,
-            marginTop: 30,
+            marginTop: 10,
             marginLeft: 20,
             marginRight: 20,
           }}
@@ -180,34 +187,24 @@ export const ShowEntity = (props: {
               shadowRadius: 2,
             }}
           >
-            <Row>
-              <Col>
-                <ScrollView style={{}}>
-                  <Item
-                    item={item}
-                    onPress={() => setSelectedId(item.id)}
-                    style={{
-                      backgroundColor,
-                      shadowColor: "#000",
-                    }}
-                    UItitle={UItitle}
-                  />
-                </ScrollView>
-              </Col>
-            </Row>
             <Row
               style={{
                 flex: 1,
-                padding: 10,
-                margin: 15,
+                paddingVertical:"1%",
+                paddingHorizontal: 10,
+                marginLeft: "70%",
+                marginRight:"2%",
                 maxHeight: 550,
-                borderWidth: 1,
+                borderWidth: 0,
                 borderColor: "#c5c5c5",
               }}
             >
+              {/* <Col>
+                <Text>{UItitle}</Text>
+              </Col> */}
               <Col style={{}}>
                 <View style={detailViewStyles.buttonView}>
-                  <TouchableOpacity
+                <Feather name="edit-2" size={24} color="black"
                     testID={`${label}-edit-btn`}
                     {...getEvents(
                       `${label}-edit-btn`,
@@ -215,11 +212,8 @@ export const ShowEntity = (props: {
                       setAppState,
                       appState,
                       viewData
-                    )}
-                    style={detailViewStyles.button}
-                  >
-                    <Text style={detailViewStyles.textStyle}>EDIT</Text>
-                  </TouchableOpacity>
+                    )}    
+                />
                 </View>
               </Col>
 
@@ -280,7 +274,7 @@ export const ShowEntity = (props: {
                   </Modal>
                 }
                 <View style={detailViewStyles.buttonView}>
-                  <TouchableOpacity
+                <Ionicons name="ios-qr-code-outline" size={24} color="black" 
                     // testID={`${label}-edit-btn`}
                     // {...getEvents(
                     //   `${label}-edit-btn`,
@@ -314,13 +308,11 @@ export const ShowEntity = (props: {
                       //   },
                       // });
                     }}
-                    style={[
-                      detailViewStyles.button,
-                      { opacity: QRbackgroundColor },
-                    ]}
-                  >
-                    <Text style={detailViewStyles.textStyle}>QRCODE</Text>
-                  </TouchableOpacity>
+                    // style={[
+                    //   detailViewStyles.button,
+                    //   { opacity: QRbackgroundColor },
+                    // ]}
+                  />
                 </View>
               </Col>
 
@@ -536,17 +528,31 @@ export const ShowEntity = (props: {
                   // </View>
                 }
                 <View style={detailViewStyles.buttonView}>
-                  <TouchableOpacity
-                    style={detailViewStyles.button}
+                  <MaterialIcons name="delete" size={24} color="black" 
+                    // style={detailViewStyles.button}
                     onPress={() => {
                       setModalDeleteVisible(true);
                     }}
-                  >
-                    <Text style={detailViewStyles.textStyle}>DELETE</Text>
-                  </TouchableOpacity>
+                  />
                 </View>
               </Col>
             </Row>
+            <Row>
+              <Col>
+                <ScrollView style={{}}>
+                  <Item
+                    item={item}
+                    onPress={() => setSelectedId(item.id)}
+                    style={{
+                      backgroundColor:"#fff",
+                      shadowColor: "#000",
+                    }}
+                    UItitle={UItitle}
+                  />
+                </ScrollView>
+              </Col>
+            </Row>
+            
           </Grid>
         </ScrollView>
       </View>
@@ -585,9 +591,9 @@ const detailViewStyles = StyleSheet.create({
     // borderWidth: 1,
   },
   item: {
-    padding: 10,
-    margin: 10,
-    marginVertical: 8,
+    padding: 5,
+    margin: 5,
+    marginVertical: 0,
     marginHorizontal: 16,
     borderStyle: "solid",
     opacity: 1,
@@ -601,7 +607,7 @@ const detailViewStyles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#0d47a1",
+    color: "#343A40",
     fontWeight: "bold",
     textAlign: "center",
   },

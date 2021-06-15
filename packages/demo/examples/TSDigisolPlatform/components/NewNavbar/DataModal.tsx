@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, StyleSheet, Pressable, Dimensions } from "react-native";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import Modal from "modal-react-native-web";
 import { Ionicons } from '@expo/vector-icons';
 

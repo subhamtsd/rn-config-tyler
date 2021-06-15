@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Text, View, Pressable, Modal, StyleSheet } from "react-native";
 import { SideNavbar } from "./SideNavbar";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Foundation } from '@expo/vector-icons';
@@ -43,12 +43,9 @@ export const NewNavbar = (props: {
     const [visible, setVisible] = useState(false);
     const [modules,setModules] = useState({});
 
-    let moduleJSON;
-
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(
-                // `https://run.mocky.io/v3/1f38d881-eaae-4fcd-b6fe-05fdc83f5554`,
                 `${SERVER_ENDPOINT}v1/schema/`,
                 {
                     method: "POST",
@@ -63,15 +60,12 @@ export const NewNavbar = (props: {
                 }
             );
             const resJSON = await res.json();
-            //   moduleJSON=resJSON;
             setListDataSource(resJSON.businessFunctions);
         };
         fetchData();
-        // console.log("appState in useEffect : : : ", appState);
-        // setAppState({ global: { total: 1 } });
     }, []);
-    console.log("data of BusinessFunctions :", listDataSource);
-    console.log("data of modules :", modules);
+    // console.log("data of BusinessFunctions :", listDataSource);
+    // console.log("data of modules :", modules);
 
     return (
         <View style={{ height: "100vh", display: "flex", flexDirection: "row", position: "fixed",marginTop:-35 }}>
@@ -141,7 +135,7 @@ export const NewNavbar = (props: {
                             setVisible(true);
                             setModules(listDataSource[3]);
                             setActiveFunction("configurator");
-                            console.log('pressed open');
+                            // console.log('pressed open');
                         }}
                     >
                         <FontAwesome5 
@@ -153,33 +147,6 @@ export const NewNavbar = (props: {
                         <Text style={{color:"#aaa6a0",fontSize:10,fontWeight:"bold"}}>CONFIGURATOR</Text>
                     </TouchableOpacity>
                 </View>
-                {/* <Pressable
-                    style={{
-                        alignItems: 'center',
-                        backgroundColor: '#f48b29',
-                        height: 35,
-                        width: '32%',
-                        marginTop: 20,
-                        paddingTop: 7,
-                        paddingBottom: 5,
-                        paddingLeft: 30,
-                        paddingRight: 30,
-                        shadowColor: '#000',
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.5,
-                        shadowRadius: 2,
-                        elevation: 5,
-                    }}
-                    onPress={() => {
-                        setVisible(true);
-                        console.log('pressed open');
-                    }}>
-                    <Text style={{
-                        color: "white",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                    }}>open</Text>
-                </Pressable> */}
             </View>
 
             {

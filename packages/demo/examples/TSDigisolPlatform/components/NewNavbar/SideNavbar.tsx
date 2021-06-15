@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, StyleSheet, Pressable, Dimensions } from "react-native";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
-import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { routes } from "../../configs/routes/routesConfig";
 import Modal from "modal-react-native-web";
 import {DataModal} from "./DataModal";
 import { Ionicons } from '@expo/vector-icons';
@@ -24,8 +24,8 @@ export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,
     const [dataVisible, setDataVisible] = useState(false);
     const [activeModule,setActiveModule] = useState("");
     const [moduleKey,setActiveModuleKey] = useState(-1);
-    const [dataModules,setDataModules] = useState({});
-    const [modalData, setModalData] = useState({"children":[]});
+    //const [dataModules,setDataModules] = useState({});
+    //const [modalData, setModalData] = useState({"children":[]});
     const [tabView, setTabView] = useState(false);
     const [data,setdata] = useState([]);
     const [selectedIndex, setIndex] = useState(0);
@@ -74,9 +74,8 @@ export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,
         fetchData();
       }, []);
 
-    console.log("data modal :",data);
-    console.log("state of newNavbar :",appState);
-      
+    // console.log("data modal :",data);
+    // console.log("state of newNavbar :",appState);
 
     return (
         <View>
@@ -124,7 +123,7 @@ export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,
                                     <Ionicons name="close" size={24} color="#fff" />
                                 </TouchableOpacity>
                                 </View>
-                                {tabView ? <View>{displayModule.modules[selectedIndex].tabs.map((item, index) =>
+                                {tabView ? <View>{displayModule.modules[selectedIndex].tabs.map((item:any, index:any) =>
                                     <TouchableOpacity onPress={()=>
                                         {setDataVisible(true)
                                             setAppState(
@@ -132,27 +131,27 @@ export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,
                                                   global: {
                                                     tsdApp: {
                                                         activeModule: {
-                                                                      name: activeModule,
-                                                                      key: moduleKey,
-                                                                    },
-                                                      activeTab: {
-                                                        name: item.tabName,
-                                                        key: item.tabKey,
-                                                      },
-                                                      activeAction: {
-                                                        name: item.actions[0].actionName,
-                                                        key: item.actions[0].actionKey,
-                                                        endPoint: item.actions[0].endPoint,
-                                                        httpMethod: item.actions[0].httpMethod,
-                                                        showButton: item.actions[0].showButton,
-                                                      },
-                                                      createComponent: null,
-                                                      listComponent: {
-                                                        data: {
-                                                          response: [],
+                                                            name: activeModule,
+                                                            key: moduleKey,
                                                         },
-                                                      },
-                                                      formData: null,
+                                                        activeTab: {
+                                                            name: item.tabName,
+                                                            key: item.tabKey,
+                                                        },
+                                                        activeAction: {
+                                                            name: item.actions[0].actionName,
+                                                            key: item.actions[0].actionKey,
+                                                            endPoint: item.actions[0].endPoint,
+                                                            httpMethod: item.actions[0].httpMethod,
+                                                            showButton: item.actions[0].showButton,
+                                                        },
+                                                        createComponent: null,
+                                                        listComponent: {
+                                                            data: {
+                                                            response: [],
+                                                            },
+                                                        },
+                                                        formData: null,
                                                     },
                                                   },
                                                 },
@@ -175,31 +174,6 @@ export const SideNavbar = ({modalDisplay,functionProp,stylingProp,displayModule,
                                             setTabView(true);
                                             setActiveModule(item.moduleName);
                                             setActiveModuleKey(item.moduleKey);
-                                            // const filteredAction = item.tabs[0].actions.find(
-                                            //     ({ actionName }) => actionName === "Search"
-                                            //   );
-                                            //   setAppState({
-                                            //     global: {
-                                            //       tsdApp: {
-                                            //         activeModule: {
-                                            //           name: item.moduleName,
-                                            //           key: item.moduleKey,
-                                            //         },
-                                            //         activeTab: {
-                                            //           name: item.tabs[0].tabName,
-                                            //           key: item.tabs[0].tabKey,
-                                            //         },
-                                            //         activeAction: {
-                                            //           name: filteredAction.actionName,
-                                            //           key: filteredAction.actionKey,
-                                            //           endPoint: filteredAction.endPoint,
-                                            //           httpMethod: filteredAction.httpMethod,
-                                            //           showButton: filteredAction.showButton,
-                                            //         },
-                                            //       },
-                                            //     },
-                                            //   });
-                                            //   setLayoutConfig(routes["defaultAppConfig"], "copy");
                                         }
                                         }
                                     >

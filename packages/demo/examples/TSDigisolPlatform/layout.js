@@ -47,7 +47,7 @@ import { EditOrderLineAddressDetailComponent } from "../TSDigisolPlatform/compon
 import { AddEditEntity } from "../../components/AddEditEntity";
 import { ToggleNavigation } from "../..//components/ToggleNavigation";
 // ******************** POC on NEWNAV BAR *****************************
-import { NewNavbar } from "../../components/NewNavbar";
+import { NewNavbar } from "./components/NewNavbar";
 import { Hierarchy } from "../../../demo/examples/TSDigisolPlatform/components/HierarchyComponent/index";
 
 export const componentsSet = {
@@ -278,7 +278,7 @@ export const appConfig = {
           },
           "2.2.3.BodyRow": {
             "2.2.3.1.bodyContent": {
-              size: 2,
+              size: 1,
               idx: "JsonFormComponent",
               label: "bodyHeader",
               colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
@@ -289,12 +289,12 @@ export const appConfig = {
               label: "helloWorld",
               colStyle: { borderWidth: 1 },
             },
-            "2.2.3.1.bodyContent3": {
-              size: 1,
-              idx: "Hierarchy",
-              label: "hierarchy",
-              colStyle: { borderWidth: 1 },
-            },
+            // "2.2.3.1.bodyContent3": {
+            //   size: 1,
+            //   idx: "Hierarchy",
+            //   label: "hierarchy",
+            //   colStyle: { borderWidth: 1 },
+            // },
           },
         },
       },

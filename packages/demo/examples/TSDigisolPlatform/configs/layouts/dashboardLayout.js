@@ -44,7 +44,7 @@ import { EditOrderLineAddressDetailComponent } from "../../components/domainSpec
 import { AddEditEntity } from "../../../../components/AddEditEntity";
 
 // ******************** POC on NEWNAV BAR *****************************
-import { NewNavbar } from "../../../../components/NewNavbar";
+import { NewNavbar } from "../../components/NewNavbar/index";
 
 export const componentsSet = {
   Comp5,
