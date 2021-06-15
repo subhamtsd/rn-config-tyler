@@ -84,12 +84,12 @@ export const prepareSchema = async (schemaList) => {
             enumNames.push(select[dropdownEnum?.displayValue || field]);
           }
           schema.uischema[field]["ui:enum"] = Enum;
-          schema.uischema[field]["ui:enumName"] = enumNames;
+          schema.uischema[field]["ui:enumNames"] = enumNames;
           console.log("NNNN");
           console.log(
             schema.uischema[field]["ui:enum"],
             "----",
-            schema.uischema[field]["ui:enumName"]
+            schema.uischema[field]["ui:enumNames"]
           );
         }
       }
@@ -147,7 +147,7 @@ export const formCleanProperty = (
   delete newFormData[propertyName];
   if (formSchema?.["properties"]?.[propertyName]?.displayType == "dropdown") {
     delete newUiSchema[propertyName]["ui:enum"];
-    delete newUiSchema[propertyName]["ui:enumName"];
+    delete newUiSchema[propertyName]["ui:enumNames"];
   }
   if (formSchema?.["properties"]?.[propertyName]?.format == "date") {
     delete newUiSchema[propertyName]["ui:minDate"];
@@ -224,7 +224,7 @@ export const formDependency = async (
               "dropdown"
             ) {
               newUiSchema[property.fieldName]["ui:enum"] = data.enum;
-              newUiSchema[property.fieldName]["ui:enumName"] = data.enumName;
+              newUiSchema[property.fieldName]["ui:enumNames"] = data.enumName;
             }
             if (
               formSchema?.["properties"]?.[property.fieldName]?.format == "date"

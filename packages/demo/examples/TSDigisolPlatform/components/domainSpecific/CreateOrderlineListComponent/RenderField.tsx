@@ -339,7 +339,7 @@ export const RenderField = (props: {
                   {uiSchema[keyName]?.["ui:enum"]?.map((ele, i) => {
                     return (
                       <Picker.Item
-                        label={uiSchema[keyName]?.["ui:enumName"]?.[i] || ele}
+                        label={uiSchema[keyName]?.["ui:enumNames"]?.[i] || ele}
                         value={ele}
                         key={i}
                       />
