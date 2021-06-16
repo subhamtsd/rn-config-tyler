@@ -8,7 +8,7 @@ import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "../CreateOrderlineListComponent/RenderTable";
+import { RenderTable } from "../../ListJsonFormComponent//RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 
 export const CreateAddressFormComponent = (props: {
@@ -158,6 +158,7 @@ export const CreateAddressFormComponent = (props: {
                 dataToRender={formLayout}
                 checkBox={false}
                 checkBoxButton={false}
+                submitButton={"Save"}
               />
             </Grid>
           </ScrollView>

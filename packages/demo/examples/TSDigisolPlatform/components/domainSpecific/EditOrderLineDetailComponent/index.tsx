@@ -154,6 +154,7 @@ export const EditOrderLineDetailComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
+  const [loading, setloading] = useState(true);
   // retrieve formlayout via api
   useEffect(() => {
     const fetchData = async () => {
@@ -188,7 +189,7 @@ export const EditOrderLineDetailComponent = (props: {
 
           // console.log("objectName : : : : ", objectNam);
           setformLayout(formLayout[firstParent]);
-          // setloading(false);
+          setloading(false);
         });
 
       // console.log("objectName : : : : ", objectName);
@@ -200,15 +201,15 @@ export const EditOrderLineDetailComponent = (props: {
 
   // console.log("FormLayout Json in Editorderline Component : : : ", formLayout);
 
-  return (
+  return loading ? null : (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         uiSchema={formLayout.uischema}
-        _formData={appState?.$global?.tsdApp?.formData?.viewData}
+        _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
         // _onBeforeSubmit={(e) => {

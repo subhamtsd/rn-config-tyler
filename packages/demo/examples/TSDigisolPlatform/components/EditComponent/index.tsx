@@ -238,7 +238,7 @@ export const EditComponent = (props: {
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         _submitButton={"Update"}
         _cancelButton={true}

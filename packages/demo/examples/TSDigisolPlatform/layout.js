@@ -29,7 +29,7 @@ import { ScreenJsonEditor } from "../TSDigisolPlatform/components/ScreenJsonEdit
 import { ListComponent } from "../TSDigisolPlatform/components/ListComponent";
 import { DetailListComponent } from "../TSDigisolPlatform/components/DetailListComponent";
 import { EditComponent } from "../TSDigisolPlatform/components/EditComponent/index";
-import { ListJsonFormComponent } from "../../components/ListJsonFormComponent";
+import { ListJsonFormComponent } from "../../examples/TSDigisolPlatform/components/ListJsonFormComponent/index";
 import { LoginComponent } from "../TSDigisolPlatform/components/LoginComponent";
 import { BillToAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/BillToAddressDetailViewComponent";
 import { OrderLineAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/OrderLineAddressDetailViewComponent";
@@ -1133,6 +1133,7 @@ export const events = {
   },
   "detailListComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("hello abcd");
       const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
         method: "POST",
         headers: {
@@ -1212,6 +1213,18 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
@@ -1219,13 +1232,14 @@ export const events = {
 
   "orderLineDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
           $global: {
             tsdApp: {
-              formData: {
-                ...appState?.$global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1259,20 +1273,32 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
   "billToAddressDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
-      console.log("abcdefg", args[1]);
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
           $global: {
             tsdApp: {
-              formData: {
-                ...appState?.$global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1302,6 +1328,18 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
@@ -1310,13 +1348,14 @@ export const events = {
   "orderLineAddressDetailViewComponent-edit-btn": {
     // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
           $global: {
             tsdApp: {
-              formData: {
-                ...appState?.$global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1543,7 +1582,7 @@ export const events = {
       setLayoutConfig(routes.createOrderline, "copy");
     },
   },
-  "createOrderlineListComponent-save": {
+  "createOrderlineListComponent-submit": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       const body = args[1];
       const label = args[2];
@@ -1562,7 +1601,7 @@ export const events = {
       );
     },
   },
-  "createOrderlineListComponent-add-address": {
+  "createOrderlineListComponent-checkbox-press": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       const body = args[1];
       const label = args[2];
@@ -1584,7 +1623,7 @@ export const events = {
       setLayoutConfig(routes.createOrderlineAddress, "copy");
     },
   },
-  "createAddressFormComponent-save": {
+  "createAddressFormComponent-submit": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       const body = args[1];
       const label = args[2];
@@ -1601,6 +1640,24 @@ export const events = {
         },
         "isPartial"
       );
+    },
+  },
+  "listJsonFormComponent-submit": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      const firstParent = args[3];
+      const secondParent = args[4];
+      console.log("Final submit");
+      const finalData =
+        appState.$global.tsdApp.createComponent[
+          appState.$global.tsdApp.activeTab.name
+        ];
+      console.log("final Data in the body Parameter 1st ::: ", finalData);
+      finalData[firstParent] = {
+        [secondParent[0]]: body,
+      };
+      console.log("final Data in the body Parameter 2nd ::: ", finalData);
     },
   },
 

@@ -83,6 +83,12 @@ export const prepareSchema = async (schemaList) => {
             Enum.push(select[dropdownEnum?.filedValue || field]);
             enumNames.push(select[dropdownEnum?.displayValue || field]);
           }
+          if (schema.uischema == undefined) {
+            schema.uischema = {};
+          }
+          if (schema.uischema[field] == undefined) {
+            schema.uischema[field] = {};
+          }
           schema.uischema[field]["ui:enum"] = Enum;
           schema.uischema[field]["ui:enumNames"] = enumNames;
           console.log("NNNN");

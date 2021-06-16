@@ -11,6 +11,7 @@ import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { parseFormData } from "../../../helper/helper";
 import { prepareSchema } from "../../../helper/helper";
+import _for from "core-js/fn/symbol/for";
 
 export const EditOrderLineAddressDetailComponent = (props: {
   appState: any;
@@ -153,6 +154,7 @@ export const EditOrderLineAddressDetailComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
+  const [loading, setloading] = useState(true);
   // retrieve formLayout via api
   useEffect(() => {
     const fetchData = async () => {
@@ -185,7 +187,7 @@ export const EditOrderLineAddressDetailComponent = (props: {
 
           // console.log("objectName : : : : ", objectNam);
           setformLayout(formLayout[firstParent]);
-          // setloading(false);
+          setloading(false);
         });
 
       // console.log("objectName : : : : ", objectName);
@@ -196,15 +198,15 @@ export const EditOrderLineAddressDetailComponent = (props: {
   // console.log("formData  : : :  in editaddress component : : : ", _formData);
   // console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
 
-  return (
+  return loading ? null : (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         uiSchema={formLayout.uischema}
-        _formData={appState?.$global?.tsdApp?.formData?.viewData}
+        _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
         _submitButton={"Update"}

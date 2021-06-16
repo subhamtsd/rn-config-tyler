@@ -8,7 +8,7 @@ import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "./RenderTable";
+import { RenderTable } from "../../ListJsonFormComponent/RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 
 export const CreateOrderlineListComponent = (props: {
@@ -72,7 +72,6 @@ export const CreateOrderlineListComponent = (props: {
           }),
         }
       );
-      console.log("hello fetch");
       const resJSON = await res.json();
       const firstParent = Object.getOwnPropertyNames(resJSON)[0];
       const secondParent = Object.getOwnPropertyNames(
@@ -130,6 +129,7 @@ export const CreateOrderlineListComponent = (props: {
               dataToRender={formLayout}
               checkBox={true}
               checkBoxButton={"Add Address"}
+              submitButton={"Save"}
             />
           </Grid>
         </ScrollView>

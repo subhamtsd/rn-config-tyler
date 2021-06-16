@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ShowEntity } from "../../../../../components/DetailComponent/ShowEntity";
-import { componentGridStyle } from "../../../styles/common";
+import { ShowEntity } from "../../../components/DetailComponent/ShowEntity";
 
 export const OrderLineAddressDetailViewComponent = (props: {
   appState: any;
