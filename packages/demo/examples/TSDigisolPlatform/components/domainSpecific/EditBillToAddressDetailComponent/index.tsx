@@ -2,11 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import { ScrollView } from "react-native";
 // import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../../helper/useSafeState";
-import { routes } from "../../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../../styles/common";
 import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
@@ -36,7 +35,9 @@ export const EditBillToAddressDetailComponent = (props: {
   } = props;
 
   const _formData = parseFormData(
-    appState.global.tsdApp.viewComponent[appState.global.tsdApp.activeTab.name]
+    appState.$global.tsdApp.viewComponent[
+      appState.$global.tsdApp.activeTab.name
+    ]
   );
 
   const [_schema, setSchema] = useSafeSetState({
@@ -152,6 +153,7 @@ export const EditBillToAddressDetailComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
+  const [loading, setloading] = useState(true);
   // retrieve formLayout via api
   useEffect(() => {
     const fetchData = async () => {
@@ -180,13 +182,11 @@ export const EditBillToAddressDetailComponent = (props: {
           return schemaJson;
         })
         .then((formLayout) => {
-          // console.log("Schema edit returned : : : ", formLayout);
-          // console.log("edit component appstate:", appState.global);
           const firstParent = Object.getOwnPropertyNames(formLayout)[0];
 
           // console.log("objectName : : : : ", objectNam);
           setformLayout(formLayout[firstParent]);
-          // setloading(false);
+          setloading(false);
         });
 
       // console.log("objectName : : : : ", objectName);
@@ -197,15 +197,15 @@ export const EditBillToAddressDetailComponent = (props: {
   // console.log("formData  : : :  in editaddress component : : : ", _formData);
   // console.log("FormLayout Json in Editaddress Component : : : ", formLayout);
 
-  return (
+  return loading ? null : (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         uiSchema={formLayout.uischema}
-        _formData={appState?.global?.tsdApp?.formData?.viewData}
+        _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}
         // _onBeforeSubmit={(e) => {

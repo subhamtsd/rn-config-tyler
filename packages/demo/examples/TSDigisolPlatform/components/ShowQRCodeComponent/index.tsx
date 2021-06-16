@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { Button, Text, View, Image } from "react-native";
-import { componentGridStyle } from "../../styles/common";
+import { Text, View, Image } from "react-native";
 
 export const ShowQRCodeComponent = (props: {
   appState: any;
@@ -30,9 +29,9 @@ export const ShowQRCodeComponent = (props: {
   } = props;
 
   const qrCodeImage =
-    appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage === undefined
+    appState.$global.tsdApp?.ShowQRCodeComponent?.qrcodeImage === undefined
       ? `C:\\QRCODE\\default`
-      : appState.global.tsdApp?.ShowQRCodeComponent?.qrcodeImage;
+      : appState.$global.tsdApp?.ShowQRCodeComponent?.qrcodeImage;
 
   // console.log(`label is ${label}`);
   // console.log(getEvents(`${label}-btn-one`, setLayoutConfig, setAppState));
@@ -68,7 +67,7 @@ export const ShowQRCodeComponent = (props: {
               }}
             />
             <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-              {appState.global.tsdApp?.ShowQRCodeComponent?.message}
+              {appState.$global.tsdApp?.ShowQRCodeComponent?.message}
             </Text>
           </View>
         </View>

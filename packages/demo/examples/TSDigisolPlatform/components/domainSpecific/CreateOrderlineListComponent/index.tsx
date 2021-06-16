@@ -4,19 +4,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { isPropertyAssignment } from "typescript";
-import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "./RenderTable";
+import { RenderTable } from "../../ListJsonFormComponent/RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 
 export const CreateOrderlineListComponent = (props: {
@@ -60,34 +52,39 @@ export const CreateOrderlineListComponent = (props: {
 
   useEffect(() => {
     console.log("hello");
-    const module = appState?.global?.tsdApp?.activeModule?.key;
+    const module = appState?.$global?.tsdApp?.activeModule?.key;
     const fetchFormLayout = async () => {
       setLoading(true);
-      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          moduleKey: module,
-          roleKey: 1,
-          tabKey: module == 23751 ? 2006 : 171505,
-          userId: "TsdAdmin",
-          actionName: "Create",
-        }),
-      });
-      console.log("hello fetch");
+      const res = await fetch(
+        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            moduleKey: module,
+            roleKey: 1,
+            tabKey: module == 23751 ? 2006 : 171505,
+            userId: "TsdAdmin",
+            actionName: "Create",
+          }),
+        }
+      );
       const resJSON = await res.json();
+      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
+      const secondParent = Object.getOwnPropertyNames(
+        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
+      );
+      await prepareSchema(resJSON);
 
-      prepareSchema(resJSON).then((schemaJson) => {
-        // console.log(
-        //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
-        //   schemaJson
-        // );
-        setformLayout(schemaJson);
-        setLoading(false);
-      });
+      // console.log(
+      //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
+      //   schemaJson
+      // );
+      setformLayout(resJSON);
+      setLoading(false);
     };
     fetchFormLayout();
   }, []);
@@ -128,8 +125,11 @@ export const CreateOrderlineListComponent = (props: {
               getEvents={getEvents}
               events={events}
               noOfColumns={7}
-              maxNoOfRows={20}
+              maxNoOfRows={10}
               dataToRender={formLayout}
+              checkBox={true}
+              checkBoxButton={"Add Address"}
+              submitButton={"Save"}
             />
           </Grid>
         </ScrollView>

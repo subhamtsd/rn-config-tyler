@@ -55,7 +55,9 @@ export const ListRender = (props: {
   const [totalPage, setTotalPage] = useState(0);
   const [pageNumber, setpageNumber] = useState(1);
 
-  if (props.appState.global.tsdApp.listComponent?.data?.page?.pageSize === "") {
+  if (
+    props.appState.$global.tsdApp.listComponent?.data?.page?.pageSize === ""
+  ) {
     setIsPaginationAvailable(false);
   }
 
@@ -109,9 +111,9 @@ export const ListRender = (props: {
 
   useEffect(() => {
     fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
-      props.appState.global.tsdApp.searchComponent.searchPayload
+      props.appState.$global.tsdApp.activeAction.endPoint,
+      props.appState.$global.tsdApp.activeAction.httpMethod,
+      props.appState.$global.tsdApp.searchComponent.searchPayload
     );
   }, []);
   // if (props.appState.global != undefined) {
@@ -133,7 +135,7 @@ export const ListRender = (props: {
   console.log("recordCount", totalPage);
 
   const prevHandler = async () => {
-    const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+    const body = props.appState.$global.tsdApp.searchComponent.searchPayload;
     const prev = prevKey.length < 2 ? 0 : prevKey[prevKey.length - 2];
     body["page"] = {
       pageSize: "10",
@@ -141,8 +143,8 @@ export const ListRender = (props: {
     };
     console.log("PrevButton press ::::", body);
     await fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
+      props.appState.$global.tsdApp.activeAction.endPoint,
+      props.appState.$global.tsdApp.activeAction.httpMethod,
       body
     );
     console.log("prev key yeas", prevKey[prevKey.length - 1]);
@@ -157,15 +159,15 @@ export const ListRender = (props: {
   };
 
   const nextHandler = async () => {
-    const body = props.appState.global.tsdApp.searchComponent.searchPayload;
+    const body = props.appState.$global.tsdApp.searchComponent.searchPayload;
     body["page"] = {
       pageSize: "10",
       lastRecordKey: nextKey,
     };
     console.log("NextHandler Press : :: : ", body);
     await fetchApi(
-      props.appState.global.tsdApp.activeAction.endPoint,
-      props.appState.global.tsdApp.activeAction.httpMethod,
+      props.appState.$global.tsdApp.activeAction.endPoint,
+      props.appState.$global.tsdApp.activeAction.httpMethod,
       body
     );
     setPrevKey((old) => [...old, nextKey]);
@@ -281,7 +283,7 @@ export const ListRender = (props: {
               textAlign: "center",
             }}
           >
-            {props.appState.global.tsdApp.activeTab.name} List
+            {props.appState.$global.tsdApp.activeTab.name} List
           </Text>
         </View>
       </View>

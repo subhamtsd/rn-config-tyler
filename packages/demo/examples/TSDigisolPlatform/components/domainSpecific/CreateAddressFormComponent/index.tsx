@@ -4,21 +4,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
-import { isPropertyAssignment } from "typescript";
-import { events } from "../../../configs/events/eventConfig";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "./RenderTable";
+import { RenderTable } from "../../ListJsonFormComponent//RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ListJsonFormComponent } from "./../../../../../components/ListJsonFormComponent/index";
 
 export const CreateAddressFormComponent = (props: {
   appState: any;
@@ -30,7 +21,7 @@ export const CreateAddressFormComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  _childDependeny: any;
+  _childDependency: any;
   UItitle: any;
 }) => {
   const {
@@ -43,7 +34,7 @@ export const CreateAddressFormComponent = (props: {
     setLayoutConfig,
     getEvents,
     events,
-    _childDependeny,
+    _childDependency,
     UItitle,
   } = props;
 
@@ -99,80 +90,82 @@ export const CreateAddressFormComponent = (props: {
 
   useEffect(() => {
     const fetchFormLayout = async () => {
-      setLoading(true);
-      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          moduleKey: 2007,
-          roleKey: 1,
-          tabKey: 3006,
-          userId: "TsdAdmin",
-          actionName: "Create",
-        }),
-      });
+      const res = await fetch(
+        `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            moduleKey: _childDependency[`${label}Dependency`].moduleKey,
+            tabKey: _childDependency[`${label}Dependency`].tabKey,
+            actionName: _childDependency[`${label}Dependency`].actionName,
+            userId: "TsdAdmin",
+          }),
+        }
+      );
       const resJSON = await res.json();
+      await prepareSchema(resJSON);
 
-      // console.log("First Parent ::: " + firstParent);
-
-      // console.log("Props in ---> ", props.dataToRender[firstParent]);
-      // console.log("Second Parent: " + secondParent);
-      prepareSchema(resJSON).then((schemaJson) => {
-        const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
-        // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
-        setformLayout(schemaJson[firstParent]);
-        // console.log("response Json : : : : : formLayout ---> ", resJSON);
-        setLoading(false);
-      });
+      // console.log(
+      //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
+      //   schemaJson
+      // );
+      setformLayout(resJSON);
+      setLoading(false);
     };
     fetchFormLayout();
   }, []);
 
-  return loading ? null : (
-    <View style={componentGridStyle}>
-      <Text
-        style={{
-          fontSize: 20,
-          color: "#0d47a1",
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        {UItitle}
-      </Text>
-      {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
+  return (
+    loading || (
+      <View style={componentGridStyle}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d47a1",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          {UItitle}
+        </Text>
+        {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
         title="ACT1"
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
       ></Button> */}
-      {/* <Text> AA {appState?.$appState?.loginValues}</Text> */}
-      <View>
-        <ScrollView>
-          <Grid>
-            {/* <Text>{noOfColumns}</Text> */}
-            <RenderTable
-              appState={appState}
-              label={label}
-              styles={styles}
-              children={children}
-              setAppState={setAppState}
-              layoutConfig={layoutConfig}
-              setLayoutConfig={setLayoutConfig}
-              getEvents={getEvents}
-              events={events}
-              noOfColumns={7}
-              maxNoOfRows={2}
-              dataToRender={formLayout}
-            />
-          </Grid>
-        </ScrollView>
+        {/* <Text> AA {appState?.$appState?.loginValues}</Text> */}
+        <View>
+          <ScrollView>
+            <Grid>
+              {/* <Text>{noOfColumns}</Text> */}
+              <RenderTable
+                appState={appState}
+                label={label}
+                styles={styles}
+                children={children}
+                setAppState={setAppState}
+                layoutConfig={layoutConfig}
+                setLayoutConfig={setLayoutConfig}
+                getEvents={getEvents}
+                events={events}
+                noOfColumns={7}
+                maxNoOfRows={2}
+                dataToRender={formLayout}
+                checkBox={false}
+                checkBoxButton={false}
+                submitButton={"Save"}
+              />
+            </Grid>
+          </ScrollView>
+        </View>
+        {children || (appState && appState[label] && appState[label]?.children)}
       </View>
-      {children || (appState && appState[label] && appState[label]?.children)}
-    </View>
+    )
   );
 };
 

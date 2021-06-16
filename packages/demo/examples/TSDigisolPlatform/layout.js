@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import {
   About,
   ActionComp,
@@ -7,7 +8,7 @@ import {
   RandomPic,
   // JsonForm,
 } from "../../components/index";
-import { rowStyle, styles } from "./styles/common";
+import { styles } from "./styles/common";
 
 import { routes } from "./configs/routes/routesConfig";
 import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
@@ -28,7 +29,7 @@ import { ScreenJsonEditor } from "../TSDigisolPlatform/components/ScreenJsonEdit
 import { ListComponent } from "../TSDigisolPlatform/components/ListComponent";
 import { DetailListComponent } from "../TSDigisolPlatform/components/DetailListComponent";
 import { EditComponent } from "../TSDigisolPlatform/components/EditComponent/index";
-import { ListJsonFormComponent } from "../../components/ListJsonFormComponent";
+import { ListJsonFormComponent } from "../../examples/TSDigisolPlatform/components/ListJsonFormComponent/index";
 import { LoginComponent } from "../TSDigisolPlatform/components/LoginComponent";
 import { BillToAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/BillToAddressDetailViewComponent";
 import { OrderLineAddressDetailViewComponent } from "../TSDigisolPlatform/components/domainSpecific/OrderLineAddressDetailViewComponent";
@@ -207,96 +208,52 @@ const links = {
 
 // SAGAR's config
 export const appConfig = {
-  /// 1st layout
+  tw: true,
   componentsSet,
   layout: {
-    colConfig: {
-      colSize: 1,
-    },
-    "1.container": {
-      "1.1.leftNavCol": {
-        layout: {
-          "1.1.leftNavBodyRow": {
-            Header: {
-              colSize: 1,
-              idx: "HeaderBar",
-              label: "headerBar",
-              colStyle: { borderWidth: 1, height: "10vh" },
-            },
-          },
-        },
+    0: {
+      0: {
+        idx: "HeaderBar",
+        label: "headerBar",
+        size: 1.3,
       },
     },
-    "2.container": {
-      "2.1.leftNavCol": {
-        layout: {
-          colConfig: {
-            colSize: 2,
-          },
-          "2.1.leftNavBodyRow": {
-            leftNavBody: {
-              idx: "NavigationBar",
-              label: "navigationBar",
-              colStyle: { borderWidth: 1, height: "98vh" },
-              // colStyle: { borderWidth:1, height: "100vh" },
-            },
-          },
-          "2.2.leftNavBodyRow": {
-            leftNavBody2: {
-              idx: "DefaultScreen",
-              // label: "1",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
-          "2.3.leftNavBodyRow": {
-            leftNavBody3: {
-              idx: "DefaultScreen",
-              // label: "2",
-              colStyle: {
-                backgroundColor: "skyblue",
-                borderWidth: 1,
-                height: "1vh",
-              },
-            },
-          },
-        },
+    1: {
+      0: {
+        idx: "NavigationBar",
+        label: "navigationBar",
+        size: 15,
       },
-      "2.2.bodyCol": {
+      1: {
         layout: {
-          colConfig: {
-            colSize: 10,
-          },
-          "2.2.1.BodyRow": {
-            bodyHeader: {
+          0: {
+            0: {
               idx: "ActionComponent",
               label: "actionComponent",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              size: 10,
             },
           },
-          "2.2.2.BodyRow": {
-            bodyContent: {
+          1: {
+            0: {
               idx: "TabComponent",
               label: "tabComponent",
-              colStyle: { borderWidth: 1, height: "10vh" },
+              size: 8,
             },
           },
-          "2.2.3.BodyRow": {
-            "2.2.3.1.bodyContent": {
-              colSize: 2,
+          2: {
+            0: {
               idx: "JsonFormComponent",
               label: "bodyHeader",
-              colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+              size: 100,
             },
-            "2.2.3.1.bodyContent2": {
-              colSize: 4,
+            1: {
               idx: "DefaultScreen",
               label: "helloWorld",
-              colStyle: { borderWidth: 1 },
+              size: 200,
             },
+          },
+          layoutConfig: {
+            size: 95,
           },
         },
       },
@@ -819,13 +776,13 @@ export const events = {
     onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
       // console.log("args.params.values : : : : : ", args);
       const body = args[0].params.values;
-      body["moduleName"] = appState.global.tsdApp.activeModule.name;
-      body["tabName"] = appState.global.tsdApp.activeTab.name;
+      body["moduleName"] = appState.$global.tsdApp.activeModule.name;
+      body["tabName"] = appState.$global.tsdApp.activeTab.name;
       console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
 
       console.log(
-        "appState.global.tsdApp.activeAction.name : : ::  ",
-        appState.global.tsdApp.activeAction.name
+        "appState.$global.tsdApp.activeAction.name : : ::  ",
+        appState.$global.tsdApp.activeAction.name
       );
 
       /**
@@ -848,19 +805,22 @@ export const events = {
           .then((res) => res.json())
           .then((_data) => {
             // const _formData = args.params.values;
-            setAppState({
-              global: {
-                tsdApp: {
-                  createComponent: {
-                    [appState.global.tsdApp.activeTab.name]: _data,
-                    formData: body,
-                  },
-                  viewComponent: {
-                    [appState.global.tsdApp.activeTab.name]: _data,
+            setAppState(
+              {
+                $global: {
+                  tsdApp: {
+                    createComponent: {
+                      [appState.$global.tsdApp.activeTab.name]: _data,
+                      formData: body,
+                    },
+                    viewComponent: {
+                      [appState.$global.tsdApp.activeTab.name]: _data,
+                    },
                   },
                 },
               },
-            });
+              "isPartial"
+            );
             setLayoutConfig(routeToRedirect, "copy");
           });
       };
@@ -871,15 +831,18 @@ export const events = {
           tabName,
           body
         );
-        setAppState({
-          global: {
-            tsdApp: {
-              createComponent: {
-                [tabName]: body,
+        setAppState(
+          {
+            $global: {
+              tsdApp: {
+                createComponent: {
+                  [tabName]: body,
+                },
               },
             },
           },
-        });
+          "isPartial"
+        );
         // await saveCreateComponentFormLayout();
       };
 
@@ -920,7 +883,7 @@ export const events = {
       };
 
       const createOperation = async () => {
-        const activeTabName = appState.global.tsdApp.activeTab.name;
+        const activeTabName = appState.$global.tsdApp.activeTab.name;
         console.log("from eventConfig", body);
         saveCreateComponentData(activeTabName, body);
         // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
@@ -928,10 +891,11 @@ export const events = {
         if (activeTabName === "Category" || activeTabName === "Screen") {
           await getScreenLayout(
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
+            // "https://run.mocky.io/v3/9afda2b1-618b-44df-ba07-f7879fb6ca69",
+            "https://run.mocky.io/v3/58d66bb9-af95-49da-b787-5f7eb25fcca5",
+            appState.$global.tsdApp.activeModule.key,
+            appState.$global.tsdApp.activeTab.key,
+            appState.$global.tsdApp.activeAction.name,
             "Submit-button"
           );
           // console.log("Screen Layout :::: ", screenLayout);
@@ -939,20 +903,22 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/9e6aded1-e311-4534-8628-2fc678bd1e84`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/77136343-fe77-48d5-8a27-e6645605a292",
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
+            // "https://run.mocky.io/v3/9afda2b1-618b-44df-ba07-f7879fb6ca69",
+            "https://run.mocky.io/v3/58d66bb9-af95-49da-b787-5f7eb25fcca5",
+            appState.$global.tsdApp.activeModule.key,
+            appState.$global.tsdApp.activeTab.key,
+            appState.$global.tsdApp.activeAction.name,
             "Submit-button"
           );
         } else if (activeTabName === "User") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/6877833a-5c73-4330-abc8-8cd9d9aca1de`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/0793709f-8fe6-43f2-92db-fa928c2e8b09",
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
+            // "https://run.mocky.io/v3/e9580864-4d33-44d8-9da6-40fa6fff554c",
+            "https://run.mocky.io/v3/62b0c58e-3af3-48d6-af83-4eed259363ac",
+            appState.$global.tsdApp.activeModule.key,
+            appState.$global.tsdApp.activeTab.key,
+            appState.$global.tsdApp.activeAction.name,
             "Submit-button"
           );
         } else if (
@@ -975,7 +941,7 @@ export const events = {
           //     console.log("from create order ", data);
           //   });
 
-          setLayoutConfig(routes.createOrder);
+          setLayoutConfig(routes.createOrder, "copy");
           // await getScreenLayout(
           //   // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
           //   `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
@@ -987,8 +953,8 @@ export const events = {
           //   "Submit-button"
           // );
         } else if (activeTabName === "AllocateOrders") {
-          if (appState.global.tsdApp.activeBuisnessFunction.name === "Sales") {
-            setLayoutConfig(routes.createOrder);
+          if (appState.$global.tsdApp.activeBuisnessFunction.name === "Sales") {
+            setLayoutConfig(routes.createOrder, "copy");
             // await getScreenLayout(
             //   // `https://run.mocky.io/v3/3958120b-155b-480e-9f2a-9d9ad029f0d7`,
             //   // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
@@ -1003,9 +969,9 @@ export const events = {
             await getScreenLayout(
               // `https://run.mocky.io/v3/7c1acd7c-a667-49da-8a60-5de9f9b31e9d`,
               `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-              appState.global.tsdApp.activeModule.key,
-              appState.global.tsdApp.activeTab.key,
-              appState.global.tsdApp.activeAction.name,
+              appState.$global.tsdApp.activeModule.key,
+              appState.$global.tsdApp.activeTab.key,
+              appState.$global.tsdApp.activeAction.name,
               "Submit-button"
             );
           }
@@ -1013,46 +979,51 @@ export const events = {
           await getScreenLayout(
             // `https://run.mocky.io/v3/71170fc8-f2e0-497f-9bd7-b963cbe8660f`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/c8cee798-636d-4a68-878d-9feebc8f9990",
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
+            // "https://run.mocky.io/v3/d3377fac-093d-4354-babd-e35cd9726de8",
+            "https://run.mocky.io/v3/2edacf46-055a-4823-9beb-ad213697ce66",
+            appState.$global.tsdApp.activeModule.key,
+            appState.$global.tsdApp.activeTab.key,
+            appState.$global.tsdApp.activeAction.name,
             "Submit-button"
           );
         } else if (activeTabName === "Attributes") {
           await getScreenLayout(
             // `https://run.mocky.io/v3/25215499-376f-49dc-bf0b-f622e2904826`,
             // `${SERVER_ENDPOINT}v1/layoutdetail/getChildLayoutJson`,
-            "https://run.mocky.io/v3/cc9354f0-975d-4ce9-973e-e7c40f03f609",
-            appState.global.tsdApp.activeModule.key,
-            appState.global.tsdApp.activeTab.key,
-            appState.global.tsdApp.activeAction.name,
+            // "https://run.mocky.io/v3/bdde5c91-3bdd-49b8-8460-c72a4678a158",
+            "https://run.mocky.io/v3/0ec4e340-48a7-46e4-8f57-cf4561c8283d",
+            appState.$global.tsdApp.activeModule.key,
+            appState.$global.tsdApp.activeTab.key,
+            appState.$global.tsdApp.activeAction.name,
             "Submit-button"
           );
         } else {
           fetchApi(
-            appState.global.tsdApp.activeAction.endPoint,
-            appState.global.tsdApp.activeAction.httpMethod,
+            appState.$global.tsdApp.activeAction.endPoint,
+            appState.$global.tsdApp.activeAction.httpMethod,
             body,
-            routes["detail"]
+            routes[("detail", "copy")]
           );
         }
       };
 
-      if (appState.global.tsdApp.activeAction.name === "Search") {
+      if (appState.$global.tsdApp.activeAction.name === "Search") {
         body["page"] = {
           pageSize: "10",
           lastRecordKey: "0",
         };
-        setAppState({
-          global: {
-            tsdApp: {
-              searchComponent: {
-                searchPayload: body,
+        setAppState(
+          {
+            $global: {
+              tsdApp: {
+                searchComponent: {
+                  searchPayload: body,
+                },
               },
             },
           },
-        });
+          "isPartial"
+        );
         setLayoutConfig(routes["search"], "copy");
         // fetchApi(
         //   appState.global.tsdApp.activeAction.endPoint,
@@ -1066,10 +1037,10 @@ export const events = {
       }
     },
     onCancel: (setLayoutConfig, setAppState, appState, ...args) => {
-      const activeTabName = appState.global.tsdApp.activeTab.name;
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       const body = args[0].params.values;
-      body["moduleName"] = appState.global.tsdApp.activeModule.name;
-      body["tabName"] = appState.global.tsdApp.activeTab.name;
+      body["moduleName"] = appState.$global.tsdApp.activeModule.name;
+      body["tabName"] = appState.$global.tsdApp.activeTab.name;
       console.log("BODY PARAM FOR JSON FORM ::: " + JSON.stringify(body));
       // saveCreateComponentData(activeTabName, body);
       // TODO : REMOVE HARDCODING IN THIS FOR ACTIVE TAB NAME
@@ -1086,14 +1057,10 @@ export const events = {
 
         setAppState(
           {
-            global: {
+            $global: {
               tsdApp: {
                 createComponent: {
                   [activeTabName]: body,
-                },
-                formData: {
-                  ...appState?.global?.tsdApp?.formData,
-                  [args[1]]: body,
                 },
               },
             },
@@ -1116,13 +1083,13 @@ export const events = {
 
       // console.log("appState in Edit event1 : : : ", appState);
       const body = args[0].params.values;
-      body["moduleName"] = appState.global.tsdApp.activeModule.name;
-      body["tabName"] = appState.global.tsdApp.activeTab.name;
-      const keyName = appState.global.tsdApp.editComponent.action.uriParams;
+      body["moduleName"] = appState.$global.tsdApp.activeModule.name;
+      body["tabName"] = appState.$global.tsdApp.activeTab.name;
+      const keyName = appState.$global.tsdApp.editComponent.action.uriParams;
       console.log(
         "Hello world : : : :",
-        appState.global.tsdApp.viewComponent[
-          appState.global.tsdApp.activeTab.name
+        appState.$global.tsdApp.viewComponent[
+          appState.$global.tsdApp.activeTab.name
         ][keyName],
         "\n name of the key ::::",
         keyName,
@@ -1131,14 +1098,14 @@ export const events = {
       ); // Organisation --> organisation
       const res1 = fetch(
         `${SERVER_ENDPOINT}${
-          appState.global.tsdApp.editComponent.action.endPoint
+          appState.$global.tsdApp.editComponent.action.endPoint
         }/${
-          appState.global.tsdApp.viewComponent[
-            appState.global.tsdApp.activeTab.name
+          appState.$global.tsdApp.viewComponent[
+            appState.$global.tsdApp.activeTab.name
           ][keyName]
         }`,
         {
-          method: appState.global.tsdApp.editComponent.action.httpMethod,
+          method: appState.$global.tsdApp.editComponent.action.httpMethod,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -1150,10 +1117,10 @@ export const events = {
         .then((_data) => {
           setAppState(
             {
-              global: {
+              $global: {
                 tsdApp: {
                   viewComponent: {
-                    [appState.global.tsdApp.activeTab.name]: _data,
+                    [appState.$global.tsdApp.activeTab.name]: _data,
                   },
                 },
               },
@@ -1166,6 +1133,7 @@ export const events = {
   },
   "detailListComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("hello abcd");
       const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
         method: "POST",
         headers: {
@@ -1176,12 +1144,12 @@ export const events = {
           userId: "TsdAdmin",
           roleKey: 1,
           moduleName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule.name
               : "Service Orders",
           tabName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeTab.name
               : "CreateOrders",
           actionName: "Edit",
         }),
@@ -1191,20 +1159,19 @@ export const events = {
           // console.log("_Data : :: ", _data);
           setAppState(
             {
-              global: {
+              $global: {
                 tsdApp: {
                   editComponent: {
                     action: {
-                      name:
-                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                          .actionName,
-                      key:
-                        _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                          .actionKey,
-                      endPoint: _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
-                        /{[^}]*}/,
-                        ""
-                      ),
+                      name: _data.businessFunctions[0].modules[0].tabs[0]
+                        .actions[0].actionName,
+                      key: _data.businessFunctions[0].modules[0].tabs[0]
+                        .actions[0].actionKey,
+                      endPoint:
+                        _data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
+                          /{[^}]*}/,
+                          ""
+                        ),
                       uriParams:
                         _data.businessFunctions[0].modules[0].tabs[0].actions[0]
                           .uriParams,
@@ -1246,6 +1213,18 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
@@ -1253,13 +1232,14 @@ export const events = {
 
   "orderLineDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
-          global: {
+          $global: {
             tsdApp: {
-              formData: {
-                ...appState?.global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1293,20 +1273,32 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
   },
   "billToAddressDetailViewComponent-edit-btn": {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
-      console.log("abcdefg", args[1]);
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
-          global: {
+          $global: {
             tsdApp: {
-              formData: {
-                ...appState?.global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1336,6 +1328,18 @@ export const events = {
       })
         .then((res) => res.json())
         .then((_data) => {
+          setAppState(
+            {
+              $global: {
+                tsdApp: {
+                  viewComponent: {
+                    [appState.$global.tsdApp.activeTab.name]: _data,
+                  },
+                },
+              },
+            },
+            "isPartial"
+          );
           setLayoutConfig(routes["detail"], "copy");
         });
     },
@@ -1344,13 +1348,14 @@ export const events = {
   "orderLineAddressDetailViewComponent-edit-btn": {
     // TODO: GET the api end point for edit address now it is hardcoding but needed to remove
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const activeTabName = appState.$global.tsdApp.activeTab.name;
       setAppState(
         {
-          global: {
+          $global: {
             tsdApp: {
-              formData: {
-                ...appState?.global?.tsdApp?.formData,
-                viewData: args[1],
+              viewComponent: {
+                ...appState?.$global?.tsdApp?.viewComponent,
+                [activeTabName]: args[1],
               },
             },
           },
@@ -1391,15 +1396,15 @@ export const events = {
           roleKey: 1,
           // TODO : Conditional for default state undefined
           tabName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab != undefined
-                ? appState.global.tsdApp.activeTab.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeTab != undefined
+                ? appState.$global.tsdApp.activeTab.name
                 : "Create Order"
               : "Create Order",
           moduleName:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule != undefined
+                ? appState.$global.tsdApp.activeModule.name
                 : "Service Orders"
               : "Service Orders",
           actionName: "View",
@@ -1444,10 +1449,10 @@ export const events = {
 
               setAppState(
                 {
-                  global: {
+                  $global: {
                     tsdApp: {
                       viewComponent: {
-                        [appState.global.tsdApp.activeTab.name]: finalData,
+                        [appState.$global.tsdApp.activeTab.name]: finalData,
                       },
                     },
                   },
@@ -1463,8 +1468,8 @@ export const events = {
               // );
               // TODO : REMOVE HARDCODING
               if (
-                appState.global.tsdApp.activeModule.key === 23751 ||
-                appState.global.tsdApp.activeModule.key === 156051
+                appState.$global.tsdApp.activeModule.key === 23751 ||
+                appState.$global.tsdApp.activeModule.key === 156051
               ) {
                 setLayoutConfig(routes.orderDetail, "copy");
               } else {
@@ -1487,6 +1492,172 @@ export const events = {
       //   "appState in searchListComponent ",
       //   props.appState
       // );
+    },
+  },
+  "createOrderFooterComponent-submit-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const createOrderlineListComponent =
+        appState?.$global?.tsdApp?.createComponent
+          ?.createOrderlineListComponent;
+      const bodyHeader =
+        appState?.$global?.tsdApp?.createComponent?.[
+          appState.$global.tsdApp.activeTab.name
+        ];
+
+      const orderLine = [];
+      const address = [];
+      createOrderlineListComponent?.forEach((obj) => {
+        const newObj = { ...obj.item };
+        newObj["address"] = {
+          ...appState?.$global?.tsdApp?.createComponent?.[obj.key],
+        };
+        orderLine.push(newObj);
+      });
+
+      appState?.$global?.tsdApp?.createComponent?.createAddressFormComponent?.forEach(
+        (obj) => {
+          const newObj = { ...obj.item };
+          address.push(newObj);
+        }
+      );
+
+      const body = {
+        ...bodyHeader,
+        addressInfos: {
+          address: address,
+        },
+        orderLines: {
+          orderLine: orderLine,
+        },
+      };
+      console.log("final submit body   ", body);
+      fetch(
+        `${SERVER_ENDPOINT}${appState.$global.tsdApp.activeAction.endPoint}/`,
+        {
+          method: appState.$global.tsdApp.activeAction.httpMethod,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      )
+        .then((res) => res.json())
+        .then((_data) => {
+          console.log("submit success ", _data);
+          const newAppState = { ...appState };
+          delete newAppState.$global.tsdApp.formData;
+          delete newAppState.$global.tsdApp.createComponent;
+          newAppState.$global.tsdApp.viewComponent = {
+            [appState.$global.tsdApp.activeTab.name]: _data,
+          };
+          console.log("newAppState ::: ", newAppState);
+          setAppState(newAppState, false);
+          setLayoutConfig(routes.orderDetail, "copy");
+        })
+        .catch((err) => {
+          const newAppState = { ...appState };
+          delete newAppState.$global.tsdApp.formData;
+          delete newAppState.$global.tsdApp.createComponent;
+          setAppState(newAppState, false);
+        });
+    },
+  },
+  "createOrderlineAddressComponent-form": {
+    onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[0].params.values;
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [appState.$global.tsdApp.createComponent.isChecked.key]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+      setLayoutConfig(routes.createOrderline, "copy");
+    },
+  },
+  "createOrderlineListComponent-submit": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+    },
+  },
+  "createOrderlineListComponent-checkbox-press": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      const isChecked = args[3];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+                isChecked: isChecked,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+      setLayoutConfig(routes.createOrderlineAddress, "copy");
+    },
+  },
+  "createAddressFormComponent-submit": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              createComponent: {
+                ...appState?.$global?.tsdApp?.createComponent,
+                [label]: body,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+    },
+  },
+  "listJsonFormComponent-submit": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const body = args[1];
+      const label = args[2];
+      const firstParent = args[3];
+      const secondParent = args[4];
+      console.log("Final submit");
+      const finalData =
+        appState.$global.tsdApp.createComponent[
+          appState.$global.tsdApp.activeTab.name
+        ];
+      console.log("final Data in the body Parameter 1st ::: ", finalData);
+      finalData[firstParent] = {
+        [secondParent[0]]: body,
+      };
+      console.log("final Data in the body Parameter 2nd ::: ", finalData);
     },
   },
 
@@ -1513,7 +1684,7 @@ export const getEvents = (
 ) => {
   console.log(`elId is ---> ${elId}`);
   const elEvents = {};
-  const p = args;
+  const extra = args;
   events[elId] &&
     Object.keys(events[elId]).map((eventName) => {
       elEvents[eventName] = (args) => {
@@ -1525,7 +1696,7 @@ export const getEvents = (
               setAppState,
               appState,
               args,
-              ...p
+              ...extra
             )
           : {};
       };
