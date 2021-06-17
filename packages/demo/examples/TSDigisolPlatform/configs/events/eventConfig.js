@@ -12,6 +12,50 @@ export const events = {
   },
 
   //<label>-<element-id> : <handler>
+  "newNavbar-edit-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, setDataVisible, ...args) => {
+      setDataVisible(true)
+      setAppState(
+        {
+          global: {
+            tsdApp: {
+              activeModule: {
+                name: activeModule,
+                key: moduleKey,
+              },
+              activeTab: {
+                name: item.tabName,
+                key: item.tabKey,
+              },
+              activeAction: {
+                name: item.actions[0].actionName,
+                key: item.actions[0].actionKey,
+                endPoint: item.actions[0].endPoint,
+                httpMethod: item.actions[0].httpMethod,
+                showButton: item.actions[0].showButton,
+              },
+              createComponent: null,
+              listComponent: {
+                data: {
+                  response: [],
+                },
+              },
+              formData: null,
+            },
+          },
+        },
+        "isPartial"
+      );
+    }
+  },
+  "sideNavbar-close-btn": {
+    onPress : (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("args of side navbar",args);
+      setModalVisible(false);
+      functionProp(false);
+      stylingProp("");
+    }
+  },
   "leftNavHeader-button-one": {
     // <event> :: <handler>
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
@@ -335,7 +379,7 @@ export const events = {
       console.log(
         "Hello world : : : :",
         appState.global.tsdApp.viewComponent[
-          appState.global.tsdApp.activeTab.name
+        appState.global.tsdApp.activeTab.name
         ][keyName],
         "\n name of the key ::::",
         keyName,
@@ -343,12 +387,10 @@ export const events = {
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `${SERVER_ENDPOINT}${
-          appState.global.tsdApp.editComponent.action.endPoint
-        }/${
-          appState.global.tsdApp.viewComponent[
-            appState.global.tsdApp.activeTab.name
-          ][keyName]
+        `${SERVER_ENDPOINT}${appState.global.tsdApp.editComponent.action.endPoint
+        }/${appState.global.tsdApp.viewComponent[
+        appState.global.tsdApp.activeTab.name
+        ][keyName]
         }`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
@@ -439,7 +481,13 @@ export const events = {
         });
     },
   },
-
+  "detailListComponent-QR-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("Button Clicked ::: --> ", args);
+      const qrcodeStatus = !qrcodeVisible;
+      setModalQRVisible(true);
+    }
+  },
   "editOrderLineDetailComponent-form": {
     // form data mutator
     // call edit api from formData as body
@@ -626,11 +674,10 @@ export const events = {
             `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
               /{[^}]*}/,
               ""
-            )}/${
-              d[
-                _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                  .uriParams
-              ]
+            )}/${d[
+            _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+              .uriParams
+            ]
             }`,
             {
               method:
@@ -734,12 +781,12 @@ export const getEvents = (
           events[elId][eventName] &&
           events[elId][eventName]
           ? events[elId][eventName](
-              setLayoutConfig,
-              setAppState,
-              appState,
-              args,
-              ...p
-            )
+            setLayoutConfig,
+            setAppState,
+            appState,
+            args,
+            ...p
+          )
           : {};
       };
     });

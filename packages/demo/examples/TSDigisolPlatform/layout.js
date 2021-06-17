@@ -246,7 +246,7 @@ export const appConfig = {
               // colStyle: { borderWidth:1, height: "100vh" },
             },
           },
-          
+
         },
       },
       "2.2.bodyCol": {
@@ -812,6 +812,72 @@ export const events = {
       // components section
     },
   },
+  "sideNavbar-close-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("args of side navbar", args);
+      const setModalVisible = args[1];
+      const functionProp = args[2];
+      const stylingProp = args[3];
+      setModalVisible(false);
+      functionProp(false);
+      stylingProp("");
+    }
+  },
+  "sideNavbar-tab-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("tab args :", args);
+      const setDataVisible = args[1];
+      const activeModule = args[2];
+      const moduleKey = args[3];
+      const item = args[4];
+      setDataVisible(true)
+      setAppState(
+        {
+          global: {
+            tsdApp: {
+              activeModule: {
+                name: activeModule,
+                key: moduleKey,
+              },
+              activeTab: {
+                name: item.tabName,
+                key: item.tabKey,
+              },
+              activeAction: {
+                name: item.actions[0].actionName,
+                key: item.actions[0].actionKey,
+                endPoint: item.actions[0].endPoint,
+                httpMethod: item.actions[0].httpMethod,
+                showButton: item.actions[0].showButton,
+              },
+              createComponent: null,
+              listComponent: {
+                data: {
+                  response: [],
+                },
+              },
+              formData: null,
+            },
+          },
+        },
+        "isPartial"
+      );
+    }
+  },
+  "sideNavbar-module-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      const setIndex = args[1];
+      const setTabView = args[2];
+      const setActiveModule = args[3];
+      const setActiveModuleKey = args[4];
+      const item = args[5];
+      const key = args[6];
+      setIndex(key);
+      setTabView(true);
+      setActiveModule(item.moduleName);
+      setActiveModuleKey(item.moduleKey);
+    }
+  },
   "bodyHeader-form": {
     // form data mutator
     onSuccess: (setLayoutConfig, setAppState, appState, ...args) => {
@@ -1120,7 +1186,7 @@ export const events = {
       console.log(
         "Hello world : : : :",
         appState.global.tsdApp.viewComponent[
-          appState.global.tsdApp.activeTab.name
+        appState.global.tsdApp.activeTab.name
         ][keyName],
         "\n name of the key ::::",
         keyName,
@@ -1128,12 +1194,10 @@ export const events = {
         appState
       ); // Organisation --> organisation
       const res1 = fetch(
-        `${SERVER_ENDPOINT}${
-          appState.global.tsdApp.editComponent.action.endPoint
-        }/${
-          appState.global.tsdApp.viewComponent[
-            appState.global.tsdApp.activeTab.name
-          ][keyName]
+        `${SERVER_ENDPOINT}${appState.global.tsdApp.editComponent.action.endPoint
+        }/${appState.global.tsdApp.viewComponent[
+        appState.global.tsdApp.activeTab.name
+        ][keyName]
         }`,
         {
           method: appState.global.tsdApp.editComponent.action.httpMethod,
@@ -1224,7 +1288,13 @@ export const events = {
         });
     },
   },
-
+  "detailListComponent-QR-btn": {
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      console.log("Button Clicked ::: --> ", args);
+      const setModalQRVisible = args[1];
+      setModalQRVisible(true);
+    }
+  },
   "editOrderLineDetailComponent-form": {
     // form data mutator
     // call edit api from formData as body
@@ -1411,11 +1481,10 @@ export const events = {
             `${SERVER_ENDPOINT}${_data.businessFunctions[0].modules[0].tabs[0].actions[0].endPoint.replace(
               /{[^}]*}/,
               ""
-            )}/${
-              d[
-                _data.businessFunctions[0].modules[0].tabs[0].actions[0]
-                  .uriParams
-              ]
+            )}/${d[
+            _data.businessFunctions[0].modules[0].tabs[0].actions[0]
+              .uriParams
+            ]
             }`,
             {
               method:
@@ -1519,12 +1588,12 @@ export const getEvents = (
           events[elId][eventName] &&
           events[elId][eventName]
           ? events[elId][eventName](
-              setLayoutConfig,
-              setAppState,
-              appState,
-              args,
-              ...p
-            )
+            setLayoutConfig,
+            setAppState,
+            appState,
+            args,
+            ...p
+          )
           : {};
       };
     });

@@ -18,9 +18,7 @@ import {
   Pressable,
 } from "react-native";
 
-import { Feather } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Feather,Ionicons,MaterialIcons } from '@expo/vector-icons';
 
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
@@ -275,13 +273,6 @@ export const ShowEntity = (props: {
                 }
                 <View style={detailViewStyles.buttonView}>
                 <Ionicons name="ios-qr-code-outline" size={24} color="black" 
-                    // testID={`${label}-edit-btn`}
-                    // {...getEvents(
-                    //   `${label}-edit-btn`,
-                    //   setLayoutConfig,
-                    //   setAppState,
-                    //   appState
-                    // )}
                     disabled={
                       appState.global.tsdApp.activeModule.name ===
                         "ServiceOrders" ||
@@ -289,29 +280,19 @@ export const ShowEntity = (props: {
                         ? false
                         : true
                     }
-                    onPress={() => {
-                      console.log("Button Clicked ::: --> ", viewData?.qrLink);
-                      const qrcodeStatus = !qrcodeVisible;
-                      // setqrcodeVisible(!qrcodeVisible);
-                      setModalQRVisible(!modalQRVisible);
-                      // setAppState({
-                      //   global: {
-                      //     tsdApp: {
-                      //       ShowQRCodeComponent: {
-                      //         isQrcodeVisible: qrcodeVisible,
-                      //         // TODO: Should be dynamic for the component to show QR code
-                      //         qrcodeImage: `default`,
-                      //         // TODO: Should be dynamic for the component for show Message after QR code is rendered
-                      //         message: "QR code for Order",
-                      //       },
-                      //     },
-                      //   },
-                      // });
-                    }}
-                    // style={[
-                    //   detailViewStyles.button,
-                    //   { opacity: QRbackgroundColor },
-                    // ]}
+                    testID={`${label}-QR-btn`}
+                    {...getEvents(
+                      `${label}-QR-btn`,
+                      setLayoutConfig,
+                      setAppState,
+                      appState,
+                      setModalQRVisible
+                    )} 
+                    // onPress={() => {
+                    //   console.log("Button Clicked ::: --> ", viewData?.qrLink);
+                    //   const qrcodeStatus = !qrcodeVisible;
+                    //   setModalQRVisible(!modalQRVisible);  
+                    // }}
                   />
                 </View>
               </Col>
