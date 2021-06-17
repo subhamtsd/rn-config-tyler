@@ -1,487 +1,371 @@
 export const routes = {};
 
 routes.orderLineDetail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      // colClass: "sticky top-",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "296vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-        "2.4.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-        "2.5.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      // colClass: "bg-red-200 p-1 text-sm",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            // colClass: "fixed",
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            // colClass: "fixed",
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Order Details",
-            },
+            // colClass: "h-screen",
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Bill To Address",
-            },
+            // colClass: "bg-red-200 p-1 text-sm",
+            size: 100,
           },
         },
-        "2.2.4.BodyRow": {
-          "2.2.4.1.bodyContent": {
-            colSize: 2,
+        3: {
+          0: {
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-            passProps: {
-              UItitle: "OrderLines of Order",
-            },
+            // colClass: "h-screen",
+            size: 100,
           },
-          // "2.2.4.1.bodyContent2": {
-          //   colSize: 2,
-          //   idx: "BillToAddressDetailViewComponent",
-          //   label: "billToAddressDetailViewComponent",
-          //   colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-          //   passProps: {
-          //     UItitle: "Bill To Address Details",
-          //   },
-          // },
         },
-        "2.2.5.BodyRow": {
-          "2.2.5.1.bodyContent": {
-            colSize: 2,
+        4: {
+          0: {
             idx: "OrderLineDetailViewComponent",
             label: "orderLineDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-            passProps: {
-              UItitle: "OrderLine Detail",
-            },
+            // colClass: "h-screen",
+            size: 100,
           },
-          "2.2.5.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "OrderLineAddressDetailViewComponent",
             label: "orderLineAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-            passProps: {
-              UItitle: "Orderline Address Detail",
-            },
+            // colClass: "bg-red-200 p-1 text-sm",
+            size: 100,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
+  },
+  layoutConfig: {
+    // layoutClass: "fixe",
   },
 };
 
 routes.orderDetail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      // colClass: "sticky top-",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "197vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-        "2.4.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "none",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      // colClass: "bg-red-200 p-1 text-sm",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            // colClass: "fixed",
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            // colClass: "fixed",
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Order Details",
-            },
+            // colClass: "h-screen",
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Bill To Address",
-            }
+            // colClass: "bg-red-200 p-1 text-sm",
+            size: 100,
           },
         },
-        "2.2.4.BodyRow": {
-          "2.2.4.1.bodyContent": {
-            colSize: 2,
+        3: {
+          0: {
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-            passProps: {
-              UItitle: "OrderLines of Order",
-            },
+            // colClass: "h-screen",
+            size: 100,
           },
-          // "2.2.4.1.bodyContent2": {
-          //   colSize: 2,
-          //   idx: "BillToAddressDetailViewComponent",
-          //   label: "billToAddressDetailViewComponent",
-          //   colStyle: { borderWidth: 1, borderColor: "red", height: "100vh" },
-          //   passProps: {
-          //     UItitle: "Bill To Address Details",
-          //   },
-          // },
+        },
+        layoutConfig: {
+          // layoutClass: "overflow-scroll",
+          size: 95,
         },
       },
     },
   },
+  layoutConfig: {},
 };
-
+//demo checking
 routes.defaultAppConfig = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  // 0: {
+  //   0: {
+  //     idx: "HeaderBar",
+  //     label: "headerBar",
+  //     size: 1.3,
+  //   },
+  // },
+  // 1: {
+  //   0: {
+  //     idx: "NavigationBar",
+  //     label: "navigationBar",
+  //     size: 15,
+  //   },
+  //   1: {
+  //     layout: {
+  //       0: {
+  //         0: {
+  //           idx: "ActionComponent",
+  //           label: "actionComponent",
+  //           size: 10,
+  //         },
+  //       },
+  //       1: {
+  //         0: {
+  //           idx: "TabComponent",
+  //           label: "tabComponent",
+  //           size: 8,
+  //         },
+  //       },
+  //       2: {
+  //         0: {
+  //           idx: "JsonFormComponent",
+  //           label: "bodyHeader",
+  //           size: 100,
+  //         },
+  //         1: {
+  //           idx: "DefaultScreen",
+  //           label: "helloWorld",
+  //           size: 200,
+  //         },
+  //       },
+  //       layoutConfig: {
+  //         size: 95,
+  //       },
+  //     },
+  //   },
+  // },
+
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.5,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 3,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 3,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 34,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 4,
-            idx: "DefaultScreen",
+          1: {
+            idx: "Stepper",
+            // idx: "DefaultScreen",
             label: "helloWorld",
-            colStyle: { borderWidth: 1 },
+            size: 60,
           },
+        },
+        layoutConfig: {
+          size: 83.5,
         },
       },
     },
   },
 };
+// routes.defaultAppConfig = {
+//   colConfig: {
+//     colSize: 1,
+//   },
+//   // "1.container": {
+//   //   "1.1.leftNavCol": {
+//   //     layout: {
+//   //       "1.1.leftNavBodyRow": {
+//   //         Header: {
+//   //           colSize: 1,
+//   //           idx: "HeaderBar",
+//   //           label: "headerBar",
+//   //           colStyle: { borderWidth: 1, height: "10vh" },
+//   //         },
+//   //       },
+//   //     },
+//   //   },
+//   // },
+//   "2.container": {
+//     "2.1.leftNavCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 0.64,
+//         },
+//         "2.1.leftNavBodyRow": {
+//           leftNavBody: {
+//             idx: "NewNavbar",
+//             label: "navigationBar",
+//             colStyle: { height: "100vh" },
+//             // colStyle: { borderWidth:1, height: "100vh" },
+//           },
+//         },
+        
+//       },
+//     },
+//     "2.2.bodyCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 10,
+//         },
+//         "1.1.leftNavBodyRow": {
+//           Header: {
+//             // colSize: 1,
+//             idx: "HeaderBar",
+//             label: "headerBar",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.1.BodyRow": {
+//           bodyHeader: {
+//             idx: "ActionComponent",
+//             label: "actionComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.2.BodyRow": {
+//           bodyContent: {
+//             idx: "TabComponent",
+//             label: "tabComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.3.BodyRow": {
+//           "2.2.3.1.bodyContent": {
+//             colSize: 2,
+//             idx: "JsonFormComponent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+//           },
+//           "2.2.3.1.bodyContent2": {
+//             colSize: 4,
+//             idx: "JsonFormCompnent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1 },
+//           },
+//         },
+//       },
+//     },
+//   },
+// },
+//demo check ends
 
 routes.search = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          // "2.2.3.1.bodyContent": {
-          //   colSize: 2,
-          //   idx: "JsonFormComponent",
-          //   label: "bodyHeader",
-          //   colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-          // },
-          "2.2.3.1.bodyContent2": {
-            colSize: 4,
+        2: {
+          0: {
             idx: "ListComponent",
             label: "listComponent",
-            colStyle: { borderWidth: 1, height: "80vh" },
+            size: 100,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -489,93 +373,44 @@ routes.search = {
 };
 
 routes.detail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "DetailListComponent",
             label: "detailListComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          // "2.2.3.1.bodyContent2": {
-          //   colSize: 2,
-          //   idx: "ShowQRCodeComponent",
-          //   label: "showQRCodeComponent",
-          //   colStyle: { borderWidth: 1, height: "80vh", display: "none" },
-          // },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -583,93 +418,49 @@ routes.detail = {
 };
 
 routes.edit = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "EditComponent",
             label: "editComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -677,93 +468,49 @@ routes.edit = {
 };
 
 routes.editOrderLineDetail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "EditOrderLineDetailComponent",
             label: "editOrderLineDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          "2.2.3.2.bodyContent2": {
-            colSize: 4,
+          1: {
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 0, height: "80vh"},
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -771,93 +518,49 @@ routes.editOrderLineDetail = {
 };
 
 routes.editBillToAddressDetail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "EditBillToAddressDetailComponent",
             label: "editBillToAddressDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -865,93 +568,49 @@ routes.editBillToAddressDetail = {
 };
 
 routes.editOrderLineAddressDetail = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "EditOrderLineAddressDetailComponent",
             label: "editOrderLineAddressDetailComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "DefaultScreen",
             label: "defaultScreen",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -959,123 +618,49 @@ routes.editOrderLineAddressDetail = {
 };
 
 routes.delete = {
-  "1.container": {
-    rowConfig: {
-      rowSize: 1,
-      // rowStyle: rowStyle,
-    },
-    Header: {
-      // col no
-      colSize: 1,
+  0: {
+    0: {
       idx: "HeaderBar",
       label: "headerBar",
-      // colStyle: { borderWidth: 4 },
+      size: 1.3,
     },
   },
-  "2.container": {
-    rowConfig: {
-      rowSize: 1,
-      // rowStyle: rowStyle,
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    // col no
-    "2.1.leftNavCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          rowConfig: {
-            rowSize: 12,
-            // rowStyle: rowStyle,
-          },
-          leftNavBody: {
-            // col no
-            colSize: 1,
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "100vh" },
-          },
-        },
-      },
-    },
-    "2.2.bodyCol": {
-      rowConfig: {
-        rowSize: 12,
-        // rowStyle: rowStyle,
-      },
-      layout: {
-        colConfig: {
-          colSize: 11,
-          // colStyle: { borderColor: "cyan", borderWidth: 4 },
-        },
-        "2.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1.4, // TODO : Adjusted Height with Upper component using calculation of Row Config
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
-          },
-          bodyHeader: {
-            // col no
-            colSize: 1,
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: {
-              borderColor: "blue",
-              // borderWidth: 2,
-              // height: "20vh",
-            },
+            size: 10,
           },
         },
-        "2.2.2.bodyTabRow": {
-          rowConfig: {
-            rowSize: 1.3,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-          },
-          bodyContent: {
-            // col no
+        1: {
+          0: {
             idx: "TabComponent",
-            colSize: 1,
             label: "tabComponent",
-            colStyle: {
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "89.2vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            size: 8,
           },
         },
-        "2.2.3.bodyContentRow": {
-          rowConfig: {
-            rowSize: 10,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-          },
-          "2.2.3.1.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
+        2: {
+          0: {
             idx: "JsonFormComponent",
-            colSize: 3,
-            label: "jsonFormComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            label: "bodyHeader",
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            // col no
-            // idx: "JsonFormComponent",
+          1: {
             idx: "DefaultScreen",
-            colSize: 2,
-            label: "defaultScreen",
-            colStyle: {
-              display: "none",
-              borderColor: "blue",
-              // borderWidth: 1,
-              height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            label: "helloWorld",
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -1083,98 +668,59 @@ routes.delete = {
 };
 
 routes.createOrder = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 1,
+        2: {
+          0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Order Details",
-            },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "CreateAddressFormComponent",
             label: "createAddressFormComponent",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 200,
+            passProps: {
+              UItitle: "Add Address",
+              _childDependency: {
+                createAddressFormComponentDependency: {
+                  moduleKey: 2007,
+                  tabKey: 3006,
+                  actionName: "Create",
+                },
+              },
+            },
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -1182,141 +728,77 @@ routes.createOrder = {
 };
 
 routes.createOrderline = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "186vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-        "2.4.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-        "2.5.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-              display: "block",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 0, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 0, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 1,
+        2: {
+          0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 0, borderColor: "red", height: "80vh" },
-            passProps: {
-              UItitle: "Order Details",
-            },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 2,
+          1: {
             idx: "CreateAddressFormComponent",
             label: "createAddressFormComponent",
-            colStyle: { borderWidth: 0, borderColor: "red", height: "80vh" },
+            size: 200,
+            passProps: {
+              UItitle: "Add Address",
+              _childDependency: {
+                createAddressFormComponentDependency: {
+                  moduleKey: 2007,
+                  tabKey: 3006,
+                  actionName: "Create",
+                },
+              },
+            },
           },
         },
-        "2.2.4.BodyRow": {
-          "2.2.4.1.bodyContent": {
-            colSize: 1,
+        3: {
+          0: {
             idx: "CreateOrderlineListComponent",
             label: "createOrderlineListComponent",
-            colStyle: { borderWidth: 0, borderColor: "red", height: "80vh" },
+            size: 100,
             passProps: {
               UItitle: "Add Orderline",
             },
           },
         },
-        "2.2.5.BodyRow": {
-          "2.2.5.1.bodyContent": {
-            colSize: 1,
+        4: {
+          0: {
             idx: "CreateOrderFooterComponent",
             label: "createOrderFooterComponent",
-            colStyle: { borderWidth: 0, borderColor: "red", height: "10vh" },
+            size: 50,
+            colClass: "mt-6",
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -1324,178 +806,95 @@ routes.createOrderline = {
 };
 
 routes.createOrderlineAddress = {
-  "1.container": {
-    rowConfig: {
-      rowSize: 1,
-      // rowStyle: rowStyle,
-    },
-    Header: {
-      // col no
-      colSize: 1,
+  0: {
+    0: {
       idx: "HeaderBar",
       label: "headerBar",
-      // colStyle: { borderWidth: 4 },
+      size: 1.3,
     },
   },
-  "2.container": {
-    rowConfig: {
-      rowSize: 1,
-      // rowStyle: rowStyle,
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    // col no
-    "2.1.leftNavCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 1.5,
-        },
-        "2.1.leftNavBodyRow": {
-          rowConfig: {
-            rowSize: 12,
-            // rowStyle: rowStyle,
-          },
-          leftNavBody: {
-            // col no
-            colSize: 1,
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 0, height: "210vh" },
-          },
-        },
-      },
-    },
-    "2.2.bodyCol": {
-      rowConfig: {
-        rowSize: 12,
-        // rowStyle: rowStyle,
-      },
-      layout: {
-        colConfig: {
-          colSize: 11,
-          // colStyle: { borderColor: "cyan", borderWidth: 4 },
-        },
-        "2.2.1.bodyHeaderRow": {
-          rowConfig: {
-            rowSize: 1.4, // TODO : Adjusted Height with Upper component using calculation of Row Config
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
-          },
-          bodyHeader: {
-            // col no
-            colSize: 1,
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: {
-              borderColor: "blue",
-              // borderWidth: 2,
-              // height: "20vh",
-            },
+            size: 10,
           },
         },
-        "2.2.2.bodyTabRow": {
-          rowConfig: {
-            rowSize: 1.3,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-          },
-          bodyContent: {
-            // col no
+        1: {
+          0: {
             idx: "TabComponent",
-            colSize: 1,
             label: "tabComponent",
-            colStyle: {
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "89.2vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            size: 8,
           },
         },
-        "2.2.3.bodyContentRow": {
-          rowConfig: {
-            rowSize: 10,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-          },
-          "2.2.3.1.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
+        2: {
+          0: {
             idx: "JsonFormComponent",
-            colSize: 2,
             label: "bodyHeader",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            // col no
-            // idx: "JsonFormComponent",
+          1: {
             idx: "CreateAddressFormComponent",
-            colSize: 4,
             label: "createAddressFormComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            size: 200,
             passProps: {
               UItitle: "Add Address",
+              _childDependency: {
+                createAddressFormComponentDependency: {
+                  moduleKey: 2007,
+                  tabKey: 3006,
+                  actionName: "Create",
+                },
+              },
             },
           },
         },
-        "2.2.4.bodyContentRow": {
-          rowConfig: {
-            rowSize: 10,
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 4, height: "80vh" },
-          },
-          "2.2.4.1.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
+        3: {
+          0: {
             idx: "CreateOrderlineListComponent",
-            colSize: 4,
             label: "createOrderlineListComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
+            size: 100,
             passProps: {
               UItitle: "Add Orderline",
             },
           },
-          "2.2.4.2.bodyContent": {
-            // col no
-            // idx: "JsonFormComponent",
+          1: {
             idx: "CreateOrderlineAddressComponent",
-            colSize: 2,
             label: "createOrderlineAddressComponent",
-            colStyle: {
-              display: "flex",
-              borderColor: "blue",
-              // borderWidth: 1,
-              // height: "80vh", // TODO : Adjusted Height with Upper component using calculation of Row Config
-            },
             passProps: {
               UItitle: "Add Ship To Address",
+              _childDependency: {
+                createOrderlineAddressComponentDependency: {
+                  moduleKey: 2007,
+                  tabKey: 3006,
+                  actionName: "Create",
+                },
+              },
             },
+            size: 50,
           },
         },
-        "2.2.5.bodyFooterRow": {
-          rowConfig: {
-            rowSize: 1.3, // TODO : Adjusted Height with Upper component using calculation of Row Config
-            // rowStyle: rowStyle,
-            // rowStyle: { borderColor: "red", borderWidth: 1, height: "20vh" },
-          },
-          bodyHeader: {
-            // col no
-            colSize: 1,
+        4: {
+          0: {
             idx: "CreateOrderFooterComponent",
             label: "createOrderFooterComponent",
+            size: 50,
+            colClass: "mt-6",
+            // passProps: {
+            //   UItitle: "Add Orderline",
+            // },
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },
@@ -1504,93 +903,49 @@ routes.createOrderlineAddress = {
 
 // TODO: Adjusted the height of the rows in jsonEditorScreen gap between headerBar and ActionComponent
 routes.jsonEditorScreen = {
-  colConfig: {
-    colSize: 1,
-  },
-  "1.container": {
-    "1.1.leftNavCol": {
-      layout: {
-        "1.1.leftNavBodyRow": {
-          Header: {
-            colSize: 1,
-            idx: "HeaderBar",
-            label: "headerBar",
-            colStyle: { borderWidth: 1, height: "10vh" },
-          },
-        },
-      },
+  0: {
+    0: {
+      idx: "HeaderBar",
+      label: "headerBar",
+      size: 1.3,
     },
   },
-  "2.container": {
-    "2.1.leftNavCol": {
-      layout: {
-        colConfig: {
-          colSize: 2,
-        },
-        "2.1.leftNavBodyRow": {
-          leftNavBody: {
-            idx: "NavigationBar",
-            label: "navigationBar",
-            colStyle: { borderWidth: 1, height: "98vh" },
-            // colStyle: { borderWidth:1, height: "100vh" },
-          },
-        },
-        "2.2.leftNavBodyRow": {
-          leftNavBody2: {
-            idx: "DefaultScreen",
-            // label: "1",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-        "2.3.leftNavBodyRow": {
-          leftNavBody3: {
-            idx: "DefaultScreen",
-            // label: "2",
-            colStyle: {
-              backgroundColor: "skyblue",
-              borderWidth: 1,
-              height: "1vh",
-            },
-          },
-        },
-      },
+  1: {
+    0: {
+      idx: "NavigationBar",
+      label: "navigationBar",
+      size: 15,
     },
-    "2.2.bodyCol": {
+    1: {
       layout: {
-        colConfig: {
-          colSize: 10,
-        },
-        "2.2.1.BodyRow": {
-          bodyHeader: {
+        0: {
+          0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 10,
           },
         },
-        "2.2.2.BodyRow": {
-          bodyContent: {
+        1: {
+          0: {
             idx: "TabComponent",
             label: "tabComponent",
-            colStyle: { borderWidth: 1, height: "10vh" },
+            size: 8,
           },
         },
-        "2.2.3.BodyRow": {
-          "2.2.3.1.bodyContent": {
-            colSize: 2,
+        2: {
+          0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+            size: 100,
           },
-          "2.2.3.1.bodyContent2": {
-            colSize: 4,
+          1: {
             idx: "ScreenJsonEditor",
             label: "screenJsonEditor",
-            colStyle: { borderWidth: 1, height: "80vh" },
+            size: 200,
           },
+        },
+        layoutConfig: {
+          size: 95,
         },
       },
     },

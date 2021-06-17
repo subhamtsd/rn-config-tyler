@@ -3,10 +3,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { Button, Dimensions, ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { events } from "../../../configs/events/eventConfig";
-import { routes } from "../../../configs/routes/routesConfig";
+import { events } from "../../../layout";
 import { componentGridStyle } from "../../../styles/common";
 import { ListRender } from "./ListRender";
 

@@ -17,7 +17,7 @@ import SearchInput, { createFilter } from "react-native-search-filter";
 import { routes } from "../../configs/routes/routesConfig";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
-import { getEvents } from "../../configs/events/eventConfig";
+import { getEvents } from "../../layout";
 // import { useHistory } from "react-router-native";
 
 {
@@ -323,18 +323,18 @@ export default function SearchListComponent({
                                   roleKey: 1,
                                   // TODO : Conditional for default state undefined
                                   tabName:
-                                    props.appState.global != undefined
-                                      ? props.appState.global.tsdApp
+                                    props.appState?.$global?.tsdApp != undefined
+                                      ? props.appState.$global.tsdApp
                                           .activeTab != undefined
-                                        ? props.appState.global.tsdApp.activeTab
-                                            .name
+                                        ? props.appState.$global.tsdApp
+                                            .activeTab.name
                                         : "Create Order"
                                       : "Create Order",
                                   moduleName:
-                                    props.appState.global != undefined
-                                      ? props.appState.global.tsdApp
+                                    props.appState?.$global?.tsdApp != undefined
+                                      ? props.appState.$global.tsdApp
                                           .activeModule != undefined
-                                        ? props.appState.global.tsdApp
+                                        ? props.appState.$global.tsdApp
                                             .activeModule.name
                                         : "Service Orders"
                                       : "Service Orders",
@@ -387,10 +387,10 @@ export default function SearchListComponent({
 
                                     props.setAppState(
                                       {
-                                        global: {
+                                        $global: {
                                           tsdApp: {
                                             viewComponent: {
-                                              [props.appState.global.tsdApp
+                                              [props.appState.$global.tsdApp
                                                 .activeTab.name]: finalData,
                                             },
                                           },
@@ -410,9 +410,9 @@ export default function SearchListComponent({
                                     // );
                                     // TODO : REMOVE HARDCODING
                                     if (
-                                      props.appState.global.tsdApp.activeModule
+                                      props.appState.$global.tsdApp.activeModule
                                         .key === 23751 ||
-                                      props.appState.global.tsdApp.activeModule
+                                      props.appState.$global.tsdApp.activeModule
                                         .key === 156051
                                     ) {
                                       props.setLayoutConfig(

@@ -4,7 +4,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { appConfig } from "../../examples/TSDigisolPlatform/configs/layouts/dashboardLayout";
 import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
 
 const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
@@ -67,27 +66,30 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
               const filteredAction = item.tabs[0].actions.find(
                 ({ actionName }) => actionName === "Search"
               );
-              setAppState({
-                global: {
-                  tsdApp: {
-                    activeModule: {
-                      name: item.moduleName,
-                      key: item.moduleKey,
-                    },
-                    activeTab: {
-                      name: item.tabs[0].tabName,
-                      key: item.tabs[0].tabKey,
-                    },
-                    activeAction: {
-                      name: filteredAction.actionName,
-                      key: filteredAction.actionKey,
-                      endPoint: filteredAction.endPoint,
-                      httpMethod: filteredAction.httpMethod,
-                      showButton: filteredAction.showButton,
+              setAppState(
+                {
+                  $global: {
+                    tsdApp: {
+                      activeModule: {
+                        name: item.moduleName,
+                        key: item.moduleKey,
+                      },
+                      activeTab: {
+                        name: item.tabs[0].tabName,
+                        key: item.tabs[0].tabKey,
+                      },
+                      activeAction: {
+                        name: filteredAction.actionName,
+                        key: filteredAction.actionKey,
+                        endPoint: filteredAction.endPoint,
+                        httpMethod: filteredAction.httpMethod,
+                        showButton: filteredAction.showButton,
+                      },
                     },
                   },
                 },
-              });
+                "isPartial"
+              );
               setLayoutConfig(routes["defaultAppConfig"], "copy");
             }}
           >
@@ -98,8 +100,8 @@ const ExpandableComponent = ({ item, onClickFunction, props }: any) => {
                 padding: 10,
                 // TODO : Optimised and add some generalise logic for this
                 backgroundColor:
-                  appState.global != undefined
-                    ? appState.global.tsdApp.activeModule.name ===
+                  appState?.$global?.tsdApp != undefined
+                    ? appState.$global.tsdApp.activeModule.name ===
                       item.moduleName
                       ? "#b2c560"
                       : ""

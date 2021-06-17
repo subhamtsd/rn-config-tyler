@@ -1,21 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import useSafeSetState from "../../../helper/useSafeState";
-import { routes } from "../../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../../styles/common";
 import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { prepareSchema } from "../../../helper/helper";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { CreateOrderlineListComponent } from "../CreateOrderlineListComponent/index";
 
 export const CreateOrderlineAddressComponent = (props: {
   appState: any;
@@ -27,7 +19,8 @@ export const CreateOrderlineAddressComponent = (props: {
   setLayoutConfig: any;
   getEvents: any;
   events: any;
-  UItitle: any
+  UItitle: any;
+  _childDependency: any;
 }) => {
   const {
     appState,
@@ -38,7 +31,8 @@ export const CreateOrderlineAddressComponent = (props: {
     layoutConfig,
     setLayoutConfig,
     getEvents,
-    UItitle
+    UItitle,
+    _childDependency,
   } = props;
 
   console.log(`label is ${label}`);
@@ -46,9 +40,9 @@ export const CreateOrderlineAddressComponent = (props: {
 
   // console.log("DISPATCH : : : : ", dispatch);
   const activeTabName =
-    appState?.global?.tsdApp?.activeTab?.name || "CreateOrder";
+    appState?.$global?.tsdApp?.activeTab?.name || "CreateOrder";
   const _formData =
-    appState?.global?.tsdApp?.createComponent[activeTabName] || {};
+    appState?.$global?.tsdApp?.createComponent[activeTabName] || {};
 
   const [loading, setloading] = useState(true);
 
@@ -150,7 +144,6 @@ export const CreateOrderlineAddressComponent = (props: {
   const initialFormSchema = {};
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-  const [uiSchema, setUISchema] = useState(_uiSchema);
   const [responseStatus, setResponseStatus] = useState(200);
 
   useEffect(() => {
@@ -163,11 +156,10 @@ export const CreateOrderlineAddressComponent = (props: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          moduleKey: 2007,
-          roleKey: 1,
-          tabKey: 3006,
+          moduleKey: _childDependency[`${label}Dependency`].moduleKey,
+          tabKey: _childDependency[`${label}Dependency`].tabKey,
+          actionName: _childDependency[`${label}Dependency`].actionName,
           userId: "TsdAdmin",
-          actionName: "Create",
         }),
       });
 
@@ -184,9 +176,8 @@ export const CreateOrderlineAddressComponent = (props: {
         prepareSchema(resJSON).then((schemaJson) => {
           const firstParent = Object.getOwnPropertyNames(schemaJson)[0];
           // console.log("SCHEMA JSON UPDATED IN RENDER TABLE :: ", schemaJson);
+          schemaJson[firstParent].type = "object";
           setformLayout(schemaJson[firstParent]);
-
-          setUISchema(resJSON[firstParent]);
           setloading(false);
           // console.log("response Json : : : : : formLayout ---> ", resJSON);
         });
@@ -215,36 +206,27 @@ export const CreateOrderlineAddressComponent = (props: {
     );
   }
 
-  const onSuccessHandler = (body, label) => {
-    setAppState({
-      global: {
-        tsdApp: {
-          formData: {
-            ...appState?.global?.tsdApp?.formData,
-            [label]: body.params.values,
-          },
-        },
-      },
-    });
-
-    setLayoutConfig(routes.createOrderline);
-  };
-
   console.log("formLayout orderlineaddressFormLayout : :: : ", formLayout);
 
   // console.log("from json:", buttonView);
 
   return loading ? null : (
     <View>
-      
-      <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
-      <Text style={{
-        fontSize: 20,
-        color: "#0d47a1",
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: 20
-      }}>{UItitle}</Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={componentGridStyle}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d47a1",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: 20,
+          }}
+        >
+          {UItitle}
+        </Text>
         <JsonForm
           setAppState={setAppState}
           appState={appState}
@@ -252,30 +234,28 @@ export const CreateOrderlineAddressComponent = (props: {
           // schema={_schema}
           uiSchema={formLayout.uischema}
           _formData={_formData}
-          label={appState.global.tsdApp.formData.isChecked.key}
           setLayoutConfig={setLayoutConfig}
           _submitButton={"Save"}
           _cancelButton={true}
-          _onSuccess={onSuccessHandler}
 
-        // _onBeforeSubmit={(e) => {
-        //   console.log("*** _onBeforeSubmit ***");
-        //   console.log(e);
-        // }}
-        // _onSubmit={(e) => {
-        //   console.log("*** _onSubmit ***");
-        //   console.log(e);
-        // }}
-        // _onError={(e) => {
-        //   console.log("*** _onError ***");
-        //   console.log(e);
-        // }}
-        // _onSuccess={(e: any) => {
-        //   console.log("e : : : : ", e);
-        // }}
-        // _onChange={(e) => {
-        //   console.log("data changed");
-        // }}
+          // _onBeforeSubmit={(e) => {
+          //   console.log("*** _onBeforeSubmit ***");
+          //   console.log(e);
+          // }}
+          // _onSubmit={(e) => {
+          //   console.log("*** _onSubmit ***");
+          //   console.log(e);
+          // }}
+          // _onError={(e) => {
+          //   console.log("*** _onError ***");
+          //   console.log(e);
+          // }}
+          // _onSuccess={(e: any) => {
+          //   console.log("e : : : : ", e);
+          // }}
+          // _onChange={(e) => {
+          //   console.log("data changed");
+          // }}
         />
         {/* </ScrollView> */}
 

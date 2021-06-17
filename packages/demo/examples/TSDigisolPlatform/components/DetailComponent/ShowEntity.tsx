@@ -6,7 +6,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import Modal from "modal-react-native-web";
-import { SERVER_ENDPOINT } from "../../../../../../config/endpoint";
+import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import {
   Text,
   TouchableOpacity,
@@ -21,9 +21,9 @@ import {
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { routes } from "../../examples/TSDigisolPlatform/configs/routes/routesConfig";
-import { componentGridStyle } from "../../examples/TSDigisolPlatform/styles/common";
-import { ShowQRCodeComponent } from "../../examples/TSDigisolPlatform/components/ShowQRCodeComponent";
+import { routes } from "../../configs/routes/routesConfig";
+import { componentGridStyle } from "../../styles/common";
+import { ShowQRCodeComponent } from "../../components/ShowQRCodeComponent";
 
 const TextRender = ({ textFeild, value }: any) => {
   // console.log("Error value : : : ", value);

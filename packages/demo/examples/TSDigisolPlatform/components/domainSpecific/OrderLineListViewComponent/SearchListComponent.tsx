@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { routes } from "../../../configs/routes/routesConfig";
-import { getEvents } from "../../../configs/events/eventConfig";
+import { getEvents } from "../../../layout";
 // import { useHistory } from "react-router-native";
 
 {
@@ -303,13 +303,16 @@ export default function SearchListComponent({
                           onPress={() => {
                             console.log("i ==> ", i);
                             console.log("d ==> ", d);
-                            props.setAppState({
-                              global: {
-                                tsdApp: {
-                                  orderLineDetail: d,
+                            props.setAppState(
+                              {
+                                $global: {
+                                  tsdApp: {
+                                    orderLineDetail: d,
+                                  },
                                 },
                               },
-                            });
+                              "isPartial"
+                            );
                             props.setLayoutConfig(
                               routes.orderLineDetail,
                               "copy"

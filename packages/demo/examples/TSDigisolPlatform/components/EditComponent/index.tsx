@@ -2,13 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 // import { JsonForm } from "../../../../components/json-form/JsonForm";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../helper/useSafeState";
-import { routes } from "../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../styles/common";
-import { JsonForm } from "./JsonForm";
+import { JsonForm } from "../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { parseFormData } from "../../helper/helper";
 import { prepareSchema } from "../../helper/helper";
@@ -36,13 +35,12 @@ export const EditComponent = (props: {
   } = props;
 
   const _formData = parseFormData(
-    appState.global.tsdApp.viewComponent[
-      appState.global.tsdApp.activeTab.name
+    appState.$global.tsdApp?.viewComponent[
+      appState.$global.tsdApp?.activeTab?.name
     ] || {}
   );
 
   console.log("Hello World!");
-  
 
   const [_schema, setSchema] = useSafeSetState({
     type: "object",
@@ -157,11 +155,11 @@ export const EditComponent = (props: {
   };
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-
+  const [responseStatus, setResponseStatus] = useState(200);
+  const [loading, setloading] = useState(true);
   useEffect(() => {
-    let resJson;
-    let preparedSchema;
     const fetchData = async () => {
+      setloading(true);
       const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
         method: "POST",
         headers: {
@@ -172,69 +170,79 @@ export const EditComponent = (props: {
           userId: "TsdAdmin",
           roleKey: 1,
           moduleKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeModule != undefined
-                ? appState.global.tsdApp.activeModule.key
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule != undefined
+                ? appState.$global.tsdApp.activeModule.key
                 : "23751"
               : "23751",
           tabKey:
-            appState.global != undefined
-              ? appState.global.tsdApp.activeTab != undefined
-                ? appState.global.tsdApp.activeTab.key
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeTab != undefined
+                ? appState.$global.tsdApp.activeTab.key
                 : "34601"
               : "34601",
           actionName:
-            appState.global != undefined
-              ? appState.global.tsdApp.editComponent.action != undefined
-                ? appState.global.tsdApp.editComponent.action.name
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.editComponent.action != undefined
+                ? appState.$global.tsdApp.editComponent.action.name
                 : "Edit"
               : "Edit",
         }),
       });
-      const resJSON = await res.json();
-      // console.log("resJson ::::: edit component---> ", resJSON);
+      const status = res.status;
+      if (status === 204) {
+        setResponseStatus(status);
+      } else {
+        const resJSON = await res.json();
+        // console.log("resJson ::::: edit component---> ", resJSON);
 
-      // const resJSON = await res.json();
-      // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
-      prepareSchema(resJSON)
-        .then((schemaJson) => {
-          // console.log("SchemaJson edit updated : : :: ", schemaJson);
-          return schemaJson;
-        })
-        .then((formLayout) => {
-          // console.log("Schema edit returned : : : ", formLayout);
-          // console.log("edit component appstate:", appState.global);
-          const objectName =
-            appState.global != undefined
-              ? appState.global.tsdApp.editComponent.action.name +
-                appState.global.tsdApp.activeTab.name +
-                "Schema"
-              : "EditCreateOrdersSchema";
+        // const resJSON = await res.json();
+        // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+        prepareSchema(resJSON)
+          .then((schemaJson) => {
+            // console.log("SchemaJson edit updated : : :: ", schemaJson);
+            return schemaJson;
+          })
+          .then((formLayout) => {
+            const objectName =
+              appState?.$global?.tsdApp != undefined
+                ? appState.$global.tsdApp.editComponent.action.name +
+                  appState.$global.tsdApp.activeTab.name +
+                  "Schema"
+                : "EditCreateOrdersSchema";
 
-          // console.log("objectName : : : : ", objectName);
-          setformLayout(formLayout[objectName]);
-          // setloading(false);
-        });
-
+            // console.log("objectName : : : : ", objectName);
+            setformLayout(formLayout[objectName]);
+            setloading(false);
+          });
+      }
       // console.log("objectName : : : : ", objectName);
     };
     fetchData();
   }, []);
 
+  if (responseStatus == 204) {
+    return (
+      <View style={componentGridStyle}>
+        <Text>No data found</Text>
+      </View>
+    );
+  }
+
   // console.log("formData  : : :  in edit component : : : ", _formData);
 
   // console.log("FormLayout Json in Edit Component : : : ", formLayout);
 
-  return (
+  return loading ? null : (
     <ScrollView showsVerticalScrollIndicator={false} style={componentGridStyle}>
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
-        _submitButton={"UPDATE"}
+        _submitButton={"Update"}
         _cancelButton={true}
-        uiSchema={formLayout.uischema}
+        uischema={formLayout.uischema}
         _formData={_formData}
         label={label}
         setLayoutConfig={setLayoutConfig}

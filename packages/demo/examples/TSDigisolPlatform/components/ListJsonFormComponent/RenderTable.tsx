@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 import { Col, Grid, Row } from "react-native-easy-grid";
-import { componentGridStyle } from "../../../styles/common";
+import { componentGridStyle } from "../../styles/common";
 import { useState } from "react";
 import { RenderField } from "./RenderField";
 
@@ -187,7 +187,7 @@ export const RenderTable = (props: {
               color="#0e73ca"
               disabled={!isChecked.status}
               {...getEvents(
-                `${label}-check-box-button`,
+                `${label}-checkbox-press`,
                 setLayoutConfig,
                 setAppState,
                 appState,
@@ -290,7 +290,9 @@ export const RenderTable = (props: {
               setAppState,
               appState,
               arrObj,
-              label
+              label,
+              firstParent,
+              secondParent
             )}
           />
         </View>

@@ -7,7 +7,7 @@ import {
   RandomPic,
   // JsonForm,
 } from "../../../../components/index";
-import { rowStyle, styles } from "../../styles/common";
+import { styles } from "../../styles/common";
 
 // ******************** TODO APP EXAMPLE ************************* //
 // import { TodoApp1 } from "../../../todo-app/TODOAPP/TodoApp1";
@@ -43,8 +43,8 @@ import { EditOrderLineAddressDetailComponent } from "../../components/domainSpec
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../../../components/AddEditEntity";
 
-// ******************** POC on NAV BAR *****************************
-import { ToggleNavigation } from "../../../../components/ToggleNavigation";
+// ******************** POC on NEWNAV BAR *****************************
+import { NewNavbar } from "../../components/NewNavbar/index";
 
 export const componentsSet = {
   Comp5,
@@ -83,7 +83,8 @@ export const componentsSet = {
 
   // TEST FOR JSON FORM
   AddEditEntity,
-  ToggleNavigation,
+  // NEW NAVBAR
+  NewNavbar,
 };
 
 // *************************************************
@@ -171,7 +172,7 @@ export const appConfig = {
             leftNavBody: {
               colSize: 1,
               // idx: "ToggleNavigation",
-              idx: "NavigationBar",
+              idx: "NewNavbar",
               label: "navigationBar",
               colStyle: {
                 height: "110vh",

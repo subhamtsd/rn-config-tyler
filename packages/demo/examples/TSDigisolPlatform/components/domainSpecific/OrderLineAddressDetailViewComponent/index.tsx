@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ShowEntity } from "../../../../../components/DetailComponent/ShowEntity";
-import { componentGridStyle } from "../../../styles/common";
+import { ShowEntity } from "../../../components/DetailComponent/ShowEntity";
 
 export const OrderLineAddressDetailViewComponent = (props: {
   appState: any;
@@ -40,7 +39,7 @@ export const OrderLineAddressDetailViewComponent = (props: {
     const fetchData = async () => {
       setLoading(true);
       // TODO : Remove hardcoding and fix error for addressKey in Detail component
-      const addressKey = appState.global.tsdApp.orderLineDetail.addressKey;
+      const addressKey = appState.$global.tsdApp.orderLineDetail.addressKey;
       console.log("ADDERRES ::::: ", addressKey);
       const res = await fetch(`${SERVER_ENDPOINT}/v1/address/${addressKey}`, {
         method: "GET",
