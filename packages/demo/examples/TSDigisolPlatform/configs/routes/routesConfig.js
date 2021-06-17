@@ -148,11 +148,59 @@ routes.orderDetail = {
 };
 
 routes.defaultAppConfig = {
+  // 0: {
+  //   0: {
+  //     idx: "HeaderBar",
+  //     label: "headerBar",
+  //     size: 1.3,
+  //   },
+  // },
+  // 1: {
+  //   0: {
+  //     idx: "NavigationBar",
+  //     label: "navigationBar",
+  //     size: 15,
+  //   },
+  //   1: {
+  //     layout: {
+  //       0: {
+  //         0: {
+  //           idx: "ActionComponent",
+  //           label: "actionComponent",
+  //           size: 10,
+  //         },
+  //       },
+  //       1: {
+  //         0: {
+  //           idx: "TabComponent",
+  //           label: "tabComponent",
+  //           size: 8,
+  //         },
+  //       },
+  //       2: {
+  //         0: {
+  //           idx: "JsonFormComponent",
+  //           label: "bodyHeader",
+  //           size: 100,
+  //         },
+  //         1: {
+  //           idx: "DefaultScreen",
+  //           label: "helloWorld",
+  //           size: 200,
+  //         },
+  //       },
+  //       layoutConfig: {
+  //         size: 95,
+  //       },
+  //     },
+  //   },
+  // },
+
   0: {
     0: {
       idx: "HeaderBar",
       label: "headerBar",
-      size: 1.3,
+      size: 1.5,
     },
   },
   1: {
@@ -167,30 +215,31 @@ routes.defaultAppConfig = {
           0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            size: 10,
+            size: 3,
           },
         },
         1: {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 8,
+            size: 3,
           },
         },
         2: {
           0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            size: 100,
+            size: 34,
           },
           1: {
+            // idx: "Step1",
             idx: "DefaultScreen",
             label: "helloWorld",
-            size: 200,
+            size: 60,
           },
         },
         layoutConfig: {
-          size: 95,
+          size: 83.5,
         },
       },
     },
@@ -674,6 +723,7 @@ routes.createOrderline = {
     },
   },
 };
+
 routes.createOrderlineAddress = {
   0: {
     0: {

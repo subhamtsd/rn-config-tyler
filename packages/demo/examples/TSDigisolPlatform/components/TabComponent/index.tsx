@@ -155,7 +155,8 @@ export const TabComponent = (props: {
                     : item.tabName === item.tabName
                     ? "#b2c560"
                     : "",
-                width: "25vh",
+                width: "fit-content",
+                minWidth:"20vh",
                 marginRight: 5,
                 justifyContent: "center",
                 alignItems: "center",

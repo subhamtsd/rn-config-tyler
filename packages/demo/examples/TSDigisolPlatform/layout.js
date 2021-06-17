@@ -43,6 +43,8 @@ import { CreateOrderlineAddressComponent } from "../TSDigisolPlatform/components
 import { CreateOrderFooterComponent } from "./../TSDigisolPlatform/components/domainSpecific/CreateOrderFooterComponent/index";
 import { EditOrderLineAddressDetailComponent } from "../TSDigisolPlatform/components/domainSpecific/EditOrderLineAddressDetailComponent/index";
 
+import { Stepper } from "./components/StepperComponent/Stepper";
+
 // ******************** TEST OF AddEditEntity *************************
 import { AddEditEntity } from "../../components/AddEditEntity";
 import { ToggleNavigation } from "../..//components/ToggleNavigation";
@@ -81,10 +83,10 @@ export const componentsSet = {
   CreateOrderFooterComponent,
   EditOrderLineAddressDetailComponent,
   // JsonForm
-
   // TEST FOR JSON FORM
   AddEditEntity,
   ToggleNavigation,
+  Stepper,
 };
 
 const links = {
@@ -214,7 +216,7 @@ export const appConfig = {
       0: {
         idx: "HeaderBar",
         label: "headerBar",
-        size: 1.3,
+        size: 1.5,
       },
     },
     1: {
@@ -229,30 +231,31 @@ export const appConfig = {
             0: {
               idx: "ActionComponent",
               label: "actionComponent",
-              size: 10,
+              size: 3,
             },
           },
           1: {
             0: {
               idx: "TabComponent",
               label: "tabComponent",
-              size: 8,
+              size: 3,
             },
           },
           2: {
             0: {
               idx: "JsonFormComponent",
               label: "bodyHeader",
-              size: 100,
+              size: 34,
             },
             1: {
-              idx: "DefaultScreen",
+              idx: "Stepper",
+              // idx:"DefaultScreen",
               label: "helloWorld",
-              size: 200,
+              size: 60,
             },
           },
           layoutConfig: {
-            size: 95,
+            size: 83.5,
           },
         },
       },
@@ -757,6 +760,12 @@ export const appConfig = {
 
 export const events = {
   // FIXME: fix the below logic to be run in component load phase for each mounting like componentDidMount
+
+  "helloWorld-s2": {
+    onPress: (setLayoutConfig, setAppState, appState) => {
+      setLayoutConfig(routes.defaultAppConfig, "copy");
+    },
+  },
 
   // the below logic to be run in component load phase for each mounting like componentDidMount
   "bodyHeader-$init": (setLayoutConfig, setAppState, appState) => {

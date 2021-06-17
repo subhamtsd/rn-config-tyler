@@ -156,14 +156,14 @@ export const HeaderBar = (props: {
                 );
                 setLayoutConfig(routes["defaultAppConfig"], "copy");
               }}
-              {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
+              // {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
             >
               {/* <Text>Default State</Text> */}
               <Image
                 source={require("../../../../../../assets/images/icons8-update-file-96.png")}
                 style={{
                   width: "6vh",
-                  height: "6vh",
+                  height: "5.5vh",
                 }}
               />
             </TouchableOpacity>
