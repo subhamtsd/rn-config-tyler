@@ -146,7 +146,7 @@ routes.orderDetail = {
   },
   layoutConfig: {},
 };
-
+//demo checking
 routes.defaultAppConfig = {
   // 0: {
   //   0: {
@@ -245,6 +245,87 @@ routes.defaultAppConfig = {
     },
   },
 };
+// routes.defaultAppConfig = {
+//   colConfig: {
+//     colSize: 1,
+//   },
+//   // "1.container": {
+//   //   "1.1.leftNavCol": {
+//   //     layout: {
+//   //       "1.1.leftNavBodyRow": {
+//   //         Header: {
+//   //           colSize: 1,
+//   //           idx: "HeaderBar",
+//   //           label: "headerBar",
+//   //           colStyle: { borderWidth: 1, height: "10vh" },
+//   //         },
+//   //       },
+//   //     },
+//   //   },
+//   // },
+//   "2.container": {
+//     "2.1.leftNavCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 0.64,
+//         },
+//         "2.1.leftNavBodyRow": {
+//           leftNavBody: {
+//             idx: "NewNavbar",
+//             label: "navigationBar",
+//             colStyle: { height: "100vh" },
+//             // colStyle: { borderWidth:1, height: "100vh" },
+//           },
+//         },
+        
+//       },
+//     },
+//     "2.2.bodyCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 10,
+//         },
+//         "1.1.leftNavBodyRow": {
+//           Header: {
+//             // colSize: 1,
+//             idx: "HeaderBar",
+//             label: "headerBar",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.1.BodyRow": {
+//           bodyHeader: {
+//             idx: "ActionComponent",
+//             label: "actionComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.2.BodyRow": {
+//           bodyContent: {
+//             idx: "TabComponent",
+//             label: "tabComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.3.BodyRow": {
+//           "2.2.3.1.bodyContent": {
+//             colSize: 2,
+//             idx: "JsonFormComponent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+//           },
+//           "2.2.3.1.bodyContent2": {
+//             colSize: 4,
+//             idx: "JsonFormCompnent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1 },
+//           },
+//         },
+//       },
+//     },
+//   },
+// },
+//demo check ends
 
 routes.search = {
   0: {
