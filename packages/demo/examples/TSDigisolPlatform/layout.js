@@ -764,6 +764,29 @@ export const events = {
 
   "helloWorld-s2": {
     onPress: (setLayoutConfig, setAppState, appState) => {
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              searchComponent: {
+                searchPayload: {
+                  active: true,
+                  isMaster: true,
+                  longDescription: "Long description",
+                  shortDescription: "Short description",
+                  displayName: "TSD",
+                },
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+    },
+  },
+
+  "helloWorld-s2.1": {
+    onPress: (setLayoutConfig, setAppState, appState) => {
       setLayoutConfig(routes.defaultAppConfig, "copy");
     },
   },
