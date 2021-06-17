@@ -19,7 +19,7 @@ import {
 import { Calendar } from "react-native-calendars";
 import Modal from "modal-react-native-web";
 
-import { Picker } from "@react-native-picker/picker";
+import { Picker } from "@react-native-community/picker";
 import { Col, Row } from "react-native-easy-grid";
 import { useState } from "react";
 import { calenderStyleTheme } from "../../styles/calenderStyleTheme";

@@ -188,7 +188,7 @@ export const App = (props: AppProps) => {
                 style={{
                   borderColor: "gray",
                   ...rows[rId]?.colStyle,
-                  ...tailwind(rows?.layoutConfig?.layoutClass),
+                  ...tailwind(rows?.layoutConfig?.layoutClass), //conditional styling
                 }}
               >
                 {colsSection(rId, rows[rId])}
@@ -211,6 +211,7 @@ export const App = (props: AppProps) => {
         style={{
           ...layoutConfig?.colConfig?.colStyle,
           ...tailwind(layoutConfig?.colClass),
+          //theme.col
         }}
       >
         {gridSection(layoutConfig, setLayoutConfig)}
@@ -708,7 +709,7 @@ export const App = (props: AppProps) => {
           }}
         />
       ) : null}
-      <Row>{UX(config?.layout) || {}}</Row>
+      <Row>{UX(config?.layout) || {}}</Row> 
     </Grid>
   );
 };

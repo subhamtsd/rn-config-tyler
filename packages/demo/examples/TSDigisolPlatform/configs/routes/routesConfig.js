@@ -146,13 +146,61 @@ routes.orderDetail = {
   },
   layoutConfig: {},
 };
-
+//demo checking
 routes.defaultAppConfig = {
+  // 0: {
+  //   0: {
+  //     idx: "HeaderBar",
+  //     label: "headerBar",
+  //     size: 1.3,
+  //   },
+  // },
+  // 1: {
+  //   0: {
+  //     idx: "NavigationBar",
+  //     label: "navigationBar",
+  //     size: 15,
+  //   },
+  //   1: {
+  //     layout: {
+  //       0: {
+  //         0: {
+  //           idx: "ActionComponent",
+  //           label: "actionComponent",
+  //           size: 10,
+  //         },
+  //       },
+  //       1: {
+  //         0: {
+  //           idx: "TabComponent",
+  //           label: "tabComponent",
+  //           size: 8,
+  //         },
+  //       },
+  //       2: {
+  //         0: {
+  //           idx: "JsonFormComponent",
+  //           label: "bodyHeader",
+  //           size: 100,
+  //         },
+  //         1: {
+  //           idx: "DefaultScreen",
+  //           label: "helloWorld",
+  //           size: 200,
+  //         },
+  //       },
+  //       layoutConfig: {
+  //         size: 95,
+  //       },
+  //     },
+  //   },
+  // },
+
   0: {
     0: {
       idx: "HeaderBar",
       label: "headerBar",
-      size: 1.3,
+      size: 1.5,
     },
   },
   1: {
@@ -167,35 +215,117 @@ routes.defaultAppConfig = {
           0: {
             idx: "ActionComponent",
             label: "actionComponent",
-            size: 10,
+            size: 3,
           },
         },
         1: {
           0: {
             idx: "TabComponent",
             label: "tabComponent",
-            size: 8,
+            size: 3,
           },
         },
         2: {
           0: {
             idx: "JsonFormComponent",
             label: "bodyHeader",
-            size: 100,
+            size: 34,
           },
           1: {
-            idx: "DefaultScreen",
+            idx: "Stepper",
+            // idx: "DefaultScreen",
             label: "helloWorld",
-            size: 200,
+            size: 60,
           },
         },
         layoutConfig: {
-          size: 95,
+          size: 83.5,
         },
       },
     },
   },
 };
+// routes.defaultAppConfig = {
+//   colConfig: {
+//     colSize: 1,
+//   },
+//   // "1.container": {
+//   //   "1.1.leftNavCol": {
+//   //     layout: {
+//   //       "1.1.leftNavBodyRow": {
+//   //         Header: {
+//   //           colSize: 1,
+//   //           idx: "HeaderBar",
+//   //           label: "headerBar",
+//   //           colStyle: { borderWidth: 1, height: "10vh" },
+//   //         },
+//   //       },
+//   //     },
+//   //   },
+//   // },
+//   "2.container": {
+//     "2.1.leftNavCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 0.64,
+//         },
+//         "2.1.leftNavBodyRow": {
+//           leftNavBody: {
+//             idx: "NewNavbar",
+//             label: "navigationBar",
+//             colStyle: { height: "100vh" },
+//             // colStyle: { borderWidth:1, height: "100vh" },
+//           },
+//         },
+        
+//       },
+//     },
+//     "2.2.bodyCol": {
+//       layout: {
+//         colConfig: {
+//           colSize: 10,
+//         },
+//         "1.1.leftNavBodyRow": {
+//           Header: {
+//             // colSize: 1,
+//             idx: "HeaderBar",
+//             label: "headerBar",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.1.BodyRow": {
+//           bodyHeader: {
+//             idx: "ActionComponent",
+//             label: "actionComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.2.BodyRow": {
+//           bodyContent: {
+//             idx: "TabComponent",
+//             label: "tabComponent",
+//             colStyle: { borderWidth: 1, height: "10vh" },
+//           },
+//         },
+//         "2.2.3.BodyRow": {
+//           "2.2.3.1.bodyContent": {
+//             colSize: 2,
+//             idx: "JsonFormComponent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1, borderColor: "red", height: "80vh" },
+//           },
+//           "2.2.3.1.bodyContent2": {
+//             colSize: 4,
+//             idx: "JsonFormCompnent",
+//             label: "bodyHeader",
+//             colStyle: { borderWidth: 1 },
+//           },
+//         },
+//       },
+//     },
+//   },
+// },
+//demo check ends
 
 routes.search = {
   0: {
@@ -674,6 +804,7 @@ routes.createOrderline = {
     },
   },
 };
+
 routes.createOrderlineAddress = {
   0: {
     0: {
