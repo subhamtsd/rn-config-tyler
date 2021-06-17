@@ -12,14 +12,9 @@ import {
   // Picker,
 } from "react-native";
 
-// import { CheckBox } from "react-native-elements";
-
-import { cloneDeep } from "lodash";
-
 import { Col, Grid, Row } from "react-native-easy-grid";
 import { componentGridStyle } from "../../../styles/common";
 import { useState } from "react";
-import { routes } from "../../../configs/routes/routesConfig";
 import { RenderField } from "./RenderField";
 
 export const RenderTable = (props: {
@@ -35,6 +30,9 @@ export const RenderTable = (props: {
   noOfColumns: any;
   maxNoOfRows: any;
   dataToRender: any;
+  checkBox: any;
+  checkBoxButton: any;
+  submitButton: any;
 }) => {
   const {
     appState,
@@ -48,6 +46,9 @@ export const RenderTable = (props: {
     noOfColumns,
     dataToRender,
     maxNoOfRows,
+    checkBox,
+    checkBoxButton,
+    submitButton,
   } = props;
 
   const [arrObj, setArrObj] = useState(
@@ -60,23 +61,21 @@ export const RenderTable = (props: {
     }
   );
   const [addRowButtonStatus, setAddRowButtonStatus] = useState(true);
-  const [saveButtonStatus, setSaveButtonStatus] = useState(false);
+  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
   const firstParent = Object.getOwnPropertyNames(dataToRender)[0];
   const secondParent = Object.getOwnPropertyNames(
     dataToRender[Object.getOwnPropertyNames(dataToRender)[0]].properties
   );
 
-  const tableHeaderObj =
-    dataToRender[firstParent].properties[secondParent[0]].items.properties;
+  const formSchema =
+    dataToRender[firstParent].properties[secondParent[0]].items;
 
-  tableHeaderObj["actionDisplay"] = {
+  formSchema["properties"]["actionDisplay"] = {
     title: "Action",
     type: "button",
     uid: "action",
     pattern: "[]",
   };
-  const requiredField =
-    dataToRender[firstParent].properties[secondParent[0]].items.required;
 
   const addRowHandler = () => {
     setArrObj((oldArrObj) => {
@@ -90,6 +89,7 @@ export const RenderTable = (props: {
       return newArrObj;
     });
     setAddRowButtonStatus(false);
+    setSaveButtonStatus(false);
   };
 
   const singleCheckboxHandler = (key, value) => {
@@ -98,6 +98,10 @@ export const RenderTable = (props: {
 
   const addRowButtonStatusHandler = (value) => {
     setAddRowButtonStatus(value);
+  };
+
+  const saveButtonStatusHandler = (value) => {
+    setSaveButtonStatus(value);
   };
 
   const addActionHandler = (key, item) => {
@@ -111,7 +115,9 @@ export const RenderTable = (props: {
       });
       return newArrObj;
     });
-    setAddRowButtonStatus(true);
+    if (arrObj.length < maxNoOfRows) {
+      setAddRowButtonStatus(true);
+    }
     setSaveButtonStatus(true);
   };
 
@@ -122,48 +128,8 @@ export const RenderTable = (props: {
       return newArrObj;
     });
     setAddRowButtonStatus(true);
+    setSaveButtonStatus(true);
   };
-
-  //   const keyIdPrefix = () => {
-  //     const keyArray = Object.getOwnPropertyNames(
-  //       dataToRender[firstParent].properties
-  //     );
-  //     return keyArray[0];
-  //   };
-
-  // console.log(tableHeaderObj);
-
-  //   console.log("finalItem : : : ", finalItem);
-
-  //   const fetchApi = (endPoint, httpMethod, body, routeToRedirect) => {
-  //     const res1 = fetch(`${SERVER_ENDPOINT}${endPoint}`, {
-  //       method: httpMethod,
-  //       // method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(body),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((_data) => {
-  //         setAppState({
-  //           global: {
-  //             tsdApp: {
-  //               createComponent: {
-  //                 [appState.global.tsdApp.activeTab.name]: _data,
-  //                 formData: body,
-  //               },
-  //               viewComponent: {
-  //                 [appState.global.tsdApp.activeTab.name]: _data,
-  //               },
-  //             },
-  //           },
-  //         });
-  //         console.log("DATA UPDATED .......");
-  //         setLayoutConfig(routeToRedirect, "copy");
-  //       });
-  //   };
 
   const rowSection = arrObj.map((obj) => {
     return (
@@ -172,12 +138,14 @@ export const RenderTable = (props: {
         deleteActionHandler={deleteActionHandler}
         addActionHandler={addActionHandler}
         addRowButtonStatusHandler={addRowButtonStatusHandler}
+        saveButtonStatusHandler={saveButtonStatusHandler}
         singleCheckboxHandler={singleCheckboxHandler}
         singleChecked={isChecked}
         addRowButtonStatus={addRowButtonStatus}
-        tableHeaderObj={tableHeaderObj}
+        saveButtonStatus={saveButtonStatus}
+        formSchema={formSchema}
         id={obj.key}
-        requiredField={requiredField}
+        checkBox={checkBox}
       />
     );
   });
@@ -213,20 +181,22 @@ export const RenderTable = (props: {
             maxWidth: 130,
           }}
         >
-          <Button
-            title={`Add Address`}
-            color="#0e73ca"
-            disabled={!isChecked.status}
-            onPress={() => {
-              const newAppState = { ...appState };
-              newAppState.$global.tsdApp.createComponent[label] = arrObj;
-              newAppState.$global.tsdApp.createComponent["isChecked"] =
-                isChecked;
-              setAppState(newAppState, false);
-              setLayoutConfig(routes.createOrderlineAddress, "copy");
-              // copy the last row
-            }}
-          ></Button>
+          {checkBoxButton && (
+            <Button
+              title={checkBoxButton}
+              color="#0e73ca"
+              disabled={!isChecked.status}
+              {...getEvents(
+                `${label}-check-box-button`,
+                setLayoutConfig,
+                setAppState,
+                appState,
+                arrObj,
+                label,
+                isChecked
+              )}
+            ></Button>
+          )}
         </Col>
       </Row>
       <ScrollView
@@ -239,7 +209,10 @@ export const RenderTable = (props: {
         <Grid>
           {/* TABLE HEADER DATA */}
           <Row>
-            {Object.keys(tableHeaderObj).map(function (keyName, _keyIndex) {
+            {Object.keys(formSchema?.properties).map(function (
+              keyName,
+              _keyIndex
+            ) {
               return (
                 <Row
                   style={{
@@ -274,7 +247,7 @@ export const RenderTable = (props: {
                         fontSize: "15",
                       }}
                     >
-                      {tableHeaderObj[keyName].title}
+                      {formSchema["properties"][keyName].title}
                     </Text>
                   </Col>
                 </Row>
@@ -308,18 +281,17 @@ export const RenderTable = (props: {
           }}
         >
           <Button
-            title={`Save`}
+            title={submitButton}
             color="#0e73ca"
-            disabled={
-              !(saveButtonStatus && arrObj.length > 0 && addRowButtonStatus)
-            }
-            onPress={() => {
-              console.log("Final submit");
-              const newAppState = { ...appState };
-              newAppState.$global.tsdApp.createComponent[label] = arrObj;
-              setAppState(newAppState, false);
-              setSaveButtonStatus(false);
-            }}
+            disabled={!(arrObj.length > 0 && saveButtonStatus)}
+            {...getEvents(
+              `${label}-submit`,
+              setLayoutConfig,
+              setAppState,
+              appState,
+              arrObj,
+              label
+            )}
           />
         </View>
       </View>

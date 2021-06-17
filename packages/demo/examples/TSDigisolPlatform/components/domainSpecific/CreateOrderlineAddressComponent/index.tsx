@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import useSafeSetState from "../../../helper/useSafeState";
-import { routes } from "../../../configs/routes/routesConfig";
 import { componentGridStyle } from "../../../styles/common";
 import { JsonForm } from "../../JsonFormComponent/JsonForm";
 import { prepareSchema } from "../../../helper/helper";
@@ -207,24 +206,6 @@ export const CreateOrderlineAddressComponent = (props: {
     );
   }
 
-  const onSuccessHandler = (body, label) => {
-    setAppState(
-      {
-        $global: {
-          tsdApp: {
-            createComponent: {
-              ...appState?.$global?.tsdApp?.createComponent,
-              [label]: body.params.values,
-            },
-          },
-        },
-      },
-      "isPartial"
-    );
-
-    setLayoutConfig(routes.createOrderline);
-  };
-
   console.log("formLayout orderlineaddressFormLayout : :: : ", formLayout);
 
   // console.log("from json:", buttonView);
@@ -253,11 +234,9 @@ export const CreateOrderlineAddressComponent = (props: {
           // schema={_schema}
           uiSchema={formLayout.uischema}
           _formData={_formData}
-          label={appState.$global.tsdApp.createComponent.isChecked.key}
           setLayoutConfig={setLayoutConfig}
           _submitButton={"Save"}
           _cancelButton={true}
-          _onSuccess={onSuccessHandler}
 
           // _onBeforeSubmit={(e) => {
           //   console.log("*** _onBeforeSubmit ***");

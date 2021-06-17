@@ -8,7 +8,7 @@ import { Text, View, ScrollView } from "react-native";
 import { Grid } from "react-native-easy-grid";
 import { prepareSchema } from "../../../helper/helper";
 import { componentGridStyle } from "../../../styles/common";
-import { RenderTable } from "./RenderTable";
+import { RenderTable } from "../../ListJsonFormComponent//RenderTable";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 
 export const CreateAddressFormComponent = (props: {
@@ -90,7 +90,6 @@ export const CreateAddressFormComponent = (props: {
 
   useEffect(() => {
     const fetchFormLayout = async () => {
-      setLoading(true);
       const res = await fetch(
         `${SERVER_ENDPOINT}v1/schema/singlechildformLayout`,
         {
@@ -108,11 +107,7 @@ export const CreateAddressFormComponent = (props: {
         }
       );
       const resJSON = await res.json();
-      const firstParent = Object.getOwnPropertyNames(resJSON)[0];
-      const secondParent = Object.getOwnPropertyNames(
-        resJSON[Object.getOwnPropertyNames(resJSON)[0]].properties
-      );
-      await prepareSchema(resJSON[firstParent].properties[secondParent[0]]);
+      await prepareSchema(resJSON);
 
       // console.log(
       //   "SCHEMA JSON UPDATED IN RENDER TABLE from orderline :: ",
@@ -124,48 +119,53 @@ export const CreateAddressFormComponent = (props: {
     fetchFormLayout();
   }, []);
 
-  return loading ? null : (
-    <View style={componentGridStyle}>
-      <Text
-        style={{
-          fontSize: 20,
-          color: "#0d47a1",
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        {UItitle}
-      </Text>
-      {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
+  return (
+    loading || (
+      <View style={componentGridStyle}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d47a1",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          {UItitle}
+        </Text>
+        {/* <Text style={{}}>ListJsonFormComponent *** {label}</Text>
       <Button
         testID={`${label}-btn-one`}
         title="ACT1"
         {...getEvents(`${label}-btn-one`, setLayoutConfig, setAppState)}
       ></Button> */}
-      {/* <Text> AA {appState?.$appState?.loginValues}</Text> */}
-      <View>
-        <ScrollView>
-          <Grid>
-            {/* <Text>{noOfColumns}</Text> */}
-            <RenderTable
-              appState={appState}
-              label={label}
-              styles={styles}
-              children={children}
-              setAppState={setAppState}
-              layoutConfig={layoutConfig}
-              setLayoutConfig={setLayoutConfig}
-              getEvents={getEvents}
-              events={events}
-              noOfColumns={7}
-              maxNoOfRows={2}
-              dataToRender={formLayout}
-            />
-          </Grid>
-        </ScrollView>
+        {/* <Text> AA {appState?.$appState?.loginValues}</Text> */}
+        <View>
+          <ScrollView>
+            <Grid>
+              {/* <Text>{noOfColumns}</Text> */}
+              <RenderTable
+                appState={appState}
+                label={label}
+                styles={styles}
+                children={children}
+                setAppState={setAppState}
+                layoutConfig={layoutConfig}
+                setLayoutConfig={setLayoutConfig}
+                getEvents={getEvents}
+                events={events}
+                noOfColumns={7}
+                maxNoOfRows={2}
+                dataToRender={formLayout}
+                checkBox={false}
+                checkBoxButton={false}
+                submitButton={"Save"}
+              />
+            </Grid>
+          </ScrollView>
+        </View>
+        {children || (appState && appState[label] && appState[label]?.children)}
       </View>
-      {children || (appState && appState[label] && appState[label]?.children)}
-    </View>
+    )
   );
 };
 

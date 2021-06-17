@@ -38,7 +38,8 @@ export const JsonFormComponent = (props: {
     appState?.$global?.tsdApp?.activeTab?.name || "CreateOrder";
   const _formData =
     appState?.$global?.tsdApp?.createComponent?.[activeTabName] ||
-    appState?.$global?.tsdApp?.searchComponent?.searchPayload;
+    appState?.$global?.tsdApp?.searchComponent?.searchPayload ||
+    {};
   console.log("FORM DATA : :::: --- Create Form ::: ", _formData);
 
   const [loading, setloading] = useState(true);
@@ -55,7 +56,6 @@ export const JsonFormComponent = (props: {
   const initialFormSchema = {};
 
   const [formLayout, setformLayout] = useState(initialFormSchema);
-  const [uiSchema, setUISchema] = useState(_uiSchema);
   const [responseStatus, setResponseStatus] = useState(200);
 
   const actionStatus =
@@ -164,7 +164,7 @@ export const JsonFormComponent = (props: {
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         uischema={formLayout.uischema}
         _formData={_formData}

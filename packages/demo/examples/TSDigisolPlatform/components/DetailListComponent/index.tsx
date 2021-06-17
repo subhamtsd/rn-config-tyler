@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { ShowEntity } from "../../../../components/DetailComponent/ShowEntity";
+import { ShowEntity } from "../DetailComponent/ShowEntity";
 
 export const DetailListComponent = (props: {
   appState: any;

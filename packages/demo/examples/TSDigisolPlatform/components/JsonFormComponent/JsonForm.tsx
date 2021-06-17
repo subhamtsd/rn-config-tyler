@@ -9,9 +9,8 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import Form from "react-native-web-jsonschema-form";
 import { UIProvider } from "react-native-web-ui-components";
 import { getEvents } from "../../layout";
-// import useSafeSetState from "../../helper/useSafeState";
-import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { useEffect } from "react";
+import { formDependency, formCleanProperty } from "../../helper/helper";
 
 // export { useSafeSetState };
 const noOp = (): void => {};
@@ -25,7 +24,7 @@ export const JsonForm = ({
   _onSubmit = noOp,
   _formData = {}, // This data
   _onClose = noOp,
-  schema = {}, // This data
+  formSchema = {}, // This data
   uischema = {}, // this data
   label = "",
   _submitButton = true,
@@ -34,7 +33,6 @@ export const JsonForm = ({
   ...props
 }): AnyRecord => {
   // TODO: show loading indicator based on loading value
-  //   const [loading, setLoading] = useSafeSetState(false);
   // TODO: show exceptions as errors
   //   const [exception, setException] = useSafeSetState(null);
   // TODO: show message
@@ -47,7 +45,6 @@ export const JsonForm = ({
   // });
   const [formData, setFormData] = useState(_formData);
   const [uiSchema, setUiSchema] = useState(uischema);
-  const [formSchema, setFormSchema] = useState(schema);
 
   // console.log("_formDatA :::: ", formData);
   // console.log("_formSchema :::: ", formSchema);
@@ -72,8 +69,6 @@ export const JsonForm = ({
   //   const onErrorOk = () => setException(null);
 
   //   const stateAbbreviationRegex = /^[A-Z]{2}$/;
-
-  const [errorSchema, setErrorSchema] = useState({});
   //   const [errorSchema, setErrorSchema] = useState({});
 
   //   const validate = (values) => {
@@ -93,82 +88,8 @@ export const JsonForm = ({
   //     console.log("ERROR SCHEMA IN JSON FORM ::::: ", errorSchema);
   //     setErrorSchema(errorSchema);
   //   };
-
-  const validate = (property, value) => {
-    console.log(property, "   ", value);
-    // if (
-    //   (value == null || value == "" || value == undefined) &&
-    //   formSchema.required.find(property)
-    // ) {
-    throw new Error("Mandatory Property");
-    // }
-  };
-
-  const fetchData = async (keyName: string | number, body: {}) => {
-    const res = await fetch(
-      `${SERVER_ENDPOINT}${formSchema?.["properties"]?.[keyName]?.dropdownLoadApiURL}`,
-      {
-        method: formSchema?.["properties"]?.[keyName]?.dropdownLoadApiMethod,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
-    const resJSON = await res.json();
-    if (formSchema?.["properties"]?.[keyName]?.displayType == "dropdown") {
-      const value = [];
-      const label = [];
-      for (const data of resJSON.response) {
-        value.push(data[resJSON?.filedValue || keyName]);
-        label.push(data[resJSON.displayValue]);
-      }
-      return { enum: value, enumName: label };
-    } else if (formSchema["properties"][keyName]?.format == "date") {
-      return {
-        minDate: resJSON.response?.[0]?.startDate,
-        maxDate: resJSON.response?.[resJSON.response.length - 1]?.startDate,
-      };
-    } else if (formSchema["properties"][keyName]?.format == "readOnly") {
-      return resJSON.response[0][resJSON.displayValue];
-    }
-  };
-
-  const cleanProperty = (propertyName, newFormData, newUiSchema) => {
-    if (newFormData[propertyName]) {
-      formSchema?.["properties"]?.[
-        propertyName
-      ]?.nextDependent?.dependentField?.forEach((property) => {
-        cleanProperty(property.fieldName, newFormData, newUiSchema);
-      });
-    }
-    delete newFormData[propertyName];
-    if (formSchema?.["properties"]?.[propertyName]?.displayType == "dropdown") {
-      delete newUiSchema[propertyName]["ui:enum"];
-      delete newUiSchema[propertyName]["ui:enumName"];
-    }
-    if (formSchema?.["properties"]?.[propertyName]?.format == "date") {
-      delete newUiSchema[propertyName]["ui:minDate"];
-      delete newUiSchema[propertyName]["ui:maxDate"];
-    }
-    newUiSchema[propertyName]["ui:disabled"] = true;
-  };
-
   const onChange = async (event) => {
     const { name, value } = event.params;
-    // try {
-    //   validate(name, value);
-    // } catch (e) {
-    //   const newErrorSchema = cloneDeep(errorSchema);
-    //   newErrorSchema[name] = [];
-    //   newErrorSchema[name].push(e.msg);
-    //   setErrorSchema(errorSchema);
-    //   return;
-    // }
-    // console.log(name, "  ", value, "  ", values);
-    // setFormData({ ...formData, [name]: value });
-    //   validate(name, value);
     const newFormData = { ...formData, [name]: value };
     if (value == null || value == "") {
       delete newFormData[name];
@@ -176,129 +97,26 @@ export const JsonForm = ({
     const newUiSchema = { ...uiSchema };
     formSchema?.["properties"]?.[name]?.nextDepended?.dependentField?.forEach(
       (property) => {
-        cleanProperty(property.fieldName, newFormData, newUiSchema);
+        formCleanProperty(
+          property.fieldName,
+          newFormData,
+          newUiSchema,
+          formSchema
+        );
       }
     );
-    if (value == null || value == "") {
-      setUiSchema(newUiSchema);
-    } else if (
-      formSchema?.["properties"]?.[name]?.nextDependent?.dependentField
-    ) {
-      await Promise.all(
-        formSchema?.["properties"]?.[name]?.nextDependent?.dependentField?.map(
-          async (property) => {
-            let flag = true;
-            const body = {};
-            formSchema?.["properties"]?.[
-              property.fieldName
-            ]?.dependency?.forEach((propertyName) => {
-              if (
-                newFormData[propertyName] == undefined ||
-                newFormData[propertyName] == "" ||
-                newFormData[propertyName] == null
-              ) {
-                flag = false;
-                return;
-              }
-              body[propertyName] = newFormData[propertyName];
-            });
-            if (flag) {
-              const data = await fetchData(property.fieldName, body);
-              if (
-                formSchema?.["properties"]?.[property.fieldName]?.displayType ==
-                "dropdown"
-              ) {
-                newUiSchema[property.fieldName]["ui:enum"] = data.enum;
-                newUiSchema[property.fieldName]["ui:enumName"] = data.enumName;
-              }
-              if (
-                formSchema?.["properties"]?.[property.fieldName]?.format ==
-                "date"
-              ) {
-                newUiSchema[property.fieldName]["ui:minDate"] = data["minDate"];
-                newUiSchema[property.fieldName]["ui:maxDate"] = data["maxDate"];
-              }
-              if (
-                formSchema?.["properties"]?.[property.fieldName]?.format ==
-                "readOnly"
-              ) {
-                newFormData[property.fieldName] = data;
-              }
-              newUiSchema[property.fieldName]["ui:disabled"] = false;
-            }
-          }
-        )
-      );
-      setUiSchema(newUiSchema);
-    }
+    await formDependency(name, newFormData, newUiSchema, formSchema);
     setFormData(newFormData);
+    setUiSchema(newUiSchema);
   };
-
   useEffect(() => {
     const newUiSchema = { ...uiSchema };
-    const newFormData = { ...formData };
     Promise.all(
       Object.keys(formSchema?.["properties"]).map(async (name) => {
-        if (
-          (formSchema?.["properties"]?.[name]?.dependency?.length == 0 ||
-            formSchema?.["properties"]?.[name]?.dependency == undefined) &&
-          formData[name] &&
-          formData[name] != "" &&
-          formSchema?.["properties"]?.[name]?.nextDependent?.dependentField
-        ) {
-          await Promise.all(
-            formSchema?.["properties"]?.[
-              name
-            ]?.nextDependent?.dependentField?.map(async (property) => {
-              let flag = true;
-              const body = {};
-              formSchema?.["properties"]?.[
-                property.fieldName
-              ]?.dependency?.forEach((propertyName) => {
-                if (
-                  newFormData[propertyName] == undefined ||
-                  newFormData[propertyName] == "" ||
-                  newFormData[propertyName] == null
-                ) {
-                  flag = false;
-                  return;
-                }
-                body[propertyName] = newFormData[propertyName];
-              });
-              if (flag) {
-                const data = await fetchData(property.fieldName, body);
-                if (
-                  formSchema?.["properties"]?.[property.fieldName]
-                    ?.displayType == "dropdown"
-                ) {
-                  newUiSchema[property.fieldName]["ui:enum"] = data.enum;
-                  newUiSchema[property.fieldName]["ui:enumName"] =
-                    data.enumName;
-                }
-                if (
-                  formSchema?.["properties"]?.[property.fieldName]?.format ==
-                  "date"
-                ) {
-                  newUiSchema[property.fieldName]["ui:minDate"] =
-                    data["minDate"];
-                  newUiSchema[property.fieldName]["ui:maxDate"] =
-                    data["maxDate"];
-                }
-                if (
-                  formSchema?.["properties"]?.[property.fieldName]?.format ==
-                  "readOnly"
-                ) {
-                  newFormData[property.fieldName] = data;
-                }
-                newUiSchema[property.fieldName]["ui:disabled"] = false;
-              }
-            })
-          );
-        }
+        await formDependency(name, formData, newUiSchema, formSchema);
       })
     ).then(() => {
       setUiSchema(newUiSchema);
-      setFormData(newFormData);
     });
   }, []);
 
@@ -377,7 +195,6 @@ export const JsonForm = ({
           formData={formData}
           schema={formSchema}
           uiSchema={uiSchema}
-          errorSchema={errorSchema}
           onChange={onChange}
           filterEmptyValues={true}
           // TODO : FOR ERROR SCHEMA POC
@@ -410,7 +227,6 @@ export const JsonForm = ({
 
           submitButton={_submitButton}
           cancelButton={_cancelButton}
-          onSuccess={(body) => _onSuccess(body, label)}
           // TODO : WHEN TEST CHECKBOX uncomment next 2 line and comment above line
           // onChange={_onChange}
           buttonPosition="center"

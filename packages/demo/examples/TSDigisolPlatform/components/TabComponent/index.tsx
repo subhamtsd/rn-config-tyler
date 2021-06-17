@@ -156,7 +156,7 @@ export const TabComponent = (props: {
                     ? "#b2c560"
                     : "",
                 width: "fit-content",
-                minWidth:"20vh",
+                minWidth: "20vh",
                 marginRight: 5,
                 justifyContent: "center",
                 alignItems: "center",

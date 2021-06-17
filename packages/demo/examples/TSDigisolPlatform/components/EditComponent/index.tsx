@@ -7,7 +7,7 @@ import { ScrollView, Text, View } from "react-native";
 // import { useSelector, useDispatch } from "react-redux";
 import useSafeSetState from "../../helper/useSafeState";
 import { componentGridStyle } from "../../styles/common";
-import { JsonForm } from "./JsonForm";
+import { JsonForm } from "../JsonFormComponent/JsonForm";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { parseFormData } from "../../helper/helper";
 import { prepareSchema } from "../../helper/helper";
@@ -238,7 +238,7 @@ export const EditComponent = (props: {
       <JsonForm
         setAppState={setAppState}
         appState={appState}
-        schema={formLayout}
+        formSchema={formLayout}
         // schema={_schema}
         _submitButton={"Update"}
         _cancelButton={true}

@@ -22,216 +22,73 @@ import Modal from "modal-react-native-web";
 import { Picker } from "@react-native-picker/picker";
 import { Col, Row } from "react-native-easy-grid";
 import { useState } from "react";
-import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import { ItemValue } from "@react-native-picker/picker/typings/Picker";
 import { calenderStyleTheme } from "../../../styles/calenderStyleTheme";
 import { FontAwesome } from "@expo/vector-icons";
+import { formDependency, formCleanProperty } from "../../../helper/helper";
 
 export const RenderField = (props: {
   data: any;
   singleCheckboxHandler: any;
   singleChecked: any;
   addRowButtonStatusHandler: any;
+  saveButtonStatusHandler: any;
   addRowButtonStatus: any;
+  saveButtonStatus: any;
   addActionHandler: any;
   deleteActionHandler: any;
-  tableHeaderObj: any;
+  formSchema: any;
   id: any;
-  requiredField: any;
+  checkBox: any;
 }) => {
   const {
     data,
     singleCheckboxHandler,
     singleChecked,
     addRowButtonStatusHandler,
+    saveButtonStatusHandler,
     addRowButtonStatus,
+    saveButtonStatus,
     addActionHandler,
     deleteActionHandler,
-    tableHeaderObj,
+    formSchema,
     id,
-    requiredField,
+    checkBox,
   } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const [item, setItem] = useState(data.item);
   const [addActionButtonStatus, setAddActionButtonStatus] = useState(
     data.addStatus
   );
+  const [uiSchema, setUiSchema] = useState(formSchema?.uischema || {});
   const [isChecked, setIsChecked] = useState(singleChecked.key == data.key);
-  const [dataList, setDataList] = useState({});
-  const [disableList, setDisableList] = useState({});
-  const [loading, setLoading] = useState(true);
 
-  const fetchData = async (keyName: string | number, body: {}) => {
-    const res = await fetch(
-      `${SERVER_ENDPOINT}${tableHeaderObj[keyName].dropdownLoadApiURL}`,
-      {
-        method: tableHeaderObj[keyName].dropdownLoadApiMethod,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
-    const resJSON = await res.json();
-    if (tableHeaderObj[keyName].displayType == "dropdown") {
-      const value = [];
-      const label = [];
-      for (const data of resJSON.response) {
-        value.push(data[resJSON?.filedValue || keyName]);
-        label.push(data[resJSON.displayValue]);
-      }
-      return { enum: value, enumName: label };
-    } else if (tableHeaderObj[keyName].format == "date") {
-      return {
-        minDate: resJSON.response?.[0]?.startDate,
-        maxDate: resJSON.response?.[resJSON.response.length - 1]?.startDate,
-      };
-    } else if (tableHeaderObj[keyName].format == "readOnly") {
-      console.log(resJSON.response[0]);
-
-      return resJSON.response[0][resJSON.displayValue];
-    }
-  };
-
-  console.log("here", disableList);
-  console.log("here", dataList);
-
-  const cleanProperty = (
-    keyName: string | number,
-    newItem: { [x: string]: any },
-    newDataList: { [x: string]: any },
-    newDisableList: { [x: string]: boolean }
-  ) => {
-    if (newItem[keyName]) {
-      tableHeaderObj[keyName]?.nextDepended?.dependentField?.forEach(
-        (property: { fieldName: any }) => {
-          cleanProperty(
-            property.fieldName,
-            newItem,
-            newDataList,
-            newDisableList
-          );
-        }
-      );
-    }
-    delete newItem[keyName];
-    delete newDataList[keyName];
-    newDisableList[keyName] = true;
-  };
-
-  const onChangeHandler = async (value: string | null, keyName: string) => {
+  const onChangeHandler = async (value, keyName) => {
     const newItem = { ...item };
     newItem[keyName] = value;
     if (value == null || value == "" || value == "null") {
       delete newItem[keyName];
     }
-    const newDataList = { ...dataList };
-    const newDisableList = { ...disableList };
-    tableHeaderObj[keyName]?.nextDepended?.dependentField?.forEach(
-      (property: { fieldName: any }) => {
-        cleanProperty(property.fieldName, newItem, newDataList, newDisableList);
-      }
-    );
-    if (value == null || value == "" || value == "null") {
-      setDisableList(newDisableList);
-      setDataList(newDataList);
-    } else if (tableHeaderObj[keyName]?.nextDepended?.dependentField) {
-      await Promise.all(
-        tableHeaderObj[keyName]?.nextDepended?.dependentField?.map(
-          async (property: { fieldName: string | number }) => {
-            let flag = true;
-            const body = {};
-            tableHeaderObj[property.fieldName]?.dependency?.forEach(
-              (propertyName: string | number) => {
-                if (
-                  newItem[propertyName] == undefined ||
-                  newItem[propertyName] == "" ||
-                  newItem[propertyName] == null
-                ) {
-                  flag = false;
-                  return;
-                }
-                body[propertyName] = newItem[propertyName];
-              }
-            );
-            if (flag) {
-              const data = await fetchData(property.fieldName, body);
-              if (tableHeaderObj[property.fieldName]?.format == "readOnly") {
-                newItem[property.fieldName] = data;
-              } else {
-                newDataList[property.fieldName] = data;
-              }
-              newDisableList[property.fieldName] = false;
-            }
-          }
-        )
-      );
-      setDataList(newDataList);
-      setDisableList(newDisableList);
-    }
+    const newUiSchema = { ...uiSchema };
+    formSchema?.["properties"]?.[
+      keyName
+    ]?.nextDepended?.dependentField?.forEach((property) => {
+      formCleanProperty(property.fieldName, newItem, newUiSchema, formSchema);
+    });
+    await formDependency(keyName, newItem, newUiSchema, formSchema);
+    setUiSchema(newUiSchema);
     setItem(newItem);
     setAddActionButtonStatus(true);
   };
 
   useEffect(() => {
-    const newDisableList = { ...disableList };
-    const newDataList = { ...dataList };
+    const newUiSchema = { ...uiSchema };
     Promise.all(
-      Object.keys(tableHeaderObj).map(async (keyName) => {
-        newDisableList[keyName] = !(
-          tableHeaderObj[keyName]?.dependency?.length == 0 ||
-          tableHeaderObj[keyName]?.dependency == undefined
-        );
-        if (!newDisableList[keyName]) {
-          if (tableHeaderObj[keyName]?.displayType === "dropdown")
-            newDataList[keyName] = {
-              enum: [...tableHeaderObj[keyName]?.enum],
-            };
-        }
-        if (
-          !newDisableList[keyName] &&
-          item[keyName] &&
-          item[keyName] != "" &&
-          tableHeaderObj[keyName]?.nextDepended?.dependentField
-        ) {
-          await Promise.all(
-            tableHeaderObj[keyName]?.nextDepended?.dependentField?.map(
-              async (property: { fieldName: string | number }) => {
-                let flag = true;
-                const body = {};
-                tableHeaderObj[property.fieldName]?.dependency?.forEach(
-                  (propertyName: string | number) => {
-                    if (
-                      item[propertyName] == undefined ||
-                      item[propertyName] == "" ||
-                      item[propertyName] == null
-                    ) {
-                      flag = false;
-                      return;
-                    }
-                    body[propertyName] = item[propertyName];
-                  }
-                );
-                if (flag) {
-                  const data = await fetchData(property.fieldName, body);
-                  if (
-                    tableHeaderObj[property.fieldName]?.format == "readOnly"
-                  ) {
-                    item[property.fieldName] = data;
-                  } else {
-                    newDataList[property.fieldName] = data;
-                  }
-                  newDisableList[property.fieldName] = false;
-                }
-              }
-            )
-          );
-        }
+      Object.keys(formSchema?.["properties"]).map(async (name) => {
+        await formDependency(name, item, newUiSchema, formSchema);
       })
-    );
-    setDisableList(newDisableList);
-    setDataList(newDataList);
+    ).then(() => {
+      setUiSchema(newUiSchema);
+    });
   }, []);
 
   console.log(item);
@@ -239,34 +96,39 @@ export const RenderField = (props: {
   if (addRowButtonStatus && addActionButtonStatus) {
     addRowButtonStatusHandler(false);
   }
+  if (saveButtonStatus && addActionButtonStatus) {
+    saveButtonStatusHandler(false);
+  }
 
   return (
     <Row>
-      <Text
-        style={{
-          // flex: 1,
-          padding: 8,
-          paddingBottom: 0,
-          paddingTop: 14,
-          // borderWidth: 2,
-        }}
-      >
-        <CheckBox
-          color="#0e73ca"
-          value={isChecked}
-          disabled={
-            !(!addActionButtonStatus && isChecked === singleChecked.status)
-          }
-          onValueChange={(
-            value: boolean | ((prevState: boolean) => boolean)
-          ) => {
-            setIsChecked(value);
-            singleCheckboxHandler(id, value);
+      {checkBox && (
+        <Text
+          style={{
+            // flex: 1,
+            padding: 8,
+            paddingBottom: 0,
+            paddingTop: 14,
+            // borderWidth: 2,
           }}
-        />
-      </Text>
-      {Object.keys(tableHeaderObj).map(function (keyName) {
-        if (tableHeaderObj[keyName]?.format === "date") {
+        >
+          <CheckBox
+            color="#0e73ca"
+            value={isChecked}
+            disabled={
+              !(!addActionButtonStatus && isChecked === singleChecked.status)
+            }
+            onValueChange={(
+              value: boolean | ((prevState: boolean) => boolean)
+            ) => {
+              setIsChecked(value);
+              singleCheckboxHandler(id, value);
+            }}
+          />
+        </Text>
+      )}
+      {Object.keys(formSchema["properties"]).map(function (keyName) {
+        if (formSchema["properties"][keyName]?.format === "date") {
           return (
             <Row
               style={{
@@ -368,10 +230,10 @@ export const RenderField = (props: {
                           // Initially visible month. Default = Date()
                           //current={new Date().toISOString().slice(0, 10)}
                           // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-                          minDate={dataList[keyName]?.minDate}
+                          minDate={uiSchema[keyName]?.["ui:minDate"]}
                           // minDate={new Date("2021-05-13")}
                           // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-                          maxDate={dataList[keyName]?.maxDate}
+                          maxDate={uiSchema[keyName]?.["ui:maxDate"]}
                           // maxDate={new Date("2021-05-26")}
                           // Handler which gets executed on day press. Default = undefined
                           onDayPress={(day) => {
@@ -430,7 +292,7 @@ export const RenderField = (props: {
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}
-                  disabled={disableList[keyName]}
+                  disabled={uiSchema[keyName]?.["ui:disabled"]}
                 >
                   <Text style={detailViewStyles.textStyle}>
                     {item[keyName] == undefined ? `Select Date` : item[keyName]}
@@ -441,7 +303,7 @@ export const RenderField = (props: {
           );
         }
 
-        if (tableHeaderObj[keyName]?.displayType === "dropdown") {
+        if (formSchema["properties"][keyName]?.displayType === "dropdown") {
           return (
             <Row
               style={{
@@ -457,7 +319,7 @@ export const RenderField = (props: {
             >
               <Col>
                 <Picker
-                  selectedValue={item[keyName] || null}
+                  selectedValue={item[keyName] || "null"}
                   style={{
                     borderWidth: 1,
                     width: `100%`,
@@ -468,33 +330,28 @@ export const RenderField = (props: {
                   onValueChange={(itemValue) => {
                     onChangeHandler(itemValue, keyName);
                   }}
-                  disabled={disableList[keyName]}
+                  disabled={uiSchema[keyName]?.["ui:disabled"]}
                 >
                   <Picker.Item
-                    label={`Select ${tableHeaderObj[keyName].title} `}
+                    label={`Select ${formSchema["properties"][keyName].title} `}
                     value={"null"}
                   />
-                  {dataList[keyName]?.enum?.map(
-                    (
-                      ele: ItemValue | undefined,
-                      i: React.Key | null | undefined
-                    ) => {
-                      return (
-                        <Picker.Item
-                          label={dataList[keyName]?.enumName?.[i] || ele}
-                          value={ele}
-                          key={i}
-                        />
-                      );
-                    }
-                  )}
+                  {uiSchema[keyName]?.["ui:enum"]?.map((ele, i) => {
+                    return (
+                      <Picker.Item
+                        label={uiSchema[keyName]?.["ui:enumNames"]?.[i] || ele}
+                        value={ele}
+                        key={i}
+                      />
+                    );
+                  })}
                 </Picker>
               </Col>
             </Row>
           );
         }
         // TODO : schema element with Action button
-        if (tableHeaderObj[keyName]?.type === "button") {
+        if (formSchema["properties"][keyName]?.type === "button") {
           return (
             <Col
               style={{
@@ -572,11 +429,13 @@ export const RenderField = (props: {
                   padding: 17,
                 }}
                 value={item[keyName] || ""}
-                editable={tableHeaderObj[keyName]?.format != "readOnly"}
+                editable={
+                  formSchema["properties"][keyName]?.format != "readOnly"
+                }
                 onChangeText={(text) => {
                   onChangeHandler(text, keyName);
                 }}
-                disabled={disableList[keyName]}
+                disabled={uiSchema[keyName]?.["ui:disabled"]}
               ></TextInput>
             </Col>
           </Row>

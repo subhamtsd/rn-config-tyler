@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { View } from "react-native";
-import { ShowEntity } from "../../../../../components/DetailComponent/ShowEntity";
+import { ShowEntity } from "../../../components/DetailComponent/ShowEntity";
 
 export const OrderLineDetailViewComponent = (props: {
   appState: any;
