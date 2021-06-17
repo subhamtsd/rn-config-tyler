@@ -176,7 +176,6 @@ export const JsonForm = ({
   };
 
   const languages = ["Java", "Python", "C"]; //data example for checkbox poc
-  console.log("JSONFORM GETEVETS", getEvents);
   return (
     <View>
       <ThemeWrapper>

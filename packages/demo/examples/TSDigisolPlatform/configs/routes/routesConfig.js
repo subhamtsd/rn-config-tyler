@@ -232,8 +232,8 @@ routes.defaultAppConfig = {
             size: 34,
           },
           1: {
-            // idx: "Step1",
-            idx: "DefaultScreen",
+            idx: "Stepper",
+            // idx: "DefaultScreen",
             label: "helloWorld",
             size: 60,
           },
