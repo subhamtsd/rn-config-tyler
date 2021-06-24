@@ -4,7 +4,6 @@ import {
   Platform,
   UIManager,
   LayoutAnimation,
-  ActivityIndicator,
   Dimensions,
   SafeAreaView,
   ScrollView,
@@ -107,14 +106,14 @@ export const NavigationBar = (props: {
     setListDataSource(array);
   };
 
-  if (loading)
-    return (
-      <View style={NavStyles.container}>
-        <ActivityIndicator />
-      </View>
-    );
+  // if (loading)
+  //   return (
+  //     <View style={NavStyles.container}>
+  //       <ActivityIndicator />
+  //     </View>
+  //   );
 
-  return (
+  return loading ? null : (
     <SafeAreaView
       style={{
         flex: 1,
