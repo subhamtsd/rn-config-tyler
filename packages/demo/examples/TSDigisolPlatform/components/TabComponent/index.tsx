@@ -123,11 +123,9 @@ export const TabComponent = (props: {
                           showButton: item.actions[0].showButton,
                         },
                         createComponent: null,
-                        listComponent: {
-                          data: {
-                            response: [],
-                          },
-                        },
+                        listComponent: null,
+                        searchComponent: null,
+                        viewComponent: null,
                         formData: null,
                       },
                     },

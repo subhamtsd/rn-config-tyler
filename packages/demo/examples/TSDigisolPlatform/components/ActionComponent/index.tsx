@@ -70,6 +70,11 @@ export const ActionComponent = (props: {
                 resJSON.businessFunctions[0].modules[0].tabs[0].actions[0]
                   .showButton,
             },
+            createComponent: null,
+            listComponent: null,
+            searchComponent: null,
+            viewComponent: null,
+            formData: null,
           },
         },
       },

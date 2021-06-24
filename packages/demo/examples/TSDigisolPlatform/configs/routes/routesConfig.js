@@ -38,6 +38,9 @@ routes.orderLineDetail = {
           0: {
             idx: "DetailListComponent",
             label: "detailListComponent",
+            passProps: {
+              UItitle: "OrderLine Detail",
+            },
             // colClass: "h-screen",
             size: 100,
           },
@@ -45,6 +48,9 @@ routes.orderLineDetail = {
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
             // colClass: "bg-red-200 p-1 text-sm",
+            passProps: {
+              UItitle: "Bill To Address",
+            },
             size: 100,
           },
         },
@@ -52,6 +58,9 @@ routes.orderLineDetail = {
           0: {
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
+            passProps: {
+              UItitle: "OrderLine List",
+            },
             // colClass: "h-screen",
             size: 100,
           },
@@ -60,12 +69,18 @@ routes.orderLineDetail = {
           0: {
             idx: "OrderLineDetailViewComponent",
             label: "orderLineDetailViewComponent",
+            passProps: {
+              UItitle: "OrderLine Detail",
+            },
             // colClass: "h-screen",
             size: 100,
           },
           1: {
             idx: "OrderLineAddressDetailViewComponent",
             label: "orderLineAddressDetailViewComponent",
+            passProps: {
+              UItitle: "OrderLine Address",
+            },
             // colClass: "bg-red-200 p-1 text-sm",
             size: 100,
           },
@@ -120,11 +135,17 @@ routes.orderDetail = {
             idx: "DetailListComponent",
             label: "detailListComponent",
             // colClass: "h-screen",
+            passProps: {
+              UItitle: "Order Detail",
+            },
             size: 100,
           },
           1: {
             idx: "BillToAddressDetailViewComponent",
             label: "billToAddressDetailViewComponent",
+            passProps: {
+              UItitle: "Bill To Address",
+            },
             // colClass: "bg-red-200 p-1 text-sm",
             size: 100,
           },
@@ -134,6 +155,9 @@ routes.orderDetail = {
             idx: "OrderLineListViewComponent",
             label: "orderLineListViewComponent",
             // colClass: "h-screen",
+            passProps: {
+              UItitle: "OrderLine List",
+            },
             size: 100,
           },
         },
@@ -277,7 +301,7 @@ routes.defaultAppConfig = {
 //             // colStyle: { borderWidth:1, height: "100vh" },
 //           },
 //         },
-        
+
 //       },
 //     },
 //     "2.2.bodyCol": {
@@ -361,6 +385,9 @@ routes.search = {
           0: {
             idx: "ListComponent",
             label: "listComponent",
+            // passProps: {
+            //   UItitle: "List View",
+            // },
             size: 100,
           },
         },
@@ -406,6 +433,9 @@ routes.detail = {
           0: {
             idx: "DetailListComponent",
             label: "detailListComponent",
+            // passProps: {
+            //   UItitle: "Detail View",
+            // },
             size: 100,
           },
         },

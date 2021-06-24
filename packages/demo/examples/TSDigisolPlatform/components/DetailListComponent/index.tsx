@@ -71,7 +71,14 @@ export const DetailListComponent = (props: {
   return (
     <View>
       <View>
-        <ShowEntity props={props} viewData={data} />
+        <ShowEntity
+          props={props}
+          viewData={
+            appState?.$global?.tsdApp?.viewComponent?.[
+              appState?.$global?.tsdApp?.activeTab?.name
+            ]
+          }
+        />
       </View>
       {/* </ScrollView> */}
       {children || (appState && appState[label] && appState[label]?.children)}

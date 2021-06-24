@@ -1500,6 +1500,7 @@ export const events = {
     onPress: (setLayoutConfig, setAppState, appState, ...args) => {
       // console.log("i ==> ", i);
       // console.log("d ==> ", d);
+      const d = args[1];
       const res = fetch(`${SERVER_ENDPOINT}v1/schema/modulelayout`, {
         method: "POST",
         headers: {
@@ -1593,20 +1594,27 @@ export const events = {
             });
           // console.log("GET API IN SEARCH :::: ", res1);
         });
-      // props.setAppState({
-      //   global: {
-      //     tsdApp: {
-      //       listComponent: {
-      //         selectedRowKey: d,
-      //       },
-      //     },
-      //   },
-      // });
-      // TODO :Search List component is missing open ticket
-      // console.log(
-      //   "appState in searchListComponent ",
-      //   props.appState
-      // );
+    },
+  },
+  "orderLineListViewComponent-show-btn-one": {
+    // TODO: Configuration won't work as it need `d` as data for the specific row
+    onPress: (setLayoutConfig, setAppState, appState, ...args) => {
+      // console.log("i ==> ", i);
+      // console.log("d ==> ", d);
+      const d = args[1];
+      setAppState(
+        {
+          $global: {
+            tsdApp: {
+              viewComponent: {
+                orderLineDetail: d,
+              },
+            },
+          },
+        },
+        "isPartial"
+      );
+      setLayoutConfig(routes.orderLineDetail, "copy");
     },
   },
   "createOrderFooterComponent-submit-btn": {

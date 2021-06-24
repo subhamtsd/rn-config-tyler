@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
 import { events } from "../../../layout";
 import { componentGridStyle } from "../../../styles/common";
@@ -41,6 +41,7 @@ export const OrderLineListViewComponent = (props: {
 
   useEffect(() => {
     const fetchData = async () => {
+      const module = appState?.$global?.tsdApp?.activeModule?.key;
       const res = await fetch(
         // "https://run.mocky.io/v3/1683d639-a832-4ce5-9173-1dfeff6dd741",
         `${SERVER_ENDPOINT}v1/schema/singleformLayout`,
@@ -76,21 +77,19 @@ export const OrderLineListViewComponent = (props: {
 
   return (
     <View style={componentGridStyle}>
-      <ScrollView horizontal>
-        <ListRender
-          listFormLayout={listFormLayout}
-          appState={appState}
-          label={label}
-          styles={styles}
-          children={children}
-          setAppState={setAppState}
-          layoutConfig={layoutConfig}
-          setLayoutConfig={setLayoutConfig}
-          getEvents={getEvents}
-          events={events}
-          UItitle={UItitle}
-        />
-      </ScrollView>
+      <ListRender
+        listFormLayout={listFormLayout}
+        appState={appState}
+        label={label}
+        styles={styles}
+        children={children}
+        setAppState={setAppState}
+        layoutConfig={layoutConfig}
+        setLayoutConfig={setLayoutConfig}
+        getEvents={getEvents}
+        events={events}
+        UItitle={UItitle}
+      />
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

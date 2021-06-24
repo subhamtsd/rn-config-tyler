@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../../config/endpoint";
-import SearchListComponent from "./SearchListComponent";
+import SearchListComponent from "../../ListComponent/SearchListComponent";
 // import SearchListComponent from "../../ListComponent/SearchListComponent";
 
 // TODO : Mention props types
@@ -205,6 +205,14 @@ export const ListRender = (props: {
 
   console.log("FINAL DATA  ::: ", finalData);
 
+  if (!loading && responseStatus == 200 && finalData.length == 0) {
+    return (
+      <View>
+        <Text>No Data found</Text>
+      </View>
+    );
+  }
+
   if (responseStatus != 200) {
     return (
       <View>
@@ -214,17 +222,23 @@ export const ListRender = (props: {
   }
 
   return loading ? null : (
-    <View style={{}}>
+    <View style={{ flex: 1, alignSelf: "stretch" }}>
       <View
         style={{
           flexDirection: "row-reverse",
           marginBottom: 10,
+          // flex: 1,
+          // alignSelf: "stretch",
+          // borderWidth: 3,
         }}
       >
+        {/* <Text style={listRenderstyles.heading}>Search Here</Text> */}
         <View
           style={{
             // borderWidth: 1,
-            width: 900,
+            // flex: 1,
+            // alignSelf: "stretch",
+            width: "85%",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -237,7 +251,8 @@ export const ListRender = (props: {
               textAlign: "center",
             }}
           >
-            {props.UItitle} List
+            {props.UItitle ||
+              `${props.appState?.$global?.tsdApp?.activeTab?.name} List`}
           </Text>
         </View>
       </View>
@@ -259,6 +274,9 @@ export const ListRender = (props: {
         })}
         visibleKeys={props.listFormLayout.map((data: { field: any }) => {
           return data.field;
+        })}
+        showTitleKey={props.listFormLayout.map((data: { title: any }) => {
+          return data.title;
         })}
         flexWidth={[]} // Column-span (length of array should be equal to that of visibleKeys)
         numberOfLines={finalData.length} // Row-span

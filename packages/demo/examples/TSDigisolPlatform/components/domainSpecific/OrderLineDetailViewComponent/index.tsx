@@ -42,7 +42,7 @@ export const OrderLineDetailViewComponent = (props: {
       <Text> AA {appState?.$appState?.loginValues}</Text> */}
       <ShowEntity
         props={props}
-        viewData={appState?.$global?.tsdApp?.orderLineDetail}
+        viewData={appState?.$global?.tsdApp?.viewComponent?.orderLineDetail}
       />
 
       {children || (appState && appState[label] && appState[label]?.children)}

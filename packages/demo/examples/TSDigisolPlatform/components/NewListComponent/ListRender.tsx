@@ -2,7 +2,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import SearchListComponent from "./SearchListComponent";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
 import { FontAwesome } from "@expo/vector-icons";
@@ -11,6 +18,7 @@ import { FontAwesome } from "@expo/vector-icons";
 export const ListRender = (props: {
   appState: any;
   listFormLayout: any[];
+  editFormLayout: any;
   events: any;
   getEvents: any;
   children: any;
@@ -250,13 +258,11 @@ export const ListRender = (props: {
   console.log("props.listFormLayout :::: ", props.listFormLayout);
 
   return loading && finalData.length == 0 ? null : (
-    <View style={{ flex: 1, alignSelf: "stretch" }}>
+    <View style={{}}>
       <View
         style={{
           flexDirection: "row-reverse",
           marginBottom: 10,
-          // flex: 1,
-          // alignSelf: "stretch",
           // borderWidth: 3,
         }}
       >
@@ -265,9 +271,7 @@ export const ListRender = (props: {
         <View
           style={{
             // borderWidth: 1,
-            // flex: 1,
-            // alignSelf: "stretch",
-            width: "85%",
+            width: 900,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -285,9 +289,6 @@ export const ListRender = (props: {
           </Text>
         </View>
       </View>
-      {/* <View>
-        <Text>{JSON.stringify(finalData)}</Text>
-      </View> */}
       <SearchListComponent
         data={
           // []
@@ -328,6 +329,7 @@ export const ListRender = (props: {
         setAppState={props.setAppState}
         setLayoutConfig={props.setLayoutConfig}
         styles={props.styles}
+        editFormLayout={props.editFormLayout}
       />
     </View>
   );

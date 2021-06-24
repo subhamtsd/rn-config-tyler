@@ -3,8 +3,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Button, Text, View, ScrollView } from "react-native";
 import { SERVER_ENDPOINT } from "../../../../../../../../config/endpoint";
+import { prepareSchema } from "../../helper/helper";
 import { events } from "../../layout";
 import { componentGridStyle } from "../../styles/common";
 import { ListRender } from "./ListRender";
@@ -77,6 +78,68 @@ export const ListComponent = (props: {
 
       setlistFormLayout(resJSON[property]);
     };
+
+    fetchData();
+  }, []);
+
+  const [formLayout, setformLayout] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`${SERVER_ENDPOINT}v1/schema/singleformLayout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: "TsdAdmin",
+          roleKey: 1,
+          moduleKey:
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeModule != undefined
+                ? appState.$global.tsdApp.activeModule.key
+                : "23751"
+              : "23751",
+          tabKey:
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.activeTab != undefined
+                ? appState.$global.tsdApp.activeTab.key
+                : "34601"
+              : "34601",
+          actionName:
+            appState?.$global?.tsdApp != undefined
+              ? appState.$global.tsdApp.editComponent.action != undefined
+                ? appState.$global.tsdApp.editComponent.action.name
+                : "Edit"
+              : "Edit",
+        }),
+      });
+      const status = res.status;
+      if (status === 200) {
+        const resJSON = await res.json();
+        // console.log("resJson ::::: edit component---> ", resJSON);
+
+        // const resJSON = await res.json();
+        // console.log("response Json : : : : : EditformLayout ---> ", resJSON);
+        prepareSchema(resJSON)
+          .then((schemaJson) => {
+            // console.log("SchemaJson edit updated : : :: ", schemaJson);
+            return schemaJson;
+          })
+          .then((formLayout) => {
+            const objectName =
+              appState?.$global?.tsdApp != undefined
+                ? appState.$global.tsdApp.editComponent.action.name +
+                  appState.$global.tsdApp.activeTab.name +
+                  "Schema"
+                : "EditCreateOrdersSchema";
+
+            // console.log("objectName : : : : ", objectName);
+            setformLayout(formLayout[objectName]);
+          });
+      }
+      // console.log("objectName : : : : ", objectName);
+    };
     fetchData();
   }, []);
 
@@ -96,19 +159,22 @@ export const ListComponent = (props: {
 
   return (
     <View style={[componentGridStyle]}>
-      <ListRender
-        listFormLayout={listFormLayout}
-        appState={appState}
-        label={label}
-        styles={styles}
-        children={children}
-        setAppState={setAppState}
-        layoutConfig={layoutConfig}
-        setLayoutConfig={setLayoutConfig}
-        getEvents={getEvents}
-        events={events}
-        UItitle={UItitle}
-      />
+      <ScrollView horizontal>
+        <ListRender
+          listFormLayout={listFormLayout}
+          editFormLayout={formLayout}
+          appState={appState}
+          label={label}
+          styles={styles}
+          children={children}
+          setAppState={setAppState}
+          layoutConfig={layoutConfig}
+          setLayoutConfig={setLayoutConfig}
+          getEvents={getEvents}
+          events={events}
+          UItitle={UItitle}
+        />
+      </ScrollView>
       {children || (appState && appState[label] && appState[label]?.children)}
     </View>
   );

@@ -137,12 +137,10 @@ export const HeaderBar = (props: {
                           httpMethod: "POST",
                           showButton: true,
                         },
-                        createComponent: {
-                          layout: {},
-                        },
-                        searchComponent: {
-                          Organisation: {},
-                        },
+                        createComponent: null,
+                        searchComponent: null,
+                        viewComponent: null,
+                        listComponent: null,
                         formToggle: {
                           formSelected: routes["search"],
                           messages: "Show Form",

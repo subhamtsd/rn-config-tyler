@@ -27,6 +27,9 @@ import { ShowQRCodeComponent } from "../../components/ShowQRCodeComponent";
 
 const TextRender = ({ textFeild, value }: any) => {
   // console.log("Error value : : : ", value);
+  if (typeof value == "boolean") {
+    value = value.toString();
+  }
   const valueToShow = JSON.stringify(value);
   const lengthOfValue = valueToShow.length;
   const finalValue = valueToShow.substring(1, lengthOfValue - 1);
@@ -555,7 +558,10 @@ export const ShowEntity = (props: {
                       backgroundColor: "#fff",
                       shadowColor: "#000",
                     }}
-                    UItitle={UItitle}
+                    UItitle={
+                      UItitle ||
+                      `${appState?.$global?.tsdApp?.activeTab?.name} Detail`
+                    }
                   />
                 </ScrollView>
               </Col>

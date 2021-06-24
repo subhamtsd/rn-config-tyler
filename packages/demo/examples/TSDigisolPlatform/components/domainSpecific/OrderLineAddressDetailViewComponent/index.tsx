@@ -39,7 +39,8 @@ export const OrderLineAddressDetailViewComponent = (props: {
     const fetchData = async () => {
       setLoading(true);
       // TODO : Remove hardcoding and fix error for addressKey in Detail component
-      const addressKey = appState.$global.tsdApp.orderLineDetail.addressKey;
+      const addressKey =
+        appState?.$global?.tsdApp?.viewComponent?.orderLineDetail?.addressKey;
       console.log("ADDERRES ::::: ", addressKey);
       const res = await fetch(`${SERVER_ENDPOINT}/v1/address/${addressKey}`, {
         method: "GET",
